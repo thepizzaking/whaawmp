@@ -30,7 +30,7 @@ import player
 import dialogues
 
 whaawmpName='whaawmp'
-whaawmpVersion='0.0.1.1'
+whaawmpVersion='0.0.2'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
@@ -101,7 +101,7 @@ class main:
 
 		# Set a timer to set the video output to the fullscreen window
 		# in 100ms, maybe I should fix this, but I don't know how FIXME:
-		gobject.timeout_add(100, self.setImageSink)
+		gobject.timeout_add(self.cfg.getInt("misc", "fspaintdelayms", 100), self.setImageSink)
 
 		# Flag the fullscreen window as being shown.
 		self.fsWindowShown = True
