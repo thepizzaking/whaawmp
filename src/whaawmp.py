@@ -29,14 +29,14 @@ import config
 import player
 import dialogues
 
-whaawmpName='whaawmp'
-whaawmpVersion='0.1.0'
+__pName__='whaawmp'
+__version__='0.1.0'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
-	libc.prctl(15, whaawmpName, 0, 0)
+	libc.prctl(15, __pName__, 0, 0)
 except:
 	pass
 
@@ -74,6 +74,39 @@ class main:
 		widget.queue_draw()
 	
 	
+	def videoWindowMotion(self, widget, event):
+		## Called when the cursor moves over a video window.
+		# Set the cursor to none, so if it was hidden, it is no longer.
+		self.setCursor(None, widget)
+		try:
+			# Stop the timer to hide the cursor.
+			gobject.source_remove(self.idleTimer)
+		except:
+			pass
+		# Create the timer again, with the timeout reset.
+		self.idleTimer = gobject.timeout_add(2000, self.hideCursor, widget)
+	
+	
+	def hideCursor(self, widget):
+		## Hides the cursor (Thanks to mirage for the code).
+		# If there's no video playing, cancel it.
+		if (not self.player.playingVideo): return
+		pix_data = """/* XPM */
+			static char * invisible_xpm[] = {
+			"1 1 1 1",
+			"       c None",
+			" "};"""
+		color = gtk.gdk.Color()
+		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, color, color)
+		invisible = gtk.gdk.Cursor(pix, pix, color, color, 0, 0)
+		# Set the cursor to the one just created.
+		self.setCursor(invisible, widget)
+	
+	def setCursor(self, mode, widget):
+		## Sets a cursor to the one specified.
+		widget.window.set_cursor(mode)
+	
+	
 	def videoActivateFullScreen(self, widget=None):
 		## This shows the full screen window for videos.
 		# If it's not playing a video, or the fullscreen window is
@@ -88,7 +121,8 @@ class main:
 			videoFSt = gtk.glade.XML(self.gladefile, windowname)
 			dic = { "on_videoWindowFS_expose_event" : self.videoWindowExpose,
 			        "on_videoFS_key_press_event" : self.windowKeyPressed,
-			        "on_videoWindowFS_button_press_event" : self.videoWindowClicked }
+			        "on_videoWindowFS_button_press_event" : self.videoWindowClicked,
+			        "on_videoWindowFS_motion_notify_event" : self.videoWindowMotion }
 			videoFSt.signal_autoconnect(dic)
 			
 			# Set the new window to fullscreen (the whole reason we called
@@ -387,7 +421,7 @@ class main:
 		
 	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, whaawmpVersion)
+		dialogues.AboutDialogue(self.gladefile, __version__)
 
 	
 	def __init__(self):
@@ -417,7 +451,9 @@ class main:
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
-		        "on_main_drag_data_received" : self.openDroppedFile }
+		        "on_main_drag_data_received" : self.openDroppedFile,
+		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
+		        "on_videoWindow_event" : self.videoWindowMotion }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
