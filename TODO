@@ -3,5 +3,5 @@ Fix Keybindings better
 ??Have the window change size dynamically with the video
 Pull the player out into its own module. (Done, but maybe could be better?)
 Clean up __init__
-Make the fullscreen window just the normal window, but fullscreened and hidden controls.
+Show the controls on mouse move in fullscreen.
 Command line options.
