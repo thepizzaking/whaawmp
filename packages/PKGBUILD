@@ -1,0 +1,20 @@
+pkgname=whaawmp-svn
+pkgver=20
+pkgrel=1
+pkgdesc='Huh?'
+license=('GPL')
+source=()
+arch=('i686')
+depends=('pygtk')
+
+_svntrunk=http://whaawmp.googlecode.com/svn/trunk/
+_svnmod=whaawmp
+
+build() {
+	cd ${startdir}/src
+	svn co ${_svntrunk} --config-dir ./ -r ${pkgver} ${_svnmod} || return 1
+	cd whaawmp
+	export PREFIX=/usr
+	make
+	make DESTDIR=$startdir/pkg install
+}
