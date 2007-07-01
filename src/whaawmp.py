@@ -30,7 +30,7 @@ import player
 import dialogues
 
 whaawmpName='whaawmp'
-whaawmpVersion='0.0.2'
+whaawmpVersion='0.1.0'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
