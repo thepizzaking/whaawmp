@@ -77,15 +77,48 @@ class main:
 	
 	def videoWindowMotion(self, widget, event):
 		## Called when the cursor moves over a video window.
-		# Set the cursor to none, so if it was hidden, it is no longer.
-		self.setCursor(None, widget)
+		# If the controls aren't already shown, show them.
+		self.showControls()
+		# Restart the idle timer.
+		self.restartIdleTimer()
+	
+	
+	def restartIdleTimer(self):
 		try:
 			# Stop the timer to hide the cursor.
 			gobject.source_remove(self.idleTimer)
 		except:
 			pass
 		# Create the timer again, with the timeout reset.
-		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui", "mousehidetimeout", 2000), self.hideCursor, widget)
+		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui", "mousehidetimeout", 2000), self.hideControls)
+	
+	
+	def showControls(self):
+		## Shows the fullscreen controls (also the mouse):
+		# Re show the cursor.
+		self.setCursor(None, self.movieWindow)
+		# Shows all the widgets that should be shown.
+		if (not self.controlsShown):
+			# If the controls aren't shown, show them.
+			for x in lists.fsShowWMouse():
+				self.wTree.get_widget(x).show()
+			# Flag the controls as being shown.
+			self.controlsShown = True
+	
+	
+	def hideControls(self):
+		## Hides the fullscreen controls (also the mouse).
+		# We don't want anything hidden if no video is playing.
+		if (not self.player.playingVideo): return
+		# Hide the cursor.
+		self.hideCursor(self.movieWindow)
+		if (self.fsActive):
+			# Only hide the controls if we're in fullscreen.
+			# Hides all the widgets that should be hidden.
+			for x in lists.fsShowWMouse():
+				self.wTree.get_widget(x).hide()
+			# Flag the controls as being hidden.
+			self.controlsShown = False
 	
 	
 	def hideCursor(self, widget):
@@ -113,8 +146,11 @@ class main:
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo): return
 		# Hide all the widgets other than the video window.
-		for x in lists.hiddenFSWidgets():
+		for x in lists.fsDontShowWMouse():
 			self.wTree.get_widget(x).hide()
+		
+		# Restart the idle timer so the controls disappear soon.
+		self.restartIdleTimer()
 		
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
@@ -456,6 +492,7 @@ class main:
 		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("main", "volume", 75)
 		# Set up the default flags.
 		self.fsActive = False
+		self.controlsShown = True
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 1):
 			filename = args[0]
