@@ -28,15 +28,16 @@ from optparse import OptionParser
 import config
 import player
 import dialogues
+import lists
 
-whaawmpName='whaawmp'
-whaawmpVersion='0.0.2'
+__pName__='whaawmp'
+__version__='0.1.2'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
-	libc.prctl(15, whaawmpName, 0, 0)
+	libc.prctl(15, __pName__, 0, 0)
 except:
 	pass
 
@@ -61,7 +62,7 @@ class main:
 		                            self.pixmap, x, y, x, y, w, h)
 	
 	
-	def videoWindowConfigure(self, widget):
+	def videoWindowConfigure(self, widget, event=None):
 		# Get the windows allocation.
 		x, y, w, h = widget.get_allocation()
 		
@@ -74,53 +75,106 @@ class main:
 		widget.queue_draw()
 	
 	
+	def videoWindowMotion(self, widget, event):
+		## Called when the cursor moves over a video window.
+		# If the controls aren't already shown, show them.
+		self.showControls()
+		# Restart the idle timer.
+		self.restartIdleTimer()
+	
+	
+	def restartIdleTimer(self):
+		try:
+			# Stop the timer to hide the cursor.
+			gobject.source_remove(self.idleTimer)
+		except:
+			pass
+		# Create the timer again, with the timeout reset.
+		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui", "mousehidetimeout", 2000), self.hideControls)
+	
+	
+	def showControls(self):
+		## Shows the fullscreen controls (also the mouse):
+		# Re show the cursor.
+		self.setCursor(None, self.movieWindow)
+		# Shows all the widgets that should be shown.
+		if (not self.controlsShown):
+			# If the controls aren't shown, show them.
+			for x in lists.fsShowWMouse():
+				self.wTree.get_widget(x).show()
+			# Flag the controls as being shown.
+			self.controlsShown = True
+	
+	
+	def hideControls(self):
+		## Hides the fullscreen controls (also the mouse).
+		# We don't want anything hidden if no video is playing.
+		if (not self.player.playingVideo): return
+		# Hide the cursor.
+		self.hideCursor(self.movieWindow)
+		if (self.fsActive):
+			# Only hide the controls if we're in fullscreen.
+			# Hides all the widgets that should be hidden.
+			for x in lists.fsShowWMouse():
+				self.wTree.get_widget(x).hide()
+			# Flag the controls as being hidden.
+			self.controlsShown = False
+	
+	
+	def hideCursor(self, widget):
+		## Hides the cursor (Thanks to mirage for the code).
+		# If there's no video playing, cancel it.
+		if (not self.player.playingVideo): return
+		pix_data = """/* XPM */
+			static char * invisible_xpm[] = {
+			"1 1 1 1",
+			"       c None",
+			" "};"""
+		color = gtk.gdk.Color()
+		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, color, color)
+		invisible = gtk.gdk.Cursor(pix, pix, color, color, 0, 0)
+		# Set the cursor to the one just created.
+		self.setCursor(invisible, widget)
+	
+	def setCursor(self, mode, widget):
+		## Sets a cursor to the one specified.
+		widget.window.set_cursor(mode)
+	
+	
 	def videoActivateFullScreen(self, widget=None):
-		## This shows the full screen window for videos.
-		# If it's not playing a video, or the fullscreen window is
-		# already shown, don't continue.
-		if (not self.player.playingVideo or self.fsWindowShown): return
-		if (self.fsWindow):
-			# If the window's already been created, just re-show it.
-			self.fsWindow.show()
-		else:
-			# Otherwise, create it.
-			windowname = 'videoFS'
-			videoFSt = gtk.glade.XML(self.gladefile, windowname)
-			dic = { "on_videoWindowFS_expose_event" : self.videoWindowExpose,
-			        "on_videoFS_key_press_event" : self.windowKeyPressed,
-			        "on_videoWindowFS_button_press_event" : self.videoWindowClicked }
-			videoFSt.signal_autoconnect(dic)
-			
-			# Set the new window to fullscreen (the whole reason we called
-			# this function).
-			videoFSt.get_widget(windowname).fullscreen()
-			# Get the drawing area for later use.
-			self.fsVideoWin = videoFSt.get_widget("videoWindowFS")
-			# Get the window so it can be hidden and shown with ease.
-			self.fsWindow = videoFSt.get_widget(windowname)
-
-		# Set a timer to set the video output to the fullscreen window
-		# in 100ms, maybe I should fix this, but I don't know how FIXME:
-		gobject.timeout_add(self.cfg.getInt("misc", "fspaintdelayms", 100), self.setImageSink)
+		## Activates fullscreen.
+		# No use in doing fullscreen if no video is playing.
+		if (not self.player.playingVideo): return
+		# Hide all the widgets other than the video window.
+		for x in lists.fsDontShowWMouse():
+			self.wTree.get_widget(x).hide()
+		
+		# Restart the idle timer so the controls disappear soon.
+		self.restartIdleTimer()
+		
+		# Set the window to fullscreen.
+		self.mainWindow.fullscreen()
 
 		# Flag the fullscreen window as being shown.
-		self.fsWindowShown = True
+		self.fsActive = True
 
 
 	
-	def videoHideFullScreen(self):
+	def videoDeactivateFullScreen(self):
+		## Deactivates the fullscreen.
+		# Unfullscreens the window.
+		self.mainWindow.unfullscreen()
+		# Re-show all the widgets.
+		for x in lists.hiddenFSWidgets():
+			self.wTree.get_widget(x).show()
 		# Unflag the fullscreen window.
-		self.fsWindowShown = False
-		# Reset the image sink.
-		self.setImageSink()
-		# Hide the fullscreen window.
-		self.fsWindow.hide()
+		self.fsActive = False
 	
 	
 	def toggleFullScreen(self, widget=None):
 		# If the fullscreen window is shown, hide it, otherwise, show it.
-		if (self.fsWindowShown):
-			self.videoHideFullScreen()
+		if (self.fsActive):
+			self.videoDeactivateFullScreen()
 		else:
 			self.videoActivateFullScreen()
 	
@@ -131,7 +185,7 @@ class main:
 		## to here the program likes to crash.
 		if (not widget):
 			# If no widget was passed, discover which it should use.
-			widget = self.fsVideoWin if (self.fsWindowShown) else self.movieWindow
+			widget = self.fsVideoWin if (self.fsActive) else self.movieWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -387,7 +441,7 @@ class main:
 		
 	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, whaawmpVersion)
+		dialogues.AboutDialogue(self.gladefile, __version__)
 
 	
 	def __init__(self):
@@ -414,10 +468,13 @@ class main:
 		        "on_vscVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullScreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
+		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
-		        "on_main_drag_data_received" : self.openDroppedFile }
+		        "on_main_drag_data_received" : self.openDroppedFile,
+		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
+		        "on_videoWindow_event" : self.videoWindowMotion }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
@@ -434,8 +491,8 @@ class main:
 		# Get the volume from the configuration.
 		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("main", "volume", 75)
 		# Set up the default flags.
-		self.fsWindowShown = False
-		self.fsWindow = None
+		self.fsActive = False
+		self.controlsShown = True
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 1):
 			filename = args[0]

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Fri Jun 29 15:39:55 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Mon Jul  2 14:51:39 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -12,6 +12,7 @@
     <property name="receives_default">True</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="title" translatable="yes">Whaaw! Media Player</property>
+    <signal name="motion_notify_event" handler="on_main_motion_notify_event"/>
     <signal name="key_press_event" handler="on_main_key_press_event"/>
     <signal name="destroy" handler="on_main_destroy"/>
     <signal name="drag_data_received" handler="on_main_drag_data_received"/>
@@ -20,7 +21,7 @@
         <property name="visible">True</property>
         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar1">
+          <widget class="GtkMenuBar" id="menubar">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
@@ -124,13 +125,15 @@
                 <property name="width_request">480</property>
                 <property name="height_request">360</property>
                 <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_PROPERTY_CHANGE_MASK</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_PROPERTY_CHANGE_MASK</property>
                 <signal name="expose_event" handler="on_videoWindow_expose_event"/>
                 <signal name="button_press_event" handler="on_videoWindow_button_press_event"/>
+                <signal name="configure_event" handler="on_videoWindow_configure_event"/>
+                <signal name="motion_notify_event" handler="on_videoWindow_motion_notify_event"/>
               </widget>
             </child>
             <child>
-              <widget class="GtkVBox" id="vbox1">
+              <widget class="GtkVBox" id="vboxVol">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
@@ -169,7 +172,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox1">
+          <widget class="GtkHBox" id="hboxControl">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
@@ -245,28 +248,6 @@
       </widget>
     </child>
   </widget>
-  <widget class="GtkWindow" id="videoFS">
-    <property name="width_request">480</property>
-    <property name="height_request">360</property>
-    <property name="visible">True</property>
-    <property name="can_focus">True</property>
-    <property name="has_focus">True</property>
-    <property name="is_focus">True</property>
-    <property name="can_default">True</property>
-    <property name="has_default">True</property>
-    <property name="receives_default">True</property>
-    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-    <property name="title" translatable="yes">Whaaw! Video</property>
-    <signal name="key_press_event" handler="on_videoFS_key_press_event"/>
-    <child>
-      <widget class="GtkDrawingArea" id="videoWindowFS">
-        <property name="visible">True</property>
-        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-        <signal name="expose_event" handler="on_videoWindowFS_expose_event"/>
-        <signal name="button_press_event" handler="on_videoWindowFS_button_press_event"/>
-      </widget>
-    </child>
-  </widget>
   <widget class="GtkAboutDialog" id="about">
     <property name="visible">True</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -278,7 +259,7 @@
     <property name="has_separator">False</property>
     <property name="name">Whaaw! Media Player</property>
     <property name="copyright" translatable="yes">Copyright 2007, Jeff Bailes</property>
-    <property name="website">http://code.google.com/p/whaawmp/</property>
+    <property name="website">http://home.gna.org/whaawmp/</property>
     <property name="license" translatable="yes">Copyright (C) Jeff Bailes, 2007.
 
 This program is free software; you can redistribute it and/or modify it
