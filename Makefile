@@ -1,5 +1,5 @@
 PREFIX ?= /usr/local
-OLDDIR = $$(dirname $$0)
+DESTDIR ?=
 
 all: compile 
 	@echo "Done"
