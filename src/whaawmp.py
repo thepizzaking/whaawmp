@@ -83,12 +83,25 @@ class main:
 		self.restartIdleTimer()
 	
 	
+	def videoWindowLeave(self, widget, event):
+		## If the mouse has left the window, destroy the idle timer
+		## (So when fullscreen & mouse over controls, they don't disappear)
+		self.removeIdleTimer()
+	
+	
 	def restartIdleTimer(self):
+		## Restarts the idle timer by removing it and creating it again.
+		self.removeIdleTimer()
+		self.createIdleTimer()
+		
+	def removeIdleTimer(self):
 		try:
 			# Stop the timer to hide the cursor.
 			gobject.source_remove(self.idleTimer)
 		except:
 			pass
+	
+	def createIdleTimer(self):
 		# Create the timer again, with the timeout reset.
 		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui", "mousehidetimeout", 2000), self.hideControls)
 	
@@ -482,7 +495,7 @@ class main:
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
-		        "on_videoWindow_event" : self.videoWindowMotion,
+		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
