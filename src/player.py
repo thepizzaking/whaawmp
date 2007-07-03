@@ -108,9 +108,13 @@ class player:
 		return self.player.get_property('uri')
 	
 	
-	def prepareImgSink(self, bus, message):
+	def prepareImgSink(self, bus, message, b, c, h, s):
 		self.imagesink = message.src
 		self.imagesink.set_property('force-aspect-ratio', True)
+		self.setBrightness(b)
+		self.setContrast(c)
+		self.setHue(h)
+		self.setSaturation(s)
 		
 		# Flag that a video is playing.
 		self.playingVideo = True

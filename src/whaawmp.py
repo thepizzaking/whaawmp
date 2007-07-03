@@ -248,7 +248,12 @@ class main:
 		
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
-			self.player.prepareImgSink(bus, message)
+			# Get the properties of the video.(Brightness etc)
+			b = self.cfg.getInt("video", "brightness", 0)
+			c = self.cfg.getInt("video", "contrast", 0)
+			h = self.cfg.getInt("video", "hue", 0)
+			s = self.cfg.getInt("video", "saturation", 0)
+			self.player.prepareImgSink(bus, message, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
 			self.setImageSink()
 				
