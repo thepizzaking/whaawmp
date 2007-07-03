@@ -319,9 +319,7 @@ class main:
 		# Disable XScreenSaver (if option is enabled).
 		if (self.cfg.getBool("main", "disablexscreensaver", True) and self.player.playingVideo):
 			os.system("xscreensaver-command -deactivate >&- 2>&-")
-			os.system("xset s reset >&- 2>&-") # Does this do anything? I may have to test that.
-			#if(int(os.system("xscreensaver-command -deactivate >&- 2>&-")) == 32512):
-			#	self.cfg.set("main", "disablexscreensaver", False)
+			os.system("xset s reset >&- 2>&-")
 		
 		return self.player.isPlaying()
 	
@@ -373,9 +371,9 @@ class main:
 		self.progressUpdate()
 		
 	
-	def changeVolume(self, adj):
+	def changeVolume(self, widget):
 		## Change the volume to that indicated by the volume bar.
-		vol = adj.get_value()
+		vol = widget.get_value()
 		self.player.setVolume(vol)
 		# Set the new volume on the configuration.
 		self.cfg.set("main", "volume", vol)
@@ -442,6 +440,67 @@ class main:
 	
 	def showAboutDialogue(self, widget):
 		dialogues.AboutDialogue(self.gladefile, __version__)
+	
+	#### TODO: Move all this preferences stuff out of this file. ####
+	def showPreferencesWindow(self, widget):
+		windowname = 'preferences'
+		self.propertiesWindowt = gtk.glade.XML(self.gladefile, windowname)
+		
+		dic = { "on_preferences_destroy" : self.preferencesDestroy,
+		        "on_hscBrightness_value_changed" : self.adjustBrightness,
+		        "on_hscContrast_value_changed" : self.adjustContrast,
+		        "on_hscHue_value_changed" : self.adjustHue,
+		        "on_hscSaturation_value_changed" : self.adjustSaturation,
+		        "on_btnClose_clicked" : self.hidePreferencesWindow }
+		self.propertiesWindowt.signal_autoconnect(dic)
+		
+		self.propertiesWindow = self.propertiesWindowt.get_widget(windowname)
+		
+		self.loadPreferencesValues()
+	
+	
+	def hidePreferencesWindow(self, widget):
+		self.propertiesWindow.destroy()
+	
+	
+	def preferencesDestroy(self, widget):
+		self.propertiesWindow = None
+	
+	
+	def loadPreferencesValues(self):
+		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+			self.propertiesWindowt.get_widget('hsc' + x).set_value(self.cfg.getInt("video", x, 0))
+	
+	
+	def adjustBrightness(self, widget):
+		## Change the brightness of the video.
+		val = widget.get_value()
+		self.cfg.set("video", "brightness", val)
+		if (self.player.playingVideo):
+			# Set it if a video is playing.
+			self.player.setBrightness(val)
+	
+	def adjustContrast(self, widget):
+		## Same as Brightness, but for contrast.
+		val = widget.get_value()
+		self.cfg.set("video", "contrast", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	
+	def adjustHue(self, widget):
+		## Same as Brightness, but for hue.
+		val = widget.get_value()
+		self.cfg.set("video", "hue", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	
+	def adjustSaturation(self, widget):
+		## Same as Brightness, but for saturation.
+		val = widget.get_value()
+		self.cfg.set("video", "saturation", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	#### END ####
 
 	
 	def __init__(self):
@@ -474,7 +533,8 @@ class main:
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
-		        "on_videoWindow_event" : self.videoWindowMotion }
+		        "on_videoWindow_event" : self.videoWindowMotion,
+		        "on_mnuiPreferences_activate" : self.showPreferencesWindow }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.

@@ -117,7 +117,25 @@ class player:
 	
 	
 	def setImgSink(self, widget):
+		## Sets the video output to the desired widget.
 		self.imagesink.set_xwindow_id(widget.window.xid)
+	
+	
+	def setBrightness(self, val):
+		## Sets the brightness of the video.
+		self.imagesink.set_property('brightness', val)
+	
+	def setContrast(self, val):
+		## Sets the contrast of the video.
+		self.imagesink.set_property('contrast', val)
+	
+	def setHue(self, val):
+		## Sets the hue of the video.
+		self.imagesink.set_property('hue', val)
+	
+	def setSaturation(self, val):
+		## Sets the saturation of the video.
+		self.imagesink.set_property('saturation', val)
 	
 	
 	def getBus(self):
