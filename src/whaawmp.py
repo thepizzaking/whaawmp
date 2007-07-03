@@ -249,11 +249,12 @@ class main:
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
 			# Get the properties of the video.(Brightness etc)
+			far = self.cfg.getBool("video", "force-aspect-ratio", True)
 			b = self.cfg.getInt("video", "brightness", 0)
 			c = self.cfg.getInt("video", "contrast", 0)
 			h = self.cfg.getInt("video", "hue", 0)
 			s = self.cfg.getInt("video", "saturation", 0)
-			self.player.prepareImgSink(bus, message, b, c, h, s)
+			self.player.prepareImgSink(bus, message, far, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
 			self.setImageSink()
 				
@@ -456,6 +457,8 @@ class main:
 		        "on_hscContrast_value_changed" : self.adjustContrast,
 		        "on_hscHue_value_changed" : self.adjustHue,
 		        "on_hscSaturation_value_changed" : self.adjustSaturation,
+		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
+		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
 		        "on_btnClose_clicked" : self.hidePreferencesWindow }
 		self.propertiesWindowt.signal_autoconnect(dic)
 		
@@ -472,9 +475,16 @@ class main:
 		self.propertiesWindow = None
 	
 	
+	def resetVideoDefaults(self, widget):
+		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+			self.propertiesWindowt.get_widget('hsc' + x).set_value(0)
+	
+	
 	def loadPreferencesValues(self):
 		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
 			self.propertiesWindowt.get_widget('hsc' + x).set_value(self.cfg.getInt("video", x, 0))
+		
+		self.propertiesWindowt.get_widget('chkForceAspect').set_active(self.cfg.getBool("video", "force-aspect-ratio", True))
 	
 	
 	def adjustBrightness(self, widget):
@@ -505,6 +515,13 @@ class main:
 		self.cfg.set("video", "saturation", val)
 		if (self.player.playingVideo):
 			self.player.setContrast(val)
+	
+	def toggleForceAspect(self, widget):
+		## Sets force aspect ratio to if it's checked or not.
+		val = widget.get_active()
+		self.cfg.set("video", "force-aspect-ratio", val)
+		if (self.player.playingVideo):
+			self.player.setForceAspectRatio(val)
 	#### END ####
 
 	

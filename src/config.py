@@ -67,7 +67,10 @@ class config:
 	
 	def getBool(self, section, option, default=None):
 		# Returns the requested option as a bool.
-		return bool(self.get(section, option, default))
+		res = self.get(section, option, default)
+		if (res in ['False', 'false', '0', 'None']):
+			return False
+		return True
 		
 	
 	def prepareConfDir(self, dir):

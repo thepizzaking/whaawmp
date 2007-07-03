@@ -108,9 +108,9 @@ class player:
 		return self.player.get_property('uri')
 	
 	
-	def prepareImgSink(self, bus, message, b, c, h, s):
+	def prepareImgSink(self, bus, message, far, b, c, h, s):
 		self.imagesink = message.src
-		self.imagesink.set_property('force-aspect-ratio', True)
+		self.setForceAspectRatio(far)
 		self.setBrightness(b)
 		self.setContrast(c)
 		self.setHue(h)
@@ -124,6 +124,9 @@ class player:
 		## Sets the video output to the desired widget.
 		self.imagesink.set_xwindow_id(widget.window.xid)
 	
+	def setForceAspectRatio(self, val):
+		## Toggles force aspect ratio on or off.
+		self.imagesink.set_property('force-aspect-ratio', val)
 	
 	def setBrightness(self, val):
 		## Sets the brightness of the video.
