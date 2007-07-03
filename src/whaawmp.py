@@ -314,6 +314,7 @@ class main:
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print "Something's stuffed up, no such file: " + file
+			self.playFile(None)
 			
 	
 	def togglePlayPause(self, widget=None):
@@ -550,6 +551,7 @@ class main:
 			
 			self.playFile(filename)
 		
+		self.progressUpdate()
 		# Set the last folder to the directory from which the program was called.
 		self.lastFolder = origDir
 		# Configure the video area.
