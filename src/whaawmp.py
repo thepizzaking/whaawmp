@@ -345,13 +345,13 @@ class main:
 	
 	def secondTimer(self):
 		# A function that's called once a second while playing.
-		self.progressUpdate()
+		if (not self.seeking): self.progressUpdate()
 		
 		# Causes it to go again if it's playing, but stop if it's not.
 		return self.player.isPlaying()
 		
 	
-	def progressUpdate(self):
+	def progressUpdate(self, pld=None, tot=None):
 		## Updates the progress bar.
 		if (self.player.isStopped()):
 			# If the player is stopped, played time and total should 
@@ -361,7 +361,7 @@ class main:
 		else:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
-			pld, tot = self.player.getTimesSec()
+			if (pld == None or tot == None): pld, tot = self.player.getTimesSec()
 			if (tot != -1): self.progressBar.set_fraction(pld / tot)
 		
 		# Convert played & total time to integers
@@ -375,19 +375,44 @@ class main:
 		self.progressBar.set_text(text)
 		
 	
-	def seekFromProgress(self, widget, event):
-		## Seeks the file, from the progress bar.
-		# If it's stopped, there's no point in seeking.
-		if (self.player.isStopped()): return
-		# Get the x position of the cursor.
+	def seekStart(self, widget, event):
+		## Sets that seeking has started.
 		x, y, state = event.window.get_pointer()
-		if (not (state & gtk.gdk.BUTTON1_MASK)): return
-		# Get the width of the widget.
+		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped()):
+			# It it's button 1, start seeking.
+			self.seeking = True
+	
+	
+	def seekEnd(self, widget, event):
+		## Sets that seeking has ended, and seeks to the position.
+		x, y, state = event.window.get_pointer()
+		
+		if (self.seeking):
+			# Get the width of the bar.
+			maxX = widget.get_allocation().width
+			# Seek to the location.
+			self.player.seekFrac(float(x) / maxX)
+			# Update the progress bar to reflect the change.
+			self.progressUpdate()
+			# Flag that seeking has stopped.
+			self.seeking = False
+		
+	def progressBarMotion(self, widget, event):
+		## when the mouse moves over the progress bar.
+		# If we're not seeking, cancel.
+		if (not self.seeking): return
+		
+		# Get the mouse co-ordinates, the width of the bar and the file duration.
+		x, y = event.get_coords()
 		maxX = widget.get_allocation().width
-		# Seek to the location.
-		self.player.seekFrac(float(x) / maxX)
-		# Update the progress bar to reflect the change.
-		self.progressUpdate()
+		dur = self.player.getDurationSec()
+		# Convert the information to a fraction, and make sure 0 <= frac <= 1
+		frac = float(x) / maxX
+		if (frac > 1): frac = 1
+		if (frac < 0): frac = 0
+		
+		# Set the progress bar to the new data.
+		self.progressUpdate((frac * dur), dur)
 		
 	
 	def changeVolume(self, widget):
@@ -484,8 +509,9 @@ class main:
 		        "on_mnuiOpen_activate" : self.showOpenDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
-		        "on_pbarProgress_button_press_event" : self.seekFromProgress,
-		        "on_pbarProgress_motion_notify_event" : self.seekFromProgress,
+		        "on_pbarProgress_button_press_event" : self.seekStart,
+		        "on_pbarProgress_button_release_event" : self.seekEnd,
+		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
 		        "on_vscVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullScreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
@@ -515,6 +541,7 @@ class main:
 		# Set up the default flags.
 		self.fsActive = False
 		self.controlsShown = True
+		self.seeking = False
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 1):
 			filename = args[0]
