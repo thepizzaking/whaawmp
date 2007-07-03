@@ -44,7 +44,7 @@ except:
 class main:
 	gladefile = "whaawmp.glade"
 	
-	def quit(self, widget):
+	def quit(self, widget, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
 		self.stopPlayer()
@@ -262,7 +262,7 @@ class main:
 	def showOpenDialogue(self, widget=None):
 		## Shows the open file dialogue.
 		# Prepare the dialogue.
-		dlg = dialogues.openFile(self.mainWindow, self.lastFolder)
+		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
 
 		if (dlg.file):
 			# If the response is OK, play the file.		
@@ -447,82 +447,9 @@ class main:
 	def showAboutDialogue(self, widget):
 		dialogues.AboutDialogue(self.gladefile, __version__)
 	
-	#### TODO: Move all this preferences stuff out of this file. ####
-	def showPreferencesWindow(self, widget):
-		windowname = 'preferences'
-		self.propertiesWindowt = gtk.glade.XML(self.gladefile, windowname)
-		
-		dic = { "on_preferences_destroy" : self.preferencesDestroy,
-		        "on_hscBrightness_value_changed" : self.adjustBrightness,
-		        "on_hscContrast_value_changed" : self.adjustContrast,
-		        "on_hscHue_value_changed" : self.adjustHue,
-		        "on_hscSaturation_value_changed" : self.adjustSaturation,
-		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
-		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
-		        "on_btnClose_clicked" : self.hidePreferencesWindow }
-		self.propertiesWindowt.signal_autoconnect(dic)
-		
-		self.propertiesWindow = self.propertiesWindowt.get_widget(windowname)
-		
-		self.loadPreferencesValues()
 	
-	
-	def hidePreferencesWindow(self, widget):
-		self.propertiesWindow.destroy()
-	
-	
-	def preferencesDestroy(self, widget):
-		self.propertiesWindow = None
-	
-	
-	def resetVideoDefaults(self, widget):
-		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.propertiesWindowt.get_widget('hsc' + x).set_value(0)
-	
-	
-	def loadPreferencesValues(self):
-		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.propertiesWindowt.get_widget('hsc' + x).set_value(self.cfg.getInt("video", x, 0))
-		
-		self.propertiesWindowt.get_widget('chkForceAspect').set_active(self.cfg.getBool("video", "force-aspect-ratio", True))
-	
-	
-	def adjustBrightness(self, widget):
-		## Change the brightness of the video.
-		val = widget.get_value()
-		self.cfg.set("video", "brightness", val)
-		if (self.player.playingVideo):
-			# Set it if a video is playing.
-			self.player.setBrightness(val)
-	
-	def adjustContrast(self, widget):
-		## Same as Brightness, but for contrast.
-		val = widget.get_value()
-		self.cfg.set("video", "contrast", val)
-		if (self.player.playingVideo):
-			self.player.setContrast(val)
-	
-	def adjustHue(self, widget):
-		## Same as Brightness, but for hue.
-		val = widget.get_value()
-		self.cfg.set("video", "hue", val)
-		if (self.player.playingVideo):
-			self.player.setContrast(val)
-	
-	def adjustSaturation(self, widget):
-		## Same as Brightness, but for saturation.
-		val = widget.get_value()
-		self.cfg.set("video", "saturation", val)
-		if (self.player.playingVideo):
-			self.player.setContrast(val)
-	
-	def toggleForceAspect(self, widget):
-		## Sets force aspect ratio to if it's checked or not.
-		val = widget.get_active()
-		self.cfg.set("video", "force-aspect-ratio", val)
-		if (self.player.playingVideo):
-			self.player.setForceAspectRatio(val)
-	#### END ####
+	def showPreferencesDialogue(self, widget):
+		dialogues.PreferencesDialogue(self)
 
 	
 	def __init__(self):
@@ -539,7 +466,7 @@ class main:
 		windowname = "main"
 		self.wTree = gtk.glade.XML(self.gladefile, windowname)
 		
-		dic = { "on_main_destroy" : self.quit,
+		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
 		        "on_mnuiOpen_activate" : self.showOpenDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
@@ -556,7 +483,7 @@ class main:
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
 		        "on_videoWindow_event" : self.videoWindowMotion,
-		        "on_mnuiPreferences_activate" : self.showPreferencesWindow }
+		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.

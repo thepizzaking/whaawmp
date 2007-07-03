@@ -25,7 +25,7 @@ import gtk, gtk.glade
 class AboutDialogue:
 	def __init__(self, gladefile, version):
 		## Shows the about dialogue.
-		windowname = 'about'
+		windowname = 'AboutDlg'
 		tree = gtk.glade.XML(gladefile, windowname)
 		
 		dlg = tree.get_widget(windowname)
@@ -37,7 +37,7 @@ class AboutDialogue:
 		dlg.destroy()
 
 
-class openFile:
+class OpenFile:
 	def __init__(self, widget, loc):
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
@@ -56,5 +56,92 @@ class openFile:
 		# Save the current folder.
 		self.dir = self.dlg.get_current_folder()
 		self.file = self.dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
+
+
+class PreferencesDialogue:
+	def __init__(self, main):
+		## Shows the preferences dialogue.
+		# Sets some variables for easier access.
+		self.main = main
+		self.cfg = self.main.cfg
+		self.player = self.main.player
+		
+		# Then create the dialogue and connect the signals.
+		windowname = 'PreferencesDlg'
+		self.wTree = gtk.glade.XML(self.main.gladefile, windowname)
+		
+		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
+		        "on_hscBrightness_value_changed" : self.adjustBrightness,
+		        "on_hscContrast_value_changed" : self.adjustContrast,
+		        "on_hscHue_value_changed" : self.adjustHue,
+		        "on_hscSaturation_value_changed" : self.adjustSaturation,
+		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
+		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
+		        "on_btnClose_clicked" : self.closeWindow }
+		self.wTree.signal_autoconnect(dic)
+		
+		# More easy access.
+		self.window = self.wTree.get_widget(windowname)
+		
+		# Load the preferences.
+		self.loadPreferences()
+		# Run the dialogue.
+		self.window.run()
+	
+	
+	def closeWindow(self, widget, event=None):
+		## Destroys the preferences window.
+		self.window.destroy()
+	
+	
+	def resetVideoDefaults(self, widget):
+		## Resets all the settings to 0.
+		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+			self.wTree.get_widget('hsc' + x).set_value(0)
+	
+	
+	def loadPreferences(self):
+		## Reads the preferences from the config and displays them.
+		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video", x, 0))
+		
+		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video", "force-aspect-ratio", True))
+	
+	
+	def adjustBrightness(self, widget):
+		## Change the brightness of the video.
+		val = widget.get_value()
+		self.cfg.set("video", "brightness", val)
+		if (self.player.playingVideo):
+			# Set it if a video is playing.
+			self.player.setBrightness(val)
+	
+	def adjustContrast(self, widget):
+		## Same as Brightness, but for contrast.
+		val = widget.get_value()
+		self.cfg.set("video", "contrast", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	
+	def adjustHue(self, widget):
+		## Same as Brightness, but for hue.
+		val = widget.get_value()
+		self.cfg.set("video", "hue", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	
+	def adjustSaturation(self, widget):
+		## Same as Brightness, but for saturation.
+		val = widget.get_value()
+		self.cfg.set("video", "saturation", val)
+		if (self.player.playingVideo):
+			self.player.setContrast(val)
+	
+	def toggleForceAspect(self, widget):
+		## Sets force aspect ratio to if it's checked or not.
+		val = widget.get_active()
+		self.cfg.set("video", "force-aspect-ratio", val)
+		if (self.player.playingVideo):
+			self.player.setForceAspectRatio(val)
 		
 		
