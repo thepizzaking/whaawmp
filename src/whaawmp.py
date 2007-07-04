@@ -501,6 +501,11 @@ class main:
 		# Option Parser
 		parser = OptionParser()
 		(options, args) = parser.parse_args()
+		if (len(args) == 0 or not os.path.isdir(args[len(args)-1])):
+			print '\nError: It is likely that you are trying to run this player without'
+			print 'using the supplied script.  Please use the script to run whaawmp.'
+			print '(Or use --force to force start (not implemented yet))'
+			exit()
 		origDir = args[len(args)-1] # Directory from which whaawmp was called.
 		# Open the settings.
 		cfgdir = "%s%s.config%swhaawmp" % (os.getenv('HOME'), os.sep, os.sep)
