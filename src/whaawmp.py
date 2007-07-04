@@ -162,9 +162,10 @@ class main:
 		for x in lists.hiddenFSWidgets():
 			self.wTree.get_widget(x).hide()
 		
-		# Toggle the the controls aren't shown.
+		# Flag the the controls as not being shown.
 		self.controlsShown = False
-		
+		# Restart the idle timer so the mouse disappears soon.
+		self.restartIdleTimer()		
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
 
