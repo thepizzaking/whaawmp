@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Tue Jul  3 18:24:32 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Wed Jul  4 11:02:41 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -361,6 +361,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Adjust video brightness</property>
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
@@ -387,6 +388,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Adjust video contrast</property>
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
@@ -413,6 +415,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Adjust video hue</property>
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
@@ -439,6 +442,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Adjust video saturation</property>
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
@@ -461,6 +465,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="tooltip" translatable="yes">Reset all adjustments to 0</property>
                         <property name="label" translatable="yes">Restore Defaults</property>
                         <property name="response_id">0</property>
                         <signal name="clicked" handler="on_btnVideoDefaults_clicked"/>
@@ -482,6 +487,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Force the video to keep its original aspect ratio</property>
                     <property name="label" translatable="yes">Force Aspect Ratio</property>
                     <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
