@@ -575,7 +575,7 @@ class main:
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 1):
 			filename = args[0]
-			if (not (filename.startswith('/')) and not(filename.startswith('http://'))):
+			if (not (filename.startswith('/')) and not '://' in filename):
 				filename = origDir + os.sep + filename
 			
 			self.playFile(filename)
