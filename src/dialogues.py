@@ -56,6 +56,9 @@ class OpenFile:
 		# Save the current folder.
 		self.dir = self.dlg.get_current_folder()
 		self.file = self.dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
+		
+		# Destroy the dialogue.
+		self.dlg.destroy()
 
 
 class PreferencesDialogue:
@@ -143,5 +146,31 @@ class PreferencesDialogue:
 		self.cfg.set("video", "force-aspect-ratio", val)
 		if (self.player.playingVideo):
 			self.player.setForceAspectRatio(val)
+
+
+
+class OpenURI:
+	def __init__(self, widget):
+		## Creates an openURI dialogue.
+		# Create the dialogue.
+		dlg = gtk.Dialog(("Input a URI"), widget,
+		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
+		# Create the label and entry, then pack them.
+		label = gtk.Label("Enter the URI:")
+		entry = gtk.Entry()
+		dlg.vbox.pack_start(label)
+		dlg.vbox.pack_start(entry)
+		# Show all the dialogues.
+		dlg.show_all()
+		
+		# Run the dialogue, then hide it.
+		res = dlg.run()
+		dlg.hide()
+		
+		# Save the URI if OK was pressed.
+		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
+		# Destroy the dialogue.
+		dlg.destroy()
 		

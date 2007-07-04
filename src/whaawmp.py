@@ -500,6 +500,14 @@ class main:
 	
 	def showPreferencesDialogue(self, widget):
 		dialogues.PreferencesDialogue(self)
+	
+	def showOpenURIDialogue(self, widget):
+		# Create and get the dialogue.
+		dlg = dialogues.OpenURI(self.mainWindow)
+		if (dlg.URI != None):
+			# If something was input, play it.
+			self.playFile(dlg.URI)
+		
 
 	
 	def __init__(self):
@@ -524,6 +532,7 @@ class main:
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
 		        "on_mnuiOpen_activate" : self.showOpenDialogue,
+		        "on_mnuiOpenURI_activate" : self.showOpenURIDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
 		        "on_pbarProgress_button_press_event" : self.seekStart,
