@@ -308,14 +308,18 @@ class main:
 	
 	def playFile(self, file):
 		## Plays the file 'file'.
+		### FIXME: Clean up the http:// thing ###
 		# First, stop the player.
 		self.stopPlayer()
 		
 		if (file == None): file = ""
 		# Set the file, and the label.
-		self.player.setURI("file://" + file)
+		if (file.startswith('http://')):
+			self.player.setURI(file)
+		else:
+			self.player.setURI("file://" + file)
 		self.nowPlyLbl.set_label("" + file)
-		if (os.path.exists(file)):
+		if (os.path.exists(file) or (file.startswith('http://'))):
 			# Start the player.
 			self.startPlayer()
 		elif (file != ""):
@@ -560,7 +564,7 @@ class main:
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 1):
 			filename = args[0]
-			if (not (filename.startswith('/'))):
+			if (not (filename.startswith('/')) and not(filename.startswith('http://'))):
 				filename = origDir + os.sep + filename
 			
 			self.playFile(filename)
