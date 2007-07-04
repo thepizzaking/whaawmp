@@ -49,23 +49,18 @@ def compatFiles():
 	return list
 
 
+def hiddenNormalWidgets():
+	## Returns the widgets that are normally hidden.
+	list = ['btnLeaveFullscreen']
+	return list
+
 def hiddenFSWidgets():
 	## Returns a list of widgets to hide on fullscreen.
-	list = ['menubar', 'vboxVol', 'hboxControl', 'lblNowPlaying']
+	list = ['menubar', 'vboxVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
 
 def fsShowWMouse():
 	## Returns the list of widgets to reshow when the mouse is moved (fullscreen).
-	list = ['vboxVol', 'hboxControl', 'lblNowPlaying']
+	list = ['vboxVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
-
-def fsDontShowWMouse():
-	## Returns the list of widgets not to reshow when the mouse is moved (fullscreen).
-	list = []
-	all = hiddenFSWidgets()
-	show = fsShowWMouse()
-	for x in all:
-		if (x not in show):
-			list.append(x)
 	
-	return list

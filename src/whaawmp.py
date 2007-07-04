@@ -159,11 +159,11 @@ class main:
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo): return
 		# Hide all the widgets other than the video window.
-		for x in lists.fsDontShowWMouse():
+		for x in lists.hiddenFSWidgets():
 			self.wTree.get_widget(x).hide()
 		
-		# Restart the idle timer so the controls disappear soon.
-		self.restartIdleTimer()
+		# Toggle the the controls aren't shown.
+		self.controlsShown = False
 		
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
@@ -180,6 +180,11 @@ class main:
 		# Re-show all the widgets.
 		for x in lists.hiddenFSWidgets():
 			self.wTree.get_widget(x).show()
+		# Hide any widgets that should be hidden.
+		for x in lists.hiddenNormalWidgets():
+			self.wTree.get_widget(x).hide()
+		# Flag the controls as being shown.
+		self.controlsShown = True
 		# Unflag the fullscreen window.
 		self.fsActive = False
 	
@@ -515,6 +520,7 @@ class main:
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
 		        "on_vscVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullScreen,
+		        "on_btnLeaveFullscreen_clicked" : self.toggleFullScreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
