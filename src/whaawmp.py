@@ -87,7 +87,10 @@ class main:
 		## If the mouse has left the window, destroy the idle timer
 		## (So when fullscreen & mouse over controls, they don't disappear)
 		self.removeIdleTimer()
-	
+
+	def videoWindowEnter(self, widget, event):
+		## Restart the idle timer as the mouse has entered the widget.
+		self.restartIdleTimer()	
 	
 	def restartIdleTimer(self):
 		## Restarts the idle timer by removing it and creating it again.
@@ -158,20 +161,18 @@ class main:
 		## Activates fullscreen.
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo): return
+		
 		# Hide all the widgets other than the video window.
 		for x in lists.hiddenFSWidgets():
 			self.wTree.get_widget(x).hide()
 		
 		# Flag the the controls as not being shown.
 		self.controlsShown = False
-		# Restart the idle timer so the mouse disappears soon.
-		self.restartIdleTimer()		
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
-
+		
 		# Flag the fullscreen window as being shown.
 		self.fsActive = True
-
 
 	
 	def videoDeactivateFullScreen(self):
@@ -535,6 +536,7 @@ class main:
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
 		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
+		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
