@@ -2,7 +2,6 @@ Betterise About Dialogue
 Fix Keybindings better
 ??Have the window change size dynamically with the video
 Pull the player out into its own module. (Done, but maybe could be better?)
-Clean up __init__
-Command line options.
-Preferences window into its own module.
+Clean up __init__ and others
+More command line options.
 Redraw video window on activate/deactivate force-aspect-ratio (or something)
