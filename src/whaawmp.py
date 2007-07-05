@@ -515,18 +515,18 @@ class main:
 	def __init__(self):
 		## Initialises everything.
 		# Option Parser
-		parser = OptionParser()
-		(options, args) = parser.parse_args()
-		if (len(args) == 0 or not os.path.isdir(args[len(args)-1])):
+		parser = OptionParser("\n  " + __pName__ + " [options] filename")
+		(options, args) = config.clparser(parser).parseArgs() #parser.parse_args()
+		if (not options.force and (len(args) == 0 or not os.path.isdir(args[len(args)-1]))):
 			print '\nError: It is likely that you are trying to run this player without'
 			print 'using the supplied script.  Please use the script to run whaawmp.'
-			print '(Or use --force to force start (not implemented yet))'
+			print '(Or use --force to force start)'
 			exit()
 		origDir = args[len(args)-1] # Directory from which whaawmp was called.
 		# Open the settings.
 		cfgdir = "%s%s.config%swhaawmp" % (os.getenv('HOME'), os.sep, os.sep)
 		cfgfile = "config.ini"
-		self.cfg = config.open_config(cfgdir, cfgfile)
+		self.cfg = config.config(cfgdir, cfgfile)
 		# Creates the window.
 		windowname = "main"
 		self.wTree = gtk.glade.XML(self.gladefile, windowname)
@@ -585,6 +585,9 @@ class main:
 		self.lastFolder = origDir
 		# Configure the video area.
 		self.videoWindowConfigure(self.movieWindow)
+		if (options.fullscreen):
+			# If the fullscreen option was passed, start fullscreen.
+			self.videoActivateFullScreen()
 		
 		return
 

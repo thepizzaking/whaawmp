@@ -93,5 +93,24 @@ class config:
 
 
 
-def open_config(dir, file):
-	return config(dir, file)
+class clparser:
+	## Command line parsing.
+	def __init__(self, parser):
+		self.parser = parser
+	
+	def parseArgs(self):
+		# Add the options to the parser.
+		self.addOptions()
+		# Parse the arguments and return the result.
+		return self.parser.parse_args()
+	
+	
+	def addOptions(self):
+		# Activate fullscreen (only if playing a video)
+		self.parser.add_option("-f", "--fullscreen",
+		                       action="store_true", dest="fullscreen", default=False,
+		                       help="Play the file in fullscreen mode.")
+		self.parser.add_option("--force",
+		                       action="store_true", dest="force", default=False,
+		                       help="Force start (if not being run by script)")
+		
