@@ -40,8 +40,8 @@ class main:
 	def __init__(self):
 		## Initialises everything.
 		# Option Parser
-		parser = OptionParser("\n  " + __pName__ + " [options] filename")
-		(options, args) = config.clparser(parser).parseArgs() #parser.parse_args()
+		usage = "\n  " + __pName__ + " [options] filename"
+		(options, args) = config.clparser(OptionParser(usage)).parseArgs()
 		if (not options.force and (len(args) == 0 or not os.path.isdir(args[len(args)-1]))):
 			print '\nError: It is likely that you are trying to run this player without'
 			print 'using the supplied script.  Please use the script to run whaawmp.'
