@@ -25,8 +25,6 @@ import gst
 timePerSec = 1000000000
 
 class player:
-	playingVideo = False
-	
 	def play(self):
 		# Starts the player playing.
 		self.player.set_state(gst.STATE_PLAYING)
@@ -38,8 +36,6 @@ class player:
 	def stop(self):
 		# Stops the player.
 		self.player.set_state(gst.STATE_NULL)
-		# Flag that a video is no longer playing.
-		self.playingVideo = False
 	
 	
 	def isPlaying(self):
@@ -53,6 +49,10 @@ class player:
 	def isPaused(self):
 		# Returns true if the player is paused, false if not.
 		return self.getState() == gst.STATE_PAUSED
+	
+	def playingVideo(self):
+		# If current-video is -1, a video is not playing.
+		return self.player.get_property('current-video') != -1
 	
 	
 	def getState(self):
@@ -115,9 +115,6 @@ class player:
 		self.setContrast(c)
 		self.setHue(h)
 		self.setSaturation(s)
-		
-		# Flag that a video is playing.
-		self.playingVideo = True
 	
 	
 	def setImgSink(self, widget):
