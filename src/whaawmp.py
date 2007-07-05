@@ -32,7 +32,7 @@ import dialogues
 import lists
 
 __pName__='whaawmp'
-__version__='0.1.3'
+__version__='0.1.4'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
