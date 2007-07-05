@@ -25,7 +25,8 @@ import gst
 timePerSec = 1000000000
 
 class player:
-	playingVideo = False
+	colourSettings = True
+	aspectSettings = True
 	
 	def play(self):
 		# Starts the player playing.
@@ -38,8 +39,6 @@ class player:
 	def stop(self):
 		# Stops the player.
 		self.player.set_state(gst.STATE_NULL)
-		# Flag that a video is no longer playing.
-		self.playingVideo = False
 	
 	
 	def isPlaying(self):
@@ -53,6 +52,10 @@ class player:
 	def isPaused(self):
 		# Returns true if the player is paused, false if not.
 		return self.getState() == gst.STATE_PAUSED
+	
+	def playingVideo(self):
+		# If current-video is -1, a video is not playing.
+		return self.player.get_property('current-video') != -1
 	
 	
 	def getState(self):
@@ -108,16 +111,61 @@ class player:
 		return self.player.get_property('uri')
 	
 	
-	def prepareImgSink(self, bus, message):
+	def prepareImgSink(self, bus, message, far, b, c, h, s):
 		self.imagesink = message.src
-		self.imagesink.set_property('force-aspect-ratio', True)
-		
-		# Flag that a video is playing.
-		self.playingVideo = True
+		self.setForceAspectRatio(far)
+		self.setBrightness(b)
+		self.setContrast(c)
+		self.setHue(h)
+		self.setSaturation(s)
 	
 	
 	def setImgSink(self, widget):
+		## Sets the video output to the desired widget.
 		self.imagesink.set_xwindow_id(widget.window.xid)
+	
+	def setForceAspectRatio(self, val):
+		## Toggles force aspect ratio on or off.
+		if (self.aspectSettings):
+			self.imagesink.set_property('force-aspect-ratio', val)
+	
+	def setBrightness(self, val):
+		## Sets the brightness of the video.
+		if (self.colourSettings):
+			self.imagesink.set_property('brightness', val)
+	
+	def setContrast(self, val):
+		## Sets the contrast of the video.
+		if (self.colourSettings):
+			self.imagesink.set_property('contrast', val)
+	
+	def setHue(self, val):
+		## Sets the hue of the video.
+		if (self.colourSettings):
+			self.imagesink.set_property('hue', val)
+	
+	def setSaturation(self, val):
+		## Sets the saturation of the video.
+		if (self.colourSettings):
+			self.imagesink.set_property('saturation', val)
+	
+	
+	def setAudioSink(self, sinkName):
+		## Sets the player's audio sink.
+		# If a name was passed, create the element, otherwise pass None
+		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
+		# Set the player's sink accordingly.
+		self.player.set_property('audio-sink', sink)
+	
+	def setVideoSink(self, sinkName):
+		## Sets the player's video sink.
+		# If a name was passed, create the element, otherwise pass None
+		sink = gst.element_factory_make(sinkName, 'video-sink') if (sinkName) else None
+		# Set the player's sink accordingly.
+		self.player.set_property('video-sink', sink)
+		# Flag the colour settings and aspect settings accordingly.
+		self.colourSettings = (sinkName in [None, 'xvimagesink'])
+		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
 	
 	
 	def getBus(self):
