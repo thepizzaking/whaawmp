@@ -159,7 +159,9 @@ class OpenURI:
 		
 		# Create the label and entry, then pack them.
 		label = gtk.Label("Enter the URI:")
+		label.set_alignment(0, 0.5)
 		entry = gtk.Entry()
+		entry.set_size_request(350, -1)
 		dlg.vbox.pack_start(label)
 		dlg.vbox.pack_start(entry)
 		# Show all the dialogues.
