@@ -25,6 +25,9 @@ import gst
 timePerSec = 1000000000
 
 class player:
+	colourSettings = True
+	aspectSettings = True
+	
 	def play(self):
 		# Starts the player playing.
 		self.player.set_state(gst.STATE_PLAYING)
@@ -123,40 +126,46 @@ class player:
 	
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.
-		self.imagesink.set_property('force-aspect-ratio', val)
+		if (self.aspectSettings):
+			self.imagesink.set_property('force-aspect-ratio', val)
 	
 	def setBrightness(self, val):
 		## Sets the brightness of the video.
-		self.imagesink.set_property('brightness', val)
+		if (self.colourSettings):
+			self.imagesink.set_property('brightness', val)
 	
 	def setContrast(self, val):
 		## Sets the contrast of the video.
-		self.imagesink.set_property('contrast', val)
+		if (self.colourSettings):
+			self.imagesink.set_property('contrast', val)
 	
 	def setHue(self, val):
 		## Sets the hue of the video.
-		self.imagesink.set_property('hue', val)
+		if (self.colourSettings):
+			self.imagesink.set_property('hue', val)
 	
 	def setSaturation(self, val):
 		## Sets the saturation of the video.
-		self.imagesink.set_property('saturation', val)
+		if (self.colourSettings):
+			self.imagesink.set_property('saturation', val)
 	
 	
-	def setAudioSink(self, sink):
+	def setAudioSink(self, sinkName):
 		## Sets the player's audio sink.
-		# If a name was passed, create the element.
-		if (sink):
-			sink = gst.element_factory_make(sink, 'audio-sink')
+		# If a name was passed, create the element, otherwise pass None
+		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
 		# Set the player's sink accordingly.
 		self.player.set_property('audio-sink', sink)
 	
-	def setVideoSink(self, sink):
+	def setVideoSink(self, sinkName):
 		## Sets the player's video sink.
-		# If a name was passed, create the element.
-		if (sink):
-			sink = gst.element_factory_make(sink, 'audio-sink')
+		# If a name was passed, create the element, otherwise pass None
+		sink = gst.element_factory_make(sinkName, 'video-sink') if (sinkName) else None
 		# Set the player's sink accordingly.
 		self.player.set_property('video-sink', sink)
+		# Flag the colour settings and aspect settings accordingly.
+		self.colourSettings = (sinkName in [None, 'xvimagesink'])
+		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
 	
 	
 	def getBus(self):
