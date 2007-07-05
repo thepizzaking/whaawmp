@@ -142,6 +142,23 @@ class player:
 		self.imagesink.set_property('saturation', val)
 	
 	
+	def setAudioSink(self, sink):
+		## Sets the player's audio sink.
+		# If a name was passed, create the element.
+		if (sink):
+			sink = gst.element_factory_make(sink, 'audio-sink')
+		# Set the player's sink accordingly.
+		self.player.set_property('audio-sink', sink)
+	
+	def setVideoSink(self, sink):
+		## Sets the player's video sink.
+		# If a name was passed, create the element.
+		if (sink):
+			sink = gst.element_factory_make(sink, 'audio-sink')
+		# Set the player's sink accordingly.
+		self.player.set_property('video-sink', sink)
+	
+	
 	def getBus(self):
 		## Gets and returns the bus of the player.
 		bus = self.player.get_bus()

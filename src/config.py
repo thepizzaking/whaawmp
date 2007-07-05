@@ -29,7 +29,7 @@ class config:
 		self.config.write(f)
 		f.close()
 	
-	def get(self, section, option, default=None):
+	def get(self, section, option, default):
 		## Gets a configuration option.
 		# Try to get it, if it fails (option doesn't exist, set the 
 		# option to the default value passed and return it.
@@ -50,7 +50,12 @@ class config:
 		self.config.set(section, option, str(value))
 	
 	
-	def getInt(self, section, option, default=None):
+	def getStr(self, section, option, default):
+		## Returns the option as a string, even though this already happens.
+		return self.get(section, option, default)
+			
+	
+	def getInt(self, section, option, default):
 		## Returns an option as an integer.
 		res = self.get(section, option, default)
 		# If the type won't go directly to an integer, try a float first.
@@ -60,12 +65,12 @@ class config:
 			return int(float(res))
 
 	
-	def getFloat(self, section, option, default=None):
+	def getFloat(self, section, option, default):
 		# Returns the requested option as a float.
 		return float(self.get(section, option, default))
 	
 	
-	def getBool(self, section, option, default=None):
+	def getBool(self, section, option, default):
 		# Returns the requested option as a bool.
 		res = self.get(section, option, default)
 		if (res in ['False', 'false', '0', 'None']):

@@ -248,6 +248,11 @@ class main:
 		bus = self.player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
+		# Sets the sinks.
+		asink = self.cfg.getStr("audio", "audiosink", "default")
+		self.player.setAudioSink(None if (asink == "default") else asink)
+		vsink = self.cfg.getStr("video", "videosink", "default")
+		self.player.setVideoSink(None if (vsink == "default") else vsink)
 		# Initialise the progress bar update timer.
 		self.tmrProgress = None
 	
