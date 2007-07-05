@@ -356,7 +356,7 @@ class main:
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
 		# Disable XScreenSaver (if option is enabled).
-		if (self.cfg.getBool("main", "disablexscreensaver", True) and self.player.playingVideo()):
+		if (self.cfg.getBool("misc", "disablexscreensaver", True) and self.player.playingVideo()):
 			os.system("xscreensaver-command -deactivate >&- 2>&-")
 			os.system("xset s reset >&- 2>&-")
 		
@@ -440,7 +440,7 @@ class main:
 		vol = widget.get_value()
 		self.player.setVolume(vol)
 		# Set the new volume on the configuration.
-		self.cfg.set("main", "volume", vol)
+		self.cfg.set("audio", "volume", vol)
 	
 	
 	def startPlayer(self, widget=None):
@@ -573,7 +573,7 @@ class main:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("main", "volume", 75)
+		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("audio", "volume", 75)
 		# Set up the default flags.
 		self.fsActive = False
 		self.controlsShown = True
