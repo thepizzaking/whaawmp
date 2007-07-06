@@ -63,4 +63,21 @@ def fsShowWMouse():
 	## Returns the list of widgets to reshow when the mouse is moved (fullscreen).
 	list = ['vboxVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
+
+
+def defaultOptions():
+	## Returns a dicrtionary with all the default options.
+	dic = { 'video/brightness' : 0,
+	        'video/contrast' : 0,
+	        'video/hue' : 0,
+	        'video/saturation' : 0,
+	        'video/force-aspect-ratio' : 'True',
+	        'video/videosink' : 'default',
+	        'gui/mousehidetimeout' : 2000,
+	        'gui/instantseek' : 'False',
+	        'audio/volume' : 75,
+	        'audio/audiosink' : 'default',
+	        'misc/disablexscreensaver' : 'True' }
+	
+	return dic
 	

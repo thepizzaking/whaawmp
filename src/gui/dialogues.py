@@ -101,12 +101,12 @@ class PreferencesDialogue:
 	
 	def loadPreferences(self):
 		## Reads the preferences from the config and displays them.
-		self.wTree.get_widget('chkInstantSeek').set_active(self.cfg.getBool("gui/instantseek", False))
+		self.wTree.get_widget('chkInstantSeek').set_active(self.cfg.getBool("gui/instantseek"))
 		
 		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video/" + x, 0))
+			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video/" + x))
 		
-		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video/force-aspect-ratio", True))
+		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video/force-aspect-ratio"))
 	
 	
 	def toggleInstantSeek(self, widget):

@@ -38,21 +38,25 @@ class config:
 		return option.split('/')
 	
 	
-	def get(self, option, default):
+	def get(self, loption):
 		## Gets a configuration option.
-		section, option = self.splitOpt(option)
+		# Make it lowercase for compatability.
+		loption = loption.lower()
+		section, option = self.splitOpt(loption)
 		# Try to get it, if it fails (option doesn't exist, set the 
 		# option to the default value passed and return it.
 		try:
 			return self.config.get(section, option)
 		except:
-			self.set(section, option, default)
-			return default
+			self.set(loption, self.defaults[loption])
+			return self.defaults[loption]
 	
 	
-	def set(self, option, value):
+	def set(self, loption, value):
 		## Sets the option value to that passed.
-		section, option = self.splitOpt(option)
+		# Lowercase for compatability.
+		loption = loption.lower()
+		section, option = self.splitOpt(loption)
 		if (section not in self.config.sections()):
 			# If the section doesn't exist, add it.
 			self.config.add_section(section)
@@ -61,14 +65,14 @@ class config:
 		self.config.set(section, option, str(value))
 	
 	
-	def getStr(self, option, default):
+	def getStr(self, option):
 		## Returns the option as a string, even though this already happens.
-		return self.get(option, default)
+		return self.get(option)
 			
 	
-	def getInt(self, option, default):
+	def getInt(self, option):
 		## Returns an option as an integer.
-		res = self.get(option, default)
+		res = self.get(option)
 		# If the type won't go directly to an integer, try a float first.
 		try:
 			return int(res)
@@ -76,15 +80,15 @@ class config:
 			return int(float(res))
 
 	
-	def getFloat(self, option, default):
+	def getFloat(self, option):
 		# Returns the requested option as a float.
-		return float(self.get(option, default))
+		return float(self.get(option))
 	
 	
-	def getBool(self, option, default):
+	def getBool(self, option):
 		# Returns the requested option as a bool.
-		res = self.get(option, default)
-		if (res in ['False', 'false', '0', 'None']):
+		res = self.get(option)
+		if (res in ['False', 'false', '0', 'None', False]):
 			return False
 		return True
 		
@@ -99,6 +103,8 @@ class config:
 		## Preparation.
 		# Make sure the config directory exists.
 		self.prepareConfDir(dir)
+		# Get the default settings.
+		self.defaults = lists.defaultOptions()
 		# Create a config parser.
 		self.config = SafeConfigParser()
 		# Set the config files location.
