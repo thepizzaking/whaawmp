@@ -388,26 +388,37 @@ class mainWindow:
 		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped()):
 			# It it's button 1, start seeking.
 			self.seeking = True
+		
+			self.progressBarMotion(widget, event)
 	
 	
 	def seekEnd(self, widget, event):
 		## Sets that seeking has ended, and seeks to the position.
-		x, y, state = event.window.get_pointer()
-		
 		if (self.seeking):
-			# Get the width of the bar.
-			maxX = widget.get_allocation().width
-			# Seek to the location.
-			self.player.seekFrac(float(x) / maxX)
-			# Update the progress bar to reflect the change.
-			self.progressUpdate()
 			# Flag that seeking has stopped.
+			self.seekFromProgress(widget, event)
 			self.seeking = False
+	
+	
+	def seekFromProgress(self, widget, event):
+		x, y, state = event.window.get_pointer()
+		# Get the width of the bar.
+		maxX = widget.get_allocation().width
+		# Seek to the location.
+		self.player.seekFrac(float(x) / maxX)
+		# Update the progress bar to reflect the change.
+		self.progressUpdate()
+		
 		
 	def progressBarMotion(self, widget, event):
 		## when the mouse moves over the progress bar.
 		# If we're not seeking, cancel.
 		if (not self.seeking): return
+		x, y, state = event.window.get_pointer()
+		if (not state & gtk.gdk.BUTTON1_MASK): self.seekEnd(widget, event)
+		if (self.cfg.getBool('gui', 'instantseek', False)):
+			self.seekFromProgress(widget, event)
+			return
 		
 		# Get the mouse co-ordinates, the width of the bar and the file duration.
 		x, y = event.get_coords()
