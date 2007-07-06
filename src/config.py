@@ -21,6 +21,7 @@
 
 import os, sys
 from ConfigParser import SafeConfigParser
+import lists
 
 class config:
 	def save(self):
@@ -29,8 +30,17 @@ class config:
 		self.config.write(f)
 		f.close()
 	
-	def get(self, section, option, default):
+	
+	def splitOpt(self, option):
+		if ('/' not in option):
+			print 'Error!! No slash in option, something bad happened!'
+			sys.exit()
+		return option.split('/')
+	
+	
+	def get(self, option, default):
 		## Gets a configuration option.
+		section, option = self.splitOpt(option)
 		# Try to get it, if it fails (option doesn't exist, set the 
 		# option to the default value passed and return it.
 		try:
@@ -40,8 +50,9 @@ class config:
 			return default
 	
 	
-	def set(self, section, option, value):
+	def set(self, option, value):
 		## Sets the option value to that passed.
+		section, option = self.splitOpt(option)
 		if (section not in self.config.sections()):
 			# If the section doesn't exist, add it.
 			self.config.add_section(section)
@@ -50,14 +61,14 @@ class config:
 		self.config.set(section, option, str(value))
 	
 	
-	def getStr(self, section, option, default):
+	def getStr(self, option, default):
 		## Returns the option as a string, even though this already happens.
-		return self.get(section, option, default)
+		return self.get(option, default)
 			
 	
-	def getInt(self, section, option, default):
+	def getInt(self, option, default):
 		## Returns an option as an integer.
-		res = self.get(section, option, default)
+		res = self.get(option, default)
 		# If the type won't go directly to an integer, try a float first.
 		try:
 			return int(res)
@@ -65,14 +76,14 @@ class config:
 			return int(float(res))
 
 	
-	def getFloat(self, section, option, default):
+	def getFloat(self, option, default):
 		# Returns the requested option as a float.
-		return float(self.get(section, option, default))
+		return float(self.get(option, default))
 	
 	
-	def getBool(self, section, option, default):
+	def getBool(self, option, default):
 		# Returns the requested option as a bool.
-		res = self.get(section, option, default)
+		res = self.get(option, default)
 		if (res in ['False', 'false', '0', 'None']):
 			return False
 		return True

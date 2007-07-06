@@ -101,17 +101,17 @@ class PreferencesDialogue:
 	
 	def loadPreferences(self):
 		## Reads the preferences from the config and displays them.
-		self.wTree.get_widget('chkInstantSeek').set_active(self.cfg.getBool("gui", "instantseek", False))
+		self.wTree.get_widget('chkInstantSeek').set_active(self.cfg.getBool("gui/instantseek", False))
 		
 		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video", x, 0))
+			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video/" + x, 0))
 		
-		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video", "force-aspect-ratio", True))
+		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video/force-aspect-ratio", True))
 	
 	
 	def toggleInstantSeek(self, widget):
 		## Toggles the instant seek of the player.
-		self.cfg.set("gui", "instantseek", widget.get_active())
+		self.cfg.set("gui/instantseek", widget.get_active())
 	
 	
 	def resetVideoDefaults(self, widget):
@@ -123,7 +123,7 @@ class PreferencesDialogue:
 	def adjustBrightness(self, widget):
 		## Change the brightness of the video.
 		val = widget.get_value()
-		self.cfg.set("video", "brightness", val)
+		self.cfg.set("video/brightness", val)
 		if (self.player.playingVideo()):
 			# Set it if a video is playing.
 			self.player.setBrightness(val)
@@ -131,28 +131,28 @@ class PreferencesDialogue:
 	def adjustContrast(self, widget):
 		## Same as Brightness, but for contrast.
 		val = widget.get_value()
-		self.cfg.set("video", "contrast", val)
+		self.cfg.set("video/contrast", val)
 		if (self.player.playingVideo()):
 			self.player.setContrast(val)
 	
 	def adjustHue(self, widget):
 		## Same as Brightness, but for hue.
 		val = widget.get_value()
-		self.cfg.set("video", "hue", val)
+		self.cfg.set("video/hue", val)
 		if (self.player.playingVideo()):
 			self.player.setContrast(val)
 	
 	def adjustSaturation(self, widget):
 		## Same as Brightness, but for saturation.
 		val = widget.get_value()
-		self.cfg.set("video", "saturation", val)
+		self.cfg.set("video/saturation", val)
 		if (self.player.playingVideo()):
 			self.player.setContrast(val)
 	
 	def toggleForceAspect(self, widget):
 		## Sets force aspect ratio to if it's checked or not.
 		val = widget.get_active()
-		self.cfg.set("video", "force-aspect-ratio", val)
+		self.cfg.set("video/force-aspect-ratio", val)
 		if (self.player.playingVideo()):
 			self.player.setForceAspectRatio(val)
 

@@ -94,7 +94,7 @@ class mainWindow:
 	
 	def createIdleTimer(self):
 		# Create the timer again, with the timeout reset.
-		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui", "mousehidetimeout", 2000), self.hideControls)
+		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui/mousehidetimeout", 2000), self.hideControls)
 	
 	
 	def showControls(self):
@@ -237,9 +237,9 @@ class mainWindow:
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		# Sets the sinks.
-		asink = self.cfg.getStr("audio", "audiosink", "default")
+		asink = self.cfg.getStr("audio/audiosink", "default")
 		self.player.setAudioSink(None if (asink == "default") else asink)
-		vsink = self.cfg.getStr("video", "videosink", "default")
+		vsink = self.cfg.getStr("video/videosink", "default")
 		self.player.setVideoSink(None if (vsink == "default") else vsink)
 		# Initialise the progress bar update timer.
 		self.tmrProgress = None
@@ -262,11 +262,11 @@ class mainWindow:
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
 			# Get the properties of the video.(Brightness etc)
-			far = self.cfg.getBool("video", "force-aspect-ratio", True)
-			b = self.cfg.getInt("video", "brightness", 0)
-			c = self.cfg.getInt("video", "contrast", 0)
-			h = self.cfg.getInt("video", "hue", 0)
-			s = self.cfg.getInt("video", "saturation", 0)
+			far = self.cfg.getBool("video/force-aspect-ratio", True)
+			b = self.cfg.getInt("video/brightness", 0)
+			c = self.cfg.getInt("video/contrast", 0)
+			h = self.cfg.getInt("video/hue", 0)
+			s = self.cfg.getInt("video/saturation", 0)
 			self.player.prepareImgSink(bus, message, far, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
 			self.setImageSink()
@@ -343,7 +343,7 @@ class mainWindow:
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
 		# Disable XScreenSaver (if option is enabled).
-		if (self.cfg.getBool("misc", "disablexscreensaver", True) and self.player.playingVideo()):
+		if (self.cfg.getBool("misc/disablexscreensaver", True) and self.player.playingVideo()):
 			os.system("xscreensaver-command -deactivate >&- 2>&-")
 			os.system("xset s reset >&- 2>&-")
 		
@@ -395,8 +395,8 @@ class mainWindow:
 	def seekEnd(self, widget, event):
 		## Sets that seeking has ended, and seeks to the position.
 		if (self.seeking):
-			# Flag that seeking has stopped.
 			self.seekFromProgress(widget, event)
+			# Flag that seeking has stopped.
 			self.seeking = False
 	
 	
@@ -414,9 +414,11 @@ class mainWindow:
 		## when the mouse moves over the progress bar.
 		# If we're not seeking, cancel.
 		if (not self.seeking): return
+		# Check if the mouse button is still down, just in case we missed it.
 		x, y, state = event.window.get_pointer()
 		if (not state & gtk.gdk.BUTTON1_MASK): self.seekEnd(widget, event)
-		if (self.cfg.getBool('gui', 'instantseek', False)):
+		if (self.cfg.getBool("gui/instantseek", False)):
+			# If instantaneous seek is set, seek!
 			self.seekFromProgress(widget, event)
 			return
 		
@@ -438,7 +440,7 @@ class mainWindow:
 		vol = widget.get_value()
 		self.player.setVolume(vol)
 		# Set the new volume on the configuration.
-		self.cfg.set("audio", "volume", vol)
+		self.cfg.set("audio/volume", vol)
 	
 	
 	def startPlayer(self, widget=None):
@@ -555,7 +557,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("audio", "volume", 75)
+		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("audio/volume", 75)
 		# Set up the default flags.
 		self.fsActive = False
 		self.controlsShown = True
