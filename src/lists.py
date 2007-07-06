@@ -71,13 +71,13 @@ def defaultOptions():
 	        'video/contrast' : 0,
 	        'video/hue' : 0,
 	        'video/saturation' : 0,
-	        'video/force-aspect-ratio' : 'True',
+	        'video/force-aspect-ratio' : True,
 	        'video/videosink' : 'default',
 	        'gui/mousehidetimeout' : 2000,
-	        'gui/instantseek' : 'False',
+	        'gui/instantseek' : False,
 	        'audio/volume' : 75,
 	        'audio/audiosink' : 'default',
-	        'misc/disablexscreensaver' : 'True' }
+	        'misc/disablexscreensaver' : True }
 	
 	return dic
 	
