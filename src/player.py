@@ -84,7 +84,7 @@ class player:
 		try:
 			return float(self.player.query_duration(gst.FORMAT_TIME)[0])
 		except:
-			return (0 - timePerSec)
+			return -1
 	
 	
 	def seekFrac(self, frac):

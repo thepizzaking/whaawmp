@@ -369,14 +369,14 @@ class mainWindow:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
 			if (pld == None or tot == None): pld, tot = self.player.getTimesSec()
-			if (tot != -1): self.progressBar.set_fraction(pld / tot)
+			if (tot >= 0): self.progressBar.set_fraction(pld / tot)
 		
 		# Convert played & total time to integers
 		p, t = int(pld), int(tot)
 		# Add the data to the progress bar's text.
 		text = ""
 		text += "%d:%02d" % (p / 60, p % 60)
-		if (tot != -1):
+		if (tot >= 0):
 			text += " / "
 			text += "%d:%02d" % (t / 60, t % 60)
 		self.progressBar.set_text(text)
@@ -464,12 +464,8 @@ class mainWindow:
 		## Changes the play/pause image according to the argument.
 		# Set the size.
 		size = gtk.ICON_SIZE_SMALL_TOOLBAR
-		if (not playing):
-			# If it's not playing, set the icon to play.
-			img = gtk.image_new_from_stock('gtk-media-play', size)
-		else:
-			# If it is playing, set the icon to pause.
-			img = gtk.image_new_from_stock('gtk-media-pause', size)
+		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
+		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
 		# Actually set the icon.
 		self.wTree.get_widget("btnPlayToggle").set_image(img)
