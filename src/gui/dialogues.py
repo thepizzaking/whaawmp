@@ -38,11 +38,11 @@ class AboutDialogue:
 
 
 class OpenFile:
-	def __init__(self, widget, loc):
+	def __init__(self, parent, loc):
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		self.dlg = gtk.FileChooserDialog(("Choose a file"), widget,
+		self.dlg = gtk.FileChooserDialog(("Choose a file"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -62,16 +62,15 @@ class OpenFile:
 
 
 class PreferencesDialogue:
-	def __init__(self, main):
+	def __init__(self, main, parent):
 		## Shows the preferences dialogue.
 		# Sets some variables for easier access.
-		self.main = main
-		self.cfg = self.main.cfg
-		self.player = self.main.player
+		self.cfg = main.cfg
+		self.player = main.player
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(self.main.gladefile, windowname)
+		self.wTree = gtk.glade.XML(main.gladefile, windowname)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_hscBrightness_value_changed" : self.adjustBrightness,
@@ -85,6 +84,8 @@ class PreferencesDialogue:
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
+		# Set the parent window to the widget passed (hopefully the main window.)
+		self.window.set_transient_for(parent)
 		
 		# Load the preferences.
 		self.loadPreferences()
@@ -150,10 +151,10 @@ class PreferencesDialogue:
 
 
 class OpenURI:
-	def __init__(self, widget):
+	def __init__(self, parent):
 		## Creates an openURI dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(("Input a URI"), widget,
+		dlg = gtk.Dialog(("Input a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		

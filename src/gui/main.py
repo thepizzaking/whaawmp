@@ -494,7 +494,7 @@ class mainWindow:
 	
 	
 	def showPreferencesDialogue(self, widget):
-		dialogues.PreferencesDialogue(self)
+		dialogues.PreferencesDialogue(self, self.mainWindow)
 	
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.
