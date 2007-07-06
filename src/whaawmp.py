@@ -21,17 +21,31 @@
 import sys, os, os.path
 from optparse import OptionParser
 
+__sName__='whaawmp'
+__lName__='Whaaw! Media Player'
+__version__='0.1.5'
+
+# Have to manually check for help here, otherwise gstreamer prints out its own help.
+HELP = False
+for x in sys.argv:
+	# For all arguments
+	if (x in ['--help', '-h']):
+		#  If -h or --help is there, help is true (also remove it so gstreamer doesn't get it)
+		HELP = True
+		sys.argv.remove(x)
+	if (x == '--version'):
+		# If --version, print out the version, then quit.
+		print '%s - %s' % (__lName__, __version__)
+		sys.exit(0)
+
 from gui import main as whaawmp
 import config
-
-__pName__='whaawmp'
-__version__='0.1.5'
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
-	libc.prctl(15, __pName__, 0, 0)
+	libc.prctl(15, __sName__, 0, 0)
 except:
 	pass
 
@@ -40,13 +54,13 @@ class main:
 	def __init__(self):
 		## Initialises everything.
 		# Option Parser
-		usage = "\n  " + __pName__ + " [options] filename"
-		(options, args) = config.clparser(OptionParser(usage)).parseArgs()
+		usage = "\n  " + __sName__ + " [options] filename"
+		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
 		if (not options.force and (len(args) == 0 or not os.path.isdir(args[len(args)-1]))):
 			print '\nError: It is likely that you are trying to run this player without'
 			print 'using the supplied script.  Please use the script to run whaawmp.'
 			print '(Or use --force to force start)'
-			exit()
+			sys.exit()
 		origDir = args[len(args)-1] # Directory from which whaawmp was called.
 		# Open the settings.
 		cfgdir = "%s%s.config%swhaawmp" % (os.getenv('HOME'), os.sep, os.sep)

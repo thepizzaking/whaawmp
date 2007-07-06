@@ -19,7 +19,7 @@
 #       MA 02110-1301, USA.
 
 
-import os
+import os, sys
 from ConfigParser import SafeConfigParser
 
 class config:
@@ -103,9 +103,13 @@ class clparser:
 	def __init__(self, parser):
 		self.parser = parser
 	
-	def parseArgs(self):
+	def parseArgs(self, HELP):
 		# Add the options to the parser.
 		self.addOptions()
+		# If help was requested, print it, then exit.
+		if (HELP):
+			self.parser.print_help()
+			sys.exit()
 		# Parse the arguments and return the result.
 		return self.parser.parse_args()
 	
