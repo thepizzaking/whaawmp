@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Sat Jul  7 11:53:09 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Sat Jul  7 11:57:57 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -380,7 +380,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="label" translatable="yes">Instantaneous Seek</property>
                     <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_chkInstantSeek_toggled"/>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -394,7 +394,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="label" translatable="yes">Disable XScreensaver</property>
                     <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_chkDisableXscreensaver_toggled"/>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
@@ -566,6 +566,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="label" translatable="yes">Force Aspect Ratio</property>
                     <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
                     <signal name="toggled" handler="on_chkForceAspect_toggled"/>
                   </widget>
                   <packing>

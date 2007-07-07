@@ -73,8 +73,7 @@ class PreferencesDialogue:
 		self.wTree = gtk.glade.XML(main.gladefile, windowname)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
-		        "on_chkInstantSeek_toggled" : self.checkboxToggle,
-		        "on_chkDisableXscreensaver_toggled" : self.checkboxToggle,
+		        "on_checkbox_toggled" : self.checkboxToggle,
 		        "on_hscBrightness_value_changed" : self.adjustBrightness,
 		        "on_hscContrast_value_changed" : self.adjustContrast,
 		        "on_hscHue_value_changed" : self.adjustHue,
@@ -86,7 +85,8 @@ class PreferencesDialogue:
 		
 		# Create a dictionary for checkboxes and their associated settings.
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
-		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver" }
+		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
+		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -157,11 +157,9 @@ class PreferencesDialogue:
 			self.player.setContrast(val)
 	
 	def toggleForceAspect(self, widget):
-		## Sets force aspect ratio to if it's checked or not.
-		val = widget.get_active()
-		self.cfg.set("video/force-aspect-ratio", val)
+		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
-			self.player.setForceAspectRatio(val)
+			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
 
 
 
