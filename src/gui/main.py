@@ -304,7 +304,7 @@ class mainWindow:
 			self.lastFolder = dlg.dir
 	
 	
-	def openDroppedFile(self, widget, drag_context, x, y, selection_data, info, timestamp):
+	def openDroppedFile(self, widget, context, x, y, selection_data, info, time):
 		## Opens a file after a drag and drop.
 		# Split all the files that were input.
 		uris = selection_data.data.strip().split()
@@ -317,6 +317,8 @@ class mainWindow:
 		
 		# Actually play the file.
 		self.playFile(file)
+		# Finish the drag.
+		context.finish(True, False, time)
 	
 	
 	def playFile(self, file):
