@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Sat Jul  7 11:57:57 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Sat Jul  7 12:15:09 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -440,7 +440,8 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
-                    <signal name="value_changed" handler="on_hscBrightness_value_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
                   </widget>
                   <packing>
                     <property name="position">1</property>
@@ -467,7 +468,8 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
-                    <signal name="value_changed" handler="on_hscContrast_value_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
                   </widget>
                   <packing>
                     <property name="position">3</property>
@@ -494,7 +496,8 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
-                    <signal name="value_changed" handler="on_hscHue_value_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
                   </widget>
                   <packing>
                     <property name="position">5</property>
@@ -521,7 +524,8 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                     <property name="adjustment">0 -1000 1010 1 10 10</property>
                     <property name="digits">0</property>
                     <property name="value_pos">GTK_POS_BOTTOM</property>
-                    <signal name="value_changed" handler="on_hscSaturation_value_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_changed"/>
+                    <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
                   </widget>
                   <packing>
                     <property name="position">7</property>

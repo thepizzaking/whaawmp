@@ -74,10 +74,8 @@ class PreferencesDialogue:
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
-		        "on_hscBrightness_value_changed" : self.adjustBrightness,
-		        "on_hscContrast_value_changed" : self.adjustContrast,
-		        "on_hscHue_value_changed" : self.adjustHue,
-		        "on_hscSaturation_value_changed" : self.adjustSaturation,
+		        "on_scrollbar_changed" : self.scrollbarScroll,
+		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
 		        "on_btnClose_clicked" : self.closeWindow }
@@ -87,6 +85,11 @@ class PreferencesDialogue:
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
+		# And one for the scrollbars.
+		self.sclDic = { self.wTree.get_widget('hscBrightness') : "video/brightness",
+		                self.wTree.get_widget('hscContrast') : "video/contrast",
+		                self.wTree.get_widget('hscHue') : "video/hue",
+		                self.wTree.get_widget('hscSaturation') : "video/saturation" }
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -110,51 +113,34 @@ class PreferencesDialogue:
 			# Set all the checkboxes to their appropriate settings.
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
-		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video/" + x))
-		
-		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video/force-aspect-ratio"))
+		for x in self.sclDic:
+			x.set_value(self.cfg.getInt(self.sclDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
 		self.cfg.set(self.chkDic[widget], widget.get_active())
 	
+	def scrollbarScroll(self, widget):
+		## A generic function called when scrolling a scrollbar.
+		self.cfg.set(self.sclDic[widget], widget.get_value())
+	
+	
+	def scrollbarColourScroll(self, widget):
+		## Reads all the colour settings and sets them.
+		if (self.player.playingVideo()):
+			# Set it if a video is playing.
+			self.player.setBrightness(self.cfg.getInt("video/brightness"))
+			self.player.setContrast(self.cfg.getInt("video/contrast"))
+			self.player.setHue(self.cfg.getInt("video/hue"))
+			self.player.setSaturation(self.cfg.getInt("video/saturation"))
+	
 	
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to 0.
-		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
-			self.wTree.get_widget('hsc' + x).set_value(0)
+		for x in self.sclDic:
+			x.set_value(0)
 	
-	
-	def adjustBrightness(self, widget):
-		## Change the brightness of the video.
-		val = widget.get_value()
-		self.cfg.set("video/brightness", val)
-		if (self.player.playingVideo()):
-			# Set it if a video is playing.
-			self.player.setBrightness(val)
-	
-	def adjustContrast(self, widget):
-		## Same as Brightness, but for contrast.
-		val = widget.get_value()
-		self.cfg.set("video/contrast", val)
-		if (self.player.playingVideo()):
-			self.player.setContrast(val)
-	
-	def adjustHue(self, widget):
-		## Same as Brightness, but for hue.
-		val = widget.get_value()
-		self.cfg.set("video/hue", val)
-		if (self.player.playingVideo()):
-			self.player.setContrast(val)
-	
-	def adjustSaturation(self, widget):
-		## Same as Brightness, but for saturation.
-		val = widget.get_value()
-		self.cfg.set("video/saturation", val)
-		if (self.player.playingVideo()):
-			self.player.setContrast(val)
 	
 	def toggleForceAspect(self, widget):
 		## Sets force aspect ratio to if it's set or not.
