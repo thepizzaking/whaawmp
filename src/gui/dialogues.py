@@ -74,7 +74,8 @@ class PreferencesDialogue:
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
-		        "on_scrollbar_changed" : self.scrollbarScroll,
+		        "on_scrollbar_changed" : self.adjustmentChanged,
+		        "on_spinbutton_changed" : self.adjustmentChanged,
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
@@ -86,7 +87,8 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
-		self.sclDic = { self.wTree.get_widget('hscBrightness') : "video/brightness",
+		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
+		                self.wTree.get_widget('hscBrightness') : "video/brightness",
 		                self.wTree.get_widget('hscContrast') : "video/contrast",
 		                self.wTree.get_widget('hscHue') : "video/hue",
 		                self.wTree.get_widget('hscSaturation') : "video/saturation" }
@@ -113,17 +115,17 @@ class PreferencesDialogue:
 			# Set all the checkboxes to their appropriate settings.
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
-		for x in self.sclDic:
-			x.set_value(self.cfg.getInt(self.sclDic[x]))
+		for x in self.adjDic:
+			x.set_value(self.cfg.getInt(self.adjDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
 		self.cfg.set(self.chkDic[widget], widget.get_active())
 	
-	def scrollbarScroll(self, widget):
+	def adjustmentChanged(self, widget):
 		## A generic function called when scrolling a scrollbar.
-		self.cfg.set(self.sclDic[widget], widget.get_value())
+		self.cfg.set(self.adjDic[widget], widget.get_value())
 	
 	
 	def scrollbarColourScroll(self, widget):
@@ -138,7 +140,7 @@ class PreferencesDialogue:
 	
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to 0.
-		for x in self.sclDic:
+		for x in self.adjDic:
 			x.set_value(0)
 	
 	
