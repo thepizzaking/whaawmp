@@ -528,7 +528,8 @@ class mainWindow:
 	
 	
 	def __init__(self, main, __version__, options, args):
-		self.lastFolder = main.lastFolder
+		# Set the last folder to the directory from which the program was called.
+		self.lastFolder = main.origDir
 		self.cfg = main.cfg
 		self.__version__ = __version__
 		
@@ -580,7 +581,7 @@ class mainWindow:
 		if (len(args) > 1):
 			filename = args[0]
 			if (not (filename.startswith('/')) and not '://' in filename):
-				filename = origDir + os.sep + filename
+				filename = main.origDir + os.sep + filename
 			
 			self.playFile(filename)
 		

@@ -61,12 +61,10 @@ class main:
 			print 'using the supplied script.  Please use the script to run whaawmp.'
 			print '(Or use --force to force start)'
 			sys.exit()
-		origDir = args[len(args)-1] # Directory from which whaawmp was called.
+		self.origDir = args[len(args)-1] # Directory from which whaawmp was called.
 		# Open the settings.
 		cfgfile = "%s%s.config%swhaawmp%sconfig.ini" % (os.getenv('HOME'), os.sep, os.sep, os.sep)
 		self.cfg = config.config(cfgfile)
-		# Set the last folder to the directory from which the program was called.
-		self.lastFolder = origDir
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, __version__, options, args)
 		
