@@ -140,8 +140,13 @@ class PreferencesDialogue:
 	
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to 0.
-		for x in self.adjDic:
-			x.set_value(0)
+		self.wTree.get_widget('hscBrightness').set_value(0)
+		self.wTree.get_widget('hscContrast').set_value(0)
+		self.wTree.get_widget('hscHue').set_value(0)
+		self.wTree.get_widget('hscSaturation').set_value(0)
+			
+		# Call the colour changed settings so they are changed in the video.
+		self.scrollbarColourScroll(widget)
 	
 	
 	def toggleForceAspect(self, widget):
