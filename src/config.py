@@ -88,27 +88,30 @@ class config:
 	def getBool(self, option):
 		# Returns the requested option as a bool.
 		res = self.get(option)
-		if (res in ['False', 'false', '0', 'None', False]):
+		if (str(res).lower() in ['false', '0', 'none', 'no']):
 			return False
 		return True
 		
 	
-	def prepareConfDir(self, dir):
+	def prepareConfDir(self, file):
 		## Checks if the config directory exists, if not, create it.
-		if (not os.path.isdir(dir)):
-			os.makedirs(dir)
+		dir = ""
+		for x in file.split(os.sep):
+			dir += x + os.sep
+			if (dir != (file + os.sep) and not os.path.isdir(dir)):
+				os.mkdir(dir)
 	
 	
-	def __init__(self, dir, file):
+	def __init__(self, file):
 		## Preparation.
 		# Make sure the config directory exists.
-		self.prepareConfDir(dir)
+		self.prepareConfDir(file)
 		# Get the default settings.
 		self.defaults = lists.defaultOptions()
 		# Create a config parser.
 		self.config = SafeConfigParser()
 		# Set the config files location.
-		self.loc = dir + os.sep + file
+		self.loc = file
 		
 		# Open the config file.
 		self.config.read(self.loc)

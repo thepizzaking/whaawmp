@@ -63,9 +63,8 @@ class main:
 			sys.exit()
 		origDir = args[len(args)-1] # Directory from which whaawmp was called.
 		# Open the settings.
-		cfgdir = "%s%s.config%swhaawmp" % (os.getenv('HOME'), os.sep, os.sep)
-		cfgfile = "config.ini"
-		self.cfg = config.config(cfgdir, cfgfile)
+		cfgfile = "%s%s.config%swhaawmp%sconfig.ini" % (os.getenv('HOME'), os.sep, os.sep, os.sep)
+		self.cfg = config.config(cfgfile)
 		# Set the last folder to the directory from which the program was called.
 		self.lastFolder = origDir
 		# Creates the window.
