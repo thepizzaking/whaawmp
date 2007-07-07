@@ -48,6 +48,9 @@ class mainWindow:
 		# Let the whole thing be drawn upon.
 		widget.window.draw_drawable(widget.get_style().bg_gc[gtk.STATE_NORMAL],
 		                            self.pixmap, x, y, x, y, w, h)
+		
+		# If we're not playing, draw the backing image.
+		if (self.player.isStopped()): self.drawMovieWindowImage()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -471,6 +474,8 @@ class mainWindow:
 		self.setPlayPauseImage(0)
 		# Update the progress bar.
 		self.progressUpdate()
+		# Draw the background image.
+		self.drawMovieWindowImage()
 	
 	
 	def setPlayPauseImage(self, playing):
@@ -496,6 +501,15 @@ class mainWindow:
 			gobject.source_remove(self.tmrSec)
 		except:
 			pass
+	
+	
+	def drawMovieWindowImage(self):
+		# Get the image file.
+		image = '../images/whaawmp.png'
+		# Create a pixbuf from the file.
+		pixbuf = gtk.gdk.pixbuf_new_from_file(image)
+		# Draw the image on the file.
+		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, pixbuf, 0, 0, 0, 0)
 		
 	
 	def showAboutDialogue(self, widget):
