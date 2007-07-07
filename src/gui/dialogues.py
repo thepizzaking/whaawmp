@@ -74,6 +74,7 @@ class PreferencesDialogue:
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_chkInstantSeek_toggled" : self.checkboxToggle,
+		        "on_chkDisableXscreensaver_toggled" : self.checkboxToggle,
 		        "on_hscBrightness_value_changed" : self.adjustBrightness,
 		        "on_hscContrast_value_changed" : self.adjustContrast,
 		        "on_hscHue_value_changed" : self.adjustHue,
@@ -82,6 +83,10 @@ class PreferencesDialogue:
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
 		        "on_btnClose_clicked" : self.closeWindow }
 		self.wTree.signal_autoconnect(dic)
+		
+		# Create a dictionary for checkboxes and their associated settings.
+		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
+		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver" }
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -101,8 +106,6 @@ class PreferencesDialogue:
 	
 	def loadPreferences(self):
 		## Reads the preferences from the config and displays them.
-		# Create a dictionary for checkboxes and their associated settings.
-		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek" }
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
