@@ -75,6 +75,7 @@ def defaultOptions():
 	        'video/videosink' : 'default',
 	        'gui/mousehidetimeout' : 2000,
 	        'gui/instantseek' : False,
+	        'gui/volumescrollchange' : 5.0,
 	        'audio/volume' : 75,
 	        'audio/audiosink' : 'default',
 	        'misc/disablexscreensaver' : True }

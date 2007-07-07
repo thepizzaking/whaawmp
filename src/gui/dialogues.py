@@ -88,6 +88,7 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
+		                self.wTree.get_widget('spnVolumeScrollChange') : "gui/volumescrollchange",
 		                self.wTree.get_widget('hscBrightness') : "video/brightness",
 		                self.wTree.get_widget('hscContrast') : "video/contrast",
 		                self.wTree.get_widget('hscHue') : "video/hue",

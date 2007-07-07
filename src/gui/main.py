@@ -222,9 +222,9 @@ class mainWindow:
 	def videoWindowScroll(self, widget, event):
 		## Changes the volume on scroll up/down.
 		if (event.direction == gtk.gdk.SCROLL_UP):
-			self.increaseVolumeBy(5)
+			self.increaseVolumeBy(self.cfg.getFloat('gui/volumescrollchange'))
 		elif (event.direction == gtk.gdk.SCROLL_DOWN):
-			self.increaseVolumeBy(-5)
+			self.increaseVolumeBy(0 - self.cfg.getFloat('gui/volumescrollchange'))
 	
 	
 	def increaseVolumeBy(self, change):
