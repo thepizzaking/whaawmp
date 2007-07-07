@@ -73,7 +73,7 @@ class PreferencesDialogue:
 		self.wTree = gtk.glade.XML(main.gladefile, windowname)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
-		        "on_chkInstantSeek_toggled" : self.toggleInstantSeek,
+		        "on_chkInstantSeek_toggled" : self.checkboxToggle,
 		        "on_hscBrightness_value_changed" : self.adjustBrightness,
 		        "on_hscContrast_value_changed" : self.adjustContrast,
 		        "on_hscHue_value_changed" : self.adjustHue,
@@ -101,7 +101,11 @@ class PreferencesDialogue:
 	
 	def loadPreferences(self):
 		## Reads the preferences from the config and displays them.
-		self.wTree.get_widget('chkInstantSeek').set_active(self.cfg.getBool("gui/instantseek"))
+		# Create a dictionary for checkboxes and their associated settings.
+		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek" }
+		for x in self.chkDic:
+			# Set all the checkboxes to their appropriate settings.
+			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
 		for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
 			self.wTree.get_widget('hsc' + x).set_value(self.cfg.getInt("video/" + x))
@@ -109,9 +113,9 @@ class PreferencesDialogue:
 		self.wTree.get_widget('chkForceAspect').set_active(self.cfg.getBool("video/force-aspect-ratio"))
 	
 	
-	def toggleInstantSeek(self, widget):
-		## Toggles the instant seek of the player.
-		self.cfg.set("gui/instantseek", widget.get_active())
+	def checkboxToggle(self, widget):
+		## A generic function called when toggling a checkbox.
+		self.cfg.set(self.chkDic[widget], widget.get_active())
 	
 	
 	def resetVideoDefaults(self, widget):
