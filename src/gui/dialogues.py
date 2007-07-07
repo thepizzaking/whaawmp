@@ -21,6 +21,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
+import lists
 
 class AboutDialogue:
 	def __init__(self, gladefile, version):
@@ -42,23 +43,30 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		self.dlg = gtk.FileChooserDialog(("Choose a file"), parent,
+		dlg = gtk.FileChooserDialog(("Choose a file"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
 		# Set the current folder to the one passed.
-		self.dlg.set_current_folder(loc)
+		dlg.set_current_folder(loc)
+		
+		# Add the file filter.
+		filter = gtk.FileFilter()
+		filter.set_name("Supported Media")
+		for x in lists.compatFiles():
+			filter.add_mime_type(x)
+		dlg.add_filter(filter)
 		
 		# Run the dialogue, then hide it.
-		res = self.dlg.run()
-		self.dlg.hide()
+		res = dlg.run()
+		dlg.hide()
 		
 		# Save the current folder.
-		self.dir = self.dlg.get_current_folder()
-		self.file = self.dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
+		self.dir = dlg.get_current_folder()
+		self.file = dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
 		
 		# Destroy the dialogue.
-		self.dlg.destroy()
+		dlg.destroy()
 
 
 class PreferencesDialogue:

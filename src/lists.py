@@ -19,8 +19,7 @@
 #       MA 02110-1301, USA.
 
 def compatFiles():
-	## Returns the mime type list of compatable files, not acutally used
-	## I realised it was useless after I wrote it, so now it just sits here.
+	## Returns the mime type list of compatable files, for open dialogue.
 	list = ['application/ogg', 'application/ram', 'application/smil',
 			'application/vnd.rn-realmedia', 'application/x-extension-m4a',
 			'application/x-extension-mp4', 'application/x-flac',
