@@ -597,13 +597,15 @@ class mainWindow:
 		self.controlsShown = True
 		self.seeking = False
 		# Play a file (if it was specified on the command line).
-		if (len(args) > 1):
+		if (len(args) > 0):
 			filename = args[0]
-			if (not (filename.startswith('/')) and not '://' in filename):
+			if ((not os.path.isdir(filename) and os.path.exists(filename)) or '://' in filename):
+				self.playFile(filename)
+			else:
 				filename = main.origDir + os.sep + filename
+				if (not os.path.isdir(filename) and os.path.exists(filename)):
+					self.playFile(filename)
 			
-			self.playFile(filename)
-		
 		self.progressUpdate()
 		
 		# Configure the video area.
