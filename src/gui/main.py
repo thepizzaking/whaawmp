@@ -214,10 +214,27 @@ class mainWindow:
 		if (event.type == gtk.gdk._2BUTTON_PRESS and state & gtk.gdk.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
 			self.toggleFullScreen()
-		elif(event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
+		elif (event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
-		
+
+	
+	def videoWindowScroll(self, widget, event):
+		## Changes the volume on scroll up/down.
+		if (event.direction == gtk.gdk.SCROLL_UP):
+			self.increaseVolumeBy(5)
+		elif (event.direction == gtk.gdk.SCROLL_DOWN):
+			self.increaseVolumeBy(-5)
+	
+	
+	def increaseVolumeBy(self, change):
+		## Increases the volume by the amount given.
+		val = self.volAdj.value + change
+		# Make sure the new value is withing the bounds (0 <= val <= 100)
+		if (val > 100): val = 100
+		if (val < 0): val = 0
+		# Adjust the volume.
+		self.volAdj.value = val
 	
 	
 	def windowKeyPressed(self, widget, event):
@@ -552,6 +569,7 @@ class mainWindow:
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
+		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
@@ -565,6 +583,7 @@ class mainWindow:
 		self.progressBar = self.wTree.get_widget("pbarProgress")
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
+		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		# Prepare the player for playing.
@@ -572,7 +591,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("vscVolume").get_adjustment().value = self.cfg.getFloat("audio/volume")
+		self.volAdj.value = self.cfg.getFloat("audio/volume")
 		# Set up the default flags.
 		self.fsActive = False
 		self.controlsShown = True

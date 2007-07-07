@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Sat Jul  7 12:42:01 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Sat Jul  7 16:22:05 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -164,6 +164,7 @@
                 <signal name="configure_event" handler="on_videoWindow_configure_event"/>
                 <signal name="motion_notify_event" handler="on_videoWindow_motion_notify_event"/>
                 <signal name="enter_notify_event" handler="on_videoWindow_enter_notify_event"/>
+                <signal name="scroll_event" handler="on_videoWindow_scroll_event"/>
               </widget>
             </child>
             <child>
@@ -185,7 +186,7 @@
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Adjust Volume</property>
-                    <property name="adjustment">75 0 110 1 10 10</property>
+                    <property name="adjustment">75 0 110 2.5 10 10</property>
                     <property name="inverted">True</property>
                     <property name="digits">0</property>
                     <signal name="value_changed" handler="on_vscVolume_value_changed"/>
