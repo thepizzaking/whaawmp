@@ -64,7 +64,7 @@ class main:
 			self.origDir = args[len(args)-1]
 
 		# Open the settings.
-		cfgfile = "%s%s.config%swhaawmp%sconfig.ini" % (os.getenv('HOME'), os.sep, os.sep, os.sep)
+		cfgfile = os.path.join(os.getenv('HOME'), '.config', 'whaawmp', 'config.ini')
 		self.cfg = config.config(cfgfile)
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, __version__, options, args)
