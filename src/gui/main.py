@@ -28,6 +28,7 @@ import gtk.glade
 import player
 from gui import dialogues
 import lists
+import useful
 
 class mainWindow:
 	gladefile = "gui" + os.sep + "whaawmp.glade"
@@ -397,10 +398,10 @@ class mainWindow:
 		p, t = int(pld), int(tot)
 		# Add the data to the progress bar's text.
 		text = ""
-		text += "%d:%02d" % (p / 60, p % 60)
+		text += useful.secToStr(p)
 		if (tot >= 0):
 			text += " / "
-			text += "%d:%02d" % (t / 60, t % 60)
+			text += useful.secToStr(t)
 		self.progressBar.set_text(text)
 		
 	

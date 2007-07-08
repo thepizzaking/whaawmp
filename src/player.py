@@ -21,8 +21,8 @@
 import pygst
 pygst.require('0.10')
 import gst
+import useful
 
-timePerSec = 1000000000
 
 class player:
 	colourSettings = True
@@ -69,11 +69,11 @@ class player:
 	
 	def getPlayedSec(self):
 		# Returns the played seconds.
-		return self.getPlayed() / timePerSec
+		return useful.nsTos(self.getPlayed())
 	
 	def getDurationSec(self):
 		# Returns the total duration seconds.
-		return self.getDuration() / timePerSec
+		return useful.nsTos(self.getDuration())
 	
 	def getPlayed(self):
 		# Returns the played time (not in seconds).
