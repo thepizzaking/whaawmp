@@ -180,6 +180,16 @@ class player:
 		self.player.set_property('volume', vol / 100)
 	
 	
+	def setAudioTrack(self, track):
+		## Sets the audio track to play.
+		self.player.set_property('current-audio', track)
+	
+	
+	def setSubtitleTrack(self, track):
+		## Sets the subtitle track to play.
+		self.player.set_property('current-text', track)
+	
+	
 	def __init__(self):
 		## Creates and prepares a player.
 		# Create the player.

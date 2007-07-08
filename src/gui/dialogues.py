@@ -166,6 +166,58 @@ class PreferencesDialogue:
 			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
 
 
+class PlayDVD:
+	def __init__(self, parent):
+		## Creates the play DVD dialogue.
+		# Create the dialogue.
+		dlg = gtk.Dialog(_("Choose the DVD Options"), parent,
+		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
+		
+		# Create the Labels, checkboxes and spin buttons.
+		label = gtk.Label(_("Select options"))
+		chkTitle = gtk.CheckButton(_("Title: "))
+		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 1))
+		chkAudio = gtk.CheckButton(_("Audio Track: "))
+		spnAudio = gtk.SpinButton(gtk.Adjustment(0, 0, 100, 1, 1, 1))
+		chkSubtitle = gtk.CheckButton(_("Subtitle Track: "))
+		spnSubtitle = gtk.SpinButton(gtk.Adjustment(0, 0, 100, 1, 1, 1))
+		# Add them to a dictionary so I can handle all the checkboxes with
+		# a single function.
+		self.spnDic = { chkTitle : spnTitle,
+		                chkAudio : spnAudio,
+		                chkSubtitle : spnSubtitle }
+		# Start the packing.
+		dlg.vbox.pack_start(label)
+		
+		for x in self.spnDic:
+			self.spnDic[x].set_sensitive(False)
+			x.connect("toggled", self.chkToggled)
+			
+			hbox = gtk.HBox()
+			hbox.pack_start(x)
+			hbox.pack_start(self.spnDic[x])
+			dlg.vbox.pack_start(hbox)
+		
+		# Show all the widgets, then run it.
+		dlg.show_all()
+		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
+		dlg.hide()
+		
+		# Save all the values.
+		self.Title = int(spnTitle.get_value()) if (chkTitle.get_active()) else None
+		self.Audio = int(spnAudio.get_value()) if (chkAudio.get_active()) else None
+		self.Subtitle = int(spnSubtitle.get_value()) if (chkSubtitle.get_active()) else None
+		
+		# Finally, destroy the widget.
+		dlg.destroy()
+	
+	
+	def chkToggled(self, widget):
+		# Enables and disables the spin buttons when the checkboxes are checked.
+		self.spnDic[widget].set_sensitive(widget.get_active())
+	
+
 
 class OpenURI:
 	def __init__(self, parent):

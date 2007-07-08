@@ -326,6 +326,9 @@ class mainWindow:
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
 		self.stopPlayer()
+		# Set the audio and subtitles tracks to 0
+		self.player.setAudioTrack(0)
+		self.player.setSubtitleTrack(0)
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
@@ -344,6 +347,15 @@ class mainWindow:
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
 			self.playFile(None)
+	
+	
+	def playDVD(self, title=None, audio=None, subtitle=None):
+		## Plays a DVD
+		# Start the player playing the DVD.
+		self.playFile('dvd://%s' % (title if (title != None) else ""))
+		# Set the audio and subtitles tracks.
+		self.player.setAudioTrack(audio if (audio != None) else 0)
+		self.player.setSubtitleTrack(subtitle if (subtitle != None) else 0)		
 			
 	
 	def togglePlayPause(self, widget=None):
@@ -539,6 +551,12 @@ class mainWindow:
 	def showPreferencesDialogue(self, widget):
 		dialogues.PreferencesDialogue(self, self.mainWindow)
 	
+	def showPlayDVDDialogue(self, widget):
+		# Create the dialogue.
+		dlg = dialogues.PlayDVD(self.mainWindow)
+		if (dlg.res):
+			self.playDVD(dlg.Title, dlg.Audio, dlg.Subtitle)
+	
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.
 		dlg = dialogues.OpenURI(self.mainWindow)
@@ -578,7 +596,8 @@ class mainWindow:
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
 		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
-		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue }
+		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
+		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
