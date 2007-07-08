@@ -139,4 +139,8 @@ class clparser:
 		self.parser.add_option("-f", "--fullscreen",
 		                       action="store_true", dest="fullscreen", default=False,
 		                       help="Play the file in fullscreen mode.")
+		# Force extra DVD options (audio & subtitles track)
+		self.parser.add_option("--force",
+		                       action="store_true", dest="DVDExtra", default=False,
+		                       help="Force extra DVD Options in the Play DVD Dialogue (Disabled because they're buggy)")
 		

@@ -553,7 +553,7 @@ class mainWindow:
 	
 	def showPlayDVDDialogue(self, widget):
 		# Create the dialogue.
-		dlg = dialogues.PlayDVD(self.mainWindow)
+		dlg = dialogues.PlayDVD(self.mainWindow, self.options.DVDExtra)
 		if (dlg.res):
 			self.playDVD(dlg.Title, dlg.Audio, dlg.Subtitle)
 	
@@ -570,6 +570,7 @@ class mainWindow:
 		self.lastFolder = main.origDir
 		self.cfg = main.cfg
 		self.__version__ = __version__
+		self.options = options
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(self.gladefile, windowname)

@@ -167,15 +167,16 @@ class PreferencesDialogue:
 
 
 class PlayDVD:
-	def __init__(self, parent):
+	def __init__(self, parent, showExtra=False):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("Choose the DVD Options"), parent,
+		dlg = gtk.Dialog(_("DVD Options"), parent,
 		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
 		# Create the Labels, checkboxes and spin buttons.
-		label = gtk.Label(_("Select options"))
+		label = gtk.Label(_("Select options:"))
+		label.set_alignment(0, 0.5)
 		chkTitle = gtk.CheckButton(_("Title: "))
 		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 1))
 		chkAudio = gtk.CheckButton(_("Audio Track: "))
@@ -194,10 +195,14 @@ class PlayDVD:
 			self.spnDic[x].set_sensitive(False)
 			x.connect("toggled", self.chkToggled)
 			
-			hbox = gtk.HBox()
-			hbox.pack_start(x)
-			hbox.pack_start(self.spnDic[x])
-			dlg.vbox.pack_start(hbox)
+			# Some of these options don't work all that well yet, so disable
+			# them unless specifically told to show them.
+			if not (not showExtra and (x in [ chkAudio, chkSubtitle ])):
+				hbox = gtk.HBox()
+				hbox.pack_start(x)
+				hbox.pack_start(self.spnDic[x])
+				dlg.vbox.pack_start(hbox)
+		
 		
 		# Show all the widgets, then run it.
 		dlg.show_all()
