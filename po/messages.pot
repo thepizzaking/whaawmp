@@ -1,0 +1,222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2007-07-08 13:02+1000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/config.py:36
+msgid "Error!! No slash (/) in option, something bad happened!"
+msgstr ""
+
+#: ../src/whaawmp.py:27 ../src/gui/whaawmp.glade.h:34
+msgid "Whaaw! Media Player"
+msgstr ""
+
+#: ../src/whaawmp.py:59
+msgid " [options] filename"
+msgstr ""
+
+#: ../src/gui/dialogues.py:48
+msgid "Choose a file"
+msgstr ""
+
+#: ../src/gui/dialogues.py:57
+msgid "Supported Media"
+msgstr ""
+
+#: ../src/gui/dialogues.py:174
+msgid "Input a URI"
+msgstr ""
+
+#: ../src/gui/dialogues.py:179
+msgid "Enter the URI:"
+msgstr ""
+
+#: ../src/gui/main.py:344
+#, python-format
+msgid "Something's stuffed up, no such file: %s"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:1
+msgid "About Glade"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:2
+msgid "Adjust Volume"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:3
+msgid "Adjust video brightness"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:4
+msgid "Adjust video contrast"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:5
+msgid "Adjust video hue"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:6
+msgid "Adjust video saturation"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:7
+msgid "Brightness:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:8
+msgid "Contrast:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:9
+msgid "Copyright 2007, Jeff Bailes"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:10
+msgid "Disable XScreensaver"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:11
+msgid "Disable XScreensaver whilst playing a video."
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:12
+msgid "Force Aspect Ratio"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:13
+msgid "Force the video to keep its original aspect ratio"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:14
+msgid "Hue:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:15
+msgid "Instantaneous Seek"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:16
+msgid "Leave Fullscreen"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:17
+msgid "Main"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:18
+msgid "Mouse hide timeout (ms): "
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:19
+msgid "Open URI"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:20
+msgid "Play/Pause"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:21
+msgid "Preferences"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:22
+msgid "Reset all adjustments to 0"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:23
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:24
+msgid "Saturation:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:25
+msgid ""
+"Seek instantaneously on draging over the progress bar, instead of waiting "
+"until the end."
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:26
+msgid "Stop"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:27
+msgid "The amount to change the volume by when scrolling on the video area"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:28
+msgid ""
+"The time (in milliseconds) after which the mouse will disappear after not "
+"being moved over the video window."
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:29
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:30
+msgid "Video"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:32
+msgid "Vol:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:33
+msgid "Volume Change on Scroll: "
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:35
+msgid "_Edit"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:36
+msgid "_File"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:37
+msgid "_Help"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:38
+msgid "_Preferences"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:39
+msgid "_View"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:40
+msgid "gtk-about"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:41
+msgid "gtk-close"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:42
+msgid "gtk-open"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:43
+msgid "gtk-quit"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:44
+msgid "translator-credits"
+msgstr ""

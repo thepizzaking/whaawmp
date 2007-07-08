@@ -21,7 +21,7 @@
 import sys, os, os.path
 from optparse import OptionParser
 import gettext
-gettext.install('whaawmp')
+gettext.install('whaawmp', unicode=1)
 
 __sName__='whaawmp'
 __lName__=_('Whaaw! Media Player')
