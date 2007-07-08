@@ -19,8 +19,9 @@
 #       MA 02110-1301, USA.
 
 
-import os
+import os, sys
 from ConfigParser import SafeConfigParser
+import lists
 
 class config:
 	def save(self):
@@ -29,19 +30,33 @@ class config:
 		self.config.write(f)
 		f.close()
 	
-	def get(self, section, option, default=None):
+	
+	def splitOpt(self, option):
+		if ('/' not in option):
+			print _('Error!! No slash (/) in option, something bad happened!')
+			sys.exit()
+		return option.split('/')
+	
+	
+	def get(self, loption):
 		## Gets a configuration option.
+		# Make it lowercase for compatability.
+		loption = loption.lower()
+		section, option = self.splitOpt(loption)
 		# Try to get it, if it fails (option doesn't exist, set the 
 		# option to the default value passed and return it.
 		try:
 			return self.config.get(section, option)
 		except:
-			self.set(section, option, default)
-			return default
+			self.set(loption, self.defaults[loption])
+			return self.defaults[loption]
 	
 	
-	def set(self, section, option, value):
+	def set(self, loption, value):
 		## Sets the option value to that passed.
+		# Lowercase for compatability.
+		loption = loption.lower()
+		section, option = self.splitOpt(loption)
 		if (section not in self.config.sections()):
 			# If the section doesn't exist, add it.
 			self.config.add_section(section)
@@ -50,9 +65,14 @@ class config:
 		self.config.set(section, option, str(value))
 	
 	
-	def getInt(self, section, option, default=None):
+	def getStr(self, option):
+		## Returns the option as a string, even though this already happens.
+		return self.get(option)
+			
+	
+	def getInt(self, option):
 		## Returns an option as an integer.
-		res = self.get(section, option, default)
+		res = self.get(option)
 		# If the type won't go directly to an integer, try a float first.
 		try:
 			return int(res)
@@ -60,35 +80,63 @@ class config:
 			return int(float(res))
 
 	
-	def getFloat(self, section, option, default=None):
+	def getFloat(self, option):
 		# Returns the requested option as a float.
-		return float(self.get(section, option, default))
+		return float(self.get(option))
 	
 	
-	def getBool(self, section, option, default=None):
+	def getBool(self, option):
 		# Returns the requested option as a bool.
-		return bool(self.get(section, option, default))
+		res = self.get(option)
+		if (str(res).lower() in ['false', '0', 'none', 'no']):
+			return False
+		return True
 		
 	
-	def prepareConfDir(self, dir):
+	def prepareConfDir(self, file):
 		## Checks if the config directory exists, if not, create it.
-		if (not os.path.isdir(dir)):
-			os.makedirs(dir)
+		dir = ""
+		for x in file.split(os.sep):
+			dir += x + os.sep
+			if (dir != (file + os.sep) and not os.path.isdir(dir)):
+				os.mkdir(dir)
 	
 	
-	def __init__(self, dir, file):
+	def __init__(self, file):
 		## Preparation.
 		# Make sure the config directory exists.
-		self.prepareConfDir(dir)
+		self.prepareConfDir(file)
+		# Get the default settings.
+		self.defaults = lists.defaultOptions()
 		# Create a config parser.
 		self.config = SafeConfigParser()
 		# Set the config files location.
-		self.loc = dir + os.sep + file
+		self.loc = file
 		
 		# Open the config file.
 		self.config.read(self.loc)
 
 
 
-def open_config(dir, file):
-	return config(dir, file)
+class clparser:
+	## Command line parsing.
+	def __init__(self, parser):
+		self.parser = parser
+	
+	def parseArgs(self, HELP):
+		# Add the options to the parser.
+		self.addOptions()
+		# If help was requested, print it, then exit.
+		if (HELP):
+			self.parser.print_help()
+			sys.exit()
+		# Parse the arguments and return the result.
+		return self.parser.parse_args()
+	
+	
+	def addOptions(self):
+		# Activate fullscreen (only if playing a video)
+		self.parser.add_option("-f", "--fullscreen",
+		                       action="store_true", dest="fullscreen", default=False,
+		                       help="Play the file in fullscreen mode.")
+		
