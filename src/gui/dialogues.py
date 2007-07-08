@@ -24,7 +24,7 @@ import gtk, gtk.glade
 import lists
 
 class AboutDialogue:
-	def __init__(self, gladefile, version):
+	def __init__(self, gladefile, parent, version):
 		## Shows the about dialogue.
 		windowname = 'AboutDlg'
 		tree = gtk.glade.XML(gladefile, windowname)
@@ -32,6 +32,8 @@ class AboutDialogue:
 		dlg = tree.get_widget(windowname)
 		# Sets the correct version.
 		dlg.set_version(version)
+		# Set the parent to the main window.
+		dlg.set_transient_for(parent)
 		
 		# Run the destroy the dialogue.
 		dlg.run()
@@ -43,7 +45,7 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = gtk.FileChooserDialog(("Choose a file"), parent,
+		dlg = gtk.FileChooserDialog(_("Choose a file"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -52,7 +54,7 @@ class OpenFile:
 		
 		# Add the file filter.
 		filter = gtk.FileFilter()
-		filter.set_name("Supported Media")
+		filter.set_name(_("Supported Media"))
 		for x in lists.compatFiles():
 			filter.add_mime_type(x)
 		dlg.add_filter(filter)
@@ -169,12 +171,12 @@ class OpenURI:
 	def __init__(self, parent):
 		## Creates an openURI dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(("Input a URI"), parent,
+		dlg = gtk.Dialog(_("Input a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
 		# Create the label and entry, then pack them.
-		label = gtk.Label("Enter the URI:")
+		label = gtk.Label(_("Enter the URI:"))
 		label.set_alignment(0, 0.5)
 		entry = gtk.Entry()
 		entry.set_size_request(350, -1)

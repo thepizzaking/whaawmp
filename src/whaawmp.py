@@ -20,9 +20,11 @@
 
 import sys, os, os.path
 from optparse import OptionParser
+import gettext
+gettext.install('whaawmp')
 
 __sName__='whaawmp'
-__lName__='Whaaw! Media Player'
+__lName__=_('Whaaw! Media Player')
 __version__='0.1.5'
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
@@ -54,7 +56,7 @@ class main:
 	def __init__(self):
 		## Initialises everything.
 		# Option Parser
-		usage = "\n  " + __sName__ + " [options] filename"
+		usage = "\n  " + __sName__ + _(" [options] filename")
 		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
 		# Set the original directory.
 		self.origDir = os.getenv('HOME')

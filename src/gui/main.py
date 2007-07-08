@@ -341,7 +341,7 @@ class mainWindow:
 			self.startPlayer()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
-			print "Something's stuffed up, no such file: " + file
+			print _("Something's stuffed up, no such file: %s") % (file)
 			self.playFile(None)
 			
 	
@@ -532,7 +532,7 @@ class mainWindow:
 		
 	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, self.__version__)
+		dialogues.AboutDialogue(self.gladefile, self.mainWindow, self.__version__)
 	
 	
 	def showPreferencesDialogue(self, widget):
