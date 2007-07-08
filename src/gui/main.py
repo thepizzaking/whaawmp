@@ -24,6 +24,9 @@ pygtk.require('2.0')
 import gtk, gobject
 gobject.threads_init()
 import gtk.glade
+import pygst
+pygst.require('0.10')
+import gst
 
 import player
 from gui import dialogues
@@ -36,7 +39,7 @@ class mainWindow:
 	def quit(self, widget, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
-		self.stopPlayer()
+		self.player.stop()
 		# Save the configuration to the file.
 		self.cfg.save()
 		gtk.main_quit()
@@ -262,18 +265,38 @@ class mainWindow:
 		self.player.setAudioSink(None if (asink == "default") else asink)
 		vsink = self.cfg.getStr("video/videosink")
 		self.player.setVideoSink(None if (vsink == "default") else vsink)
-		# Initialise the progress bar update timer.
-		self.tmrProgress = None
 	
 	
 	def onPlayerMessage(self, bus, message):
-		mes = player.messages(message)
-		if (mes.isEOS()):
+		t = message.type
+		if (t == gst.MESSAGE_EOS):
 			# At the end of a stream, stop the player.
-			self.stopPlayer()
-		elif (mes.isError()):
+			self.player.stop()
+		elif (t == gst.MESSAGE_ERROR):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
+		elif (message.type == gst.MESSAGE_STATE_CHANGED):
+			# On a state change.
+			old, new, pending = message.parse_state_changed()
+			if (old in [ gst.STATE_NULL, gst.STATE_READY, gst.STATE_PAUSED ] and new == gst.STATE_PLAYING):
+				# The player has started.
+				# Set the play/pause image to pause.
+				self.setPlayPauseImage(1)
+				# Create the timers.
+				self.createPlayTimers()
+				
+			elif (old == gst.STATE_PLAYING and new in [ gst.STATE_NULL, gst.STATE_READY, gst.STATE_PAUSED ]):
+				# It's just been paused or stopped.
+				self.setPlayPauseImage(0)
+				# Destroy the play timers.
+				self.destroyPlayTimers()
+				# Update the progress bar.
+				self.progressUpdate()
+				
+			if (old in [gst.STATE_PLAYING, gst.STATE_PAUSED] and new in [gst.STATE_NULL, gst.STATE_READY]):
+				# Draw the background image.
+				self.drawMovieWindowImage()
+				
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -325,7 +348,7 @@ class mainWindow:
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
-		self.stopPlayer()
+		self.player.stop()
 		# Set the audio and subtitles tracks to 0
 		self.player.setAudioTrack(0)
 		self.player.setSubtitleTrack(0)
@@ -342,7 +365,7 @@ class mainWindow:
 			# Set the URI to the file's one.
 			self.player.setURI(file)
 			# Start the player.
-			self.startPlayer()
+			self.player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -369,10 +392,10 @@ class mainWindow:
 		
 		if (self.player.isPlaying()):
 			# If the player is playing, pause the player.
-			self.pausePlayer()
+			self.player.pause()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.startPlayer()
+			self.player.play()
 	
 	
 	def minuteTimer(self):
@@ -387,6 +410,7 @@ class mainWindow:
 	
 	def secondTimer(self):
 		# A function that's called once a second while playing.
+		#print self.player.player.get_property('stream-info-value-array')[0].get_property('type')
 		if (not self.seeking): self.progressUpdate()
 		
 		# Causes it to go again if it's playing, but stop if it's not.
@@ -478,38 +502,6 @@ class mainWindow:
 		self.cfg.set("audio/volume", vol)
 	
 	
-	def startPlayer(self, widget=None):
-		## Starts the player playing.
-		# Create the timers.
-		self.createPlayTimers()
-		# Actually start the player.
-		self.player.play()
-		# Set the play/pause image to pause.
-		self.setPlayPauseImage(1)
-		
-	def pausePlayer(self, widget=None):
-		## Pauses the player.
-		# Destroy the play timers.
-		self.destroyPlayTimers()
-		# Pause the player.
-		self.player.pause()
-		# Set the play/pause image to play.
-		self.setPlayPauseImage(0)
-	
-	def stopPlayer(self, widget=None):
-		## Stops the player.
-		# Destroy the timers.
-		self.destroyPlayTimers()
-		# Stop the player.
-		self.player.stop()
-		# Set the play/pause image to play.
-		self.setPlayPauseImage(0)
-		# Update the progress bar.
-		self.progressUpdate()
-		# Draw the background image.
-		self.drawMovieWindowImage()
-	
-	
 	def setPlayPauseImage(self, playing):
 		## Changes the play/pause image according to the argument.
 		# Set the size.
@@ -564,6 +556,10 @@ class mainWindow:
 			# If something was input, play it.
 			self.playFile(dlg.URI)
 	
+	def stopPlayer(self, widget):
+		# Just a transfer call as player.stop takes only 1 argument.
+		self.player.stop()
+	
 	
 	def __init__(self, main, __version__, options, args):
 		# Set the last folder to the directory from which the program was called.
@@ -571,6 +567,9 @@ class mainWindow:
 		self.cfg = main.cfg
 		self.__version__ = __version__
 		self.options = options
+		
+		# Create & prepare the player for playing.
+		self.preparePlayer()
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(self.gladefile, windowname)
@@ -609,8 +608,6 @@ class mainWindow:
 		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
-		# Prepare the player for playing.
-		self.preparePlayer()
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.

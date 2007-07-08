@@ -38,7 +38,7 @@ class player:
 	
 	def stop(self):
 		# Stops the player.
-		self.player.set_state(gst.STATE_NULL)
+		self.player.set_state(gst.STATE_READY)
 	
 	
 	def isPlaying(self):
@@ -47,7 +47,7 @@ class player:
 		
 	def isStopped(self):
 		# Returns true if the player is stopped, false if not.
-		return self.getState() == gst.STATE_NULL
+		return (self.getState() in [ gst.STATE_NULL, gst.STATE_READY ])
 	
 	def isPaused(self):
 		# Returns true if the player is paused, false if not.
@@ -199,17 +199,3 @@ class player:
 		bus = self.getBus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
-
-
-class messages:
-	## Checks the message info (is there a better way to do this?)
-	
-	def isEOS(self):
-		return self.message.type == gst.MESSAGE_EOS
-	
-	def isError(self):
-		return self.message.type == gst.MESSAGE_ERROR
-	
-	
-	def __init__(self, message):
-		self.message = message
