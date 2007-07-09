@@ -285,3 +285,16 @@ class SelectAudioTrack:
 			self.player.seek(t)
 
 
+class MsgBox:
+	def __init__(self, parent, message, title=_('Message')):
+		## Creates a message box containing the message 'message'.
+		# Create the dialogue.
+		dlg = gtk.Dialog(title, parent,
+		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
+		
+		label = gtk.Label(message)
+		dlg.vbox.pack_start(label)
+		dlg.show_all()
+		dlg.run()
+		dlg.destroy()
+

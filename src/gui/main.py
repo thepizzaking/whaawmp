@@ -276,6 +276,9 @@ class mainWindow:
 		elif (t == gst.MESSAGE_ERROR):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
+			# Show an error about the failure.
+			msg = message.parse_error()
+			dialogues.MsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
 		elif (message.type == gst.MESSAGE_STATE_CHANGED):
 			# On a state change.
 			old, new, pending = message.parse_state_changed()
@@ -309,7 +312,6 @@ class mainWindow:
 			if (old == gst.STATE_PAUSED and new == gst.STATE_READY):
 				# Draw the background image.
 				self.drawMovieWindowImage()
-				
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
