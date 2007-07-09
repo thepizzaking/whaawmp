@@ -185,6 +185,11 @@ class player:
 		self.player.set_property('current-audio', track)
 	
 	
+	def getAudioTrack(self):
+		## Gets the current audio track.
+		return self.player.get_property('current-audio')
+	
+	
 	def setSubtitleTrack(self, track):
 		## Sets the subtitle track to play.
 		self.player.set_property('current-text', track)

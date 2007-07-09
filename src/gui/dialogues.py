@@ -21,6 +21,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
+import time
 import lists
 
 class AboutDialogue:
@@ -250,4 +251,47 @@ class OpenURI:
 		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
 		# Destroy the dialogue.
 		dlg.destroy()
+
+
+class SelectAudioTrack:
+	def __init__(self, parent, tracks, player):
+		self.player = player
+		cur = player.getAudioTrack()
+		# Creates an audio track selector dialogue.
+		dlg = gtk.Dialog(_("Select Tracks"), parent,
+		                  buttons = (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
 		
+		# Create the label.
+		label = gtk.Label(_("Audio:"))
+		label.set_alignment(0, 0.5)
+		dlg.vbox.pack_start(label)
+		# For all the tracks, create a radio button.
+		group = gtk.RadioButton()
+		buttons = []
+		for x in range(len(tracks)):
+			button = gtk.RadioButton(group, '%d. %s' % (x, tracks[x]))
+			button.connect('toggled', self.buttonToggled, x)
+			dlg.vbox.pack_start(button)
+			buttons.append(button)
+		
+		# Set the current active button to active.
+		buttons[cur].set_active(True)
+		
+		# Show all the dialogue and run it.
+		dlg.show_all()
+		dlg.run()
+		dlg.destroy()
+	
+	def buttonToggled(self, widget, track):
+		## When a button is toggled.
+		if (self.player.getAudioTrack() != track):
+			# If the current track differs to the selected one.
+			# Get the time, stop the player, change the track, play the track,
+			# the seek to the original position.
+			t = self.player.getPlayed()
+			self.player.stop()
+			self.player.setAudioTrack(track)
+			self.player.play()
+			self.player.seek(t)
+
+

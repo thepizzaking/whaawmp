@@ -32,6 +32,7 @@ import player
 from gui import dialogues
 import lists
 import useful
+import gstTools
 
 class mainWindow:
 	gladefile = "gui" + os.sep + "whaawmp.glade"
@@ -280,6 +281,18 @@ class mainWindow:
 			old, new, pending = message.parse_state_changed()
 			if (old in [ gst.STATE_NULL, gst.STATE_READY, gst.STATE_PAUSED ] and new == gst.STATE_PLAYING):
 				# The player has started.
+				self.audioTracks = []
+				for x in self.player.player.get_property('stream-info-value-array'):
+					# For all streams in the file.
+					# Get its type.
+					type = gstTools.streamType(x)
+					# If it's an audio stream, add it to the array.
+					if (type == 'audio'): self.audioTracks.append(x.get_property('language-code'))
+				# Only enable the audio track menu item if there's more than one audio track.
+				if (len(self.audioTracks) > 1):
+					self.wTree.get_widget('mnuiAudioTrack').set_sensitive(True)
+				else:
+					self.wTree.get_widget('mnuiAudioTrack').set_sensitive(False)
 				# Set the play/pause image to pause.
 				self.setPlayPauseImage(1)
 				# Create the timers.
@@ -410,7 +423,6 @@ class mainWindow:
 	
 	def secondTimer(self):
 		# A function that's called once a second while playing.
-		#print self.player.player.get_property('stream-info-value-array')[0].get_property('type')
 		if (not self.seeking): self.progressUpdate()
 		
 		# Causes it to go again if it's playing, but stop if it's not.
@@ -558,6 +570,10 @@ class mainWindow:
 			# If something was input, play it.
 			self.playFile(dlg.URI)
 	
+	def showAudioTracksDialogue(self, widget):
+		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
+		dlg = dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
+	
 	def stopPlayer(self, widget):
 		# Just a transfer call as player.stop takes only 1 argument.
 		self.player.stop()
@@ -599,7 +615,8 @@ class mainWindow:
 		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
-		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue }
+		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
