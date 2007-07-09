@@ -36,7 +36,6 @@ Once you finish a translation, add them to the task manager here:
 Good luck, and happy translating.'''
 	sys.exit(0)
 
-origdir = os.getcwd()
 os.chdir(sys.path[0])
 
 
