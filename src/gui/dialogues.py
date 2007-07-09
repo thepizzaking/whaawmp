@@ -21,7 +21,6 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import time
 import lists
 
 class AboutDialogue:
@@ -286,13 +285,12 @@ class SelectAudioTrack:
 		## When a button is toggled.
 		if (self.player.getAudioTrack() != track):
 			# If the current track differs to the selected one.
-			# Get the time, stop the player, change the track, play the track,
-			# the seek to the original position.
+			# Get the current time, change the track, seek to 0 to activate
+			# the new track, then seek back to the original position.
+			# (Just changing the track didn't work)
 			t = self.player.getPlayed()
-			self.player.stop()
 			self.player.setAudioTrack(track)
-			self.player.play()
-			time.sleep(0.4)
+			self.player.seek(0)
 			self.player.seek(t)
 
 
