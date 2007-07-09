@@ -292,6 +292,7 @@ class SelectAudioTrack:
 			self.player.stop()
 			self.player.setAudioTrack(track)
 			self.player.play()
+			time.sleep(0.3)
 			self.player.seek(t)
 
 
