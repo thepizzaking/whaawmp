@@ -279,7 +279,7 @@ class mainWindow:
 		elif (message.type == gst.MESSAGE_STATE_CHANGED):
 			# On a state change.
 			old, new, pending = message.parse_state_changed()
-			if (old in [ gst.STATE_NULL, gst.STATE_READY, gst.STATE_PAUSED ] and new == gst.STATE_PLAYING):
+			if (old == gst.STATE_PAUSED and new == gst.STATE_PLAYING):
 				# The player has started.
 				self.audioTracks = []
 				for x in self.player.player.get_property('stream-info-value-array'):
@@ -298,7 +298,7 @@ class mainWindow:
 				# Create the timers.
 				self.createPlayTimers()
 				
-			elif (old == gst.STATE_PLAYING and new in [ gst.STATE_NULL, gst.STATE_READY, gst.STATE_PAUSED ]):
+			elif (old == gst.STATE_PLAYING and new == gst.STATE_PAUSED):
 				# It's just been paused or stopped.
 				self.setPlayPauseImage(0)
 				# Destroy the play timers.
@@ -306,7 +306,7 @@ class mainWindow:
 				# Update the progress bar.
 				self.progressUpdate()
 				
-			if (old in [gst.STATE_PLAYING, gst.STATE_PAUSED] and new in [gst.STATE_NULL, gst.STATE_READY]):
+			if (old == gst.STATE_PAUSED and new == gst.STATE_READY):
 				# Draw the background image.
 				self.drawMovieWindowImage()
 				
