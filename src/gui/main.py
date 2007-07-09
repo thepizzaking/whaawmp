@@ -280,38 +280,42 @@ class mainWindow:
 			msg = message.parse_error()
 			dialogues.MsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
 		elif (message.type == gst.MESSAGE_STATE_CHANGED):
-			# On a state change.
-			old, new, pending = message.parse_state_changed()
-			if (old == gst.STATE_PAUSED and new == gst.STATE_PLAYING):
-				# The player has started.
-				self.audioTracks = []
-				for x in self.player.player.get_property('stream-info-value-array'):
-					# For all streams in the file.
-					# Get its type.
-					type = gstTools.streamType(x)
-					# If it's an audio stream, add it to the array.
-					if (type == 'audio'): self.audioTracks.append(x.get_property('language-code'))
-				# Only enable the audio track menu item if there's more than one audio track.
-				if (len(self.audioTracks) > 1):
-					self.wTree.get_widget('mnuiAudioTrack').set_sensitive(True)
-				else:
-					self.wTree.get_widget('mnuiAudioTrack').set_sensitive(False)
-				# Set the play/pause image to pause.
-				self.setPlayPauseImage(1)
-				# Create the timers.
-				self.createPlayTimers()
-				
-			elif (old == gst.STATE_PLAYING and new == gst.STATE_PAUSED):
-				# It's just been paused or stopped.
-				self.setPlayPauseImage(0)
-				# Destroy the play timers.
-				self.destroyPlayTimers()
-				# Update the progress bar.
-				self.progressUpdate()
-				
-			if (old == gst.STATE_PAUSED and new == gst.STATE_READY):
-				# Draw the background image.
-				self.drawMovieWindowImage()
+			self.onPlayerStateChange(message)
+	
+	
+	def onPlayerStateChange(self, message):
+		# On a state change.
+		msg = message.parse_state_changed()
+		if (gstTools.isPlayMsg(msg)):
+			# The player has started.
+			self.audioTracks = []
+			for x in self.player.player.get_property('stream-info-value-array'):
+				# For all streams in the file.
+				# Get its type.
+				type = gstTools.streamType(x)
+				# If it's an audio stream, add it to the array.
+				if (type == 'audio'): self.audioTracks.append(x.get_property('language-code'))
+			# Only enable the audio track menu item if there's more than one audio track.
+			if (len(self.audioTracks) > 1):
+				self.wTree.get_widget('mnuiAudioTrack').set_sensitive(True)
+			else:
+				self.wTree.get_widget('mnuiAudioTrack').set_sensitive(False)
+			# Set the play/pause image to pause.
+			self.setPlayPauseImage(1)
+			# Create the timers.
+			self.createPlayTimers()
+			
+		elif (gstTools.isPauseMsg(msg)):
+			# It's just been paused or stopped.
+			self.setPlayPauseImage(0)
+			# Destroy the play timers.
+			self.destroyPlayTimers()
+			# Update the progress bar.
+			self.progressUpdate()
+			
+		if (gstTools.isStopMsg(msg)):
+			# Draw the background image.
+			self.drawMovieWindowImage()
 	
 	
 	def onPlayerSyncMessage(self, bus, message):

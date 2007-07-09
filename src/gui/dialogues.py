@@ -292,8 +292,10 @@ class MsgBox:
 		dlg = gtk.Dialog(title, parent,
 		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
+		# Create the label containing the message & pack it in.
 		label = gtk.Label(message)
 		dlg.vbox.pack_start(label)
+		# Show then destroy the dialogue.
 		dlg.show_all()
 		dlg.run()
 		dlg.destroy()

@@ -31,3 +31,23 @@ def streamType(stream):
 	          3 : 'text',
 	          4 : 'element' }
 	return types[type]
+
+
+## State change checkers, msg[0] is old, [1] is new, [2] is pending.
+def isPlayMsg(msg):
+	## Checks if the player has just started playing.
+	# The player's state always goes from Paused to Playing on start,
+	# even if it was stopped.
+	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_PLAYING)
+
+def isPauseMsg(msg):
+	## Checks if the player has just paused playing.
+	# This will also return true on a pause, since stop also emits this
+	# pattern, which is probably good.
+	return (msg[0] == gst.STATE_PLAYING and msg[1] == gst.STATE_PAUSED)
+
+def isStopMsg(msg):
+	## Checks if the player has just stopped playing.
+	# This will return true on a stop, since the player always goes to
+	# paused state before stop, we only have to check this one case.
+	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_READY)
