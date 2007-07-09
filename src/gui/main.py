@@ -385,13 +385,10 @@ class mainWindow:
 			self.playFile(None)
 	
 	
-	def playDVD(self, title=None, audio=None, subtitle=None):
+	def playDVD(self, title=None):
 		## Plays a DVD
 		# Start the player playing the DVD.
 		self.playFile('dvd://%s' % (title if (title != None) else ""))
-		# Set the audio and subtitles tracks.
-		self.player.setAudioTrack(audio if (audio != None) else 0)
-		self.player.setSubtitleTrack(subtitle if (subtitle != None) else 0)		
 			
 	
 	def togglePlayPause(self, widget=None):
@@ -559,9 +556,9 @@ class mainWindow:
 	
 	def showPlayDVDDialogue(self, widget):
 		# Create the dialogue.
-		dlg = dialogues.PlayDVD(self.mainWindow, self.options.DVDExtra)
+		dlg = dialogues.PlayDVD(self.mainWindow)
 		if (dlg.res):
-			self.playDVD(dlg.Title, dlg.Audio, dlg.Subtitle)
+			self.playDVD(dlg.Title)
 	
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.

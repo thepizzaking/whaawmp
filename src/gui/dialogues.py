@@ -167,7 +167,7 @@ class PreferencesDialogue:
 
 
 class PlayDVD:
-	def __init__(self, parent, showExtra=False):
+	def __init__(self, parent):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
 		dlg = gtk.Dialog(_("DVD Options"), parent,
@@ -179,15 +179,9 @@ class PlayDVD:
 		label.set_alignment(0, 0.5)
 		chkTitle = gtk.CheckButton(_("Title: "))
 		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 1))
-		chkAudio = gtk.CheckButton(_("Audio Track: "))
-		spnAudio = gtk.SpinButton(gtk.Adjustment(0, 0, 100, 1, 1, 1))
-		chkSubtitle = gtk.CheckButton(_("Subtitle Track: "))
-		spnSubtitle = gtk.SpinButton(gtk.Adjustment(0, 0, 100, 1, 1, 1))
 		# Add them to a dictionary so I can handle all the checkboxes with
 		# a single function.
-		self.spnDic = { chkTitle : spnTitle,
-		                chkAudio : spnAudio,
-		                chkSubtitle : spnSubtitle }
+		self.spnDic = { chkTitle : spnTitle }
 		# Start the packing.
 		dlg.vbox.pack_start(label)
 		
@@ -197,11 +191,10 @@ class PlayDVD:
 			
 			# Some of these options don't work all that well yet, so disable
 			# them unless specifically told to show them.
-			if not (not showExtra and (x in [ chkAudio, chkSubtitle ])):
-				hbox = gtk.HBox()
-				hbox.pack_start(x)
-				hbox.pack_start(self.spnDic[x])
-				dlg.vbox.pack_start(hbox)
+			hbox = gtk.HBox()
+			hbox.pack_start(x)
+			hbox.pack_start(self.spnDic[x])
+			dlg.vbox.pack_start(hbox)
 		
 		
 		# Show all the widgets, then run it.
@@ -211,8 +204,6 @@ class PlayDVD:
 		
 		# Save all the values.
 		self.Title = int(spnTitle.get_value()) if (chkTitle.get_active()) else None
-		self.Audio = int(spnAudio.get_value()) if (chkAudio.get_active()) else None
-		self.Subtitle = int(spnSubtitle.get_value()) if (chkSubtitle.get_active()) else None
 		
 		# Finally, destroy the widget.
 		dlg.destroy()
