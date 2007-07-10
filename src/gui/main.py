@@ -52,7 +52,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, draw the backing image.
-		if (self.player.isStopped()): self.drawMovieWindowImage()
+		if (not self.player.playingVideo()): self.drawMovieWindowImage()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
