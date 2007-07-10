@@ -95,6 +95,7 @@ class PreferencesDialogue:
 		# Create a dictionary for checkboxes and their associated settings.
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
+		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",

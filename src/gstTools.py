@@ -24,13 +24,25 @@ import gst
 
 def streamType(stream):
 	## Returns the stream type as a string from a given stream.
-	type = stream.get_property('type')
+	t = stream.get_property('type')
 	types = { 0 : 'unknown',
 	          1 : 'audio',
 	          2 : 'video',
 	          3 : 'text',
 	          4 : 'element' }
-	return types[type]
+	return types[t]
+
+
+def messageType(message):
+	## Returns the message type as a string.
+	types = { gst.MESSAGE_EOS : 'eos',
+	          gst.MESSAGE_ERROR : 'error',
+	          gst.MESSAGE_STATE_CHANGED : 'state_changed' }
+	# Try and return the corresponding sting, if it's not listed, return 'other'.
+	try:
+		return types[message.type]
+	except KeyError:
+		return 'other'
 
 
 ## State change checkers, msg[0] is old, [1] is new, [2] is pending.

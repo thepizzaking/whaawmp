@@ -24,9 +24,6 @@ pygtk.require('2.0')
 import gtk, gobject
 gobject.threads_init()
 import gtk.glade
-import pygst
-pygst.require('0.10')
-import gst
 
 import gstPlayer as player
 from gui import dialogues
@@ -269,17 +266,17 @@ class mainWindow:
 	
 	
 	def onPlayerMessage(self, bus, message):
-		t = message.type
-		if (t == gst.MESSAGE_EOS):
+		t = playerTools.messageType(message)
+		if (t == 'eos'):
 			# At the end of a stream, stop the player.
 			self.player.stop()
-		elif (t == gst.MESSAGE_ERROR):
+		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
 			# Show an error about the failure.
 			msg = message.parse_error()
 			dialogues.MsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
-		elif (message.type == gst.MESSAGE_STATE_CHANGED):
+		elif (t == 'state_changed'):
 			self.onPlayerStateChange(message)
 	
 	
@@ -444,7 +441,7 @@ class mainWindow:
 		text += useful.secToStr(p)
 		if (tot >= 0):
 			text += " / "
-			text += useful.secToStr(t)
+			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
 		
 	
