@@ -15,6 +15,7 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/images
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/src
+	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/src/common
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/src/gui
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
 	./po/potool.py compile
@@ -24,6 +25,8 @@ install: make-install-dirs
 	install -m 644 images/*.png $(DESTDIR)$(PREFIX)/share/whaawmp/images
 	install -m 644 src/*.py $(DESTDIR)$(PREFIX)/share/whaawmp/src
 	install -m 644 src/*.pyc $(DESTDIR)$(PREFIX)/share/whaawmp/src
+	install -m 644 src/common/*.py $(DESTDIR)$(PREFIX)/share/whaawmp/src/common
+	install -m 644 src/common/*.pyc $(DESTDIR)$(PREFIX)/share/whaawmp/src/common
 	install -m 644 src/gui/*.py $(DESTDIR)$(PREFIX)/share/whaawmp/src/gui
 	install -m 644 src/gui/*.pyc $(DESTDIR)$(PREFIX)/share/whaawmp/src/gui
 	install -m 644 src/gui/*.glade $(DESTDIR)$(PREFIX)/share/whaawmp/src/gui
