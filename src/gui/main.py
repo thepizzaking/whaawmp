@@ -357,9 +357,6 @@ class mainWindow:
 		self.player.stop()
 		# Set the audio track to 0
 		self.player.setAudioTrack(0)
-		# Set the visualisation if requested.
-		if (self.cfg.getBool('gui/enablevisualisation')):
-			self.player.enableVisualisation()
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
@@ -373,7 +370,7 @@ class mainWindow:
 			# Set the URI to the file's one.
 			self.player.setURI(file)
 			# Start the player.
-			self.player.play()
+			self.playPlayer()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -400,7 +397,7 @@ class mainWindow:
 			self.player.pause()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.player.play()
+			self.playPlayer()
 	
 	
 	def minuteTimer(self):
@@ -572,6 +569,16 @@ class mainWindow:
 	def stopPlayer(self, widget):
 		# Just a transfer call as player.stop takes only 1 argument.
 		self.player.stop()
+	
+	def playPlayer(self):
+		# Start the player.
+		# Set the visualisation if requested.
+		if (self.cfg.getBool('gui/enablevisualisation')):
+			self.player.enableVisualisation()
+		else:
+			self.player.disableVisualisation()
+		
+		self.player.play()
 	
 	
 	def __init__(self, main, __version__, options, args):

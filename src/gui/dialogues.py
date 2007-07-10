@@ -91,7 +91,6 @@ class PreferencesDialogue:
 		        "on_checkbox_toggled" : self.checkboxToggle,
 		        "on_scrollbar_changed" : self.adjustmentChanged,
 		        "on_spinbutton_changed" : self.adjustmentChanged,
-		        "on_chkEnableVisualisation_toggled" : self.toggleEnableVis,
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
@@ -172,13 +171,7 @@ class PreferencesDialogue:
 		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
 			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
-	
-	def toggleEnableVis(self, widget):
-		## Enables/Disables the visualisations.
-		if (self.cfg.getBool("gui/enablevisualisation")):
-			self.player.enableVisualisation()
-		else:
-			self.player.disableVisualisation()
+
 
 
 class PlayDVD:
