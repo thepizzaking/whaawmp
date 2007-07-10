@@ -288,18 +288,10 @@ class mainWindow:
 		msg = message.parse_state_changed()
 		if (playerTools.isPlayMsg(msg)):
 			# The player has started.
-			self.audioTracks = []
-			for x in self.player.getStreamsInfo():
-				# For all streams in the file.
-				# Get its type.
-				type = playerTools.streamType(x)
-				# If it's an audio stream, add it to the array.
-				if (type == 'audio'): self.audioTracks.append(x.get_property('language-code'))
+			# Get the array of audio tracks.
+			self.audioTracks = playerTools.getAudioLangArray(self.player)
 			# Only enable the audio track menu item if there's more than one audio track.
-			if (len(self.audioTracks) > 1):
-				self.wTree.get_widget('mnuiAudioTrack').set_sensitive(True)
-			else:
-				self.wTree.get_widget('mnuiAudioTrack').set_sensitive(False)
+			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Set the play/pause image to pause.
 			self.setPlayPauseImage(1)
 			# Create the timers.

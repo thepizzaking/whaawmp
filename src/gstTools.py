@@ -51,3 +51,17 @@ def isStopMsg(msg):
 	# This will return true on a stop, since the player always goes to
 	# paused state before stop, we only have to check this one case.
 	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_READY)
+
+
+def getAudioLangArray(player):
+	tracks = []
+	for x in player.getStreamsInfo():
+		# For all streams in the file.
+		if (streamType(x) == 'audio'):
+			# If it's an audio stream, get the language code (If none, make it unknown)
+			lang = x.get_property('language-code')
+			if (lang == None): lang = _('Unknown')
+			# Add it to the array.
+			tracks.append(lang)
+	# Return the tracks.
+	return tracks
