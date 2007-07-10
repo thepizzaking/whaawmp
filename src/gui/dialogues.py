@@ -58,6 +58,11 @@ class OpenFile:
 		for x in lists.compatFiles():
 			filter.add_mime_type(x)
 		dlg.add_filter(filter)
+		# How about an all files one too.
+		filter = gtk.FileFilter()
+		filter.set_name(_("All Files"))
+		filter.add_pattern('*')
+		dlg.add_filter(filter)
 		
 		# Run the dialogue, then hide it.
 		res = dlg.run()

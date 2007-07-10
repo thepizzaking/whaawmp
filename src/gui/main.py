@@ -290,13 +290,13 @@ class mainWindow:
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Set the play/pause image to pause.
-			self.setPlayPauseImage(1)
+			self.playPauseChange(True)
 			# Create the timers.
 			self.createPlayTimers()
 			
 		elif (playerTools.isPauseMsg(msg)):
 			# It's just been paused or stopped.
-			self.setPlayPauseImage(0)
+			self.playPauseChange(False)
 			# Destroy the play timers.
 			self.destroyPlayTimers()
 			# Update the progress bar.
@@ -506,15 +506,18 @@ class mainWindow:
 		self.cfg.set("audio/volume", vol)
 	
 	
-	def setPlayPauseImage(self, playing):
+	def playPauseChange(self, playing):
 		## Changes the play/pause image according to the argument.
 		# Set the size.
 		size = gtk.ICON_SIZE_SMALL_TOOLBAR
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
 		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
+		btn = self.wTree.get_widget("btnPlayToggle")
 		# Actually set the icon.
-		self.wTree.get_widget("btnPlayToggle").set_image(img)
+		btn.set_image(img)
+		# Also set the tooltip.
+		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
 	
 	
 	def createPlayTimers(self):
@@ -617,6 +620,8 @@ class mainWindow:
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
+		# Create a tooltips instance for use in the code.
+		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		# Update the progress bar.
@@ -627,16 +632,22 @@ class mainWindow:
 		self.fsActive = False
 		self.controlsShown = True
 		self.seeking = False
+		# Call the function to change the play/pause image.
+		self.playPauseChange(False)
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
 			filename = args[0]
 			if ((not os.path.isdir(filename) and os.path.exists(filename)) or '://' in filename):
+				# If the file isn't a directory, and it exists, OR :// is in the
+				# filename (ie. it's a URI), play it.
 				self.playFile(filename)
 			else:
+				# Otherwise, try and play a file made from 'originalDirectory/arg'.
 				filename = main.origDir + os.sep + filename
 				if (not os.path.isdir(filename) and os.path.exists(filename)):
 					self.playFile(filename)
-			
+		
+		# Update the progress bar.
 		self.progressUpdate()
 		
 		# Configure the video area.
