@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Tue Jul 10 16:16:19 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Tue Jul 10 20:01:49 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -325,9 +325,9 @@
     <property name="website">http://home.gna.org/whaawmp/</property>
     <property name="license">Copyright (C) Jeff Bailes, 2007.
 
-This program is free software; you can redistribute it and/or modify it
+This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free
-Software Foundation; either version 2 of the Licence, or (at your option)
+Software Foundation, either version 3 of the Licence, or (at your option)
 any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT
@@ -336,8 +336,7 @@ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 more details.
 
 You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-Place, Suite 330, Boston, MA  02111-1307  USA.
+this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 </property>
     <property name="authors">Jeff Bailes &lt;thepizzaking@gmail.com&gt;, 2007.</property>
