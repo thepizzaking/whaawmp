@@ -21,7 +21,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import lists
+from common import lists
 
 class AboutDialogue:
 	def __init__(self, gladefile, parent, version):

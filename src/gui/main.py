@@ -25,11 +25,10 @@ import gtk, gobject
 gobject.threads_init()
 import gtk.glade
 
-import gstPlayer as player
+from common import gstPlayer as player
 from gui import dialogues
-import lists
-import useful
-import gstTools as playerTools
+from common import lists, useful
+from common import gstTools as playerTools
 
 class mainWindow:
 	gladefile = "gui" + os.sep + "whaawmp.glade"

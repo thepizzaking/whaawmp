@@ -21,7 +21,7 @@
 
 import os, sys
 from ConfigParser import SafeConfigParser
-import lists
+from common import lists
 
 class config:
 	def save(self):

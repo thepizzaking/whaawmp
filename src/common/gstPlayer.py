@@ -21,7 +21,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-import useful
+from common import useful
 
 
 class player:

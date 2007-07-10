@@ -41,7 +41,7 @@ for x in sys.argv:
 		sys.exit(0)
 
 from gui import main as whaawmp
-import config
+from common import config
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
