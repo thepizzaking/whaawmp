@@ -80,4 +80,11 @@ def defaultOptions():
 	        'misc/disablexscreensaver' : True }
 	
 	return dic
+
+
+## Some gstreamer lists.
+def gstStreamType():
+	## Returns a list of gstreamer list types (in order too!)
+	types = [ 'unknown', 'audio', 'video', 'text', 'element' ]
+	return types
 	

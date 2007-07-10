@@ -78,6 +78,7 @@ class PreferencesDialogue:
 	def __init__(self, main, parent):
 		## Shows the preferences dialogue.
 		# Sets some variables for easier access.
+		self.main = main
 		self.cfg = main.cfg
 		self.player = main.player
 		
@@ -169,6 +170,7 @@ class PreferencesDialogue:
 		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
 			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
+			self.main.videoWindowConfigure(self.main.movieWindow)
 
 
 

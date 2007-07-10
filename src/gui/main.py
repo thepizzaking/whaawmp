@@ -34,7 +34,7 @@ class mainWindow:
 	def quit(self, widget, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
-		self.player.stop()
+		self.stopPlayer()
 		# Save the configuration to the file.
 		self.cfg.save()
 		gtk.main_quit()
@@ -192,7 +192,8 @@ class mainWindow:
 	def setImageSink(self, widget=None):
 		## Sets the image sink to 'widget' or whichever it discovers.
 		if (not widget):
-			# If no widget was passed, discover which it should use.
+			# If no widget was passed, use the right one. (This is left from
+			# when I had a separate fullscreen window, maybe it should be fixed?)
 			widget = self.movieWindow
 		
 		# Configure the video area.
@@ -264,7 +265,7 @@ class mainWindow:
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, stop the player.
-			self.player.stop()
+			self.stopPlayer()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -351,7 +352,7 @@ class mainWindow:
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
-		self.player.stop()
+		self.stopPlayer()
 		# Set the audio track to 0
 		self.player.setAudioTrack(0)
 		
@@ -391,7 +392,7 @@ class mainWindow:
 		
 		if (self.player.isPlaying()):
 			# If the player is playing, pause the player.
-			self.player.pause()
+			self.pausePlayer()
 		else:
 			# If it's already paused (or stopped with a file): play.
 			self.playPlayer()
@@ -563,7 +564,7 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
-	def stopPlayer(self, widget):
+	def stopPlayer(self, widget=None):
 		# Just a transfer call as player.stop takes only 1 argument.
 		self.player.stop()
 	
@@ -576,6 +577,10 @@ class mainWindow:
 			self.player.disableVisualisation()
 		
 		self.player.play()
+	
+	def pausePlayer(self):
+		# Just a transfer call in case I want to do anything before pausing.
+		self.player.pause()
 	
 	
 	def __init__(self, main, __version__, options, args):

@@ -20,15 +20,11 @@ import pygst
 pygst.require('0.10')
 import gst
 
+from common import lists
+
 def streamType(stream):
 	## Returns the stream type as a string from a given stream.
-	t = stream.get_property('type')
-	types = { 0 : 'unknown',
-	          1 : 'audio',
-	          2 : 'video',
-	          3 : 'text',
-	          4 : 'element' }
-	return types[t]
+	return lists.gstStreamType()[stream.get_property('type')]
 
 
 def messageType(message):
