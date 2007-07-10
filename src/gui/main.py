@@ -194,11 +194,9 @@ class mainWindow:
 	
 	def setImageSink(self, widget=None):
 		## Sets the image sink to 'widget' or whichever it discovers.
-		## For some reason it I pass the widgets from other functions
-		## to here the program likes to crash.
 		if (not widget):
 			# If no widget was passed, discover which it should use.
-			widget = self.fsVideoWin if (self.fsActive) else self.movieWindow
+			widget = self.movieWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -357,9 +355,11 @@ class mainWindow:
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
 		self.player.stop()
-		# Set the audio and subtitles tracks to 0
+		# Set the audio track to 0
 		self.player.setAudioTrack(0)
-		self.player.setSubtitleTrack(0)
+		# Set the visualisation if requested.
+		if (self.cfg.getBool('gui/enablevisualisation')):
+			self.player.enableVisualisation()
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""

@@ -25,8 +25,8 @@ import useful
 
 
 class player:
-	colourSettings = True
-	aspectSettings = True
+	colourSettings = False
+	aspectSettings = False
 	
 	def play(self):
 		# Starts the player playing.
@@ -55,7 +55,7 @@ class player:
 	
 	def playingVideo(self):
 		# If current-video is -1, a video is not playing.
-		return self.player.get_property('current-video') != -1
+		return (self.player.get_property('current-video') != -1 or self.player.get_property('vis-plugin') != None)
 	
 	
 	def getState(self):
@@ -116,7 +116,9 @@ class player:
 	
 	
 	def prepareImgSink(self, bus, message, far, b, c, h, s):
+		# Sets the image sink.
 		self.imagesink = message.src
+		# Sets force aspect ratio, brightness etc according to options passed.
 		self.setForceAspectRatio(far)
 		self.setBrightness(b)
 		self.setContrast(c)
@@ -170,6 +172,15 @@ class player:
 		# Flag the colour settings and aspect settings accordingly.
 		self.colourSettings = (sinkName in [None, 'xvimagesink'])
 		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
+	
+	
+	def enableVisualisation(self):
+		# Enable the visualisaion.
+		self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+	
+	def disableVisualisation(self):
+		# Diable the visualisaion.
+		self.player.set_property('vis-plugin', None)
 	
 	
 	def getBus(self):

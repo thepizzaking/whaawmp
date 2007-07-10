@@ -91,6 +91,7 @@ class PreferencesDialogue:
 		        "on_checkbox_toggled" : self.checkboxToggle,
 		        "on_scrollbar_changed" : self.adjustmentChanged,
 		        "on_spinbutton_changed" : self.adjustmentChanged,
+		        "on_chkEnableVisualisation_toggled" : self.toggleEnableVis,
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
@@ -101,6 +102,7 @@ class PreferencesDialogue:
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
+		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
@@ -170,6 +172,13 @@ class PreferencesDialogue:
 		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
 			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
+	
+	def toggleEnableVis(self, widget):
+		## Enables/Disables the visualisations.
+		if (self.cfg.getBool("gui/enablevisualisation")):
+			self.player.enableVisualisation()
+		else:
+			self.player.disableVisualisation()
 
 
 class PlayDVD:
