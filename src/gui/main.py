@@ -28,11 +28,11 @@ import pygst
 pygst.require('0.10')
 import gst
 
-import player
+import gstPlayer as player
 from gui import dialogues
 import lists
 import useful
-import gstTools
+import gstTools as playerTools
 
 class mainWindow:
 	gladefile = "gui" + os.sep + "whaawmp.glade"
@@ -286,13 +286,13 @@ class mainWindow:
 	def onPlayerStateChange(self, message):
 		# On a state change.
 		msg = message.parse_state_changed()
-		if (gstTools.isPlayMsg(msg)):
+		if (playerTools.isPlayMsg(msg)):
 			# The player has started.
 			self.audioTracks = []
-			for x in self.player.player.get_property('stream-info-value-array'):
+			for x in self.player.getStreamsInfo():
 				# For all streams in the file.
 				# Get its type.
-				type = gstTools.streamType(x)
+				type = playerTools.streamType(x)
 				# If it's an audio stream, add it to the array.
 				if (type == 'audio'): self.audioTracks.append(x.get_property('language-code'))
 			# Only enable the audio track menu item if there's more than one audio track.
@@ -305,7 +305,7 @@ class mainWindow:
 			# Create the timers.
 			self.createPlayTimers()
 			
-		elif (gstTools.isPauseMsg(msg)):
+		elif (playerTools.isPauseMsg(msg)):
 			# It's just been paused or stopped.
 			self.setPlayPauseImage(0)
 			# Destroy the play timers.
@@ -313,7 +313,7 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		if (gstTools.isStopMsg(msg)):
+		if (playerTools.isStopMsg(msg)):
 			# Draw the background image.
 			self.drawMovieWindowImage()
 	

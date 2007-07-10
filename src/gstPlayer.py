@@ -86,6 +86,10 @@ class player:
 		except:
 			return -1
 	
+	def getStreamsInfo(self):
+		# Returns an array of stream information.
+		return self.player.get_property('stream-info-value-array')
+	
 	
 	def seekFrac(self, frac):
 		# Seek from a fraction.
