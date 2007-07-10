@@ -273,7 +273,7 @@ class mainWindow:
 			self.playFile(None)
 			# Show an error about the failure.
 			msg = message.parse_error()
-			dialogues.MsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
+			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
 		elif (t == 'state_changed'):
 			self.onPlayerStateChange(message)
 	
@@ -564,7 +564,7 @@ class mainWindow:
 	
 	def showAudioTracksDialogue(self, widget):
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
-		dlg = dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
+		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
 	def stopPlayer(self, widget):
 		# Just a transfer call as player.stop takes only 1 argument.

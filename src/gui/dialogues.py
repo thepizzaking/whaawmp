@@ -293,16 +293,29 @@ class SelectAudioTrack:
 			self.player.seek(t)
 
 
+class ErrorMsgBox:
+	def __init__(self, parent, message, title=_('Error!')):
+		## Creates an error message box (Use the MsgBox, just add an image).
+		icon = gtk.image_new_from_stock('gtk-dialog-error', gtk.ICON_SIZE_DIALOG)
+		# Run the message box, with the parameters already passed.
+		MsgBox(parent, message, title, icon)
+
+
 class MsgBox:
-	def __init__(self, parent, message, title=_('Message')):
+	def __init__(self, parent, message, title=_('Message'), icon=None):
 		## Creates a message box containing the message 'message'.
 		# Create the dialogue.
 		dlg = gtk.Dialog(title, parent,
 		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
 		# Create the label containing the message & pack it in.
+		hbox = gtk.HBox()
+		if (icon):
+			# If an icon was specified, pack it first.
+			hbox.pack_start(icon)
 		label = gtk.Label(message)
-		dlg.vbox.pack_start(label)
+		hbox.pack_start(label)
+		dlg.vbox.pack_start(hbox)
 		# Show then destroy the dialogue.
 		dlg.show_all()
 		dlg.run()
