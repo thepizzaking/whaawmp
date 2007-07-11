@@ -599,7 +599,7 @@ class mainWindow:
 		self.preparePlayer()
 		
 		windowname = "main"
-		self.wTree = gtk.glade.XML(self.gladefile, windowname)
+		self.wTree = gtk.glade.XML(self.gladefile, windowname, 'whaawmp')
 		
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,

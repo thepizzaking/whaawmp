@@ -27,6 +27,7 @@ Onto the commands:
 		be done on all commands).
 	'./potool.py po LANGCODE' will create LANGCODE.po file if it doesn't
 		already exist, otherwise it will just update it.
+		(Use ./potool.py po all to update all po files)
 	'./potool.py compile' will compile all the language file and put them
 		in LANGCODE/LC_MESSAGES/ folders.
 Once you finish a translation, add them to the task manager here:
@@ -36,6 +37,10 @@ Good luck, and happy translating.'''
 
 os.chdir(sys.path[0])
 
+def updatepo(lang):
+	os.system('msgmerge %s.po messages.pot > tmp.po' % (lang))
+	os.system('mv tmp.po %s.po' % lang)
+	print '%s.po updated' % (lang)
 
 os.system('intltool-extract --type="gettext/glade" ../src/gui/whaawmp.glade')
 os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/gui/whaawmp.glade.h')
@@ -45,10 +50,12 @@ print 'messages.pot updated!'
 if not (len(sys.argv) > 1): sys.exit(0)
 
 if (sys.argv[1] == 'po' and len(sys.argv) > 2):
-	if (os.path.exists('%s.po' % (sys.argv[2]))):
-		os.system('msgmerge %s.po messages.pot > tmp.po' % (sys.argv[2]))
-		os.system('mv tmp.po %s.po' % sys.argv[2])
-		print '%s.po updated' % (sys.argv[2])
+	if (sys.argv[2] == 'all'):
+		for x in os.listdir(os.getcwd()):
+			if (x.endswith('.po')):
+				updatepo(x[:len(x)-3])
+	elif (os.path.exists('%s.po' % (sys.argv[2]))):
+		updatepo(sys.argv[2])
 	else:
 		os.system('cp messages.pot %s.po' % (sys.argv[2]))
 		print '%s.po created' % (sys.argv[2])
