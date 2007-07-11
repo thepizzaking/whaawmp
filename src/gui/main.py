@@ -147,7 +147,7 @@ class mainWindow:
 		widget.window.set_cursor(mode)
 	
 	
-	def videoActivateFullScreen(self, widget=None):
+	def activateFullscreen(self, widget=None):
 		## Activates fullscreen.
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo()): return
@@ -160,12 +160,9 @@ class mainWindow:
 		self.controlsShown = False
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
-		
-		# Flag the fullscreen window as being shown.
-		self.fsActive = True
 
 	
-	def videoDeactivateFullScreen(self):
+	def deactivateFullscreen(self):
 		## Deactivates the fullscreen.
 		# Unfullscreens the window.
 		self.mainWindow.unfullscreen()
@@ -177,16 +174,19 @@ class mainWindow:
 			self.wTree.get_widget(x).hide()
 		# Flag the controls as being shown.
 		self.controlsShown = True
-		# Unflag the fullscreen window.
-		self.fsActive = False
 	
 	
-	def toggleFullScreen(self, widget=None):
+	def toggleFullscreen(self, widget=None):
 		# If the fullscreen window is shown, hide it, otherwise, show it.
 		if (self.fsActive):
-			self.videoDeactivateFullScreen()
+			self.deactivateFullscreen()
 		else:
-			self.videoActivateFullScreen()
+			self.activateFullscreen()
+	
+	
+	def onMainStateEvent(self, widget, event):
+		## Flag fullscreen according to the event.
+		self.fsActive = (event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
 	
 	
 	def setImageSink(self, widget=None):
@@ -211,7 +211,7 @@ class mainWindow:
 		
 		if (event.type == gtk.gdk._2BUTTON_PRESS and state & gtk.gdk.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
-			self.toggleFullScreen()
+			self.toggleFullscreen()
 		elif (event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
@@ -243,7 +243,7 @@ class mainWindow:
 			self.togglePlayPause()
 		elif (event.string == 'f'):
 			# Toggle fullscreen on 'f'.
-			self.toggleFullScreen()
+			self.toggleFullscreen()
 
 	
 	def preparePlayer(self):
@@ -299,6 +299,8 @@ class mainWindow:
 			self.progressUpdate()
 			
 		if (playerTools.isStopMsg(msg)):
+			# Deactivate fullscreen.
+			if (self.fsActive): self.deactivateFullscreen()
 			# Draw the background image.
 			self.drawMovieWindowImage()
 	
@@ -611,8 +613,8 @@ class mainWindow:
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
 		        "on_vscVolume_value_changed" : self.changeVolume,
-		        "on_mnuiFS_activate" : self.toggleFullScreen,
-		        "on_btnLeaveFullscreen_clicked" : self.toggleFullScreen,
+		        "on_mnuiFS_activate" : self.toggleFullscreen,
+		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
@@ -625,7 +627,8 @@ class mainWindow:
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
-		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
+		        "on_main_window_state_event" : self.onMainStateEvent }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
@@ -643,7 +646,6 @@ class mainWindow:
 		# Get the volume from the configuration.
 		self.volAdj.value = self.cfg.getFloat("audio/volume")
 		# Set up the default flags.
-		self.fsActive = False
 		self.controlsShown = True
 		self.seeking = False
 		# Call the function to change the play/pause image.
@@ -668,7 +670,7 @@ class mainWindow:
 		self.videoWindowConfigure(self.movieWindow)
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
-			self.videoActivateFullScreen()
+			self.activateFullscreen()
 		
 		# Enter the GTK main loop.
 		gtk.main()

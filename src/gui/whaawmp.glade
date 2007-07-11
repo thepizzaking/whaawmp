@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Wed Jul 11 13:34:58 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Wed Jul 11 17:48:09 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -15,6 +15,7 @@
     <signal name="key_press_event" handler="on_main_key_press_event"/>
     <signal name="drag_data_received" handler="on_main_drag_data_received"/>
     <signal name="delete_event" handler="on_main_delete_event"/>
+    <signal name="window_state_event" handler="on_main_window_state_event"/>
     <child>
       <widget class="GtkVBox" id="vboxMain">
         <property name="visible">True</property>
