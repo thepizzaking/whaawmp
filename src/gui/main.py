@@ -254,10 +254,10 @@ class mainWindow:
 		bus = self.player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
-		# Sets the sinks.
-		asink = self.cfg.getStr("audio/audiosink")
+		# Sets the sinks to that in the config (unless one was specified at launch).
+		asink = self.cfg.getStr("audio/audiosink") if (self.options.audiosink == None) else self.options.audiosink
 		self.player.setAudioSink(None if (asink == "default") else asink)
-		vsink = self.cfg.getStr("video/videosink")
+		vsink = self.cfg.getStr("video/videosink") if (self.options.videosink == None) else self.options.videosink
 		self.player.setVideoSink(None if (vsink == "default") else vsink)
 	
 	
@@ -644,7 +644,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.volAdj.value = self.cfg.getFloat("audio/volume")
+		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
 		# Set up the default flags.
 		self.controlsShown = True
 		self.seeking = False
