@@ -93,11 +93,9 @@ class config:
 	
 	def prepareConfDir(self, file):
 		## Checks if the config directory exists, if not, create it.
-		dir = ""
-		for x in file.split(os.sep):
-			dir += x + os.sep
-			if (dir != (file + os.sep) and not os.path.isdir(dir)):
-				os.mkdir(dir)
+		dir = os.path.dirname(file)
+		if (not os.path.exists(dir)):
+			os.makedirs(dir)
 	
 	
 	def __init__(self, file):
