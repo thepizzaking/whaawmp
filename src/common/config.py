@@ -134,17 +134,17 @@ class clparser:
 		# Activate fullscreen (only if playing a video)
 		self.parser.add_option("-f", "--fullscreen",
 		                       action="store_true", dest="fullscreen", default=False,
-		                       help="Play the file in fullscreen mode.")
+		                       help=_("Play the file in fullscreen mode"))
 		# Set the volume of the player.
 		self.parser.add_option("-v", "--volume", dest="volume",
 		                       default=None, metavar="VOL",
-		                       help="Sets the player's volume to VOL (0-100)")
+		                       help=_("Sets the player's volume to VOL (0-100)"))
 		# Set the audio sink to that specified.
 		self.parser.add_option("--audiosink", dest="audiosink",
 		                       default=None, metavar="SINK",
-		                       help="Sets the player's audio ouput to SINK")
+		                       help=_("Sets the player's audio ouput to SINK"))
 		# Set the video sink.
 		self.parser.add_option("--videosink", dest="videosink",
 		                       default=None, metavar="SINK",
-		                       help="Sets the player's video ouput to SINK")
+		                       help=_("Sets the player's video ouput to SINK"))
 		
