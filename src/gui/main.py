@@ -532,12 +532,17 @@ class mainWindow:
 	
 	
 	def drawMovieWindowImage(self):
-		# Get the image file.
-		image = '../images/whaawmp.png'
-		# Create a pixbuf from the file.
-		pixbuf = gtk.gdk.pixbuf_new_from_file(image)
-		# Draw the image on the file.
-		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, pixbuf, 0, 0, 0, 0)
+		try:
+			# Try and draw the image.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+		except:
+			# If that fails, we need to get the image from the file.
+			# Get the image file.
+			image = '../images/whaawmp.png'
+			# Create a pixbuf from the file.
+			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
+			# Draw the image on the file.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
 		
 	
 	def showAboutDialogue(self, widget):

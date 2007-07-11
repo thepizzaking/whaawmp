@@ -174,7 +174,11 @@ class player:
 	
 	def enableVisualisation(self):
 		# Enable the visualisaion.
-		self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+		try:
+			self.player.set_property('vis-plugin', self.visPlugin)
+		except:
+			self.visPlugin = gst.element_factory_make('goom')
+			self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
 	
 	def disableVisualisation(self):
 		# Diable the visualisaion.
