@@ -23,7 +23,7 @@ gettext.install('whaawmp', unicode=1)
 
 __sName__='whaawmp'
 __lName__=_('Whaaw! Media Player')
-__version__='0.1.7'
+__version__='0.1.8'
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
