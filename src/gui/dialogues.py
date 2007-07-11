@@ -114,6 +114,13 @@ class PreferencesDialogue:
 		self.window = self.wTree.get_widget(windowname)
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
+		# Disable video options that aren't available.
+		if (not self.player.colourSettings):
+			for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+				self.wTree.get_widget('hsc' + x).set_sensitive(False)
+			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
+		if (not self.player.aspectSettings):
+			self.wTree.get_widget('chkForceAspect').set_sensitive(False)
 		
 		# Load the preferences.
 		self.loadPreferences()
