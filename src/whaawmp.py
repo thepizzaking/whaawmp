@@ -3,9 +3,9 @@
 #  Whaaw! Media Player for playing any type of media.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
 #
-#       This program is free software; you can redistribute it and/or modify
+#       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
-#       the Free Software Foundation; either version 2 of the License, or
+#       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
 #       This program is distributed in the hope that it will be useful,
@@ -14,9 +14,7 @@
 #       GNU General Public License for more details.
 #       
 #       You should have received a copy of the GNU General Public License
-#       along with this program; if not, write to the Free Software
-#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#       MA 02110-1301, USA.
+#       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os, os.path
 from optparse import OptionParser
@@ -25,7 +23,7 @@ gettext.install('whaawmp', unicode=1)
 
 __sName__='whaawmp'
 __lName__=_('Whaaw! Media Player')
-__version__='0.1.6'
+__version__='0.1.8'
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
@@ -41,7 +39,7 @@ for x in sys.argv:
 		sys.exit(0)
 
 from gui import main as whaawmp
-import config
+from common import config
 
 # Change the process name (only for python >= 2.5, or if ctypes installed):
 try:
@@ -64,7 +62,7 @@ class main:
 			self.origDir = args[len(args)-1]
 
 		# Open the settings.
-		cfgfile = "%s%s.config%swhaawmp%sconfig.ini" % (os.getenv('HOME'), os.sep, os.sep, os.sep)
+		cfgfile = os.path.join(os.getenv('HOME'), '.config', 'whaawmp', 'config.ini')
 		self.cfg = config.config(cfgfile)
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, __version__, options, args)

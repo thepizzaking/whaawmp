@@ -3,9 +3,9 @@
 # Other Dialogues
 # Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
 #
-#       This program is free software; you can redistribute it and/or modify
+#       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
-#       the Free Software Foundation; either version 2 of the License, or
+#       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
 #       This program is distributed in the hope that it will be useful,
@@ -14,14 +14,12 @@
 #       GNU General Public License for more details.
 #       
 #       You should have received a copy of the GNU General Public License
-#       along with this program; if not, write to the Free Software
-#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#       MA 02110-1301, USA.
+#       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-import lists
+from common import lists
 
 class AboutDialogue:
 	def __init__(self, gladefile, parent, version):
@@ -58,6 +56,11 @@ class OpenFile:
 		for x in lists.compatFiles():
 			filter.add_mime_type(x)
 		dlg.add_filter(filter)
+		# How about an all files one too.
+		filter = gtk.FileFilter()
+		filter.set_name(_("All Files"))
+		filter.add_pattern('*')
+		dlg.add_filter(filter)
 		
 		# Run the dialogue, then hide it.
 		res = dlg.run()
@@ -75,6 +78,7 @@ class PreferencesDialogue:
 	def __init__(self, main, parent):
 		## Shows the preferences dialogue.
 		# Sets some variables for easier access.
+		self.main = main
 		self.cfg = main.cfg
 		self.player = main.player
 		
@@ -95,6 +99,8 @@ class PreferencesDialogue:
 		# Create a dictionary for checkboxes and their associated settings.
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
+		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
+		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
@@ -164,7 +170,57 @@ class PreferencesDialogue:
 		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
 			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
+			self.main.videoWindowConfigure(self.main.movieWindow)
 
+
+
+class PlayDVD:
+	def __init__(self, parent):
+		## Creates the play DVD dialogue.
+		# Create the dialogue.
+		dlg = gtk.Dialog(_("DVD Options"), parent,
+		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
+		
+		# Create the Labels, checkboxes and spin buttons.
+		label = gtk.Label(_("Select options:"))
+		label.set_alignment(0, 0.5)
+		chkTitle = gtk.CheckButton(_("Title: "))
+		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 1))
+		# Add them to a dictionary so I can handle all the checkboxes with
+		# a single function.
+		self.spnDic = { chkTitle : spnTitle }
+		# Start the packing.
+		dlg.vbox.pack_start(label)
+		
+		for x in self.spnDic:
+			self.spnDic[x].set_sensitive(False)
+			x.connect("toggled", self.chkToggled)
+			
+			# Some of these options don't work all that well yet, so disable
+			# them unless specifically told to show them.
+			hbox = gtk.HBox()
+			hbox.pack_start(x)
+			hbox.pack_start(self.spnDic[x])
+			dlg.vbox.pack_start(hbox)
+		
+		
+		# Show all the widgets, then run it.
+		dlg.show_all()
+		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
+		dlg.hide()
+		
+		# Save all the values.
+		self.Title = int(spnTitle.get_value()) if (chkTitle.get_active()) else None
+		
+		# Finally, destroy the widget.
+		dlg.destroy()
+	
+	
+	def chkToggled(self, widget):
+		# Enables and disables the spin buttons when the checkboxes are checked.
+		self.spnDic[widget].set_sensitive(widget.get_active())
+	
 
 
 class OpenURI:
@@ -193,4 +249,75 @@ class OpenURI:
 		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
 		# Destroy the dialogue.
 		dlg.destroy()
+
+
+class SelectAudioTrack:
+	def __init__(self, parent, tracks, player):
+		self.player = player
+		cur = player.getAudioTrack()
+		# Creates an audio track selector dialogue.
+		dlg = gtk.Dialog(_("Select Tracks"), parent,
+		                  buttons = (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
 		
+		# Create the label.
+		label = gtk.Label(_("Audio:"))
+		label.set_alignment(0, 0.5)
+		dlg.vbox.pack_start(label)
+		# For all the tracks, create a radio button.
+		group = gtk.RadioButton()
+		buttons = []
+		for x in range(len(tracks)):
+			button = gtk.RadioButton(group, '%d. %s' % (x, tracks[x]))
+			button.connect('toggled', self.buttonToggled, x)
+			dlg.vbox.pack_start(button)
+			buttons.append(button)
+		
+		# Set the current active button to active.
+		buttons[cur].set_active(True)
+		
+		# Show all the dialogue and run it.
+		dlg.show_all()
+		dlg.run()
+		dlg.destroy()
+	
+	def buttonToggled(self, widget, track):
+		## When a button is toggled.
+		if (self.player.getAudioTrack() != track):
+			# If the current track differs to the selected one.
+			# Get the current time, change the track, seek to 0 to activate
+			# the new track, then seek back to the original position.
+			# (Just changing the track didn't work)
+			t = self.player.getPlayed()
+			self.player.setAudioTrack(track)
+			self.player.seek(0)
+			self.player.seek(t)
+
+
+class ErrorMsgBox:
+	def __init__(self, parent, message, title=_('Error!')):
+		## Creates an error message box (Use the MsgBox, just add an image).
+		icon = gtk.image_new_from_stock('gtk-dialog-error', gtk.ICON_SIZE_DIALOG)
+		# Run the message box, with the parameters already passed.
+		MsgBox(parent, message, title, icon)
+
+
+class MsgBox:
+	def __init__(self, parent, message, title=_('Message'), icon=None):
+		## Creates a message box containing the message 'message'.
+		# Create the dialogue.
+		dlg = gtk.Dialog(title, parent,
+		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
+		
+		# Create the label containing the message & pack it in.
+		hbox = gtk.HBox()
+		if (icon):
+			# If an icon was specified, pack it first.
+			hbox.pack_start(icon)
+		label = gtk.Label(message)
+		hbox.pack_start(label)
+		dlg.vbox.pack_start(hbox)
+		# Show then destroy the dialogue.
+		dlg.show_all()
+		dlg.run()
+		dlg.destroy()
+

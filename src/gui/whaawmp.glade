@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Sun Jul  8 11:43:06 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Tue Jul 10 20:01:49 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -12,7 +12,6 @@
     <property name="receives_default">True</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="title" translatable="yes">Whaaw! Media Player</property>
-    <signal name="motion_notify_event" handler="on_main_motion_notify_event"/>
     <signal name="key_press_event" handler="on_main_key_press_event"/>
     <signal name="drag_data_received" handler="on_main_drag_data_received"/>
     <signal name="delete_event" handler="on_main_delete_event"/>
@@ -42,6 +41,15 @@
                         <property name="use_underline">True</property>
                         <property name="use_stock">True</property>
                         <signal name="activate" handler="on_mnuiOpen_activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="mnuiPlayDVD">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Play DVD</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
                       </widget>
                     </child>
                     <child>
@@ -113,6 +121,16 @@
                         <property name="label" translatable="yes">Toggle Fullscreen</property>
                         <property name="use_underline">True</property>
                         <signal name="activate" handler="on_mnuiFS_activate"/>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkMenuItem" id="mnuiAudioTrack">
+                        <property name="visible">True</property>
+                        <property name="sensitive">False</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Audio Tracks</property>
+                        <property name="use_underline">True</property>
+                        <signal name="activate" handler="on_mnuiAudioTrack_activate"/>
                       </widget>
                     </child>
                   </widget>
@@ -214,16 +232,11 @@
               <widget class="GtkButton" id="btnPlayToggle">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="tooltip" translatable="yes">Play/Pause</property>
                 <property name="focus_on_click">False</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnPlayToggle_clicked"/>
                 <child>
-                  <widget class="GtkImage" id="image1">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="stock">gtk-media-play</property>
-                  </widget>
+                  <placeholder/>
                 </child>
               </widget>
               <packing>
@@ -312,9 +325,9 @@
     <property name="website">http://home.gna.org/whaawmp/</property>
     <property name="license">Copyright (C) Jeff Bailes, 2007.
 
-This program is free software; you can redistribute it and/or modify it
+This program is free software: you can redistribute it and/or modify it
 under the terms of the GNU General Public License as published by the Free
-Software Foundation; either version 2 of the Licence, or (at your option)
+Software Foundation, either version 3 of the Licence, or (at your option)
 any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT
@@ -323,8 +336,7 @@ FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
 more details.
 
 You should have received a copy of the GNU General Public License along with
-this program; if not, write to the Free Software Foundation, Inc., 59 Temple
-Place, Suite 330, Boston, MA  02111-1307  USA.
+this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 </property>
     <property name="authors">Jeff Bailes &lt;thepizzaking@gmail.com&gt;, 2007.</property>
@@ -405,6 +417,38 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                   </packing>
                 </child>
                 <child>
+                  <widget class="GtkCheckButton" id="chkShowTimeRemaining">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Show the time remaining instead of total time in the progress bar.</property>
+                    <property name="label" translatable="yes">Show Time Remaining</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="chkEnableVisualisation">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Show visualisations when no video track is available (Current stream must be restarted).</property>
+                    <property name="label" translatable="yes">Enable Visualisations (Requires stream restart)</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">3</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -436,7 +480,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">2</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
                 <child>
@@ -471,7 +515,7 @@ Place, Suite 330, Boston, MA  02111-1307  USA.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">3</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
               </widget>

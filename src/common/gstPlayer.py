@@ -3,9 +3,9 @@
 #  A player module for gstreamer.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
 #
-#       This program is free software; you can redistribute it and/or modify
+#       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
-#       the Free Software Foundation; either version 2 of the License, or
+#       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
 #       This program is distributed in the hope that it will be useful,
@@ -14,19 +14,17 @@
 #       GNU General Public License for more details.
 #       
 #       You should have received a copy of the GNU General Public License
-#       along with this program; if not, write to the Free Software
-#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#       MA 02110-1301, USA.
+#       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import pygst
 pygst.require('0.10')
 import gst
+from common import useful
 
-timePerSec = 1000000000
 
 class player:
-	colourSettings = True
-	aspectSettings = True
+	colourSettings = False
+	aspectSettings = False
 	
 	def play(self):
 		# Starts the player playing.
@@ -38,7 +36,7 @@ class player:
 	
 	def stop(self):
 		# Stops the player.
-		self.player.set_state(gst.STATE_NULL)
+		self.player.set_state(gst.STATE_READY)
 	
 	
 	def isPlaying(self):
@@ -47,7 +45,7 @@ class player:
 		
 	def isStopped(self):
 		# Returns true if the player is stopped, false if not.
-		return self.getState() == gst.STATE_NULL
+		return (self.getState() in [ gst.STATE_NULL, gst.STATE_READY ])
 	
 	def isPaused(self):
 		# Returns true if the player is paused, false if not.
@@ -55,7 +53,7 @@ class player:
 	
 	def playingVideo(self):
 		# If current-video is -1, a video is not playing.
-		return self.player.get_property('current-video') != -1
+		return (self.player.get_property('current-video') != -1 or self.player.get_property('vis-plugin') != None)
 	
 	
 	def getState(self):
@@ -69,11 +67,11 @@ class player:
 	
 	def getPlayedSec(self):
 		# Returns the played seconds.
-		return self.getPlayed() / timePerSec
+		return useful.nsTos(self.getPlayed())
 	
 	def getDurationSec(self):
 		# Returns the total duration seconds.
-		return self.getDuration() / timePerSec
+		return useful.nsTos(self.getDuration())
 	
 	def getPlayed(self):
 		# Returns the played time (not in seconds).
@@ -85,6 +83,10 @@ class player:
 			return float(self.player.query_duration(gst.FORMAT_TIME)[0])
 		except:
 			return -1
+	
+	def getStreamsInfo(self):
+		# Returns an array of stream information.
+		return self.player.get_property('stream-info-value-array')
 	
 	
 	def seekFrac(self, frac):
@@ -112,7 +114,9 @@ class player:
 	
 	
 	def prepareImgSink(self, bus, message, far, b, c, h, s):
+		# Sets the image sink.
 		self.imagesink = message.src
+		# Sets force aspect ratio, brightness etc according to options passed.
 		self.setForceAspectRatio(far)
 		self.setBrightness(b)
 		self.setContrast(c)
@@ -168,6 +172,19 @@ class player:
 		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
 	
 	
+	def enableVisualisation(self):
+		# Enable the visualisaion.
+		try:
+			self.player.set_property('vis-plugin', self.visPlugin)
+		except:
+			self.visPlugin = gst.element_factory_make('goom')
+			self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+	
+	def disableVisualisation(self):
+		# Diable the visualisaion.
+		self.player.set_property('vis-plugin', None)
+	
+	
 	def getBus(self):
 		## Gets and returns the bus of the player.
 		bus = self.player.get_bus()
@@ -180,6 +197,21 @@ class player:
 		self.player.set_property('volume', vol / 100)
 	
 	
+	def setAudioTrack(self, track):
+		## Sets the audio track to play.
+		self.player.set_property('current-audio', track)
+	
+	
+	def getAudioTrack(self):
+		## Gets the current audio track.
+		return self.player.get_property('current-audio')
+	
+	
+	def setSubtitleTrack(self, track):
+		## Sets the subtitle track to play.
+		self.player.set_property('current-text', track)
+	
+	
 	def __init__(self):
 		## Creates and prepares a player.
 		# Create the player.
@@ -189,17 +221,3 @@ class player:
 		bus = self.getBus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
-
-
-class messages:
-	## Checks the message info (is there a better way to do this?)
-	
-	def isEOS(self):
-		return self.message.type == gst.MESSAGE_EOS
-	
-	def isError(self):
-		return self.message.type == gst.MESSAGE_ERROR
-	
-	
-	def __init__(self, message):
-		self.message = message

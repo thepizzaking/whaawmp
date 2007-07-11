@@ -3,9 +3,9 @@
 #  Whaaw! Media Player main window.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
 #
-#       This program is free software; you can redistribute it and/or modify
+#       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
-#       the Free Software Foundation; either version 2 of the License, or
+#       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
 #       This program is distributed in the hope that it will be useful,
@@ -14,9 +14,7 @@
 #       GNU General Public License for more details.
 #       
 #       You should have received a copy of the GNU General Public License
-#       along with this program; if not, write to the Free Software
-#       Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
-#       MA 02110-1301, USA.
+#       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import sys, os, os.path, urllib
 import pygtk
@@ -25,9 +23,10 @@ import gtk, gobject
 gobject.threads_init()
 import gtk.glade
 
-import player
+from common import gstPlayer as player
 from gui import dialogues
-import lists
+from common import lists, useful
+from common import gstTools as playerTools
 
 class mainWindow:
 	gladefile = "gui" + os.sep + "whaawmp.glade"
@@ -50,7 +49,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, draw the backing image.
-		if (self.player.isStopped()): self.drawMovieWindowImage()
+		if (not self.player.playingVideo()): self.drawMovieWindowImage()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -192,11 +191,10 @@ class mainWindow:
 	
 	def setImageSink(self, widget=None):
 		## Sets the image sink to 'widget' or whichever it discovers.
-		## For some reason it I pass the widgets from other functions
-		## to here the program likes to crash.
 		if (not widget):
-			# If no widget was passed, discover which it should use.
-			widget = self.fsVideoWin if (self.fsActive) else self.movieWindow
+			# If no widget was passed, use the right one. (This is left from
+			# when I had a separate fullscreen window, maybe it should be fixed?)
+			widget = self.movieWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -261,18 +259,48 @@ class mainWindow:
 		self.player.setAudioSink(None if (asink == "default") else asink)
 		vsink = self.cfg.getStr("video/videosink")
 		self.player.setVideoSink(None if (vsink == "default") else vsink)
-		# Initialise the progress bar update timer.
-		self.tmrProgress = None
 	
 	
 	def onPlayerMessage(self, bus, message):
-		mes = player.messages(message)
-		if (mes.isEOS()):
+		t = playerTools.messageType(message)
+		if (t == 'eos'):
 			# At the end of a stream, stop the player.
 			self.stopPlayer()
-		elif (mes.isError()):
+		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
+			# Show an error about the failure.
+			msg = message.parse_error()
+			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
+		elif (t == 'state_changed'):
+			self.onPlayerStateChange(message)
+	
+	
+	def onPlayerStateChange(self, message):
+		# On a state change.
+		msg = message.parse_state_changed()
+		if (playerTools.isPlayMsg(msg)):
+			# The player has started.
+			# Get the array of audio tracks.
+			self.audioTracks = playerTools.getAudioLangArray(self.player)
+			# Only enable the audio track menu item if there's more than one audio track.
+			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
+			# Set the play/pause image to pause.
+			self.playPauseChange(True)
+			# Create the timers.
+			self.createPlayTimers()
+			
+		elif (playerTools.isPauseMsg(msg)):
+			# It's just been paused or stopped.
+			self.playPauseChange(False)
+			# Destroy the play timers.
+			self.destroyPlayTimers()
+			# Update the progress bar.
+			self.progressUpdate()
+			
+		if (playerTools.isStopMsg(msg)):
+			# Draw the background image.
+			self.drawMovieWindowImage()
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -325,6 +353,8 @@ class mainWindow:
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
 		self.stopPlayer()
+		# Set the audio track to 0
+		self.player.setAudioTrack(0)
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
@@ -338,11 +368,17 @@ class mainWindow:
 			# Set the URI to the file's one.
 			self.player.setURI(file)
 			# Start the player.
-			self.startPlayer()
+			self.playPlayer()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
 			self.playFile(None)
+	
+	
+	def playDVD(self, title=None):
+		## Plays a DVD
+		# Start the player playing the DVD.
+		self.playFile('dvd://%s' % (title if (title != None) else ""))
 			
 	
 	def togglePlayPause(self, widget=None):
@@ -359,7 +395,7 @@ class mainWindow:
 			self.pausePlayer()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.startPlayer()
+			self.playPlayer()
 	
 	
 	def minuteTimer(self):
@@ -397,10 +433,10 @@ class mainWindow:
 		p, t = int(pld), int(tot)
 		# Add the data to the progress bar's text.
 		text = ""
-		text += "%d:%02d" % (p / 60, p % 60)
+		text += useful.secToStr(p)
 		if (tot >= 0):
 			text += " / "
-			text += "%d:%02d" % (t / 60, t % 60)
+			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
 		
 	
@@ -465,50 +501,23 @@ class mainWindow:
 		self.cfg.set("audio/volume", vol)
 	
 	
-	def startPlayer(self, widget=None):
-		## Starts the player playing.
-		# Create the timers.
-		self.createPlayTimers()
-		# Actually start the player.
-		self.player.play()
-		# Set the play/pause image to pause.
-		self.setPlayPauseImage(1)
-		
-	def pausePlayer(self, widget=None):
-		## Pauses the player.
-		# Destroy the play timers.
-		self.destroyPlayTimers()
-		# Pause the player.
-		self.player.pause()
-		# Set the play/pause image to play.
-		self.setPlayPauseImage(0)
-	
-	def stopPlayer(self, widget=None):
-		## Stops the player.
-		# Destroy the timers.
-		self.destroyPlayTimers()
-		# Stop the player.
-		self.player.stop()
-		# Set the play/pause image to play.
-		self.setPlayPauseImage(0)
-		# Update the progress bar.
-		self.progressUpdate()
-		# Draw the background image.
-		self.drawMovieWindowImage()
-	
-	
-	def setPlayPauseImage(self, playing):
+	def playPauseChange(self, playing):
 		## Changes the play/pause image according to the argument.
 		# Set the size.
 		size = gtk.ICON_SIZE_SMALL_TOOLBAR
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
 		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
+		btn = self.wTree.get_widget("btnPlayToggle")
 		# Actually set the icon.
-		self.wTree.get_widget("btnPlayToggle").set_image(img)
+		btn.set_image(img)
+		# Also set the tooltip.
+		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
 	
 	
 	def createPlayTimers(self):
+		# Destroy the timers first to avoid about 20 of them.
+		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
 		self.tmrSec = gobject.timeout_add(1000, self.secondTimer)
 		self.tmrMin = gobject.timeout_add(60000, self.minuteTimer)
@@ -523,12 +532,17 @@ class mainWindow:
 	
 	
 	def drawMovieWindowImage(self):
-		# Get the image file.
-		image = '../images/whaawmp.png'
-		# Create a pixbuf from the file.
-		pixbuf = gtk.gdk.pixbuf_new_from_file(image)
-		# Draw the image on the file.
-		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, pixbuf, 0, 0, 0, 0)
+		try:
+			# Try and draw the image.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+		except:
+			# If that fails, we need to get the image from the file.
+			# Get the image file.
+			image = '../images/whaawmp.png'
+			# Create a pixbuf from the file.
+			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
+			# Draw the image on the file.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
 		
 	
 	def showAboutDialogue(self, widget):
@@ -538,6 +552,12 @@ class mainWindow:
 	def showPreferencesDialogue(self, widget):
 		dialogues.PreferencesDialogue(self, self.mainWindow)
 	
+	def showPlayDVDDialogue(self, widget):
+		# Create the dialogue.
+		dlg = dialogues.PlayDVD(self.mainWindow)
+		if (dlg.res):
+			self.playDVD(dlg.Title)
+	
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.
 		dlg = dialogues.OpenURI(self.mainWindow)
@@ -545,12 +565,38 @@ class mainWindow:
 			# If something was input, play it.
 			self.playFile(dlg.URI)
 	
+	def showAudioTracksDialogue(self, widget):
+		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
+		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
+	
+	def stopPlayer(self, widget=None):
+		# Just a transfer call as player.stop takes only 1 argument.
+		self.player.stop()
+	
+	def playPlayer(self):
+		# Start the player.
+		# Set the visualisation if requested.
+		if (self.cfg.getBool('gui/enablevisualisation')):
+			self.player.enableVisualisation()
+		else:
+			self.player.disableVisualisation()
+		
+		self.player.play()
+	
+	def pausePlayer(self):
+		# Just a transfer call in case I want to do anything before pausing.
+		self.player.pause()
+	
 	
 	def __init__(self, main, __version__, options, args):
 		# Set the last folder to the directory from which the program was called.
 		self.lastFolder = main.origDir
 		self.cfg = main.cfg
 		self.__version__ = __version__
+		self.options = options
+		
+		# Create & prepare the player for playing.
+		self.preparePlayer()
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(self.gladefile, windowname)
@@ -577,7 +623,9 @@ class mainWindow:
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
 		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
-		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue }
+		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
+		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
@@ -586,10 +634,10 @@ class mainWindow:
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
+		# Create a tooltips instance for use in the code.
+		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
-		# Prepare the player for playing.
-		self.preparePlayer()
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
@@ -598,16 +646,22 @@ class mainWindow:
 		self.fsActive = False
 		self.controlsShown = True
 		self.seeking = False
+		# Call the function to change the play/pause image.
+		self.playPauseChange(False)
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
 			filename = args[0]
 			if ((not os.path.isdir(filename) and os.path.exists(filename)) or '://' in filename):
+				# If the file isn't a directory, and it exists, OR :// is in the
+				# filename (ie. it's a URI), play it.
 				self.playFile(filename)
 			else:
+				# Otherwise, try and play a file made from 'originalDirectory/arg'.
 				filename = main.origDir + os.sep + filename
 				if (not os.path.isdir(filename) and os.path.exists(filename)):
 					self.playFile(filename)
-			
+		
+		# Update the progress bar.
 		self.progressUpdate()
 		
 		# Configure the video area.
