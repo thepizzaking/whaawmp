@@ -18,7 +18,7 @@
 
 def nsTos(ns):
 	## Converts nanoseconds to seconds.
-	return ns / 1000000000
+	return float(ns) / 1000000000
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S

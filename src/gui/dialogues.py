@@ -33,7 +33,7 @@ class AboutDialogue:
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
 		
-		# Run the destroy the dialogue.
+		# Run, then destroy the dialogue.
 		dlg.run()
 		dlg.destroy()
 
@@ -43,7 +43,7 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = gtk.FileChooserDialog(_("Choose a file"), parent,
+		dlg = gtk.FileChooserDialog(_("Choose a file to Open"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -140,7 +140,7 @@ class PreferencesDialogue:
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
 		for x in self.adjDic:
-			x.set_value(self.cfg.getInt(self.adjDic[x]))
+			x.set_value(self.cfg.getFloat(self.adjDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
@@ -185,7 +185,7 @@ class PlayDVD:
 	def __init__(self, parent):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("DVD Options"), parent,
+		dlg = gtk.Dialog(_("Play DVD"), parent,
 		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
@@ -234,7 +234,7 @@ class OpenURI:
 	def __init__(self, parent):
 		## Creates an openURI dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("Input a URI"), parent,
+		dlg = gtk.Dialog(_("Open a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		

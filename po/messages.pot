@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-11 13:39+1000\n"
+"POT-Creation-Date: 2007-07-12 13:44+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,12 +20,12 @@ msgstr ""
 msgid "Whaaw! Media Player"
 msgstr ""
 
-#: ../src/whaawmp.py:57
+#: ../src/whaawmp.py:58
 msgid " [options] filename"
 msgstr ""
 
 #: ../src/gui/dialogues.py:46
-msgid "Choose a file"
+msgid "Choose a file to Open"
 msgstr ""
 
 #: ../src/gui/dialogues.py:55
@@ -36,52 +36,52 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: ../src/gui/dialogues.py:181
-msgid "DVD Options"
+#: ../src/gui/dialogues.py:188 ../src/gui/whaawmp.glade.h:21
+msgid "Play DVD"
 msgstr ""
 
-#: ../src/gui/dialogues.py:186
+#: ../src/gui/dialogues.py:193
 msgid "Select options:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:188
+#: ../src/gui/dialogues.py:195
 msgid "Title: "
 msgstr ""
 
-#: ../src/gui/dialogues.py:230
-msgid "Input a URI"
+#: ../src/gui/dialogues.py:237
+msgid "Open a URI"
 msgstr ""
 
-#: ../src/gui/dialogues.py:235
+#: ../src/gui/dialogues.py:242
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:259
+#: ../src/gui/dialogues.py:266
 msgid "Select Tracks"
 msgstr ""
 
-#: ../src/gui/dialogues.py:263
+#: ../src/gui/dialogues.py:270
 msgid "Audio:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:297 ../src/gui/main.py:274
+#: ../src/gui/dialogues.py:304 ../src/gui/main.py:273
 msgid "Error!"
 msgstr ""
 
-#: ../src/gui/dialogues.py:305
+#: ../src/gui/dialogues.py:312
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:374
+#: ../src/gui/main.py:359
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:515
+#: ../src/gui/main.py:498
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:515
+#: ../src/gui/main.py:498
 msgid "Play"
 msgstr ""
 
@@ -163,10 +163,6 @@ msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:20
 msgid "Open URI"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:21
-msgid "Play DVD"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:22

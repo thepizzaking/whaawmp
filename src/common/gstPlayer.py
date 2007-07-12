@@ -75,12 +75,12 @@ class player:
 	
 	def getPlayed(self):
 		# Returns the played time (not in seconds).
-		return float(self.player.query_position(gst.FORMAT_TIME)[0])
+		return self.player.query_position(gst.FORMAT_TIME)[0]
 	
 	def getDuration(self):
 		# Returns the duration (not in seconds).
 		try:
-			return float(self.player.query_duration(gst.FORMAT_TIME)[0])
+			return self.player.query_duration(gst.FORMAT_TIME)[0]
 		except:
 			return -1
 	

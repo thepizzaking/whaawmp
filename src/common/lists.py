@@ -82,7 +82,7 @@ def defaultOptions():
 	return dic
 
 
-## Some gstreamer lists.
+## Some gstreamer lists (well one).
 def gstStreamType():
 	## Returns a list of gstreamer list types (in order too!)
 	types = [ 'unknown', 'audio', 'video', 'text', 'element' ]

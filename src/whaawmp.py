@@ -41,7 +41,8 @@ for x in sys.argv:
 from gui import main as whaawmp
 from common import config
 
-# Change the process name (only for python >= 2.5, or if ctypes installed):
+# Change the process name (only for python >= 2.5, or if ctypes installed)
+# Though, this program requires 2.5 anyway?:
 try:
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
