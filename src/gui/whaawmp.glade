@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Thu Jul 12 15:37:08 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Thu Jul 12 16:46:37 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -49,21 +49,35 @@
                           </widget>
                         </child>
                         <child>
-                          <widget class="GtkMenuItem" id="mnuiPlayDVD">
+                          <widget class="GtkImageMenuItem" id="mnuiPlayDVD">
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">Play DVD</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image2">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-cdrom</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
-                          <widget class="GtkMenuItem" id="mnuiOpenURI">
+                          <widget class="GtkImageMenuItem" id="mnuiOpenURI">
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">Open URI</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiOpenURI_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image4">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-network</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
@@ -97,12 +111,19 @@
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
-                          <widget class="GtkMenuItem" id="mnuiPreferences">
+                          <widget class="GtkImageMenuItem" id="mnuiPreferences">
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">_Preferences</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPreferences_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image3">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-preferences</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                       </widget>
@@ -120,12 +141,19 @@
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
-                          <widget class="GtkMenuItem" id="mnuiFS">
+                          <widget class="GtkImageMenuItem" id="mnuiFS">
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="label" translatable="yes">Toggle Fullscreen</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiFS_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image1">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-fullscreen</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
@@ -290,7 +318,8 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">Leave Fullscreen</property>
+                <property name="label" translatable="yes">gtk-leave-fullscreen</property>
+                <property name="use_stock">True</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnLeaveFullscreen_clicked"/>
               </widget>
