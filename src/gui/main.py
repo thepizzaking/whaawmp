@@ -682,9 +682,6 @@ class mainWindow:
 				if (not os.path.isdir(filename) and os.path.exists(filename)):
 					self.playFile(filename)
 		
-		# Update the progress bar.
-		self.progressUpdate()
-		
 		#Configure the movie window.
 		self.videoWindowConfigure(self.movieWindow)
 		if (options.fullscreen):
