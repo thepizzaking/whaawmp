@@ -286,8 +286,8 @@ class mainWindow:
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Set the play/pause image to pause.
 			self.playPauseChange(True)
-			# Show the video window if the stream has a video track.
-			if (playerTools.hasVideoTrack(self.player)): self.showVideoWindow()
+			# Show the video window if the stream has a video track (or visualisations).
+			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')): self.showVideoWindow()
 			# Create the timers.
 			self.createPlayTimers()
 			
