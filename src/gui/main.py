@@ -286,6 +286,8 @@ class mainWindow:
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Set the play/pause image to pause.
 			self.playPauseChange(True)
+			# Show the video window if the stream has a video track.
+			if (playerTools.hasVideoTrack(self.player)): self.showVideoWindow()
 			# Create the timers.
 			self.createPlayTimers()
 			
@@ -310,8 +312,6 @@ class mainWindow:
 		
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
-			# Make sure the video window is shown.
-			self.showVideoWindow()
 			# Get the properties of the video.(Brightness etc)
 			far = self.cfg.getBool("video/force-aspect-ratio")
 			b = self.cfg.getInt("video/brightness")

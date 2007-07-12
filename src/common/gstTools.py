@@ -71,3 +71,11 @@ def getAudioLangArray(player):
 			tracks.append(lang)
 	# Return the tracks.
 	return tracks
+
+def hasVideoTrack(player):
+	## Returns true if the stream has a video track.
+	for x in player.getStreamsInfo():
+		# For all streams in the file, return true if it's a video stream.
+		if (streamType(x) == 'video'): return True
+	# Otherwise return false.
+	return False
