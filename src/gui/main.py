@@ -328,7 +328,7 @@ class mainWindow:
 		# Split all the files that were input.
 		uris = selection_data.data.strip().split()
 		# Can only play one file at once, so use the first one.
-		uri = uris[0]
+		uri = urllib.url2pathname(uris[0])
 		
 		# Actually play the file.
 		self.playFile(uri)
