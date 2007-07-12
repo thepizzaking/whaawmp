@@ -310,6 +310,8 @@ class mainWindow:
 		
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
+			# Make sure the video window is shown.
+			self.showVideoWindow()
 			# Get the properties of the video.(Brightness etc)
 			far = self.cfg.getBool("video/force-aspect-ratio")
 			b = self.cfg.getInt("video/brightness")
@@ -423,6 +425,23 @@ class mainWindow:
 			text += " / "
 			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
+	
+	
+	def showVideoWindow(self):
+		## Shows the video window.
+		# Set the packing type of the video window to expand.
+		self.hboxVideo.set_child_packing(self.movieWindow, True, True, 0, 'start')
+		# Set the video window's size too.
+		self.movieWindow.set_size_request(480, 360)
+	
+	def hideVideoWindow(self):
+		## Hides the video window.
+		if (self.movieWindow.get_size_request() != (-1, -1)):
+			# Set the packing type of the video window to not.
+			self.hboxVideo.set_child_packing(self.movieWindow, False, True, 0, 'start')
+			# Set the video window's size to small.
+			self.movieWindow.set_size_request(-1, -1)
+			self.mainWindow.resize(1, 1)
 		
 	
 	def seekStart(self, widget, event):
@@ -515,17 +534,22 @@ class mainWindow:
 	
 	
 	def drawMovieWindowImage(self):
-		try:
-			# Try and draw the image.
-			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
-		except:
-			# If that fails, we need to get the image from the file.
-			# Get the image file.
-			image = '../images/whaawmp.png'
-			# Create a pixbuf from the file.
-			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
-			# Draw the image on the file.
-			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+		if (not self.cfg.getBool("gui/hidevideowindow")):
+			# If the video window is not set to be hidden on stop.
+			try:
+				# Try and draw the image.
+				self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+			except:
+				# If that fails, we need to get the image from the file.
+				# Get the image file.
+				image = '../images/whaawmp.png'
+				# Create a pixbuf from the file.
+				self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
+				# Draw the image on the file.
+				self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+		else:
+			# Otherwise, hide the video window.
+			self.hideVideoWindow()
 		
 	
 	def showOpenDialogue(self, widget=None):
@@ -630,6 +654,7 @@ class mainWindow:
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
+		self.hboxVideo = self.wTree.get_widget("hboxVideo")
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
@@ -659,7 +684,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		
-		# Configure the video area.
+		#Configure the movie window.
 		self.videoWindowConfigure(self.movieWindow)
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.

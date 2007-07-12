@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Wed Jul 11 17:48:09 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Thu Jul 12 15:04:39 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -168,7 +168,7 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox2">
+          <widget class="GtkHBox" id="hboxVideo">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
@@ -185,6 +185,9 @@
                 <signal name="enter_notify_event" handler="on_videoWindow_enter_notify_event"/>
                 <signal name="scroll_event" handler="on_videoWindow_scroll_event"/>
               </widget>
+              <packing>
+                <property name="expand">False</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkVBox" id="vboxVol">
@@ -267,6 +270,7 @@
             </child>
             <child>
               <widget class="GtkProgressBar" id="pbarProgress">
+                <property name="width_request">350</property>
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="text" translatable="yes"></property>
@@ -450,6 +454,22 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </packing>
                 </child>
                 <child>
+                  <widget class="GtkCheckButton" id="chkHideVideoWindow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Hide the video window when there is no video stream.</property>
+                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -481,7 +501,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">4</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -516,7 +536,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">5</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </widget>

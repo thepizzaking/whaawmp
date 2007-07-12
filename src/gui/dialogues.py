@@ -101,6 +101,7 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
 		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
+		                self.wTree.get_widget('chkHideVideoWindow') : "gui/hidevideowindow",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
