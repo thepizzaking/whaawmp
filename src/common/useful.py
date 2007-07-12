@@ -30,3 +30,10 @@ def secToStr(s):
 		return '%d:%02d:%02d' % (h, m, s)
 	else:
 		return '%d:%02d' % (m, s)
+
+def toRange(val, min, max):
+	## Returns a value within the requested range. ie, checks that val
+	## lies within it, if it doesn't make is so.
+	if (val < min): val = min
+	if (val > max): val = max
+	return val

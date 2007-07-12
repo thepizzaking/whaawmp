@@ -29,7 +29,7 @@ from common import lists, useful
 from common import gstTools as playerTools
 
 class mainWindow:
-	gladefile = "gui" + os.sep + "whaawmp.glade"
+	gladefile = os.path.join("gui", "whaawmp.glade")
 	
 	def quit(self, widget, event=None):
 		## Quits the program.
@@ -136,9 +136,9 @@ class mainWindow:
 			"1 1 1 1",
 			"       c None",
 			" "};"""
-		color = gtk.gdk.Color()
-		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, color, color)
-		invisible = gtk.gdk.Cursor(pix, pix, color, color, 0, 0)
+		colour = gtk.gdk.Color()
+		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, colour, colour)
+		invisible = gtk.gdk.Cursor(pix, pix, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
 		self.setCursor(invisible, widget)
 	
@@ -229,8 +229,7 @@ class mainWindow:
 		## Increases the volume by the amount given.
 		val = self.volAdj.value + change
 		# Make sure the new value is withing the bounds (0 <= val <= 100)
-		if (val > 100): val = 100
-		if (val < 0): val = 0
+		val = useful.toRange(val, 0, 100)
 		# Adjust the volume.
 		self.volAdj.value = val
 	
@@ -322,18 +321,6 @@ class mainWindow:
 			self.setImageSink()
 				
 	
-	def showOpenDialogue(self, widget=None):
-		## Shows the open file dialogue.
-		# Prepare the dialogue.
-		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
-
-		if (dlg.file):
-			# If the response is OK, play the file.		
-			self.playFile(dlg.file)
-			# Also set the last folder.
-			self.lastFolder = dlg.dir
-	
-	
 	def openDroppedFile(self, widget, context, x, y, selection_data, info, time):
 		## Opens a file after a drag and drop.
 		# Split all the files that were input.
@@ -341,12 +328,8 @@ class mainWindow:
 		# Can only play one file at once, so use the first one.
 		uri = uris[0]
 		
-		if (uri.startswith('file://')):
-			# If it starts with file, remove it.
-			file = urllib.url2pathname(uri[7:]).strip('\r\n\x00')
-		
 		# Actually play the file.
-		self.playFile(file)
+		self.playFile(uri)
 		# Finish the drag.
 		context.finish(True, False, time)
 	
@@ -487,9 +470,7 @@ class mainWindow:
 		maxX = widget.get_allocation().width
 		dur = self.player.getDurationSec()
 		# Convert the information to a fraction, and make sure 0 <= frac <= 1
-		frac = float(x) / maxX
-		if (frac > 1): frac = 1
-		if (frac < 0): frac = 0
+		frac = useful.toRange(float(x) / maxX, 0, 1)
 		
 		# Set the progress bar to the new data.
 		self.progressUpdate((frac * dur), dur)
@@ -547,6 +528,18 @@ class mainWindow:
 			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
 		
 	
+	def showOpenDialogue(self, widget=None):
+		## Shows the open file dialogue.
+		# Prepare the dialogue.
+		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
+
+		if (dlg.file):
+			# If the response is OK, play the file.		
+			self.playFile(dlg.file)
+			# Also set the last folder.
+			self.lastFolder = dlg.dir
+	
+	
 	def showAboutDialogue(self, widget):
 		dialogues.AboutDialogue(self.gladefile, self.mainWindow, self.__version__)
 	
@@ -563,7 +556,7 @@ class mainWindow:
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.
 		dlg = dialogues.OpenURI(self.mainWindow)
-		if (dlg.URI != None):
+		if (dlg.res):
 			# If something was input, play it.
 			self.playFile(dlg.URI)
 	

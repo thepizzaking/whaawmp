@@ -249,11 +249,11 @@ class OpenURI:
 		dlg.show_all()
 		
 		# Run the dialogue, then hide it.
-		res = dlg.run()
+		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
 		dlg.hide()
 		
 		# Save the URI if OK was pressed.
-		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
+		self.URI = entry.get_text() if (self.res) else None
 		# Destroy the dialogue.
 		dlg.destroy()
 
