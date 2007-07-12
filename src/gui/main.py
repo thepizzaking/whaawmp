@@ -629,7 +629,7 @@ class mainWindow:
 		        "on_pbarProgress_button_press_event" : self.seekStart,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
-		        "on_vscVolume_value_changed" : self.changeVolume,
+		        "on_hscVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullscreen,
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
@@ -637,6 +637,7 @@ class mainWindow:
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
+		        "on_hscVolume_scroll_event" : self.videoWindowScroll,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
@@ -653,7 +654,7 @@ class mainWindow:
 		self.progressBar = self.wTree.get_widget("pbarProgress")
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
-		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
+		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
