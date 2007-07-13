@@ -118,7 +118,7 @@ class mainWindow:
 		if (not self.player.playingVideo()): return
 		# Hide the cursor.
 		self.hideCursor(self.movieWindow)
-		if (self.fsActive):
+		if (self.fsActive()):
 			# Only hide the controls if we're in fullscreen.
 			# Hides all the widgets that should be hidden.
 			for x in lists.fsShowWMouse():
@@ -178,15 +178,10 @@ class mainWindow:
 	
 	def toggleFullscreen(self, widget=None):
 		# If the fullscreen window is shown, hide it, otherwise, show it.
-		if (self.fsActive):
+		if (self.fsActive()):
 			self.deactivateFullscreen()
 		else:
 			self.activateFullscreen()
-	
-	
-	def onMainStateEvent(self, widget, event):
-		## Flag fullscreen according to the event.
-		self.fsActive = (event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN)
 	
 	
 	def setImageSink(self, widget=None):
@@ -300,10 +295,10 @@ class mainWindow:
 			self.progressUpdate()
 			
 		if (playerTools.isStopMsg(msg)):
-			# Deactivate fullscreen.
-			if (self.fsActive): self.deactivateFullscreen()
 			# Draw the background image.
 			self.drawMovieWindowImage()
+			# Deactivate fullscreen.
+			if (self.fsActive()): self.deactivateFullscreen()
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -442,7 +437,7 @@ class mainWindow:
 			# Set the video window's size to small.
 			self.movieWindow.set_size_request(-1, -1)
 			# Make the height of the window as small as possible.
-			w = self.mainWindow.get_size()[0]
+			w = 1 if (self.fsActive()) else self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
 		
 	
@@ -552,6 +547,10 @@ class mainWindow:
 		else:
 			# Otherwise, hide the video window.
 			self.hideVideoWindow()
+	
+	def fsActive(self):
+		## Returns True if fullscreen is active.
+		return self.mainWindow.window.get_state() & gtk.gdk.WINDOW_STATE_FULLSCREEN
 		
 	
 	def showOpenDialogue(self, widget=None):
@@ -647,8 +646,7 @@ class mainWindow:
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
-		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
-		        "on_main_window_state_event" : self.onMainStateEvent }
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
