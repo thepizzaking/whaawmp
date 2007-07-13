@@ -441,7 +441,9 @@ class mainWindow:
 			self.hboxVideo.set_child_packing(self.movieWindow, False, True, 0, 'start')
 			# Set the video window's size to small.
 			self.movieWindow.set_size_request(-1, -1)
-			self.mainWindow.resize(1, 1)
+			# Make the height of the window as small as possible.
+			w = self.mainWindow.get_size()[0]
+			self.mainWindow.resize(w, 1)
 		
 	
 	def seekStart(self, widget, event):
