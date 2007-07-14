@@ -49,7 +49,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, draw the backing image.
-		if (not self.player.playingVideo()): self.drawMovieWindowImage()
+		if (not self.player.playingVideo()): self.movieWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -297,7 +297,7 @@ class mainWindow:
 		if (playerTools.isStopMsg(msg)):
 			if (self.options.quitOnEnd): self.quit()
 			# Draw the background image.
-			self.drawMovieWindowImage()
+			self.movieWindowOnStop()
 			# Deactivate fullscreen.
 			if (self.fsActive()): self.deactivateFullscreen()
 	
@@ -423,6 +423,14 @@ class mainWindow:
 		self.progressBar.set_text(text)
 	
 	
+	def onMainStateEvent(self, widget, event):
+		## Acts when a state event occurs on the main window.
+		if (not self.fsActive() and not self.player.playingVideo()):
+			# If fullscreen is not active and no video is playing, call the
+			# movie stop function in 0ms (for some reason this seems to work).
+			gobject.timeout_add(0, self.movieWindowOnStop, True)
+	
+	
 	def showVideoWindow(self):
 		## Shows the video window.
 		# Set the packing type of the video window to expand.
@@ -430,15 +438,15 @@ class mainWindow:
 		# Set the video window's size too.
 		self.movieWindow.set_size_request(480, 360)
 	
-	def hideVideoWindow(self):
+	def hideVideoWindow(self, force=False):
 		## Hides the video window.
-		if (self.movieWindow.get_size_request() != (-1, -1)):
+		if (not self.fsActive() and (self.movieWindow.get_size_request() != (-1, -1) or force)):
 			# Set the packing type of the video window to not.
 			self.hboxVideo.set_child_packing(self.movieWindow, False, True, 0, 'start')
 			# Set the video window's size to small.
 			self.movieWindow.set_size_request(-1, -1)
 			# Make the height of the window as small as possible.
-			w = 1 if (self.fsActive()) else self.mainWindow.get_size()[0]
+			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
 		
 	
@@ -531,23 +539,29 @@ class mainWindow:
 			pass
 	
 	
-	def drawMovieWindowImage(self):
-		if (not self.cfg.getBool("gui/hidevideowindow")):
-			# If the video window is not set to be hidden on stop.
-			try:
-				# Try and draw the image.
-				self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
-			except:
-				# If that fails, we need to get the image from the file.
-				# Get the image file.
-				image = '../images/whaawmp.png'
-				# Create a pixbuf from the file.
-				self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
-				# Draw the image on the file.
-				self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+	def movieWindowOnStop(self, force=False):
+		## Called when the player stops, acts on the movie window.
+		if (self.cfg.getBool("gui/hidevideowindow")):
+			# If the video window should be hidden, hide it, otherwise, draw the picture.
+			self.hideVideoWindow(force)
 		else:
-			# Otherwise, hide the video window.
-			self.hideVideoWindow()
+			self.drawMovieWindowImage()
+	
+	
+	def drawMovieWindowImage(self):
+		## Draws the background image.
+		try:
+			# Try and draw the image.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+		except:
+			# If that fails, we need to get the image from the file.
+			# Get the image file.
+			image = '../images/whaawmp.png'
+			# Create a pixbuf from the file.
+			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
+			# Draw the image on the file.
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+
 	
 	def fsActive(self):
 		## Returns True if fullscreen is active.
@@ -647,7 +661,8 @@ class mainWindow:
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
-		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
+		        "on_main_window_state_event" : self.onMainStateEvent }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
