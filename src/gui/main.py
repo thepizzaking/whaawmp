@@ -31,7 +31,7 @@ from common import gstTools as playerTools
 class mainWindow:
 	gladefile = os.path.join("gui", "whaawmp.glade")
 	
-	def quit(self, widget, event=None):
+	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
 		self.stopPlayer()
@@ -295,6 +295,7 @@ class mainWindow:
 			self.progressUpdate()
 			
 		if (playerTools.isStopMsg(msg)):
+			if (self.options.quitOnEnd): self.quit()
 			# Draw the background image.
 			self.drawMovieWindowImage()
 			# Deactivate fullscreen.

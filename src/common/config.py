@@ -132,8 +132,8 @@ class clparser:
 	
 	def addOptions(self):
 		# Activate fullscreen (only if playing a video)
-		self.parser.add_option("-f", "--fullscreen",
-		                       action="store_true", dest="fullscreen", default=False,
+		self.parser.add_option("-f", "--fullscreen", dest="fullscreen",
+		                       action="store_true", default=False,
 		                       help=_("Play the file in fullscreen mode"))
 		# Set the volume of the player.
 		self.parser.add_option("-v", "--volume", dest="volume",
@@ -147,4 +147,8 @@ class clparser:
 		self.parser.add_option("--videosink", dest="videosink",
 		                       default=None, metavar="SINK",
 		                       help=_("Sets the player's video ouput to SINK"))
+		# Quits the program when the stream finishes.
+		self.parser.add_option("-q", "--quit", dest="quitOnEnd",
+		                       action="store_true", default=False,
+		                       help=_("Quits the player when the playing stream stops"))
 		
