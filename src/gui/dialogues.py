@@ -19,17 +19,17 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-from common import lists
+from common import lists, useful
 
 class AboutDialogue:
-	def __init__(self, gladefile, parent, version):
+	def __init__(self, gladefile, parent):
 		## Shows the about dialogue.
 		windowname = 'AboutDlg'
-		tree = gtk.glade.XML(gladefile, windowname, 'whaawmp')
+		tree = gtk.glade.XML(gladefile, windowname, useful.sName)
 		
 		dlg = tree.get_widget(windowname)
 		# Sets the correct version.
-		dlg.set_version(version)
+		dlg.set_version(useful.version)
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
 		

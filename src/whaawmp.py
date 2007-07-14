@@ -18,12 +18,17 @@
 
 import sys, os, os.path
 from optparse import OptionParser
-import gettext
-gettext.install('whaawmp', unicode=1)
 
-__sName__='whaawmp'
-__lName__=_('Whaaw! Media Player')
-__version__='0.1.9'
+__sName__ = 'whaawmp'
+
+import gettext
+gettext.install(__sName__, unicode=1)
+from common import useful
+
+useful.sName = __sName__
+useful.lName = _('Whaaw! Media Player')
+useful.version = '0.1.9'
+
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
@@ -35,7 +40,7 @@ for x in sys.argv:
 		sys.argv.remove(x)
 	if (x == '--version'):
 		# If --version, print out the version, then quit.
-		print '%s - %s' % (__lName__, __version__)
+		print '%s - %s' % (useful.lName, useful.version)
 		sys.exit(0)
 
 from gui import main as whaawmp
@@ -46,7 +51,7 @@ from common import config
 try:
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
-	libc.prctl(15, __sName__, 0, 0)
+	libc.prctl(15, useful.sName, 0, 0)
 except:
 	pass
 
@@ -55,7 +60,7 @@ class main:
 	def __init__(self):
 		## Initialises everything.
 		# Option Parser
-		usage = "\n  " + __sName__ + _(" [options] filename")
+		usage = "\n  " + useful.sName + _(" [options] filename")
 		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
 		# Set the original directory.
 		self.origDir = os.getenv('HOME')
@@ -63,10 +68,10 @@ class main:
 			self.origDir = args[len(args)-1]
 
 		# Open the settings.
-		cfgfile = os.path.join(os.getenv('HOME'), '.config', 'whaawmp', 'config.ini')
+		cfgfile = os.path.join(os.getenv('HOME'), '.config', useful.sName, 'config.ini')
 		self.cfg = config.config(cfgfile)
 		# Creates the window.
-		self.mainWindow = whaawmp.mainWindow(self, __version__, options, args)
+		self.mainWindow = whaawmp.mainWindow(self, options, args)
 		
 		return
 

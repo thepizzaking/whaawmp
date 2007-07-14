@@ -581,7 +581,7 @@ class mainWindow:
 	
 	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, self.mainWindow, self.__version__)
+		dialogues.AboutDialogue(self.gladefile, self.mainWindow)
 	
 	
 	def showPreferencesDialogue(self, widget):
@@ -623,18 +623,17 @@ class mainWindow:
 		self.player.pause()
 	
 	
-	def __init__(self, main, __version__, options, args):
+	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
 		self.lastFolder = main.origDir
 		self.cfg = main.cfg
-		self.__version__ = __version__
 		self.options = options
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
 		
 		windowname = "main"
-		self.wTree = gtk.glade.XML(self.gladefile, windowname, 'whaawmp')
+		self.wTree = gtk.glade.XML(self.gladefile, windowname, useful.sName)
 		
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
