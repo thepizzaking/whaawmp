@@ -63,32 +63,11 @@ class config:
 		self.config.set(section, option, str(value))
 	
 	
-	def getStr(self, option):
-		## Returns the option as a string, even though this already happens.
-		return self.get(option)
-			
-	
-	def getInt(self, option):
-		## Returns an option as an integer.
-		res = self.get(option)
-		# If the type won't go directly to an integer, try a float first.
-		try:
-			return int(res)
-		except:
-			return int(float(res))
-
-	
-	def getFloat(self, option):
-		# Returns the requested option as a float.
-		return float(self.get(option))
-	
-	
-	def getBool(self, option):
-		# Returns the requested option as a bool.
-		res = self.get(option)
-		if (str(res).lower() in ['false', '0', 'none', 'no']):
-			return False
-		return True
+	# Get as requested type.
+	getStr = lambda self, opt: self.get(opt)
+	getInt = lambda self, opt: int(float(self.get(opt)))
+	getFloat = lambda self, opt: float(self.get(opt))
+	getBool = lambda self, opt: str(self.get(opt)).lower() not in ['false', '0', 'none', 'no']
 		
 	
 	def prepareConfDir(self, file):

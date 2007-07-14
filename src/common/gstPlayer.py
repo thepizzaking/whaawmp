@@ -113,7 +113,7 @@ class player:
 		return self.player.get_property('uri')
 	
 	
-	def prepareImgSink(self, bus, message, far, b, c, h, s):
+	def prepareImgSink(self, bus, message, far=True, b=0, c=0, h=0, s=0):
 		# Sets the image sink.
 		self.imagesink = message.src
 		# Sets force aspect ratio, brightness etc according to options passed.

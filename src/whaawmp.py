@@ -64,8 +64,8 @@ class main:
 		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
 		# Set the original directory.
 		self.origDir = os.getenv('HOME')
-		if (len(args) > 0 and os.path.isdir(args[len(args)-1])):
-			self.origDir = args[len(args)-1]
+		if (len(args) > 0 and os.path.isdir(args[-1])):
+			self.origDir = args[-1]
 
 		# Open the settings.
 		cfgfile = os.path.join(os.getenv('HOME'), '.config', useful.sName, 'config.ini')

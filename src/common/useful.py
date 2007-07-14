@@ -20,9 +20,9 @@ sName = ''
 lName = ''
 version = ''
 
-def nsTos(ns):
-	## Converts nanoseconds to seconds.
-	return float(ns) / 1000000000
+# Converts nanoseconds to seconds.
+nsTos = lambda ns: float(ns) / 1000000000
+
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
