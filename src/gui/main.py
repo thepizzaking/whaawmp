@@ -256,6 +256,7 @@ class mainWindow:
 	
 	
 	def onPlayerMessage(self, bus, message):
+		#if (message.src == self.player.player): print message.type
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, stop the player.
