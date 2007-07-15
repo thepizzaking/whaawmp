@@ -90,6 +90,12 @@ class main:
 					except:
 						print _("Duration unable to be read, quitting")
 						sys.exit(3)
+					vTracks = 0
+					for x in self.player.get_property('stream-info-value-array'):
+						vTracks += (x.get_property('type') == 2)
+					if (vTracks == 0):
+						print _("There are no video tracks in this stream, exiting.")
+						sys.exit(4)
 					pos = dur * 0.3
 					self.getThumb = True
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
