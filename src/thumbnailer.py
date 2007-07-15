@@ -85,7 +85,11 @@ class main:
 			elif (message.type == gst.MESSAGE_STATE_CHANGED):
 				old, new, pending = message.parse_state_changed()
 				if (new == gst.STATE_PAUSED and self.firstPause):
-					dur = self.player.query_duration(gst.FORMAT_TIME)[0]
+					try:
+						dur = self.player.query_duration(gst.FORMAT_TIME)[0]
+					except:
+						print _("Duration unable to be read, quitting")
+						sys.exit(3)
 					pos = dur * 0.3
 					self.getThumb = True
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
