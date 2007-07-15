@@ -545,6 +545,7 @@ class mainWindow:
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
 		else:
+			self.showVideoWindow()
 			self.drawMovieWindowImage()
 	
 	
@@ -696,6 +697,10 @@ class mainWindow:
 				filename = main.origDir + os.sep + filename
 				if (not os.path.isdir(filename) and os.path.exists(filename)):
 					self.playFile(filename)
+				else:
+					self.movieWindowOnStop(True)
+		else:
+			self.movieWindowOnStop(True)
 		
 		#Configure the movie window.
 		self.videoWindowConfigure(self.movieWindow)
