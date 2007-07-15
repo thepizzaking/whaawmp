@@ -91,7 +91,10 @@ class player:
 	
 	def seekFrac(self, frac):
 		# Seek from a fraction.
-		self.seek(self.getDuration() * frac)
+		dur = self.getDuration()
+		# getDuration returns -1 on error.
+		if (dur != -1):
+			self.seek(self.getDuration() * frac)
 	
 	def seek(self, loc):
 		## Seeks to a set location in the track.
