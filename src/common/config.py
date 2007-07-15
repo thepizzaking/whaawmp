@@ -31,8 +31,8 @@ class config:
 	
 	def splitOpt(self, option):
 		if ('/' not in option):
-			print _('Error!! No slash (/) in option, something bad happened!')
-			sys.exit()
+			print _('Error!! No slash (/) in given option, something bad happened!')
+			sys.exit(1)
 		return option.split('/')
 	
 	

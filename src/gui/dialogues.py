@@ -84,7 +84,7 @@ class PreferencesDialogue:
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(main.gladefile, windowname, 'whaawmp')
+		self.wTree = gtk.glade.XML(main.gladefile, windowname, useful.sName)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
