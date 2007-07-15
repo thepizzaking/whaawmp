@@ -85,17 +85,17 @@ class main:
 			elif (message.type == gst.MESSAGE_STATE_CHANGED):
 				old, new, pending = message.parse_state_changed()
 				if (new == gst.STATE_PAUSED and self.firstPause):
-					try:
-						dur = self.player.query_duration(gst.FORMAT_TIME)[0]
-					except:
-						print _("Duration unable to be read, quitting")
-						sys.exit(3)
 					vTracks = 0
 					for x in self.player.get_property('stream-info-value-array'):
 						vTracks += (x.get_property('type') == 2)
 					if (vTracks == 0):
 						print _("There are no video tracks in this stream, exiting.")
 						sys.exit(4)
+					try:
+						dur = self.player.query_duration(gst.FORMAT_TIME)[0]
+					except:
+						print _("Duration unable to be read, quitting")
+						sys.exit(3)
 					pos = dur * 0.3
 					self.getThumb = True
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
