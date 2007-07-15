@@ -29,7 +29,7 @@ from common import lists, useful
 from common import gstTools as playerTools
 
 class mainWindow:
-	gladefile = os.path.join("gui", "whaawmp.glade")
+	gladefile = os.path.join("gui", useful.sName + ".glade")
 	
 	def quit(self, widget=None, event=None):
 		## Quits the program.
@@ -453,10 +453,10 @@ class mainWindow:
 	def seekStart(self, widget, event):
 		## Sets that seeking has started.
 		x, y, state = event.window.get_pointer()
-		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped()):
-			# It it's button 1, start seeking.
+		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration() != -1):
+			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
-		
+			
 			self.progressBarMotion(widget, event)
 	
 	
@@ -494,12 +494,11 @@ class mainWindow:
 		x, y = event.get_coords()
 		maxX = widget.get_allocation().width
 		dur = self.player.getDurationSec()
-		if (dur >= 0):
-			# Convert the information to a fraction, and make sure 0 <= frac <= 1
-			frac = useful.toRange(float(x) / maxX, 0, 1)
-			
-			# Set the progress bar to the new data.
-			self.progressUpdate((frac * dur), dur)
+		# Convert the information to a fraction, and make sure 0 <= frac <= 1
+		frac = useful.toRange(float(x) / maxX, 0, 1)
+		
+		# Set the progress bar to the new data.
+		self.progressUpdate((frac * dur), dur)
 		
 	
 	def changeVolume(self, widget):
