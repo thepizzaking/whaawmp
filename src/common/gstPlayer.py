@@ -98,14 +98,11 @@ class player:
 	
 	def seek(self, loc):
 		## Seeks to a set location in the track.
-		# Set up the event for the seek.
-		e = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+		# Seek to the requested position.
+		self.player.seek(1.0, gst.FORMAT_TIME,
 		    gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
 		    gst.SEEK_TYPE_SET, loc,
 		    gst.SEEK_TYPE_NONE, 0)
-		
-		# Send the event.
-		self.player.send_event(e)
 	
 	
 	def setURI(self, uri):
