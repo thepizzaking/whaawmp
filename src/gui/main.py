@@ -256,7 +256,6 @@ class mainWindow:
 	
 	
 	def onPlayerMessage(self, bus, message):
-		#if (message.src == self.player.player): print message.type
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, stop the player.
@@ -267,27 +266,30 @@ class mainWindow:
 			# Show an error about the failure.
 			msg = message.parse_error()
 			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
-		elif (t == 'state_changed'):
+		elif (t == 'state_changed' and message.src == self.player.player):
 			self.onPlayerStateChange(message)
 	
 	
 	def onPlayerStateChange(self, message):
 		# On a state change.
 		msg = message.parse_state_changed()
-		if (playerTools.isPlayMsg(msg)):
-			# The player has started.
+		if (playerTools.isStop2PauseMsg(msg)):
+			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(self.player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
-			# Set the play/pause image to pause.
-			self.playPauseChange(True)
 			# Show the video window if the stream has a video track (or visualisations).
 			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')): self.showVideoWindow()
+		
+		elif (playerTools.isPlayMsg(msg)):
+			# The player has just started.
+			# Set the play/pause image to pause.
+			self.playPauseChange(True)
 			# Create the timers.
 			self.createPlayTimers()
 			
-		elif (playerTools.isPauseMsg(msg)):
+		elif (playerTools.isPlay2PauseMsg(msg)):
 			# It's just been paused or stopped.
 			self.playPauseChange(False)
 			# Destroy the play timers.
@@ -295,7 +297,7 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		if (playerTools.isStopMsg(msg)):
+		elif (playerTools.isStopMsg(msg)):
 			if (self.options.quitOnEnd): self.quit()
 			# Draw the background image.
 			self.movieWindowOnStop()
