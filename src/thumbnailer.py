@@ -96,7 +96,7 @@ class main:
 					except:
 						print _("Duration unable to be read, quitting")
 						sys.exit(3)
-					pos = dur * 0.3
+					pos = dur * self.options.pos
 					self.getThumb = True
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
 					                       gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
@@ -111,9 +111,13 @@ class main:
 	def __init__(self):
 		self.firstPause = True
 		self.getThumb = False
+		origDir = os.getcwd()
 		
 		parser = OptionParser("\n  " + __sName__ + _(" [options] input-file"))
 		# Add parser options.
+		parser.add_option("-i", "--input", dest="input",
+		                  default=None, metavar="FILE",
+		                  help=_("The file to create the thumbnail of"))
 		parser.add_option("-u", "--uri", dest="uri",
 		                  default=None, metavar="URI",
 		                  help=_("The URI of the file to be thumbnailed"))
@@ -125,9 +129,18 @@ class main:
 		                  help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
 		options, args = parser.parse_args()
 		
-		if (not options.output or (not options.uri and len(args) == 0)):
+		if (not options.output or (not options.uri and len(args) == 0 and not options.input)):
 			print _('Sorry, a URI and output file are required to be passed.')
 			sys.exit(1)
+		options.pos = float(options.pos)
+		if (options.pos > 1 or options.pos < 0):
+			print _('The requested position must be between 0 and 1, using 0.3.')
+			options.pos = 0.3
+		if (not options.uri and not options.input):
+			options.input = args[0]
+		if (not options.uri):
+			if (os.path.exists(options.input)):
+				options.uri = 'file://' + os.path.abspath(options.input)
 		
 		self.options = options
 		
