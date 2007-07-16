@@ -19,6 +19,7 @@
 __sName__ = 'whaaw-thumbnailer'
 
 try:
+	# Change the process name.
 	import ctypes
 	libc = ctypes.CDLL('libc.so.6')
 	libc.prctl(15, __sName__, 0, 0)
@@ -30,6 +31,16 @@ from optparse import OptionParser
 import gettext
 gettext.install('whaawmp', unicode=1)
 
+# Check for help here, so gstreamer doesn't steal --help.
+# Flag HELP as false.
+HELP = False
+for x in sys.argv:
+	if x in [ '-h', '--help' ]:
+		# For all arguments, if they're --help or -h, HELP is true, then
+		# remove the argument.
+		HELP = True
+		sys.argv.remove(x)
+
 import gobject
 import pygst
 pygst.require('0.10')
@@ -39,115 +50,172 @@ pygtk.require('2.0')
 import gtk
 
 class main:
+	def __init__(self):
+		# Flag that the player hasn't paused yet and we don't want to get the
+		# thumbnail yet.
+		self.pausedYet = False
+		self.getThumb = False
+		# Parser the command line options.
+		self.parseOptions()
+		#Create the player.
+		self.createPlayer()
+		# Start the main loop.
+		self.loop = gobject.MainLoop()
+		self.loop.run()
+	
+	
+	def parseOptions(self):
+		## Parses the command line options.
+		# Create the parser, and set the useage.
+		parser = OptionParser("\n  " + __sName__ + _(" [options] input-file"))
+		# Add parser options:
+		# Input file (can be an absolute or relative path).
+		parser.add_option("-i", "--input", dest="input",
+		                  default=None, metavar="FILE",
+		                  help=_("The file to create the thumbnail of"))
+		# The URI of the input file.
+		parser.add_option("-u", "--uri", dest="uri",
+		                  default=None, metavar="URI",
+		                  help=_("The URI of the file to be thumbnailed"))
+		# The output file of the thumbnail.
+		parser.add_option("-o", "--output", dest="output",
+		                  default=None, metavar="FILE",
+		                  help=_("The destination of the resulting thumbnail"))
+		# The position in the video to get the thumbnail from.
+		parser.add_option("-p", "--position", dest="pos",
+		                  default=0.3, metavar="FRAC",
+		                  help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
+		if (HELP):
+			# If help is requested print it, then exit.
+			parser.print_help()
+			sys.exit(0)
+		# Parse the options.
+		options, args = parser.parse_args()
+		
+		if (not options.output or (not options.uri and len(args) == 0 and not options.input)):
+			# Either an input or output file wasn't defined, so we can't continue.
+			print _('Sorry, a URI and output file are required to be passed.')
+			sys.exit(1)
+		# Turn the position into a float.
+		options.pos = float(options.pos)
+		if (options.pos > 1 or options.pos < 0):
+			# If the position is not between 0 and 1, default to 0.3.
+			print _('The requested position must be between 0 and 1, using 0.3.')
+			options.pos = 0.3
+		if (not options.uri and not options.input):
+			# If the URI and the input file wasn't defined, the input file
+			# should be the first item in the args list.
+			options.input = args[0]
+		if (not options.uri):
+			# If the URI was not defined, get it from the input file.
+			options.uri = 'file://' + os.path.abspath(options.input)
+		
+		# Make the option accessable from anywhere.
+		self.options = options
+		
+	
 	def createPlayer(self):
+		## Creates the player.
+		# Actually create a player.
 		self.player = gst.element_factory_make('playbin', 'player')
 		
+		# Create a new bin.
 		bin = gst.Bin('video')
+		# Create a new filter, then add it.
 		filter = gst.element_factory_make('capsfilter', 'filter')
 		bin.add(filter)
+		# Set the capabilities of the filter.
 		filter.set_property('caps', gst.Caps('video/x-raw-rgb, depth=24, bpp=24'))
+		# Add a ghostpad to the bin, so you can actually connect to it.
 		ghostpad = gst.GhostPad("sink", filter.get_pad("sink"))
 		bin.add_pad(ghostpad)
+		# Create a fakesink and add it to the bin.
 		vSink = gst.element_factory_make('fakesink', 'vsink')
-		vSink.set_property('signal-handoffs', True)
 		bin.add(vSink)
+		# Get the videosinks sink pad, and add a buffer probe to it.
 		pad = vSink.get_pad("sink")
 		pad.add_buffer_probe(self.onBufferProbe)
+		# Link the filter and the video-sink
 		gst.element_link_many(filter, vSink)
+		# Set the player's video-sink to the newly created bin.
 		self.player.set_property('video-sink', bin)
 		
+		# Get the player's bus, add signal watch, then connect it.
 		self.bus = self.player.get_bus()
 		self.bus.add_signal_watch()
 		self.watchID = self.bus.connect("message", self.onMessage)
 		
+		# Set the URI of the input file to the file passed.
 		self.player.set_property('uri', self.options.uri)
-		
+		# Set the player's state to paused.
 		self.player.set_state(gst.STATE_PAUSED)
 	
 	
 	def onBufferProbe(self, pad, buffer):
 		if (self.getThumb):
+			# If we want to capture the thumbnail.
 			caps = buffer.caps
+			if (caps == None):
+				# If caps was none, quit.
+				print _('Stream returned no caps, exiting')
+				sys.exit(6)
+			# Read the width and height.
 			filters = caps[0]
 			w = filters["width"]
 			h = filters["height"]
+			# Create a pixbuf from the data.
 			pixbuf = gtk.gdk.pixbuf_new_from_data(buffer.data, gtk.gdk.COLORSPACE_RGB, False, 8, w, h, w*3)
+			# Save the pixbuf as the file requested at the command line.
 			pixbuf.save(self.options.output, 'png')
+			# Quit.
 			sys.exit(0)
 		return True
 	
 	def onMessage(self, bus, message):
+		if (message.type == gst.MESSAGE_ERROR):
+			# If it was an error, print the error and quit.
+			print _("An error ocurred")
+			print message.parse_error()[0]
+			sys.exit(1)
 		if (message.src == self.player):
-			if (message.type == gst.MESSAGE_ERROR):
-				print _("An error ocurred")
-				print message.parse_error()
-				sys.exit(1)
-			elif (message.type == gst.MESSAGE_STATE_CHANGED):
+			# Only continue if the player is the source.
+			if (message.type == gst.MESSAGE_STATE_CHANGED):
+				# If it's a state change event, parse the event.
 				old, new, pending = message.parse_state_changed()
-				if (new == gst.STATE_PAUSED and self.firstPause):
+				if (new == gst.STATE_PAUSED and not self.pausedYet):
+					# If this is the first pause.
+					# Check that there is at least one video track.
 					vTracks = 0
 					for x in self.player.get_property('stream-info-value-array'):
 						vTracks += (x.get_property('type') == 2)
-					if (vTracks == 0):
+					if (not vTracks):
+						# If there are no video tracks, quit.
 						print _("There are no video tracks in this stream, exiting.")
 						sys.exit(4)
+					# Try and get the duration, if we can't, quit with an error.
 					try:
 						dur = self.player.query_duration(gst.FORMAT_TIME)[0]
 					except:
-						print _("Duration unable to be read, quitting")
+						print _("Duration unable to be read, exiting.")
 						sys.exit(3)
+					# Get the requested position in nanoseconds.
 					pos = dur * self.options.pos
+					# Flag that we want to get the thumbnail.
 					self.getThumb = True
+					# Seek to the new position.
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
 					                       gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
 					                       gst.SEEK_TYPE_SET, pos,
 					                       gst.SEEK_TYPE_NONE, 0)
 					if (not res):
-						print _("An error ocurred")
-						sys.exit(1)
-					self.firstPause = False
+						# If the seek failed, quit with an error.
+						print _("Unable to seek to requested position, exiting.")
+						sys.exit(5)
+					# Flag that the player has been paused.
+					self.pausedYet = True
 	
 	
-	def __init__(self):
-		self.firstPause = True
-		self.getThumb = False
-		origDir = os.getcwd()
-		
-		parser = OptionParser("\n  " + __sName__ + _(" [options] input-file"))
-		# Add parser options.
-		parser.add_option("-i", "--input", dest="input",
-		                  default=None, metavar="FILE",
-		                  help=_("The file to create the thumbnail of"))
-		parser.add_option("-u", "--uri", dest="uri",
-		                  default=None, metavar="URI",
-		                  help=_("The URI of the file to be thumbnailed"))
-		parser.add_option("-o", "--output", dest="output",
-		                  default=None, metavar="FILE",
-		                  help=_("The destination of the resulting thumbnail"))
-		parser.add_option("-p", "--position", dest="pos",
-		                  default=0.3, metavar="FRAC",
-		                  help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
-		options, args = parser.parse_args()
-		
-		if (not options.output or (not options.uri and len(args) == 0 and not options.input)):
-			print _('Sorry, a URI and output file are required to be passed.')
-			sys.exit(1)
-		options.pos = float(options.pos)
-		if (options.pos > 1 or options.pos < 0):
-			print _('The requested position must be between 0 and 1, using 0.3.')
-			options.pos = 0.3
-		if (not options.uri and not options.input):
-			options.input = args[0]
-		if (not options.uri):
-			if (os.path.exists(options.input)):
-				options.uri = 'file://' + os.path.abspath(options.input)
-		
-		self.options = options
-		
-		self.createPlayer()
-		
-		self.loop = gobject.MainLoop()
-		self.loop.run()
+
 
 
 main()

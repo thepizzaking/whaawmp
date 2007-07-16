@@ -49,7 +49,7 @@ def updatepo(lang):
 
 ## Update the 'messages.pot' file, this happens whenever the script is run.
 os.system('intltool-extract --type="gettext/glade" ../src/gui/whaawmp.glade')
-os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/gui/whaawmp.glade.h')
+os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py ../src/gui/whaawmp.glade.h')
 print 'messages.pot updated!'
 
 ## If no arguments were passed, exit, the messages.pot file has been updated.
