@@ -27,7 +27,7 @@ from common import useful
 
 useful.sName = __sName__
 useful.lName = _('Whaaw! Media Player')
-useful.version = '0.1.10'
+useful.version = '0.1.11'
 
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.

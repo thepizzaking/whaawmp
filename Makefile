@@ -1,12 +1,15 @@
 PREFIX ?= /usr/local
 DESTDIR ?=
 
-all: compile 
+all: compile compile-po
 	@echo "Done"
 	@echo "Type: 'make install' now"
 
 compile:
 	python -m compileall src
+
+compile-po:
+	./po/potool.py compile
 
 make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -19,7 +22,6 @@ make-install-dirs:
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/src/common
 	mkdir -p $(DESTDIR)$(PREFIX)/share/whaawmp/src/gui
 	mkdir -p $(DESTDIR)$(PREFIX)/share/locale
-	./po/potool.py compile
 
 install: make-install-dirs
 	install -m 644 whaawmp.desktop $(DESTDIR)$(PREFIX)/share/applications
