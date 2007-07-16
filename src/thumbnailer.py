@@ -85,6 +85,10 @@ class main:
 		parser.add_option("-p", "--position", dest="pos",
 		                  default=0.3, metavar="FRAC",
 		                  help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
+		# The output size.
+		parser.add_option("-s", "--size", dest="size",
+		                  default=None, metavar="SIZE",
+		                  help=_("The destination size (in pixels)"))
 		if (HELP):
 			# If help is requested print it, then exit.
 			parser.print_help()
@@ -94,9 +98,10 @@ class main:
 		
 		if (not options.output or (not options.uri and len(args) == 0 and not options.input)):
 			# Either an input or output file wasn't defined, so we can't continue.
-			print _('Sorry, a URI and output file are required to be passed.')
+			print _('Sorry, an input and output file are required to be passed.')
 			sys.exit(1)
 		# Turn the position into a float.
+		options.size = int(options.size)
 		options.pos = float(options.pos)
 		if (options.pos > 1 or options.pos < 0):
 			# If the position is not between 0 and 1, default to 0.3.
@@ -165,6 +170,16 @@ class main:
 			h = filters["height"]
 			# Create a pixbuf from the data.
 			pixbuf = gtk.gdk.pixbuf_new_from_data(buffer.data, gtk.gdk.COLORSPACE_RGB, False, 8, w, h, w*3)
+			# Scale the pixbuf to the requested size (if requested).
+			if (self.options.size):
+				if (w > h):
+					newW = self.options.size
+					newH = h / (w / newW)
+				else:
+					newH = self.options.size
+					newW = w / (h / newH)
+				### Use gtk.gdk.INTERP_BILINEAR if this is too slow.
+				pixbuf = pixbuf.scale_simple(newW, newH, gtk.gdk.INTERP_HYPER)
 			# Save the pixbuf as the file requested at the command line.
 			pixbuf.save(self.options.output, 'png')
 			# Quit.
