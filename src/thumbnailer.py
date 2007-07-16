@@ -189,7 +189,7 @@ class main:
 	def onMessage(self, bus, message):
 		if (message.type == gst.MESSAGE_ERROR):
 			# If it was an error, print the error and quit.
-			print _("An error ocurred")
+			print _("An error occurred")
 			print message.parse_error()[0]
 			sys.exit(1)
 		if (message.src == self.player):

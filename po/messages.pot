@@ -8,13 +8,65 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-15 11:44+1000\n"
+"POT-Creation-Date: 2007-07-16 18:08+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/thumbnailer.py:70
+msgid " [options] input-file"
+msgstr ""
+
+#: ../src/thumbnailer.py:75
+msgid "The file to create the thumbnail of"
+msgstr ""
+
+#: ../src/thumbnailer.py:79
+msgid "The URI of the file to be thumbnailed"
+msgstr ""
+
+#: ../src/thumbnailer.py:83
+msgid "The destination of the resulting thumbnail"
+msgstr ""
+
+#: ../src/thumbnailer.py:87
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr ""
+
+#: ../src/thumbnailer.py:91
+msgid "The destination size (in pixels)"
+msgstr ""
+
+#: ../src/thumbnailer.py:101
+msgid "Sorry, an input and output file are required to be passed."
+msgstr ""
+
+#: ../src/thumbnailer.py:108
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr ""
+
+#: ../src/thumbnailer.py:165
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:192
+msgid "An error occurred"
+msgstr ""
+
+#: ../src/thumbnailer.py:208
+msgid "There are no video tracks in this stream, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:214
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:227
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
 
 #: ../src/whaawmp.py:29 ../src/gui/whaawmp.glade.h:39
 msgid "Whaaw! Media Player"
@@ -72,17 +124,45 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:357
+#: ../src/gui/main.py:372
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:523
+#: ../src/gui/main.py:538
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:523
+#: ../src/gui/main.py:538
 msgid "Play"
+msgstr ""
+
+#: ../src/common/config.py:34
+msgid "Error!! No slash (/) in given option, something bad happened!"
+msgstr ""
+
+#: ../src/common/config.py:116
+msgid "Play the file in fullscreen mode"
+msgstr ""
+
+#: ../src/common/config.py:120
+msgid "Sets the player's volume to VOL (0-100)"
+msgstr ""
+
+#: ../src/common/config.py:124
+msgid "Sets the player's audio ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:128
+msgid "Sets the player's video ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:132
+msgid "Quits the player when the playing stream stops"
+msgstr ""
+
+#: ../src/common/gstTools.py:75
+msgid "Unknown"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:1
