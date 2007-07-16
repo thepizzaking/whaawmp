@@ -34,7 +34,7 @@ class mainWindow:
 	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
-		self.stopPlayer()
+		self.player.stop()
 		# Save the configuration to the file.
 		self.cfg.save()
 		gtk.main_quit()
@@ -259,7 +259,7 @@ class mainWindow:
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, stop the player.
-			self.stopPlayer()
+			self.player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -281,6 +281,11 @@ class mainWindow:
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Show the video window if the stream has a video track (or visualisations).
 			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')): self.showVideoWindow()
+			# Enable the visualisation if requested.
+			if (self.cfg.getBool('gui/enablevisualisation')):
+				self.player.enableVisualisation()
+			else:
+				self.player.disableVisualisation()
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -338,7 +343,7 @@ class mainWindow:
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
-		self.stopPlayer()
+		self.player.stop()
 		# Set the audio track to 0
 		self.player.setAudioTrack(0)
 		
@@ -354,7 +359,7 @@ class mainWindow:
 			# Set the URI to the file's one.
 			self.player.setURI(file)
 			# Start the player.
-			self.playPlayer()
+			self.player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -378,10 +383,10 @@ class mainWindow:
 		
 		if (self.player.isPlaying()):
 			# If the player is playing, pause the player.
-			self.pausePlayer()
+			self.player.pause()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.playPlayer()
+			self.player.play()
 	
 	
 	def minuteTimer(self):
@@ -611,20 +616,6 @@ class mainWindow:
 	def stopPlayer(self, widget=None):
 		# Just a transfer call as player.stop takes only 1 argument.
 		self.player.stop()
-	
-	def playPlayer(self):
-		# Start the player.
-		# Set the visualisation if requested.
-		if (self.cfg.getBool('gui/enablevisualisation')):
-			self.player.enableVisualisation()
-		else:
-			self.player.disableVisualisation()
-		
-		self.player.play()
-	
-	def pausePlayer(self):
-		# Just a transfer call in case I want to do anything before pausing.
-		self.player.pause()
 	
 	
 	def __init__(self, main, options, args):
