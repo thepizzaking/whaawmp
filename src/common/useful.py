@@ -16,9 +16,13 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-def nsTos(ns):
-	## Converts nanoseconds to seconds.
-	return ns / 1000000000
+sName = ''
+lName = ''
+version = ''
+
+# Converts nanoseconds to seconds.
+nsTos = lambda ns: float(ns) / 1000000000
+
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
@@ -30,3 +34,10 @@ def secToStr(s):
 		return '%d:%02d:%02d' % (h, m, s)
 	else:
 		return '%d:%02d' % (m, s)
+
+def toRange(val, min, max):
+	## Returns a value within the requested range. ie, checks that val
+	## lies within it, if it doesn't make is so.
+	if (val < min): val = min
+	if (val > max): val = max
+	return val

@@ -29,12 +29,12 @@ from common import lists, useful
 from common import gstTools as playerTools
 
 class mainWindow:
-	gladefile = "gui" + os.sep + "whaawmp.glade"
+	gladefile = os.path.join("gui", useful.sName + ".glade")
 	
-	def quit(self, widget, event=None):
+	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
-		self.stopPlayer()
+		self.player.stop()
 		# Save the configuration to the file.
 		self.cfg.save()
 		gtk.main_quit()
@@ -49,7 +49,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, draw the backing image.
-		if (not self.player.playingVideo()): self.drawMovieWindowImage()
+		if (not self.player.playingVideo()): self.movieWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -118,7 +118,7 @@ class mainWindow:
 		if (not self.player.playingVideo()): return
 		# Hide the cursor.
 		self.hideCursor(self.movieWindow)
-		if (self.fsActive):
+		if (self.fsActive()):
 			# Only hide the controls if we're in fullscreen.
 			# Hides all the widgets that should be hidden.
 			for x in lists.fsShowWMouse():
@@ -136,9 +136,9 @@ class mainWindow:
 			"1 1 1 1",
 			"       c None",
 			" "};"""
-		color = gtk.gdk.Color()
-		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, color, color)
-		invisible = gtk.gdk.Cursor(pix, pix, color, color, 0, 0)
+		colour = gtk.gdk.Color()
+		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, colour, colour)
+		invisible = gtk.gdk.Cursor(pix, pix, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
 		self.setCursor(invisible, widget)
 	
@@ -147,7 +147,7 @@ class mainWindow:
 		widget.window.set_cursor(mode)
 	
 	
-	def videoActivateFullScreen(self, widget=None):
+	def activateFullscreen(self, widget=None):
 		## Activates fullscreen.
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo()): return
@@ -160,12 +160,9 @@ class mainWindow:
 		self.controlsShown = False
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
-		
-		# Flag the fullscreen window as being shown.
-		self.fsActive = True
 
 	
-	def videoDeactivateFullScreen(self):
+	def deactivateFullscreen(self):
 		## Deactivates the fullscreen.
 		# Unfullscreens the window.
 		self.mainWindow.unfullscreen()
@@ -177,16 +174,14 @@ class mainWindow:
 			self.wTree.get_widget(x).hide()
 		# Flag the controls as being shown.
 		self.controlsShown = True
-		# Unflag the fullscreen window.
-		self.fsActive = False
 	
 	
-	def toggleFullScreen(self, widget=None):
+	def toggleFullscreen(self, widget=None):
 		# If the fullscreen window is shown, hide it, otherwise, show it.
-		if (self.fsActive):
-			self.videoDeactivateFullScreen()
+		if (self.fsActive()):
+			self.deactivateFullscreen()
 		else:
-			self.videoActivateFullScreen()
+			self.activateFullscreen()
 	
 	
 	def setImageSink(self, widget=None):
@@ -211,7 +206,7 @@ class mainWindow:
 		
 		if (event.type == gtk.gdk._2BUTTON_PRESS and state & gtk.gdk.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
-			self.toggleFullScreen()
+			self.toggleFullscreen()
 		elif (event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
@@ -229,8 +224,7 @@ class mainWindow:
 		## Increases the volume by the amount given.
 		val = self.volAdj.value + change
 		# Make sure the new value is withing the bounds (0 <= val <= 100)
-		if (val > 100): val = 100
-		if (val < 0): val = 0
+		val = useful.toRange(val, 0, 100)
 		# Adjust the volume.
 		self.volAdj.value = val
 	
@@ -243,7 +237,7 @@ class mainWindow:
 			self.togglePlayPause()
 		elif (event.string == 'f'):
 			# Toggle fullscreen on 'f'.
-			self.toggleFullScreen()
+			self.toggleFullscreen()
 
 	
 	def preparePlayer(self):
@@ -254,10 +248,10 @@ class mainWindow:
 		bus = self.player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
-		# Sets the sinks.
-		asink = self.cfg.getStr("audio/audiosink")
+		# Sets the sinks to that in the config (unless one was specified at launch).
+		asink = self.cfg.getStr("audio/audiosink") if (self.options.audiosink == None) else self.options.audiosink
 		self.player.setAudioSink(None if (asink == "default") else asink)
-		vsink = self.cfg.getStr("video/videosink")
+		vsink = self.cfg.getStr("video/videosink") if (self.options.videosink == None) else self.options.videosink
 		self.player.setVideoSink(None if (vsink == "default") else vsink)
 	
 	
@@ -265,32 +259,49 @@ class mainWindow:
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, stop the player.
-			self.stopPlayer()
+			self.player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
 			# Show an error about the failure.
 			msg = message.parse_error()
 			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
-		elif (t == 'state_changed'):
+		elif (t == 'state_changed' and message.src == self.player.player):
 			self.onPlayerStateChange(message)
 	
 	
 	def onPlayerStateChange(self, message):
 		# On a state change.
 		msg = message.parse_state_changed()
-		if (playerTools.isPlayMsg(msg)):
-			# The player has started.
+		if (playerTools.isNull2ReadyMsg(msg)):
+			# Enable the visualisation if requested.
+			if (self.cfg.getBool('gui/enablevisualisation')):
+				self.player.enableVisualisation()
+			else:
+				self.player.disableVisualisation()
+		
+		elif (playerTools.isStop2PauseMsg(msg)):
+			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(self.player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
+			# Show the video window if the stream has a video track (or visualisations).
+			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')): self.showVideoWindow()
+			# Enable the visualisation if requested.
+			if (self.cfg.getBool('gui/enablevisualisation')):
+				self.player.enableVisualisation()
+			else:
+				self.player.disableVisualisation()
+		
+		elif (playerTools.isPlayMsg(msg)):
+			# The player has just started.
 			# Set the play/pause image to pause.
 			self.playPauseChange(True)
 			# Create the timers.
 			self.createPlayTimers()
 			
-		elif (playerTools.isPauseMsg(msg)):
+		elif (playerTools.isPlay2PauseMsg(msg)):
 			# It's just been paused or stopped.
 			self.playPauseChange(False)
 			# Destroy the play timers.
@@ -298,9 +309,12 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		if (playerTools.isStopMsg(msg)):
+		elif (playerTools.isStopMsg(msg)):
+			if (self.options.quitOnEnd): self.quit()
 			# Draw the background image.
-			self.drawMovieWindowImage()
+			self.movieWindowOnStop()
+			# Deactivate fullscreen.
+			if (self.fsActive()): self.deactivateFullscreen()
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -320,31 +334,15 @@ class mainWindow:
 			self.setImageSink()
 				
 	
-	def showOpenDialogue(self, widget=None):
-		## Shows the open file dialogue.
-		# Prepare the dialogue.
-		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
-
-		if (dlg.file):
-			# If the response is OK, play the file.		
-			self.playFile(dlg.file)
-			# Also set the last folder.
-			self.lastFolder = dlg.dir
-	
-	
 	def openDroppedFile(self, widget, context, x, y, selection_data, info, time):
 		## Opens a file after a drag and drop.
 		# Split all the files that were input.
 		uris = selection_data.data.strip().split()
 		# Can only play one file at once, so use the first one.
-		uri = uris[0]
-		
-		if (uri.startswith('file://')):
-			# If it starts with file, remove it.
-			file = urllib.url2pathname(uri[7:]).strip('\r\n\x00')
+		uri = urllib.url2pathname(uris[0])
 		
 		# Actually play the file.
-		self.playFile(file)
+		self.playFile(uri)
 		# Finish the drag.
 		context.finish(True, False, time)
 	
@@ -352,7 +350,7 @@ class mainWindow:
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
-		self.stopPlayer()
+		self.player.stop()
 		# Set the audio track to 0
 		self.player.setAudioTrack(0)
 		
@@ -368,7 +366,7 @@ class mainWindow:
 			# Set the URI to the file's one.
 			self.player.setURI(file)
 			# Start the player.
-			self.playPlayer()
+			self.player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -392,10 +390,10 @@ class mainWindow:
 		
 		if (self.player.isPlaying()):
 			# If the player is playing, pause the player.
-			self.pausePlayer()
+			self.player.pause()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.playPlayer()
+			self.player.play()
 	
 	
 	def minuteTimer(self):
@@ -438,15 +436,42 @@ class mainWindow:
 			text += " / "
 			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
+	
+	
+	def onMainStateEvent(self, widget, event):
+		## Acts when a state event occurs on the main window.
+		if (not self.fsActive() and not self.player.playingVideo()):
+			# If fullscreen is not active and no video is playing, call the
+			# movie stop function in 0ms (for some reason this seems to work).
+			gobject.timeout_add(0, self.movieWindowOnStop, True)
+	
+	
+	def showVideoWindow(self):
+		## Shows the video window.
+		# Set the packing type of the video window to expand.
+		self.hboxVideo.set_child_packing(self.movieWindow, True, True, 0, 'start')
+		# Set the video window's size too.
+		self.movieWindow.set_size_request(480, 360)
+	
+	def hideVideoWindow(self, force=False):
+		## Hides the video window.
+		if (not self.fsActive() and (self.movieWindow.get_size_request() != (-1, -1) or force)):
+			# Set the packing type of the video window to not.
+			self.hboxVideo.set_child_packing(self.movieWindow, False, True, 0, 'start')
+			# Set the video window's size to small.
+			self.movieWindow.set_size_request(-1, -1)
+			# Make the height of the window as small as possible.
+			w = self.mainWindow.get_size()[0]
+			self.mainWindow.resize(w, 1)
 		
 	
 	def seekStart(self, widget, event):
 		## Sets that seeking has started.
 		x, y, state = event.window.get_pointer()
-		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped()):
-			# It it's button 1, start seeking.
+		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration() != -1):
+			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
-		
+			
 			self.progressBarMotion(widget, event)
 	
 	
@@ -485,9 +510,7 @@ class mainWindow:
 		maxX = widget.get_allocation().width
 		dur = self.player.getDurationSec()
 		# Convert the information to a fraction, and make sure 0 <= frac <= 1
-		frac = float(x) / maxX
-		if (frac > 1): frac = 1
-		if (frac < 0): frac = 0
+		frac = useful.toRange(float(x) / maxX, 0, 1)
 		
 		# Set the progress bar to the new data.
 		self.progressUpdate((frac * dur), dur)
@@ -531,7 +554,18 @@ class mainWindow:
 			pass
 	
 	
+	def movieWindowOnStop(self, force=False):
+		## Called when the player stops, acts on the movie window.
+		if (self.cfg.getBool("gui/hidevideowindow")):
+			# If the video window should be hidden, hide it, otherwise, draw the picture.
+			self.hideVideoWindow(force)
+		else:
+			self.showVideoWindow()
+			self.drawMovieWindowImage()
+	
+	
 	def drawMovieWindowImage(self):
+		## Draws the background image.
 		try:
 			# Try and draw the image.
 			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
@@ -543,10 +577,27 @@ class mainWindow:
 			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
 			# Draw the image on the file.
 			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+
+	
+	def fsActive(self):
+		## Returns True if fullscreen is active.
+		return self.mainWindow.window.get_state() & gtk.gdk.WINDOW_STATE_FULLSCREEN
 		
 	
+	def showOpenDialogue(self, widget=None):
+		## Shows the open file dialogue.
+		# Prepare the dialogue.
+		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
+
+		if (dlg.file):
+			# If the response is OK, play the file.		
+			self.playFile(dlg.file)
+			# Also set the last folder.
+			self.lastFolder = dlg.dir
+	
+	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, self.mainWindow, self.__version__)
+		dialogues.AboutDialogue(self.gladefile, self.mainWindow)
 	
 	
 	def showPreferencesDialogue(self, widget):
@@ -561,7 +612,7 @@ class mainWindow:
 	def showOpenURIDialogue(self, widget):
 		# Create and get the dialogue.
 		dlg = dialogues.OpenURI(self.mainWindow)
-		if (dlg.URI != None):
+		if (dlg.res):
 			# If something was input, play it.
 			self.playFile(dlg.URI)
 	
@@ -573,33 +624,18 @@ class mainWindow:
 		# Just a transfer call as player.stop takes only 1 argument.
 		self.player.stop()
 	
-	def playPlayer(self):
-		# Start the player.
-		# Set the visualisation if requested.
-		if (self.cfg.getBool('gui/enablevisualisation')):
-			self.player.enableVisualisation()
-		else:
-			self.player.disableVisualisation()
-		
-		self.player.play()
 	
-	def pausePlayer(self):
-		# Just a transfer call in case I want to do anything before pausing.
-		self.player.pause()
-	
-	
-	def __init__(self, main, __version__, options, args):
+	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
 		self.lastFolder = main.origDir
 		self.cfg = main.cfg
-		self.__version__ = __version__
 		self.options = options
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
 		
 		windowname = "main"
-		self.wTree = gtk.glade.XML(self.gladefile, windowname)
+		self.wTree = gtk.glade.XML(self.gladefile, windowname, useful.sName)
 		
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
@@ -610,14 +646,15 @@ class mainWindow:
 		        "on_pbarProgress_button_press_event" : self.seekStart,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
-		        "on_vscVolume_value_changed" : self.changeVolume,
-		        "on_mnuiFS_activate" : self.toggleFullScreen,
-		        "on_btnLeaveFullscreen_clicked" : self.toggleFullScreen,
+		        "on_hscVolume_value_changed" : self.changeVolume,
+		        "on_mnuiFS_activate" : self.toggleFullscreen,
+		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
+		        "on_hscVolume_scroll_event" : self.videoWindowScroll,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFile,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
@@ -625,7 +662,8 @@ class mainWindow:
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
-		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue }
+		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
+		        "on_main_window_state_event" : self.onMainStateEvent }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
@@ -633,7 +671,8 @@ class mainWindow:
 		self.progressBar = self.wTree.get_widget("pbarProgress")
 		self.movieWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
-		self.volAdj = self.wTree.get_widget("vscVolume").get_adjustment()
+		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
+		self.hboxVideo = self.wTree.get_widget("hboxVideo")
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
@@ -641,9 +680,8 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.volAdj.value = self.cfg.getFloat("audio/volume")
+		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
 		# Set up the default flags.
-		self.fsActive = False
 		self.controlsShown = True
 		self.seeking = False
 		# Call the function to change the play/pause image.
@@ -660,15 +698,16 @@ class mainWindow:
 				filename = main.origDir + os.sep + filename
 				if (not os.path.isdir(filename) and os.path.exists(filename)):
 					self.playFile(filename)
+				else:
+					self.movieWindowOnStop(True)
+		else:
+			self.movieWindowOnStop(True)
 		
-		# Update the progress bar.
-		self.progressUpdate()
-		
-		# Configure the video area.
+		#Configure the movie window.
 		self.videoWindowConfigure(self.movieWindow)
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
-			self.videoActivateFullScreen()
+			self.activateFullscreen()
 		
 		# Enter the GTK main loop.
 		gtk.main()

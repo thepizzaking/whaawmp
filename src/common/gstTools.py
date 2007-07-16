@@ -40,22 +40,28 @@ def messageType(message):
 
 
 ## State change checkers, msg[0] is old, [1] is new, [2] is pending.
+def isNull2ReadyMsg(msg):
+	## Checks if the player was just initialised from NULL to READY.
+	return (msg[0] == gst.STATE_NULL and msg[1] == gst.STATE_READY)
+
 def isPlayMsg(msg):
 	## Checks if the player has just started playing.
-	# The player's state always goes from Paused to Playing on start,
-	# even if it was stopped.
+	# (Always goes via PAUSED)
 	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_PLAYING)
 
-def isPauseMsg(msg):
-	## Checks if the player has just paused playing.
-	# This will also return true on a pause, since stop also emits this
-	# pattern, which is probably good.
+def isPlay2PauseMsg(msg):
+	## Checks if the player has just paused from playing.
+	# (Goes via this on it's way to stop too)
 	return (msg[0] == gst.STATE_PLAYING and msg[1] == gst.STATE_PAUSED)
+
+def isStop2PauseMsg(msg):
+	## Checks if the player has just paused from stopped.
+	# (Does this on it's way to playing too)
+	return (msg[0] == gst.STATE_READY and msg[1] == gst.STATE_PAUSED)
 
 def isStopMsg(msg):
 	## Checks if the player has just stopped playing.
-	# This will return true on a stop, since the player always goes to
-	# paused state before stop, we only have to check this one case.
+	# (Goes via paused when stopping even if it was playing)
 	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_READY)
 
 
@@ -71,3 +77,11 @@ def getAudioLangArray(player):
 			tracks.append(lang)
 	# Return the tracks.
 	return tracks
+
+def hasVideoTrack(player):
+	## Returns true if the stream has a video track.
+	for x in player.getStreamsInfo():
+		# For all streams in the file, return true if it's a video stream.
+		if (streamType(x) == 'video'): return True
+	# Otherwise return false.
+	return False
