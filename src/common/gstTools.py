@@ -40,6 +40,10 @@ def messageType(message):
 
 
 ## State change checkers, msg[0] is old, [1] is new, [2] is pending.
+def isNull2ReadyMsg(msg):
+	## Checks if the player was just initialised from NULL to READY.
+	return (msg[0] == gst.STATE_NULL and msg[1] == gst.STATE_READY)
+
 def isPlayMsg(msg):
 	## Checks if the player has just started playing.
 	# (Always goes via PAUSED)

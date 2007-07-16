@@ -273,7 +273,14 @@ class mainWindow:
 	def onPlayerStateChange(self, message):
 		# On a state change.
 		msg = message.parse_state_changed()
-		if (playerTools.isStop2PauseMsg(msg)):
+		if (playerTools.isNull2ReadyMsg(msg)):
+			# Enable the visualisation if requested.
+			if (self.cfg.getBool('gui/enablevisualisation')):
+				self.player.enableVisualisation()
+			else:
+				self.player.disableVisualisation()
+		
+		elif (playerTools.isStop2PauseMsg(msg)):
 			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(self.player)
