@@ -53,12 +53,12 @@ def hiddenNormalWidgets():
 
 def hiddenFSWidgets():
 	## Returns a list of widgets to hide on fullscreen.
-	list = ['menubar', 'hscVolume', 'lblVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
+	list = ['menubar', 'hboxTop', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
 
 def fsShowWMouse():
 	## Returns the list of widgets to reshow when the mouse is moved (fullscreen).
-	list = ['hscVolume', 'lblVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
+	list = ['hboxTop', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
 
 
