@@ -174,10 +174,10 @@ class main:
 			if (self.options.size):
 				if (w > h):
 					newW = self.options.size
-					newH = h / (w / newW)
+					newH = int(h / (float(w) / newW))
 				else:
 					newH = self.options.size
-					newW = w / (h / newH)
+					newW = int(w / (float(h) / newH))
 				### Use gtk.gdk.INTERP_BILINEAR if this is too slow.
 				pixbuf = pixbuf.scale_simple(newW, newH, gtk.gdk.INTERP_HYPER)
 			# Save the pixbuf as the file requested at the command line.
