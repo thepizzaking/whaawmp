@@ -516,10 +516,16 @@ class mainWindow:
 		self.progressUpdate((frac * dur), dur)
 		
 	
+	def volumeButtonToggled(self, widget):
+		## Toggles Mute
+		self.player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
+		# Save the mutedness in the config.
+		self.cfg.set("audio/mute", not widget.get_active())
+		
 	def changeVolume(self, widget):
 		## Change the volume to that indicated by the volume bar.
 		vol = widget.get_value()
-		self.player.setVolume(vol)
+		self.player.setVolume(vol if (not self.cfg.getBool("audio/mute")) else 0)
 		# Set the new volume on the configuration.
 		self.cfg.set("audio/volume", vol)
 	
@@ -646,6 +652,7 @@ class mainWindow:
 		        "on_pbarProgress_button_press_event" : self.seekStart,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
+		        "on_tbtnVol_toggled" : self.volumeButtonToggled,
 		        "on_hscVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullscreen,
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
@@ -680,6 +687,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
+		self.wTree.get_widget("tbtnVol").set_active(not self.cfg.getBool("audio/mute"))
 		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
 		# Set up the default flags.
 		self.controlsShown = True

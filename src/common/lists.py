@@ -76,6 +76,7 @@ def defaultOptions():
 	        'gui/showtimeremaining' : False,
 	        'gui/enablevisualisation' : True,
 	        'gui/hidevideowindow' : True,
+	        'audio/mute' : False,
 	        'audio/volume' : 75,
 	        'audio/audiosink' : 'default',
 	        'misc/disablexscreensaver' : True }
