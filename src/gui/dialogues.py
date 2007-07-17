@@ -22,10 +22,10 @@ import gtk, gtk.glade
 from common import lists, useful
 
 class AboutDialogue:
-	def __init__(self, gladefile, parent):
+	def __init__(self, parent):
 		## Shows the about dialogue.
 		windowname = 'AboutDlg'
-		tree = gtk.glade.XML(gladefile, windowname, useful.sName)
+		tree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dlg = tree.get_widget(windowname)
 		# Sets the correct version.
@@ -84,7 +84,7 @@ class PreferencesDialogue:
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(main.gladefile, windowname, useful.sName)
+		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,

@@ -28,6 +28,8 @@ from common import useful
 useful.sName = __sName__
 useful.lName = _('Whaaw! Media Player')
 useful.version = '0.1.11'
+useful.origDir = os.getcwd()
+useful.gladefile = os.path.join(sys.path[0], 'gui', __sName__ + '.glade')
 
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
@@ -62,10 +64,6 @@ class main:
 		# Option Parser
 		usage = "\n  " + useful.sName + _(" [options] filename")
 		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
-		# Set the original directory.
-		self.origDir = os.getenv('HOME')
-		if (len(args) > 0 and os.path.isdir(args[-1])):
-			self.origDir = args[-1]
 
 		# Open the settings.
 		cfgfile = os.path.join(os.getenv('HOME'), '.config', useful.sName, 'config.ini')

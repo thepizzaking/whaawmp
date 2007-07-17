@@ -16,9 +16,6 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-sName = ''
-lName = ''
-version = ''
 
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000

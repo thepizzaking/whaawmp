@@ -597,7 +597,7 @@ class mainWindow:
 	
 	
 	def showAboutDialogue(self, widget):
-		dialogues.AboutDialogue(self.gladefile, self.mainWindow)
+		dialogues.AboutDialogue(self.mainWindow)
 	
 	
 	def showPreferencesDialogue(self, widget):
@@ -627,15 +627,15 @@ class mainWindow:
 	
 	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
-		self.lastFolder = main.origDir
 		self.cfg = main.cfg
 		self.options = options
+		self.lastFolder = useful.origDir
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
 		
 		windowname = "main"
-		self.wTree = gtk.glade.XML(self.gladefile, windowname, useful.sName)
+		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
@@ -688,18 +688,7 @@ class mainWindow:
 		self.playPauseChange(False)
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
-			filename = args[0]
-			if ((not os.path.isdir(filename) and os.path.exists(filename)) or '://' in filename):
-				# If the file isn't a directory, and it exists, OR :// is in the
-				# filename (ie. it's a URI), play it.
-				self.playFile(filename)
-			else:
-				# Otherwise, try and play a file made from 'originalDirectory/arg'.
-				filename = main.origDir + os.sep + filename
-				if (not os.path.isdir(filename) and os.path.exists(filename)):
-					self.playFile(filename)
-				else:
-					self.movieWindowOnStop(True)
+			self.playFile(os.path.abspath(args[0]))
 		else:
 			self.movieWindowOnStop(True)
 		
