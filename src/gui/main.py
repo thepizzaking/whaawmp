@@ -230,8 +230,8 @@ class mainWindow:
 	
 	
 	def windowKeyPressed(self, widget, event):
-		## Doesn't work well with compiz, and I should probably make the
-		#  bindings customisable (event.keyval for that probably).
+		## I should probably make the bindings customisable (event.keyval
+		# for that probably).
 		if (event.string == ' '):
 			# Toggle Play/Pause on Spacebar.
 			self.togglePlayPause()
