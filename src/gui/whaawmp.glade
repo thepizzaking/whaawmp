@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Tue Jul 17 15:07:58 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Tue Jul 17 15:29:51 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="visible">True</property>
@@ -198,9 +198,6 @@
               </widget>
             </child>
             <child>
-              <placeholder/>
-            </child>
-            <child>
               <widget class="GtkVSeparator" id="vseparator1">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
@@ -208,6 +205,7 @@
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="pack_type">GTK_PACK_END</property>
                 <property name="position">3</property>
               </packing>
             </child>
@@ -226,7 +224,8 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">4</property>
+                <property name="pack_type">GTK_PACK_END</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
