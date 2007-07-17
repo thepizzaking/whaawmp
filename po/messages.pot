@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-16 18:08+1000\n"
+"POT-Creation-Date: 2007-07-17 17:55+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,11 +68,11 @@ msgstr ""
 msgid "Unable to seek to requested position, exiting."
 msgstr ""
 
-#: ../src/whaawmp.py:29 ../src/gui/whaawmp.glade.h:39
+#: ../src/whaawmp.py:29 ../src/gui/whaawmp.glade.h:40
 msgid "Whaaw! Media Player"
 msgstr ""
 
-#: ../src/whaawmp.py:63
+#: ../src/whaawmp.py:65
 msgid " [options] filename"
 msgstr ""
 
@@ -129,11 +129,11 @@ msgstr ""
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:538
+#: ../src/gui/main.py:544
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:538
+#: ../src/gui/main.py:544
 msgid "Play"
 msgstr ""
 
@@ -314,29 +314,33 @@ msgid "Vol:"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:38
+msgid "Volume (Mute/Unmute)"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:39
 msgid "Volume Change on Scroll: "
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:40
+#: ../src/gui/whaawmp.glade.h:41
 msgid "_Edit"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:41
+#: ../src/gui/whaawmp.glade.h:42
 msgid "_File"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:42
+#: ../src/gui/whaawmp.glade.h:43
 msgid "_Help"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:43
+#: ../src/gui/whaawmp.glade.h:44
 msgid "_Preferences"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:44
+#: ../src/gui/whaawmp.glade.h:45
 msgid "_View"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:45
+#: ../src/gui/whaawmp.glade.h:46
 msgid "translator-credits"
 msgstr ""
