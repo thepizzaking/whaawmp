@@ -73,10 +73,6 @@ class main:
 		parser.add_option("-i", "--input", dest="input",
 		                  default=None, metavar="FILE",
 		                  help=_("The file to create the thumbnail of"))
-		# The URI of the input file.
-		parser.add_option("-u", "--uri", dest="uri",
-		                  default=None, metavar="URI",
-		                  help=_("The URI of the file to be thumbnailed"))
 		# The output file of the thumbnail.
 		parser.add_option("-o", "--output", dest="output",
 		                  default=None, metavar="FILE",
@@ -96,24 +92,24 @@ class main:
 		# Parse the options.
 		options, args = parser.parse_args()
 		
-		if (not options.output or (not options.uri and len(args) == 0 and not options.input)):
+		if (not options.output or (len(args) == 0 and not options.input)):
 			# Either an input or output file wasn't defined, so we can't continue.
 			print _('Sorry, an input and output file are required to be passed.')
 			sys.exit(1)
 		# Turn the position into a float.
-		options.size = int(options.size)
+		if (options.size): options.size = int(options.size)
 		options.pos = float(options.pos)
 		if (options.pos > 1 or options.pos < 0):
 			# If the position is not between 0 and 1, default to 0.3.
 			print _('The requested position must be between 0 and 1, using 0.3.')
 			options.pos = 0.3
-		if (not options.uri and not options.input):
+		if (not options.input):
 			# If the URI and the input file wasn't defined, the input file
 			# should be the first item in the args list.
 			options.input = args[0]
-		if (not options.uri):
+		if ('://' not in options.input):
 			# If the URI was not defined, get it from the input file.
-			options.uri = 'file://' + os.path.abspath(options.input)
+			options.input = 'file://' + os.path.abspath(options.input)
 		
 		# Make the option accessable from anywhere.
 		self.options = options
@@ -151,7 +147,7 @@ class main:
 		self.watchID = self.bus.connect("message", self.onMessage)
 		
 		# Set the URI of the input file to the file passed.
-		self.player.set_property('uri', self.options.uri)
+		self.player.set_property('uri', self.options.input)
 		# Set the player's state to paused.
 		self.player.set_state(gst.STATE_PAUSED)
 	
