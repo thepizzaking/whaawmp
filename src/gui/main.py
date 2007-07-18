@@ -286,8 +286,11 @@ class mainWindow:
 			self.audioTracks = playerTools.getAudioLangArray(self.player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
-			# Show the video window if the stream has a video track (or visualisations).
-			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')): self.showVideoWindow()
+			if (playerTools.hasVideoTrack(self.player) or self.cfg.getBool('gui/enablevisualisation')):
+				# Show the video window if the stream has a video track (or visualisations).
+				self.showVideoWindow()
+				# Also enable the Toggle Fullscreen menuitem.
+				self.wTree.get_widget('mnuiFS').set_sensitive(True)
 			# Enable the visualisation if requested.
 			if (self.cfg.getBool('gui/enablevisualisation')):
 				self.player.enableVisualisation()
@@ -315,6 +318,8 @@ class mainWindow:
 			self.movieWindowOnStop()
 			# Deactivate fullscreen.
 			if (self.fsActive()): self.deactivateFullscreen()
+			# Disable the Toggle Fullscreen menuitem.
+			self.wTree.get_widget('mnuiFS').set_sensitive(False)
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
