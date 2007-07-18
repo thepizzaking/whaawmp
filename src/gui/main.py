@@ -687,7 +687,7 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("chkVol").set_active(not self.cfg.getBool("audio/mute"))
+		self.wTree.get_widget("chkVol").set_active(not (self.cfg.getBool("audio/mute") or (options.mute)))
 		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
 		# Set up the default flags.
 		self.controlsShown = True

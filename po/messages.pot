@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-17 17:55+1000\n"
+"POT-Creation-Date: 2007-07-18 11:38+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -150,14 +150,18 @@ msgid "Sets the player's volume to VOL (0-100)"
 msgstr ""
 
 #: ../src/common/config.py:124
-msgid "Sets the player's audio ouput to SINK"
+msgid "Mute the player"
 msgstr ""
 
 #: ../src/common/config.py:128
-msgid "Sets the player's video ouput to SINK"
+msgid "Sets the player's audio ouput to SINK"
 msgstr ""
 
 #: ../src/common/config.py:132
+msgid "Sets the player's video ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:136
 msgid "Quits the player when the playing stream stops"
 msgstr ""
 
