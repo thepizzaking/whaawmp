@@ -701,6 +701,8 @@ class mainWindow:
 		self.seeking = False
 		# Call the function to change the play/pause image.
 		self.playPauseChange(False)
+		# Show the window.
+		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
 			self.playFile(os.path.abspath(args[0]))
