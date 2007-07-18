@@ -19,21 +19,21 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-from common import lists
+from common import lists, useful
 
 class AboutDialogue:
-	def __init__(self, gladefile, parent, version):
+	def __init__(self, parent):
 		## Shows the about dialogue.
 		windowname = 'AboutDlg'
-		tree = gtk.glade.XML(gladefile, windowname)
+		tree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dlg = tree.get_widget(windowname)
 		# Sets the correct version.
-		dlg.set_version(version)
+		dlg.set_version(useful.version)
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
 		
-		# Run the destroy the dialogue.
+		# Run, then destroy the dialogue.
 		dlg.run()
 		dlg.destroy()
 
@@ -43,7 +43,7 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = gtk.FileChooserDialog(_("Choose a file"), parent,
+		dlg = gtk.FileChooserDialog(_("Choose a file to Open"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -84,7 +84,7 @@ class PreferencesDialogue:
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(main.gladefile, windowname)
+		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
@@ -101,6 +101,7 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
 		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
+		                self.wTree.get_widget('chkHideVideoWindow') : "gui/hidevideowindow",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
@@ -114,6 +115,13 @@ class PreferencesDialogue:
 		self.window = self.wTree.get_widget(windowname)
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
+		# Disable video options that aren't available.
+		if (not self.player.colourSettings):
+			for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+				self.wTree.get_widget('hsc' + x).set_sensitive(False)
+			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
+		if (not self.player.aspectSettings):
+			self.wTree.get_widget('chkForceAspect').set_sensitive(False)
 		
 		# Load the preferences.
 		self.loadPreferences()
@@ -133,7 +141,7 @@ class PreferencesDialogue:
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
 		for x in self.adjDic:
-			x.set_value(self.cfg.getInt(self.adjDic[x]))
+			x.set_value(self.cfg.getFloat(self.adjDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
@@ -178,7 +186,7 @@ class PlayDVD:
 	def __init__(self, parent):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("DVD Options"), parent,
+		dlg = gtk.Dialog(_("Play DVD"), parent,
 		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
@@ -227,7 +235,7 @@ class OpenURI:
 	def __init__(self, parent):
 		## Creates an openURI dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("Input a URI"), parent,
+		dlg = gtk.Dialog(_("Open a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -242,11 +250,11 @@ class OpenURI:
 		dlg.show_all()
 		
 		# Run the dialogue, then hide it.
-		res = dlg.run()
+		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
 		dlg.hide()
 		
 		# Save the URI if OK was pressed.
-		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
+		self.URI = entry.get_text() if (self.res) else None
 		# Destroy the dialogue.
 		dlg.destroy()
 

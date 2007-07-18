@@ -75,12 +75,12 @@ class player:
 	
 	def getPlayed(self):
 		# Returns the played time (not in seconds).
-		return float(self.player.query_position(gst.FORMAT_TIME)[0])
+		return self.player.query_position(gst.FORMAT_TIME)[0]
 	
 	def getDuration(self):
 		# Returns the duration (not in seconds).
 		try:
-			return float(self.player.query_duration(gst.FORMAT_TIME)[0])
+			return self.player.query_duration(gst.FORMAT_TIME)[0]
 		except:
 			return -1
 	
@@ -91,18 +91,18 @@ class player:
 	
 	def seekFrac(self, frac):
 		# Seek from a fraction.
-		self.seek(self.getDuration() * frac)
+		dur = self.getDuration()
+		# getDuration returns -1 on error.
+		if (dur != -1):
+			self.seek(self.getDuration() * frac)
 	
 	def seek(self, loc):
 		## Seeks to a set location in the track.
-		# Set up the event for the seek.
-		e = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+		# Seek to the requested position.
+		self.player.seek(1.0, gst.FORMAT_TIME,
 		    gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
 		    gst.SEEK_TYPE_SET, loc,
 		    gst.SEEK_TYPE_NONE, 0)
-		
-		# Send the event.
-		self.player.send_event(e)
 	
 	
 	def setURI(self, uri):
@@ -113,7 +113,7 @@ class player:
 		return self.player.get_property('uri')
 	
 	
-	def prepareImgSink(self, bus, message, far, b, c, h, s):
+	def prepareImgSink(self, bus, message, far=True, b=0, c=0, h=0, s=0):
 		# Sets the image sink.
 		self.imagesink = message.src
 		# Sets force aspect ratio, brightness etc according to options passed.

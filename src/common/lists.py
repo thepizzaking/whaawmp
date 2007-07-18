@@ -53,12 +53,12 @@ def hiddenNormalWidgets():
 
 def hiddenFSWidgets():
 	## Returns a list of widgets to hide on fullscreen.
-	list = ['menubar', 'vboxVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
+	list = ['menubar', 'hboxTop', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
 
 def fsShowWMouse():
 	## Returns the list of widgets to reshow when the mouse is moved (fullscreen).
-	list = ['vboxVol', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
+	list = ['hboxTop', 'hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 	return list
 
 
@@ -75,6 +75,8 @@ def defaultOptions():
 	        'gui/volumescrollchange' : 5.0,
 	        'gui/showtimeremaining' : False,
 	        'gui/enablevisualisation' : True,
+	        'gui/hidevideowindow' : True,
+	        'audio/mute' : False,
 	        'audio/volume' : 75,
 	        'audio/audiosink' : 'default',
 	        'misc/disablexscreensaver' : True }
@@ -82,7 +84,7 @@ def defaultOptions():
 	return dic
 
 
-## Some gstreamer lists.
+## Some gstreamer lists (well one).
 def gstStreamType():
 	## Returns a list of gstreamer list types (in order too!)
 	types = [ 'unknown', 'audio', 'video', 'text', 'element' ]
