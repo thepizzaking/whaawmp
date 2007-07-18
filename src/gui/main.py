@@ -533,7 +533,7 @@ class mainWindow:
 	def playPauseChange(self, playing):
 		## Changes the play/pause image according to the argument.
 		# Set the size.
-		size = gtk.ICON_SIZE_SMALL_TOOLBAR
+		size = self.cfg.getInt("gui/iconsize")
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
 		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
@@ -542,6 +542,8 @@ class mainWindow:
 		btn.set_image(img)
 		# Also set the tooltip.
 		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
+		# Set the stop button image too.
+		self.wTree.get_widget("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
 	
 	
 	def createPlayTimers(self):
