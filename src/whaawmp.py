@@ -32,6 +32,13 @@ useful.version = '0.1.13'
 useful.origDir = os.getcwd()
 useful.gladefile = os.path.join(sys.path[0], 'gui', __sName__ + '.glade')
 
+# Check that at least python 2.5 is running.
+v = sys.version_info
+v = float(10 * v[0] + v[1])/10
+if (v < 2.5):
+	print _('Cannot continue, python version must be at least 2.5 (your version: %s)' % (v))
+	sys.exit(1)
+del v
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
