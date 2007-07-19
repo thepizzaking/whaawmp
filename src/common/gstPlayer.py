@@ -20,7 +20,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-from common import useful
+from common import lists, useful
 
 
 class player:
@@ -169,8 +169,8 @@ class player:
 		# Set the player's sink accordingly.
 		self.player.set_property('video-sink', sink)
 		# Flag the colour settings and aspect settings accordingly.
-		self.colourSettings = (sinkName in ['xvimagesink'])
-		self.aspectSettings = (sinkName in ['xvimagesink', 'ximagesink'])
+		self.colourSettings = (sinkName in lists.vsinkColour)
+		self.aspectSettings = (sinkName in lists.vsinkAspect)
 	
 	
 	def enableVisualisation(self):

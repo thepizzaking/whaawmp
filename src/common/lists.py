@@ -77,8 +77,12 @@ defaultOptions = { 'video/brightness' : 0,
 
 
 ## Some gstreamer lists.
-## A list of gstreamer list types (in order too!)
+## A list of gstreamer list types (in order too!).
 gstStreamType = [ 'unknown', 'audio', 'video', 'text', 'element' ]
 
-## A list of video-sinks, (in order of preference)
+## A list of video-sinks, (in order of preference).
 vsinkTypes = [ 'xvimagesink', 'ximagesink', 'glimagesink', 'fakesink' ]
+
+## Lists of video sinks which support colour and aspect settings.
+vsinkColour = ['xvimagesink']
+vsinkAspect = ['xvimagesink', 'ximagesink']
