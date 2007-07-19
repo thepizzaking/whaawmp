@@ -53,7 +53,7 @@ class OpenFile:
 		# Add the file filter.
 		filter = gtk.FileFilter()
 		filter.set_name(_("Supported Media"))
-		for x in lists.compatFiles():
+		for x in lists.compatFiles:
 			filter.add_mime_type(x)
 		dlg.add_filter(filter)
 		# How about an all files one too.

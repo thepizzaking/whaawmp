@@ -24,7 +24,7 @@ from common import lists
 
 def streamType(stream):
 	## Returns the stream type as a string from a given stream.
-	return lists.gstStreamType()[stream.get_property('type')]
+	return lists.gstStreamType[stream.get_property('type')]
 
 
 def messageType(message):
@@ -85,3 +85,12 @@ def hasVideoTrack(player):
 		if (streamType(x) == 'video'): return True
 	# Otherwise return false.
 	return False
+
+
+def vsinkDef():
+	## Returns the default video sink.
+	for x in lists.vsinkTypes:
+		# For all the vsink types, break if it exists.
+		if (gst.element_factory_find(x)): break
+	
+	return x

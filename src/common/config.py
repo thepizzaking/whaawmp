@@ -82,7 +82,7 @@ class config:
 		# Make sure the config directory exists.
 		self.prepareConfDir(file)
 		# Get the default settings.
-		self.defaults = lists.defaultOptions()
+		self.defaults = lists.defaultOptions
 		# Create a config parser.
 		self.config = SafeConfigParser()
 		# Set the config files location.

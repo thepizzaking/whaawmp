@@ -164,12 +164,12 @@ class player:
 	def setVideoSink(self, sinkName):
 		## Sets the player's video sink.
 		# If a name was passed, create the element, otherwise pass None
-		sink = gst.element_factory_make(sinkName, 'video-sink') if (sinkName) else None
+		sink = gst.element_factory_make(sinkName, 'video-sink')
 		# Set the player's sink accordingly.
 		self.player.set_property('video-sink', sink)
 		# Flag the colour settings and aspect settings accordingly.
-		self.colourSettings = (sinkName in [None, 'xvimagesink'])
-		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
+		self.colourSettings = (sinkName in ['xvimagesink'])
+		self.aspectSettings = (sinkName in ['xvimagesink', 'ximagesink'])
 	
 	
 	def enableVisualisation(self):

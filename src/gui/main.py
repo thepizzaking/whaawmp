@@ -106,7 +106,7 @@ class mainWindow:
 		# Shows all the widgets that should be shown.
 		if (not self.controlsShown):
 			# If the controls aren't shown, show them.
-			for x in lists.fsShowWMouse():
+			for x in lists.fsShowWMouse:
 				self.wTree.get_widget(x).show()
 			# Flag the controls as being shown.
 			self.controlsShown = True
@@ -121,7 +121,7 @@ class mainWindow:
 		if (self.fsActive()):
 			# Only hide the controls if we're in fullscreen.
 			# Hides all the widgets that should be hidden.
-			for x in lists.fsShowWMouse():
+			for x in lists.fsShowWMouse:
 				self.wTree.get_widget(x).hide()
 			# Flag the controls as being hidden.
 			self.controlsShown = False
@@ -153,7 +153,7 @@ class mainWindow:
 		if (not self.player.playingVideo()): return
 		
 		# Hide all the widgets other than the video window.
-		for x in lists.hiddenFSWidgets():
+		for x in lists.hiddenFSWidgets:
 			self.wTree.get_widget(x).hide()
 		
 		# Flag the the controls as not being shown.
@@ -167,10 +167,10 @@ class mainWindow:
 		# Unfullscreens the window.
 		self.mainWindow.unfullscreen()
 		# Re-show all the widgets.
-		for x in lists.hiddenFSWidgets():
+		for x in lists.hiddenFSWidgets:
 			self.wTree.get_widget(x).show()
 		# Hide any widgets that should be hidden.
-		for x in lists.hiddenNormalWidgets():
+		for x in lists.hiddenNormalWidgets:
 			self.wTree.get_widget(x).hide()
 		# Flag the controls as being shown.
 		self.controlsShown = True
@@ -249,10 +249,10 @@ class mainWindow:
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		# Sets the sinks to that in the config (unless one was specified at launch).
-		asink = self.cfg.getStr("audio/audiosink") if (self.options.audiosink == None) else self.options.audiosink
+		asink = self.cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
 		self.player.setAudioSink(None if (asink == "default") else asink)
-		vsink = self.cfg.getStr("video/videosink") if (self.options.videosink == None) else self.options.videosink
-		self.player.setVideoSink(None if (vsink == "default") else vsink)
+		vsink = self.cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
+		self.player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
 	
 	
 	def onPlayerMessage(self, bus, message):
