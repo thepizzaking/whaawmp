@@ -118,7 +118,7 @@ class PreferencesDialogue:
 		self.window.set_transient_for(parent)
 		# Disable video options that aren't available.
 		if (not self.player.colourSettings):
-			for x in ['Brightness', 'Contrast', 'Hue', 'Saturation']:
+			for x in lists.colourSettings:
 				self.wTree.get_widget('hsc' + x).set_sensitive(False)
 			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
 		if (not self.player.aspectSettings):
@@ -166,10 +166,8 @@ class PreferencesDialogue:
 	
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to 0.
-		self.wTree.get_widget('hscBrightness').set_value(0)
-		self.wTree.get_widget('hscContrast').set_value(0)
-		self.wTree.get_widget('hscHue').set_value(0)
-		self.wTree.get_widget('hscSaturation').set_value(0)
+		for x in lists.colourSettings:
+			self.wTree.get_widget('hsc' + x).set_value(0)
 			
 		# Call the colour changed settings so they are changed in the video.
 		self.scrollbarColourScroll(widget)

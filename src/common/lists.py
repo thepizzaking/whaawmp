@@ -86,3 +86,6 @@ vsinkTypes = [ 'xvimagesink', 'ximagesink', 'glimagesink', 'fakesink' ]
 ## Lists of video sinks which support colour and aspect settings.
 vsinkColour = ['xvimagesink']
 vsinkAspect = ['xvimagesink', 'ximagesink']
+
+## Available colour settings (Remember to use .lower() if lowercase required.
+colourSettings = [ 'Brightness', 'Contrast', 'Hue', 'Saturation' ]
