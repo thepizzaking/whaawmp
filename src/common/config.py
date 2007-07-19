@@ -111,7 +111,10 @@ class clparser:
 	
 	
 	def addOptions(self):
-		# Activate fullscreen (only if playing a video)
+		# Version information.
+		self.parser.add_option("--version", action="store_true",
+		                       help=_("Print the version and exit"))
+		# Activate fullscreen (only if playing a video).
 		self.parser.add_option("-f", "--fullscreen", dest="fullscreen",
 		                       action="store_true", default=False,
 		                       help=_("Play the file in fullscreen mode"))

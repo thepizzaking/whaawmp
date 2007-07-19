@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-19 18:13+1000\n"
+"POT-Creation-Date: 2007-07-19 22:21+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -40,27 +40,32 @@ msgstr ""
 msgid "Sorry, an input and output file are required to be passed."
 msgstr ""
 
-#: ../src/thumbnailer.py:106
+#: ../src/thumbnailer.py:100
+#, python-format
+msgid "See '%s --help' for details"
+msgstr ""
+
+#: ../src/thumbnailer.py:107
 msgid "The requested position must be between 0 and 1, using 0.3."
 msgstr ""
 
-#: ../src/thumbnailer.py:163
+#: ../src/thumbnailer.py:164
 msgid "Stream returned no caps, exiting"
 msgstr ""
 
-#: ../src/thumbnailer.py:190
+#: ../src/thumbnailer.py:191
 msgid "An error occurred"
 msgstr ""
 
-#: ../src/thumbnailer.py:206
+#: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:212
+#: ../src/thumbnailer.py:213
 msgid "Duration unable to be read, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:225
+#: ../src/thumbnailer.py:226
 msgid "Unable to seek to requested position, exiting."
 msgstr ""
 
@@ -68,12 +73,11 @@ msgstr ""
 msgid "Whaaw! Media Player"
 msgstr ""
 
-#: ../src/whaawmp.py:39
-#, python-format
-msgid "Cannot continue, python version must be at least 2.5 (your version: %s)"
+#: ../src/whaawmp.py:37
+msgid "Cannot continue, python version must be at least 2.5."
 msgstr ""
 
-#: ../src/whaawmp.py:73
+#: ../src/whaawmp.py:71
 msgid " [options] filename"
 msgstr ""
 
@@ -142,27 +146,31 @@ msgstr ""
 msgid "Error!! No slash (/) in given option, something bad happened!"
 msgstr ""
 
-#: ../src/common/config.py:117
+#: ../src/common/config.py:116
+msgid "Print the version and exit"
+msgstr ""
+
+#: ../src/common/config.py:120
 msgid "Play the file in fullscreen mode"
 msgstr ""
 
-#: ../src/common/config.py:121
+#: ../src/common/config.py:124
 msgid "Sets the player's volume to VOL (0-100)"
 msgstr ""
 
-#: ../src/common/config.py:125
+#: ../src/common/config.py:128
 msgid "Mute the player"
 msgstr ""
 
-#: ../src/common/config.py:129
+#: ../src/common/config.py:132
 msgid "Sets the player's audio ouput to SINK"
 msgstr ""
 
-#: ../src/common/config.py:133
+#: ../src/common/config.py:136
 msgid "Sets the player's video ouput to SINK"
 msgstr ""
 
-#: ../src/common/config.py:137
+#: ../src/common/config.py:140
 msgid "Quits the player when the playing stream stops"
 msgstr ""
 

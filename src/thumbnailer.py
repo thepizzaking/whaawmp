@@ -68,8 +68,8 @@ class main:
 	
 	def parseOptions(self):
 		## Parses the command line options.
-		# Create the parser, and set the useage.
-		parser = OptionParser("\n  " + __sName__ + _(" [options] input-file"))
+		# Create the parser, and set the usage.
+		parser = OptionParser(usage="\n  " + __sName__ + _(" [options] input-file"))
 		# Add parser options:
 		# Input file (can be an absolute or relative path).
 		parser.add_option("-i", "--input", dest="input",
@@ -96,7 +96,8 @@ class main:
 		
 		if (not options.output or (len(args) == 0 and not options.input)):
 			# Either an input or output file wasn't defined, so we can't continue.
-			print _('Sorry, an input and output file are required to be passed.')
+			print _("Sorry, an input and output file are required to be passed.")
+			print _("See '%s --help' for details") % (__sName__)
 			sys.exit(1)
 		# Turn the position into a float.
 		if (options.size): options.size = int(options.size)

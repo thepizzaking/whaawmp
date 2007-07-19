@@ -69,7 +69,7 @@ class main:
 		## Initialises everything.
 		# Option Parser
 		usage = "\n  " + useful.sName + _(" [options] filename")
-		(options, args) = config.clparser(OptionParser(usage)).parseArgs(HELP)
+		(options, args) = config.clparser(OptionParser(usage=usage, prog=__sName__)).parseArgs(HELP)
 
 		# Open the settings.
 		cfgfile = os.path.join(os.getenv('HOME'), '.config', useful.sName, 'config.ini')
