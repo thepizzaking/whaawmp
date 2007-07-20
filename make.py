@@ -128,12 +128,14 @@ def makeInstallSrc():
 
 
 def makeUninstall():
-	# Uninstalls all the program (except for locales, I'll get that tomorrow).
-	os.system('rm -r %s/share/whaawmp' % base)
-	os.system('rm %s/share/applications/whaawmp.desktop' % base)
-	os.system('rm %s/share/thumbnailers/whaaw-thumbnailer.desktop' % base)
-	os.system('rm %s/bin/whaawmp' % base)
-	os.system('rm %s/bin/whaaw-thumbnailer' % base)
+	# Uninstalls all the program.
+	os.system('rm -rf %s/share/whaawmp' % base)
+	os.system('rm -f %s/share/applications/whaawmp.desktop' % base)
+	os.system('rm -f %s/share/thumbnailers/whaaw-thumbnailer.desktop' % base)
+	os.system('rm -f %s/bin/whaawmp' % base)
+	os.system('rm -f %s/bin/whaaw-thumbnailer' % base)
+	for x in os.popen('find %s/share/locale -name whaawmp.mo' % base).read().split():
+		os.system('rm -f %s' % x)
 
 def install(src, dst, perm='644', args=''):
 	# Installs a file with the requested attributes (checks for failure)
