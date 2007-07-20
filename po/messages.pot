@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-19 22:21+1000\n"
+"POT-Creation-Date: 2007-07-20 19:50+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -93,52 +93,52 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: ../src/gui/dialogues.py:190 ../src/gui/whaawmp.glade.h:23
+#: ../src/gui/dialogues.py:188 ../src/gui/whaawmp.glade.h:23
 msgid "Play DVD"
 msgstr ""
 
-#: ../src/gui/dialogues.py:195
+#: ../src/gui/dialogues.py:193
 msgid "Select options:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:197
+#: ../src/gui/dialogues.py:195
 msgid "Title: "
 msgstr ""
 
-#: ../src/gui/dialogues.py:239
+#: ../src/gui/dialogues.py:237
 msgid "Open a URI"
 msgstr ""
 
-#: ../src/gui/dialogues.py:244
+#: ../src/gui/dialogues.py:242
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:268
+#: ../src/gui/dialogues.py:266
 msgid "Select Tracks"
 msgstr ""
 
-#: ../src/gui/dialogues.py:272
+#: ../src/gui/dialogues.py:270
 msgid "Audio:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:306 ../src/gui/main.py:269
+#: ../src/gui/dialogues.py:304 ../src/gui/main.py:267
 msgid "Error!"
 msgstr ""
 
-#: ../src/gui/dialogues.py:314
+#: ../src/gui/dialogues.py:312
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:378
+#: ../src/gui/main.py:376
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:550
+#: ../src/gui/main.py:548
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:550
+#: ../src/gui/main.py:548
 msgid "Play"
 msgstr ""
 
