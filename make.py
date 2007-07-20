@@ -39,7 +39,7 @@ base = destdir + prefix
 os.chdir(sys.path[0])
 
 if (len(sys.argv) > 1):
-	command = sys.argv[1]
+	command = sys.argv[1].lower()
 else:
 	command = 'all'
 
@@ -49,15 +49,18 @@ def makeAll():
 	print "Make finished, type './make.py install' to install."
 
 def compilePy():
-	os.system('python -m compileall src')
+	print 'Compiling all .py files'
+	check(os.system('python -m compileall src'))
 
 def compilePO():
-	os.system('./po/potool.py compile')
+	print 'Compiling all .po files'
+	check(os.system('./po/potool.py compile'))
 
 def makeInstall():
 	makeInstallDirs()
 	installBin()
 	installLocales()
+	print '\n\nDone!!!'
 
 def makeInstallDirs():
 	dirs = [ '/bin',
@@ -71,31 +74,31 @@ def makeInstallDirs():
 		if (not os.path.isdir(base + x)): os.makedirs(base + x)
 
 def installBin():
-	os.system('install -m install -m 644 whaawmp.desktop %s/share/applications' % base)
-	os.system('install -m install -m 644 whaaw-thumbnailer.desktop %s/share/thumbnailers' % base)
-	os.system('install -m install -m 644 images/*.png %s/share/whaawmp/images' % base)
-	os.system('install -m 644 src/*.py %s/share/whaawmp/src' % base)
+	install('whaawmp.desktop', '%s/share/applications' % base)
+	install('whaaw-thumbnailer.desktop', '%s/share/thumbnailers' % base)
+	install('images/*.png', '%s/share/whaawmp/images' % base)
+	install('src/*.py', '%s/share/whaawmp/src' % base)
 	for x in pycDir:
-		os.system('install -m 644 %s/*.pyc %s/share/whaawmp/%s' % (x, base, x))
+		install('%s/*.pyc' % x, '%s/share/whaawmp/%s' % (base, x))
 	x = gladeDir
-	os.system('install -m 644 %s/*.glade %s/share/whaawmp/%s' % (x, base, x))
+	install('%s/*.glade' % x, '%s/share/whaawmp/%s' % (base, x))
 	for x in binFiles:
-		os.system('install -m 755 %s %s/share/whaawmp' % (x, base))
+		install(x, '%s/share/whaawmp' % base)
 		f = open(base + '/bin/%s' % x, 'w')
 		f.write('#!/bin/sh\nexec %s/share/whaawmp/%s "$@"' % (prefix, x))
 		f.close
-		os.system('chmod 755 %s/bin/%s' % (base, x))
+		check(os.system('chmod 755 %s/bin/%s' % (base, x)))
 
 def installLocales():
 	for x in os.popen('find po -name whaawmp.mo').read().split():
-		dest = base + '/share/locale' + x[2:]
-		os.system('install -D -m 644 ' + x + ' ' + dest)
+		dest = base + '/share/locale/%s' % x[2:]
+		install(x, dest, args='-D')
 	
 
 def makeInstallSrc():
 	makeInstall()
 	for x in pyDir:
-		os.system('install -m 644 %s/*.py %s/share/whaawmp/%s' % (x, base, x))
+		install('%s/*.py' % x, '%s/share/whaawmp/%s' % (base, x))
 
 
 def makeUninstall():
@@ -104,6 +107,22 @@ def makeUninstall():
 	os.system('rm %s/share/thumbnailers/whaaw-thumbnailer.desktop' % base)
 	os.system('rm %s/bin/whaawmp' % base)
 	os.system('rm %s/bin/whaaw-thumbnailer' % base)
+
+def install(src, dst, perm='644', args=''):
+	print 'Installing %s to %s as %s' % (src, dst, perm)
+	check(os.system('install %s -m %s %s %s' % (args, perm, src, dst)), 'Installation Failed!')
+
+
+def check(x, msg='Fail!'):
+	if (x):
+		print msg
+		sys.exit(1)
+
+
+def printHelp(commands):
+	print "Usage: './main.py [option]' where option is one of:"
+	for x in commands:
+		print x
 
 
 def __init__():
@@ -115,8 +134,13 @@ def __init__():
 	             'installsrc' : makeInstallSrc,
 	             'installlocales' : installLocales,
 	             'uninstall' : makeUninstall }
+	
+	if (command in [ '--help', '-h', 'help']):
+		printHelp(commands)
+		sys.exit(0)
+	
 	try:
-		commands[command.lower()]()
+		commands[command]()
 	except KeyError:
 		print "Could not find target '%s'" % (command)
 		sys.exit(1)
