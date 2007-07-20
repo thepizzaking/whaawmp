@@ -634,9 +634,8 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
-	def stopPlayer(self, widget=None):
-		# Just a transfer call as player.stop takes only 1 argument.
-		self.player.stop()
+	# Just a transfer call as player.stop takes only 1 argument.
+	stopPlayer = lambda self, widget: self.player.stop()
 	
 	
 	def __init__(self, main, options, args):
