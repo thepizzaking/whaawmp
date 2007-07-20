@@ -83,7 +83,7 @@ def installBin():
 	x = gladeDir
 	install('%s/*.glade' % x, '%s/share/whaawmp/%s' % (base, x))
 	for x in binFiles:
-		install(x, '%s/share/whaawmp' % base)
+		install(x, '%s/share/whaawmp' % base, 755)
 		f = open(base + '/bin/%s' % x, 'w')
 		f.write('#!/bin/sh\nexec %s/share/whaawmp/%s "$@"' % (prefix, x))
 		f.close
@@ -109,6 +109,7 @@ def makeUninstall():
 	os.system('rm %s/bin/whaaw-thumbnailer' % base)
 
 def install(src, dst, perm='644', args=''):
+	perm = str(perm)
 	print 'Installing %s to %s as %s' % (src, dst, perm)
 	check(os.system('install %s -m %s %s %s' % (args, perm, src, dst)), 'Installation Failed!')
 
