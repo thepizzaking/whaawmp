@@ -30,8 +30,6 @@ from common import lists, useful
 from common import gstTools as playerTools
 
 class mainWindow:
-	gladefile = os.path.join("gui", useful.sName + ".glade")
-	
 	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
