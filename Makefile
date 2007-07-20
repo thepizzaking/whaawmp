@@ -56,3 +56,5 @@ uninstall:
 	rm -r $(DESTDIR)$(PREFIX)/share/whaawmp
 	rm $(DESTDIR)$(PREFIX)/share/applications/whaawmp.desktop
 	rm $(DESTDIR)$(PREFIX)/bin/whaawmp
+	rm $(DESTDIR)$(PREFIX)/share/thumbnailers/whaaw-thumbnailer.desktop
+	rm $(DESTDIR)$(PREFIX)/bin/whaaw-thumbnailer
