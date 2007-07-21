@@ -41,13 +41,6 @@ base = destdir + prefix
 # Change directories into the one where this script resides.
 os.chdir(sys.path[0])
 
-if (len(sys.argv) > 1):
-	# If an argument was passed, it will be the target (or help)
-	command = sys.argv[1].lower()
-else:
-	# If none were passed use all.
-	command = 'all'
-
 def makeAll():
 	# Make all, called when no command was passed.
 	compilePy()
@@ -169,9 +162,13 @@ def parseOptions(commands):
 	if (opt.locale.lower() == 'none'): opt.locale = None
 	if (not opt.command):
 		if (len(args) > 0):
-			opt.command = args[0]
+			opt.command = []
+			for x in range(len(args)):
+				opt.command.append(args[x])
 		else:
-			opt.command = 'all'
+			opt.command = [ 'all' ]
+	else:
+		opt.command = [ opt.command ]
 
 
 def printHelp(commands):
@@ -193,13 +190,12 @@ def __init__():
 	             'uninstall' : makeUninstall }
 	
 	parseOptions(commands)
-	command = opt.command
-	
-	try:
-		# Try and execute the command, if it fails, quit.
-		commands[command]()
-	except KeyError:
-		print "Could not find target '%s'" % (command)
-		sys.exit(1)
+	for command in opt.command:
+		try:
+			# Try and execute the command, if it fails, quit.
+			commands[command]()
+		except KeyError:
+			print "Could not find target '%s'" % (command)
+			sys.exit(1)
 
 __init__()
