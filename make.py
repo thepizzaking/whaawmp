@@ -25,17 +25,6 @@ pyoDir = [ 'src/common', 'src/gui' ]
 gladeDir = 'src/gui'
 execFiles = [ 'whaawmp', 'whaaw-thumbnailer' ]
 
-# Try and read the PREFIX and DESTDIR enivronment variable.
-try:
-	destdir = os.path.abspath(os.environ['DESTDIR'])
-except KeyError:
-	destdir = ''
-
-try:
-	prefix = os.path.abspath(os.environ['PREFIX'])
-except KeyError:
-	prefix = '/usr/local'
-
 def makeAll():
 	# Make all, called when no command was passed.
 	compilePy()
@@ -172,8 +161,21 @@ def parseOptions(commands):
 	# If the locale is none, it should be None.
 	if (opt.locale.lower() == 'none'): opt.locale = None
 	# Get the destination directory and the prefix.
-	if (opt.destdir): destdir = os.path.abspath(opt.destdir)
-	if (opt.prefix): prefix = os.path.abspath(opt.prefix)
+	if (opt.destdir):
+		destdir = os.path.abspath(opt.destdir)
+	else:
+		# Try and read the DESTDIR enivronment variable.
+		try:
+			destdir = os.path.abspath(os.environ['DESTDIR'])
+		except KeyError:
+			destdir = ''
+	if (opt.prefix):
+		prefix = os.path.abspath(opt.prefix)
+	else:
+		try:
+			prefix = os.path.abspath(os.environ['PREFIX'])
+		except KeyError:
+			prefix = '/usr/local'
 	# Read all the commands into an array.
 	if (not opt.command):
 		if (len(args) > 0):
