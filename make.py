@@ -35,11 +35,6 @@ try:
 	prefix = os.path.abspath(os.environ['PREFIX'])
 except KeyError:
 	prefix = '/usr/local'
-# Create a base variable where to install all files.
-base = destdir + prefix
-
-# Change directories into the one where this script resides.
-os.chdir(sys.path[0])
 
 def makeAll():
 	# Make all, called when no command was passed.
@@ -147,19 +142,39 @@ def check(x, msg='Fail!'):
 		sys.exit(1)
 
 def parseOptions(commands):
-	global opt
+	# Parses the command line options.
+	# Make these variables global so we can use them later.
+	global opt, destdir, prefix
 	
+	# Create a description ending with a list of commands.
 	desc = 'Command can be one of:'
 	for x in commands: desc += '  ' + x
+	# Create the parser.
 	parser = OptionParser(usage="Usage: './main.py [options] command'", description=desc)
+	# Select the locale to install (none does none, all does all).
 	parser.add_option('-l', '--locale', dest='locale',
 	                  default='all', metavar='LOCALE',
 	                  help='Select locale to install, none will install none, default: all')
+	# The prefix to install to.
+	parser.add_option('-p', '--prefix', dest='prefix',
+	                  default=None, metavar='PREFIX',
+	                  help='The prefix to install to')
+	# The destination directory of installation.
+	parser.add_option('-d', '--destdir', dest='destdir',
+	                  default=None, metavar='DESTDIR',
+	                  help='The destination of all installation')
+	# The command to execute (can also just be added at the end).
 	parser.add_option('-c', '--command', dest='command',
 	                  default=None, metavar='COMMAND',
 	                  help='The command to run')
+	# Actually parse the arguments.
 	opt, args = parser.parse_args()
+	# If the locale is none, it should be None.
 	if (opt.locale.lower() == 'none'): opt.locale = None
+	# Get the destination directory and the prefix.
+	if (opt.destdir): destdir = os.path.abspath(opt.destdir)
+	if (opt.prefix): prefix = os.path.abspath(opt.prefix)
+	# Read all the commands into an array.
 	if (not opt.command):
 		if (len(args) > 0):
 			opt.command = []
@@ -179,6 +194,7 @@ def printHelp(commands):
 
 
 def __init__():
+	global base
 	# A list of commands.
 	commands = { 'all' : makeAll,
 	             'compilepy' : compilePy,
@@ -190,6 +206,10 @@ def __init__():
 	             'uninstall' : makeUninstall }
 	
 	parseOptions(commands)
+	# Create a base variable where to install all files.
+	base = destdir + prefix
+	# Change directories into the one where this script resides.
+	os.chdir(sys.path[0])
 	for command in opt.command:
 		try:
 			# Try and execute the command, if it fails, quit.
