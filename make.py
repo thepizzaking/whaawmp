@@ -18,6 +18,7 @@
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, sys, os.path
+from optparse import OptionParser
 
 # Directories where to install files from.
 pyoDir = [ 'src/common', 'src/gui' ]
@@ -115,7 +116,9 @@ def installLocales():
 	for x in os.popen('find po -name whaawmp.mo').read().split():
 		# For all locales found, install them to their correct locations.
 		dest = base + '/share/locale/%s' % x[2:]
-		install(x, dest, args='-D')
+		# Check that the language was requested to be installed.
+		reqLang = opt.locale in [ 'all', x[3:len(opt.locale)+3] ]
+		if (reqLang): install(x, dest, args='-D')
 	
 
 def makeInstallSrc():
@@ -150,6 +153,26 @@ def check(x, msg='Fail!'):
 		print msg
 		sys.exit(1)
 
+def parseOptions(commands):
+	global opt
+	
+	desc = 'Command can be one of:'
+	for x in commands: desc += '  ' + x
+	parser = OptionParser(usage="Usage: './main.py [options] command'", description=desc)
+	parser.add_option('-l', '--locale', dest='locale',
+	                  default='all', metavar='LOCALE',
+	                  help='Select locale to install, none will install none, default: all')
+	parser.add_option('-c', '--command', dest='command',
+	                  default=None, metavar='COMMAND',
+	                  help='The command to run')
+	opt, args = parser.parse_args()
+	if (opt.locale.lower() == 'none'): opt.locale = None
+	if (not opt.command):
+		if (len(args) > 0):
+			opt.command = args[0]
+		else:
+			opt.command = 'all'
+
 
 def printHelp(commands):
 	# Prints a line about usage, then a list of available options.
@@ -169,10 +192,8 @@ def __init__():
 	             'installlocales' : installLocales,
 	             'uninstall' : makeUninstall }
 	
-	# If the command is a help one, print help and quit.
-	if (command in [ '--help', '-h', 'help']):
-		printHelp(commands)
-		sys.exit(0)
+	parseOptions(commands)
+	command = opt.command
 	
 	try:
 		# Try and execute the command, if it fails, quit.
