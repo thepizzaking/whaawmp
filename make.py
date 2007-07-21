@@ -20,7 +20,7 @@
 import os, sys, os.path
 
 # Directories where to install files from.
-pycDir = [ 'src/common', 'src/gui' ]
+pyoDir = [ 'src/common', 'src/gui' ]
 gladeDir = 'src/gui'
 execFiles = [ 'whaawmp', 'whaaw-thumbnailer' ]
 
@@ -54,9 +54,9 @@ def makeAll():
 	print "Make finished, type './make.py install' to install."
 
 def compilePy():
-	# Compiles all the .py files into .pyc files.
+	# Compiles all the .py files into .pyo files.
 	print 'Compiling all .py files'
-	check(os.system('python -m compileall src'))
+	check(os.system('python -O -m compileall src'))
 
 def compilePO():
 	# Compiles all the translations (.po files)
@@ -90,12 +90,12 @@ def installBin():
 	install('whaaw-thumbnailer.desktop', '%s/share/thumbnailers' % base)
 	# Images.
 	install('images/*.png', '%s/share/whaawmp/images' % base)
-	# The .py files used to start the program, the .pyc files of these aren't
+	# The .py files used to start the program, the .pyo files of these aren't
 	# used anyway.
 	install('src/*.py', '%s/share/whaawmp/src' % base)
-	for x in pycDir:
-		# For all files in the .pyc directories.
-		install('%s/*.pyc' % x, '%s/share/whaawmp/%s' % (base, x))
+	for x in pyoDir:
+		# For all files in the .pyo directories.
+		install('%s/*.pyo' % x, '%s/share/whaawmp/%s' % (base, x))
 	# Now the gladefile too.
 	x = gladeDir
 	install('%s/*.glade' % x, '%s/share/whaawmp/%s' % (base, x))
@@ -119,10 +119,10 @@ def installLocales():
 	
 
 def makeInstallSrc():
-	# Installs the source (.py) files along with the .pyc files.
+	# Installs the source (.py) files along with the .pyo files.
 	makeInstall()
-	for x in pycDir:
-		# For all the directories we installed the .pyc file in, put the .py
+	for x in pyoDir:
+		# For all the directories we installed the .pyo file in, put the .py
 		# files in there too.
 		install('%s/*.py' % x, '%s/share/whaawmp/%s' % (base, x))
 
