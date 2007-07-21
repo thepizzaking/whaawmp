@@ -713,7 +713,7 @@ class mainWindow:
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
-			self.playFile(os.path.abspath(args[0]))
+			self.playFile(args[0] if ('://' in args[0]) else os.path.abspath(args[0]))
 		else:
 			self.movieWindowOnStop(True)
 		
