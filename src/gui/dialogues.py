@@ -233,6 +233,8 @@ class PlayDVD:
 class OpenURI:
 	def __init__(self, parent):
 		## Creates an openURI dialogue.
+		# Initially flag the response as None.
+		self.res = None
 		# Create the dialogue.
 		dlg = gtk.Dialog(_("Open a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
@@ -243,13 +245,22 @@ class OpenURI:
 		label.set_alignment(0, 0.5)
 		entry = gtk.Entry()
 		entry.set_size_request(350, -1)
+		entry.connect('activate', self.onResponse, True, dlg)
 		dlg.vbox.pack_start(label)
 		dlg.vbox.pack_start(entry)
 		# Show all the dialogues.
 		dlg.show_all()
 		
 		# Run the dialogue, then hide it.
-		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
+		self.onResponse(entry, (True if (dlg.run() == gtk.RESPONSE_OK) else False), dlg)
+	
+	def onResponse(self, entry, res, dlg):
+		# If a result has already been obtained, cancel the call.
+		if (self.res is not None):
+			return
+		else:
+			self.res = res
+		# Hide the dialogue.
 		dlg.hide()
 		
 		# Save the URI if OK was pressed.
