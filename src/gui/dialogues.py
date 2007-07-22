@@ -211,7 +211,8 @@ class PlayDVD:
 			hbox.pack_start(self.spnDic[x])
 			dlg.vbox.pack_start(hbox)
 		
-		
+		# Set the default response.
+		dlg.set_default_response(gtk.RESPONSE_OK)
 		# Show all the widgets, then run it.
 		dlg.show_all()
 		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
