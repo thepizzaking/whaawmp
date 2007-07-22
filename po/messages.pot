@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-21 12:25+1000\n"
+"POT-Creation-Date: 2007-07-22 12:51+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Audio:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:304 ../src/gui/main.py:267
+#: ../src/gui/dialogues.py:304 ../src/gui/main.py:277
 msgid "Error!"
 msgstr ""
 
@@ -129,16 +129,16 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:376
+#: ../src/gui/main.py:386
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:548
+#: ../src/gui/main.py:558
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:548
+#: ../src/gui/main.py:558
 msgid "Play"
 msgstr ""
 
