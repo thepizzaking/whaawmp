@@ -42,14 +42,10 @@ for x in sys.argv:
 		HELP = True
 		sys.argv.remove(x)
 
-import gobject
-gobject.threads_init()
-import pygst
-pygst.require('0.10')
-import gst
-import pygtk
+import pygtk, pygst
 pygtk.require('2.0')
-import gtk
+pygst.require('0.10')
+import gtk, gst
 
 class main:
 	def __init__(self):
@@ -61,9 +57,6 @@ class main:
 		self.parseOptions()
 		#Create the player.
 		self.createPlayer()
-		# Start the main loop.
-		self.loop = gobject.MainLoop()
-		self.loop.run()
 	
 	
 	def parseOptions(self):
@@ -233,3 +226,5 @@ class main:
 
 
 main()
+# Start the main loop.
+gtk.main()

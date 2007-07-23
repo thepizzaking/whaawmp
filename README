@@ -28,3 +28,8 @@ eg. To install to /usr:
 Also if you use a tool like checkinstall, I have added a Makefile which just
 executes the correct commands for 'make' and 'make install'.  So it **should**
 work, I haven't actually tested this though.
+
+To run it afterwards, use whaawmp to start Whaaw! Media Player.
+
+Any queries see the FAQ: http://home.gna.org/whaawmp/faq.html
+Otherwise, see me on irc: #whaawmp on irc://irc.oftc.net
