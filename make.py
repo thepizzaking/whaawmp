@@ -67,7 +67,7 @@ def installBin():
 	install('whaawmp.desktop', '%s/share/applications' % base)
 	install('whaaw-thumbnailer.desktop', '%s/share/thumbnailers' % base)
 	# Images.
-	install('images/*.png', '%s/share/whaawmp/images' % base)
+	#install('images/*.png', '%s/share/whaawmp/images' % base)
 	# The .py files used to start the program, the .pyo files of these aren't
 	# used anyway.
 	install('src/*.py', '%s/share/whaawmp/src' % base)
