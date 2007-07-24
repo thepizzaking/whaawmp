@@ -155,11 +155,6 @@ class mainWindow:
 		for x in lists.hiddenFSWidgets:
 			self.wTree.get_widget(x).hide()
 		
-		# Move the volume bar down to the bottom bar.
-		hVol = self.wTree.get_widget('hboxVolume')
-		self.wTree.get_widget('hboxTop').remove(hVol)
-		self.wTree.get_widget('hboxControl').pack_start(hVol, False)
-		
 		# Flag the the controls as not being shown.
 		self.controlsShown = False
 		# Set the window to fullscreen.
@@ -168,10 +163,6 @@ class mainWindow:
 	
 	def deactivateFullscreen(self):
 		## Deactivates the fullscreen.
-		# Move the volume bar back to the top.
-		hVol = self.wTree.get_widget('hboxVolume')
-		self.wTree.get_widget('hboxControl').remove(hVol)
-		self.wTree.get_widget('hboxTop').pack_start(hVol, False)
 		# Re-show all the widgets.
 		for x in lists.hiddenFSWidgets:
 			self.wTree.get_widget(x).show()
