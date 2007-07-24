@@ -589,7 +589,7 @@ class mainWindow:
 		except:
 			# If that fails, we need to get the image from the file.
 			# Get the image file.
-			image = '../images/whaawmp.png'
+			image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.png')
 			# Create a pixbuf from the file.
 			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
 			# Draw the image on the file.
