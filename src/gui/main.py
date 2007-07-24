@@ -151,26 +151,15 @@ class mainWindow:
 		# No use in doing fullscreen if no video is playing.
 		if (not self.player.playingVideo()): return
 		
-		# Hide all the widgets other than the video window.
-		for x in lists.hiddenFSWidgets:
-			self.wTree.get_widget(x).hide()
-		
-		# Flag the the controls as not being shown.
-		self.controlsShown = False
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
 
 	
 	def deactivateFullscreen(self):
 		## Deactivates the fullscreen.
-		# Re-show all the widgets.
+		# Hide all the widgets, before we unfullscreen.
 		for x in lists.hiddenFSWidgets:
-			self.wTree.get_widget(x).show()
-		# Hide any widgets that should be hidden.
-		for x in lists.hiddenNormalWidgets:
 			self.wTree.get_widget(x).hide()
-		# Flag the controls as being shown.
-		self.controlsShown = True
 		# Unfullscreens the window (in 100ms so the window is the right size
 		# (is there a better way of doing this?).
 		gobject.timeout_add(100, self.mainWindow.unfullscreen)
@@ -445,7 +434,22 @@ class mainWindow:
 	
 	def onMainStateEvent(self, widget, event):
 		## Acts when a state event occurs on the main window.
-		if (not self.fsActive() and not self.player.playingVideo()):
+		fs = event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN
+		if (fs):
+			# Hide all the widgets other than the video window.
+			for x in lists.hiddenFSWidgets:
+				self.wTree.get_widget(x).hide()
+			
+			# Flag the the controls as not being shown.
+			self.controlsShown = False
+		else:
+			# Re-show all the widgets that aren't meant to be hidden.
+			for x in lists.hiddenFSWidgets:
+				if (x not in lists.hiddenNormalWidgets): self.wTree.get_widget(x).show()
+			# Flag the controls as being shown.
+			self.controlsShown = True
+		
+		if (not fs and not self.player.playingVideo()):
 			# If fullscreen is not active and no video is playing, call the
 			# movie stop function in 0ms (for some reason this seems to work).
 			gobject.timeout_add(0, self.movieWindowOnStop, True)
