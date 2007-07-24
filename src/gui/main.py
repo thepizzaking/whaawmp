@@ -583,6 +583,8 @@ class mainWindow:
 	
 	def drawMovieWindowImage(self):
 		## Draws the background image.
+		# Just return until we actually have a picture to display.
+		return
 		try:
 			# Try and draw the image.
 			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
