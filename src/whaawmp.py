@@ -28,7 +28,7 @@ from common import useful
 
 useful.sName = __sName__
 useful.lName = _('Whaaw! Media Player')
-useful.version = '0.1.13'
+useful.version = '0.2.0'
 useful.origDir = os.getcwd()
 useful.srcDir = sys.path[0]
 useful.gladefile = os.path.join(sys.path[0], 'gui', __sName__ + '.glade')

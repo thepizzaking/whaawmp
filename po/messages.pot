@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-22 12:51+1000\n"
+"POT-Creation-Date: 2007-07-28 12:35+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,56 +16,56 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/thumbnailer.py:72
+#: ../src/thumbnailer.py:65
 msgid " [options] input-file"
 msgstr ""
 
-#: ../src/thumbnailer.py:77
+#: ../src/thumbnailer.py:70
 msgid "The file to create the thumbnail of"
 msgstr ""
 
-#: ../src/thumbnailer.py:81
+#: ../src/thumbnailer.py:74
 msgid "The destination of the resulting thumbnail"
 msgstr ""
 
-#: ../src/thumbnailer.py:85
+#: ../src/thumbnailer.py:78
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
 msgstr ""
 
-#: ../src/thumbnailer.py:89
+#: ../src/thumbnailer.py:82
 msgid "The destination size (in pixels)"
 msgstr ""
 
-#: ../src/thumbnailer.py:99
+#: ../src/thumbnailer.py:92
 msgid "Sorry, an input and output file are required to be passed."
 msgstr ""
 
-#: ../src/thumbnailer.py:100
+#: ../src/thumbnailer.py:93
 #, python-format
 msgid "See '%s --help' for details"
 msgstr ""
 
-#: ../src/thumbnailer.py:107
+#: ../src/thumbnailer.py:100
 msgid "The requested position must be between 0 and 1, using 0.3."
 msgstr ""
 
-#: ../src/thumbnailer.py:164
+#: ../src/thumbnailer.py:157
 msgid "Stream returned no caps, exiting"
 msgstr ""
 
-#: ../src/thumbnailer.py:191
+#: ../src/thumbnailer.py:184
 msgid "An error occurred"
 msgstr ""
 
-#: ../src/thumbnailer.py:207
+#: ../src/thumbnailer.py:200
 msgid "There are no video tracks in this stream, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:213
+#: ../src/thumbnailer.py:206
 msgid "Duration unable to be read, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:226
+#: ../src/thumbnailer.py:219
 msgid "Unable to seek to requested position, exiting."
 msgstr ""
 
@@ -73,11 +73,11 @@ msgstr ""
 msgid "Whaaw! Media Player"
 msgstr ""
 
-#: ../src/whaawmp.py:37
+#: ../src/whaawmp.py:38
 msgid "Cannot continue, python version must be at least 2.5."
 msgstr ""
 
-#: ../src/whaawmp.py:71
+#: ../src/whaawmp.py:72
 msgid " [options] filename"
 msgstr ""
 
@@ -105,40 +105,40 @@ msgstr ""
 msgid "Title: "
 msgstr ""
 
-#: ../src/gui/dialogues.py:237
+#: ../src/gui/dialogues.py:240
 msgid "Open a URI"
 msgstr ""
 
-#: ../src/gui/dialogues.py:242
+#: ../src/gui/dialogues.py:245
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:266
+#: ../src/gui/dialogues.py:278
 msgid "Select Tracks"
 msgstr ""
 
-#: ../src/gui/dialogues.py:270
+#: ../src/gui/dialogues.py:282
 msgid "Audio:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:304 ../src/gui/main.py:277
+#: ../src/gui/dialogues.py:316 ../src/gui/main.py:257
 msgid "Error!"
 msgstr ""
 
-#: ../src/gui/dialogues.py:312
+#: ../src/gui/dialogues.py:324
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:386
+#: ../src/gui/main.py:366
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:558
+#: ../src/gui/main.py:553
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:558
+#: ../src/gui/main.py:553
 msgid "Play"
 msgstr ""
 
