@@ -302,7 +302,7 @@ class mainWindow:
 			self.progressUpdate()
 			
 		elif (playerTools.isStopMsg(msg)):
-			if (self.options.quitOnEnd): self.quit()
+			if (self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
 			self.movieWindowOnStop()
 			# Deactivate fullscreen.
@@ -701,6 +701,8 @@ class mainWindow:
 		# Get the volume from the configuration.
 		self.wTree.get_widget("chkVol").set_active(not (self.cfg.getBool("audio/mute") or (options.mute)))
 		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
+		# Set the quit on stop checkbox.
+		self.wTree.get_widget("mnuiQuitOnStop").set_active(options.quitOnEnd)
 		# Set up the default flags.
 		self.controlsShown = True
 		self.seeking = False
