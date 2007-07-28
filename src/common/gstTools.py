@@ -2,13 +2,14 @@
 
 #  A few gstreamer tools that I thought I could use.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
+#       This file is part of Whaaw! Media Player (whaawmp)
 #
-#       This program is free software: you can redistribute it and/or modify
+#       whaawmp is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
 #       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
-#       This program is distributed in the hope that it will be useful,
+#       whaawmp is distributed in the hope that it will be useful,
 #       but WITHOUT ANY WARRANTY; without even the implied warranty of
 #       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #       GNU General Public License for more details.
@@ -24,7 +25,7 @@ from common import lists
 
 def streamType(stream):
 	## Returns the stream type as a string from a given stream.
-	return lists.gstStreamType()[stream.get_property('type')]
+	return lists.gstStreamType[stream.get_property('type')]
 
 
 def messageType(message):
@@ -40,22 +41,28 @@ def messageType(message):
 
 
 ## State change checkers, msg[0] is old, [1] is new, [2] is pending.
+def isNull2ReadyMsg(msg):
+	## Checks if the player was just initialised from NULL to READY.
+	return (msg[0] == gst.STATE_NULL and msg[1] == gst.STATE_READY)
+
 def isPlayMsg(msg):
 	## Checks if the player has just started playing.
-	# The player's state always goes from Paused to Playing on start,
-	# even if it was stopped.
+	# (Always goes via PAUSED)
 	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_PLAYING)
 
-def isPauseMsg(msg):
-	## Checks if the player has just paused playing.
-	# This will also return true on a pause, since stop also emits this
-	# pattern, which is probably good.
+def isPlay2PauseMsg(msg):
+	## Checks if the player has just paused from playing.
+	# (Goes via this on it's way to stop too)
 	return (msg[0] == gst.STATE_PLAYING and msg[1] == gst.STATE_PAUSED)
+
+def isStop2PauseMsg(msg):
+	## Checks if the player has just paused from stopped.
+	# (Does this on it's way to playing too)
+	return (msg[0] == gst.STATE_READY and msg[1] == gst.STATE_PAUSED)
 
 def isStopMsg(msg):
 	## Checks if the player has just stopped playing.
-	# This will return true on a stop, since the player always goes to
-	# paused state before stop, we only have to check this one case.
+	# (Goes via paused when stopping even if it was playing)
 	return (msg[0] == gst.STATE_PAUSED and msg[1] == gst.STATE_READY)
 
 
@@ -71,3 +78,20 @@ def getAudioLangArray(player):
 			tracks.append(lang)
 	# Return the tracks.
 	return tracks
+
+def hasVideoTrack(player):
+	## Returns true if the stream has a video track.
+	for x in player.getStreamsInfo():
+		# For all streams in the file, return true if it's a video stream.
+		if (streamType(x) == 'video'): return True
+	# Otherwise return false.
+	return False
+
+
+def vsinkDef():
+	## Returns the default video sink.
+	for x in lists.vsinkTypes:
+		# For all the vsink types, break if it exists.
+		if (gst.element_factory_find(x)): break
+	
+	return x

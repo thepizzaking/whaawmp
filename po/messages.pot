@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-09 10:07+1000\n"
+"POT-Creation-Date: 2007-07-28 12:35+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,81 +16,190 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/config.py:36
-msgid "Error!! No slash (/) in option, something bad happened!"
+#: ../src/thumbnailer.py:65
+msgid " [options] input-file"
 msgstr ""
 
-#: ../src/whaawmp.py:27 ../src/gui/whaawmp.glade.h:35
+#: ../src/thumbnailer.py:70
+msgid "The file to create the thumbnail of"
+msgstr ""
+
+#: ../src/thumbnailer.py:74
+msgid "The destination of the resulting thumbnail"
+msgstr ""
+
+#: ../src/thumbnailer.py:78
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr ""
+
+#: ../src/thumbnailer.py:82
+msgid "The destination size (in pixels)"
+msgstr ""
+
+#: ../src/thumbnailer.py:92
+msgid "Sorry, an input and output file are required to be passed."
+msgstr ""
+
+#: ../src/thumbnailer.py:93
+#, python-format
+msgid "See '%s --help' for details"
+msgstr ""
+
+#: ../src/thumbnailer.py:100
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr ""
+
+#: ../src/thumbnailer.py:157
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:184
+msgid "An error occurred"
+msgstr ""
+
+#: ../src/thumbnailer.py:200
+msgid "There are no video tracks in this stream, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:206
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:219
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
+
+#: ../src/whaawmp.py:30 ../src/gui/whaawmp.glade.h:41
 msgid "Whaaw! Media Player"
 msgstr ""
 
-#: ../src/whaawmp.py:59
+#: ../src/whaawmp.py:38
+msgid "Cannot continue, python version must be at least 2.5."
+msgstr ""
+
+#: ../src/whaawmp.py:72
 msgid " [options] filename"
 msgstr ""
 
-#: ../src/gui/dialogues.py:48
-msgid "Choose a file"
+#: ../src/gui/dialogues.py:47
+msgid "Choose a file to Open"
 msgstr ""
 
-#: ../src/gui/dialogues.py:57
+#: ../src/gui/dialogues.py:56
 msgid "Supported Media"
 msgstr ""
 
-#: ../src/gui/dialogues.py:173
-msgid "DVD Options"
+#: ../src/gui/dialogues.py:62
+msgid "All Files"
 msgstr ""
 
-#: ../src/gui/dialogues.py:178
+#: ../src/gui/dialogues.py:188 ../src/gui/whaawmp.glade.h:23
+msgid "Play DVD"
+msgstr ""
+
+#: ../src/gui/dialogues.py:193
 msgid "Select options:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:180
+#: ../src/gui/dialogues.py:195
 msgid "Title: "
 msgstr ""
 
-#: ../src/gui/dialogues.py:182
-msgid "Audio Track: "
+#: ../src/gui/dialogues.py:240
+msgid "Open a URI"
 msgstr ""
 
-#: ../src/gui/dialogues.py:184
-msgid "Subtitle Track: "
-msgstr ""
-
-#: ../src/gui/dialogues.py:231
-msgid "Input a URI"
-msgstr ""
-
-#: ../src/gui/dialogues.py:236
+#: ../src/gui/dialogues.py:245
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/main.py:371
+#: ../src/gui/dialogues.py:278
+msgid "Select Tracks"
+msgstr ""
+
+#: ../src/gui/dialogues.py:282
+msgid "Audio:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:316 ../src/gui/main.py:257
+msgid "Error!"
+msgstr ""
+
+#: ../src/gui/dialogues.py:324
+msgid "Message"
+msgstr ""
+
+#: ../src/gui/main.py:366
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
+#: ../src/gui/main.py:553
+msgid "Pause"
+msgstr ""
+
+#: ../src/gui/main.py:553
+msgid "Play"
+msgstr ""
+
+#: ../src/common/config.py:35
+msgid "Error!! No slash (/) in given option, something bad happened!"
+msgstr ""
+
+#: ../src/common/config.py:116
+msgid "Print the version and exit"
+msgstr ""
+
+#: ../src/common/config.py:120
+msgid "Play the file in fullscreen mode"
+msgstr ""
+
+#: ../src/common/config.py:124
+msgid "Sets the player's volume to VOL (0-100)"
+msgstr ""
+
+#: ../src/common/config.py:128
+msgid "Mute the player"
+msgstr ""
+
+#: ../src/common/config.py:132
+msgid "Sets the player's audio ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:136
+msgid "Sets the player's video ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:140
+msgid "Quits the player when the playing stream stops"
+msgstr ""
+
+#: ../src/common/gstTools.py:76
+msgid "Unknown"
+msgstr ""
+
 #: ../src/gui/whaawmp.glade.h:1
-msgid "About Glade"
+msgid "About Whaaw! Media Player"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:2
-msgid "Adjust Volume"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:3
 msgid "Adjust video brightness"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:4
+#: ../src/gui/whaawmp.glade.h:3
 msgid "Adjust video contrast"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:5
+#: ../src/gui/whaawmp.glade.h:4
 msgid "Adjust video hue"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:6
+#: ../src/gui/whaawmp.glade.h:5
 msgid "Adjust video saturation"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:6
+msgid "Audio Tracks"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:7
@@ -102,7 +211,7 @@ msgid "Contrast:"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:9
-msgid "Copyright 2007, Jeff Bailes"
+msgid "Current player volume"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:10
@@ -114,133 +223,141 @@ msgid "Disable XScreensaver whilst playing a video."
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:12
-msgid "Force Aspect Ratio"
+msgid "Enable Visualisations (Requires stream restart)"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:13
-msgid "Force the video to keep its original aspect ratio"
+msgid "Force Aspect Ratio"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:14
-msgid "Hue:"
+msgid "Force the video to keep its original aspect ratio"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:15
-msgid "Instantaneous Seek"
+msgid "Hide Video Window when Stopped"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:16
-msgid "Leave Fullscreen"
+msgid "Hide the video window when there is no video stream."
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:17
-msgid "Main"
+msgid "Hue:"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:18
-msgid "Mouse hide timeout (ms): "
+msgid "Instantaneous Seek"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:19
-msgid "Open URI"
+msgid "Leave Fullscreen"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:20
-msgid "Play DVD"
+msgid "Main"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:21
-msgid "Play/Pause"
+msgid "Mouse hide timeout (ms): "
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:22
-msgid "Preferences"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:23
-msgid "Reset all adjustments to 0"
+msgid "Open URI"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:24
-msgid "Restore Defaults"
+msgid "Preferences"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:25
-msgid "Saturation:"
+msgid "Reset all adjustments to 0"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:26
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:27
+msgid "Saturation:"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:28
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:27
+#: ../src/gui/whaawmp.glade.h:29
+msgid "Show Time Remaining"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:30
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:31
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted)."
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:32
 msgid "Stop"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:28
-msgid "The amount to change the volume by when scrolling on the video area"
+#: ../src/gui/whaawmp.glade.h:33
+msgid ""
+"The amount to change the volume by when scrolling on the video area/volume "
+"control"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:29
+#: ../src/gui/whaawmp.glade.h:34
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:30
+#: ../src/gui/whaawmp.glade.h:35
 msgid "Toggle Fullscreen"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:31
+#: ../src/gui/whaawmp.glade.h:36
 msgid "Video"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:33
+#: ../src/gui/whaawmp.glade.h:38
 msgid "Vol:"
 msgstr ""
 
-#: ../src/gui/whaawmp.glade.h:34
-msgid "Volume Change on Scroll: "
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:36
-msgid "_Edit"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:37
-msgid "_File"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:38
-msgid "_Help"
-msgstr ""
-
 #: ../src/gui/whaawmp.glade.h:39
-msgid "_Preferences"
+msgid "Volume (Mute/Unmute)"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:40
-msgid "_View"
-msgstr ""
-
-#: ../src/gui/whaawmp.glade.h:41
-msgid "gtk-about"
+msgid "Volume Change on Scroll: "
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:42
-msgid "gtk-close"
+msgid "_Edit"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:43
-msgid "gtk-open"
+msgid "_File"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:44
-msgid "gtk-quit"
+msgid "_Help"
 msgstr ""
 
 #: ../src/gui/whaawmp.glade.h:45
+msgid "_Preferences"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:46
+msgid "_View"
+msgstr ""
+
+#: ../src/gui/whaawmp.glade.h:47
 msgid "translator-credits"
 msgstr ""

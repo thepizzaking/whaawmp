@@ -1,80 +1,196 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Tue Jul 10 20:01:49 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Tue Jul 24 18:42:57 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
-    <property name="visible">True</property>
     <property name="can_focus">True</property>
     <property name="has_focus">True</property>
     <property name="is_focus">True</property>
     <property name="can_default">True</property>
     <property name="has_default">True</property>
     <property name="receives_default">True</property>
-    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK</property>
     <property name="title" translatable="yes">Whaaw! Media Player</property>
     <signal name="key_press_event" handler="on_main_key_press_event"/>
     <signal name="drag_data_received" handler="on_main_drag_data_received"/>
     <signal name="delete_event" handler="on_main_delete_event"/>
+    <signal name="window_state_event" handler="on_main_window_state_event"/>
     <child>
       <widget class="GtkVBox" id="vboxMain">
         <property name="visible">True</property>
         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
         <child>
-          <widget class="GtkMenuBar" id="menubar">
+          <widget class="GtkHBox" id="hboxTop">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
-              <widget class="GtkMenuItem" id="mnuFile">
+              <widget class="GtkMenuBar" id="menubar">
                 <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">_File</property>
-                <property name="use_underline">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                <signal name="scroll_event" handler="on_hscVolume_scroll_event"/>
                 <child>
-                  <widget class="GtkMenu" id="menu1">
+                  <widget class="GtkMenuItem" id="mnuFile">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="label" translatable="yes">_File</property>
+                    <property name="use_underline">True</property>
                     <child>
-                      <widget class="GtkImageMenuItem" id="mnuiOpen">
+                      <widget class="GtkMenu" id="menu1">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">gtk-open</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_mnuiOpen_activate"/>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiOpen">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label">gtk-open</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_mnuiOpen_activate"/>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiPlayDVD">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Play DVD</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image2">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-cdrom</property>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiOpenURI">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Open URI</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiOpenURI_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image4">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-network</property>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiQuit">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label">gtk-quit</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_mnuiQuit_activate"/>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkMenuItem" id="mnuEdit">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="label" translatable="yes">_Edit</property>
+                    <property name="use_underline">True</property>
                     <child>
-                      <widget class="GtkMenuItem" id="mnuiPlayDVD">
+                      <widget class="GtkMenu" id="menu4">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Play DVD</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiPreferences">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">_Preferences</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiPreferences_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image3">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-preferences</property>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkMenuItem" id="mnvView">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="label" translatable="yes">_View</property>
+                    <property name="use_underline">True</property>
                     <child>
-                      <widget class="GtkMenuItem" id="mnuiOpenURI">
+                      <widget class="GtkMenu" id="menu2">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Open URI</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_mnuiOpenURI_activate"/>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiFS">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Toggle Fullscreen</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiFS_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image1">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-fullscreen</property>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkMenuItem" id="mnuiAudioTrack">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Audio Tracks</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiAudioTrack_activate"/>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="GtkMenuItem" id="mnuHelp">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="label" translatable="yes">_Help</property>
+                    <property name="use_underline">True</property>
                     <child>
-                      <widget class="GtkSeparatorMenuItem" id="separatormenuitem1">
+                      <widget class="GtkMenu" id="menu3">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="mnuiQuit">
-                        <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">gtk-quit</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_mnuiQuit_activate"/>
+                        <child>
+                          <widget class="GtkImageMenuItem" id="mnuiAbout">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label">gtk-about</property>
+                            <property name="use_underline">True</property>
+                            <property name="use_stock">True</property>
+                            <signal name="activate" handler="on_mnuiAbout_activate"/>
+                          </widget>
+                        </child>
                       </widget>
                     </child>
                   </widget>
@@ -82,84 +198,62 @@
               </widget>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="mnuEdit">
+              <widget class="GtkVSeparator" id="vseparator1">
                 <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">_Edit</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu4">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <child>
-                      <widget class="GtkMenuItem" id="mnuiPreferences">
-                        <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">_Preferences</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_mnuiPreferences_activate"/>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                <signal name="scroll_event" handler="on_hscVolume_scroll_event"/>
               </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
             </child>
             <child>
-              <widget class="GtkMenuItem" id="mnvView">
+              <widget class="GtkHBox" id="hboxVolume">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">_View</property>
-                <property name="use_underline">True</property>
                 <child>
-                  <widget class="GtkMenu" id="menu2">
+                  <widget class="GtkCheckButton" id="chkVol">
                     <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <child>
-                      <widget class="GtkMenuItem" id="mnuiFS">
-                        <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Toggle Fullscreen</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_mnuiFS_activate"/>
-                      </widget>
-                    </child>
-                    <child>
-                      <widget class="GtkMenuItem" id="mnuiAudioTrack">
-                        <property name="visible">True</property>
-                        <property name="sensitive">False</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Audio Tracks</property>
-                        <property name="use_underline">True</property>
-                        <signal name="activate" handler="on_mnuiAudioTrack_activate"/>
-                      </widget>
-                    </child>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                    <property name="tooltip" translatable="yes">Volume (Mute/Unmute)</property>
+                    <property name="label" translatable="yes" comments="Short for Volume">Vol:</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="image_position">GTK_POS_BOTTOM</property>
+                    <property name="response_id">0</property>
+                    <property name="active">True</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_chkVol_toggled"/>
+                    <signal name="scroll_event" handler="on_hscVolume_scroll_event"/>
                   </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkHScale" id="hscVolume">
+                    <property name="width_request">175</property>
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                    <property name="tooltip" translatable="yes">Current player volume</property>
+                    <property name="adjustment">75 0 110 0 10 10</property>
+                    <property name="digits">0</property>
+                    <property name="value_pos">GTK_POS_RIGHT</property>
+                    <signal name="value_changed" handler="on_hscVolume_value_changed"/>
+                    <signal name="scroll_event" handler="on_hscVolume_scroll_event"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
                 </child>
               </widget>
-            </child>
-            <child>
-              <widget class="GtkMenuItem" id="mnuHelp">
-                <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">_Help</property>
-                <property name="use_underline">True</property>
-                <child>
-                  <widget class="GtkMenu" id="menu3">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <child>
-                      <widget class="GtkImageMenuItem" id="mnuiAbout">
-                        <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">gtk-about</property>
-                        <property name="use_underline">True</property>
-                        <property name="use_stock">True</property>
-                        <signal name="activate" handler="on_mnuiAbout_activate"/>
-                      </widget>
-                    </child>
-                  </widget>
-                </child>
-              </widget>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">GTK_PACK_END</property>
+                <property name="position">1</property>
+              </packing>
             </child>
           </widget>
           <packing>
@@ -167,56 +261,24 @@
           </packing>
         </child>
         <child>
-          <widget class="GtkHBox" id="hbox2">
+          <widget class="GtkHBox" id="hboxVideo">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
               <widget class="GtkDrawingArea" id="videoWindow">
-                <property name="width_request">480</property>
-                <property name="height_request">360</property>
                 <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_PROPERTY_CHANGE_MASK</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_SCROLL_MASK</property>
                 <signal name="leave_notify_event" handler="on_videoWindow_leave_notify_event"/>
                 <signal name="expose_event" handler="on_videoWindow_expose_event"/>
                 <signal name="button_press_event" handler="on_videoWindow_button_press_event"/>
                 <signal name="configure_event" handler="on_videoWindow_configure_event"/>
                 <signal name="motion_notify_event" handler="on_videoWindow_motion_notify_event"/>
+                <signal name="key_press_event" handler="on_main_key_press_event"/>
                 <signal name="enter_notify_event" handler="on_videoWindow_enter_notify_event"/>
                 <signal name="scroll_event" handler="on_videoWindow_scroll_event"/>
               </widget>
-            </child>
-            <child>
-              <widget class="GtkVBox" id="vboxVol">
-                <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <child>
-                  <widget class="GtkLabel" id="label1">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="label" translatable="yes" comments="Short for volume">Vol:</property>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkVScale" id="vscVolume">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="tooltip" translatable="yes">Adjust Volume</property>
-                    <property name="adjustment">75 0 110 2.5 10 10</property>
-                    <property name="inverted">True</property>
-                    <property name="digits">0</property>
-                    <signal name="value_changed" handler="on_vscVolume_value_changed"/>
-                  </widget>
-                  <packing>
-                    <property name="position">1</property>
-                  </packing>
-                </child>
-              </widget>
               <packing>
                 <property name="expand">False</property>
-                <property name="position">1</property>
               </packing>
             </child>
           </widget>
@@ -252,11 +314,7 @@
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnStop_clicked"/>
                 <child>
-                  <widget class="GtkImage" id="image2">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="stock">gtk-media-stop</property>
-                  </widget>
+                  <placeholder/>
                 </child>
               </widget>
               <packing>
@@ -266,9 +324,10 @@
             </child>
             <child>
               <widget class="GtkProgressBar" id="pbarProgress">
+                <property name="width_request">375</property>
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="text" translatable="yes"></property>
+                <property name="text">0:00 / 0:00</property>
                 <signal name="button_press_event" handler="on_pbarProgress_button_press_event"/>
                 <signal name="motion_notify_event" handler="on_pbarProgress_motion_notify_event"/>
                 <signal name="button_release_event" handler="on_pbarProgress_button_release_event"/>
@@ -282,12 +341,36 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">Leave Fullscreen</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnLeaveFullscreen_clicked"/>
+                <child>
+                  <widget class="GtkHBox" id="hbox2">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <child>
+                      <widget class="GtkImage" id="image1">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="stock">gtk-leave-fullscreen</property>
+                        <property name="icon_size">1</property>
+                      </widget>
+                    </child>
+                    <child>
+                      <widget class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Leave Fullscreen</property>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </widget>
+                </child>
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="pack_type">GTK_PACK_END</property>
                 <property name="position">3</property>
               </packing>
             </child>
@@ -315,13 +398,13 @@
     <property name="visible">True</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="border_width">5</property>
-    <property name="title" translatable="yes">About Glade</property>
+    <property name="title" translatable="yes">About Whaaw! Media Player</property>
     <property name="resizable">False</property>
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
     <property name="name">Whaaw! Media Player</property>
-    <property name="copyright" translatable="yes">Copyright 2007, Jeff Bailes</property>
+    <property name="copyright">Copyright 2007, Jeff Bailes</property>
     <property name="website">http://home.gna.org/whaawmp/</property>
     <property name="license">Copyright (C) Jeff Bailes, 2007.
 
@@ -449,6 +532,22 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </packing>
                 </child>
                 <child>
+                  <widget class="GtkCheckButton" id="chkHideVideoWindow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Hide the video window when there is no video stream.</property>
+                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">4</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -480,7 +579,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">4</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -502,7 +601,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="tooltip" translatable="yes">The amount to change the volume by when scrolling on the video area</property>
+                        <property name="tooltip" translatable="yes">The amount to change the volume by when scrolling on the video area/volume control</property>
                         <property name="adjustment">0 0 100 2.5 10 10</property>
                         <property name="digits">1</property>
                         <signal name="value_changed" handler="on_spinbutton_changed"/>
@@ -515,7 +614,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">5</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
               </widget>
@@ -732,7 +831,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">gtk-close</property>
+                <property name="label">gtk-close</property>
                 <property name="use_stock">True</property>
                 <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnClose_clicked"/>

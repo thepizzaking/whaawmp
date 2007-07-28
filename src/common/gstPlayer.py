@@ -2,13 +2,14 @@
 
 #  A player module for gstreamer.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
+#       This file is part of Whaaw! Media Player (whaawmp)
 #
-#       This program is free software: you can redistribute it and/or modify
+#       whaawmp is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
 #       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
-#       This program is distributed in the hope that it will be useful,
+#       whaawmp is distributed in the hope that it will be useful,
 #       but WITHOUT ANY WARRANTY; without even the implied warranty of
 #       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #       GNU General Public License for more details.
@@ -19,7 +20,7 @@
 import pygst
 pygst.require('0.10')
 import gst
-from common import useful
+from common import lists, useful
 
 
 class player:
@@ -38,82 +39,68 @@ class player:
 		# Stops the player.
 		self.player.set_state(gst.STATE_READY)
 	
-	
-	def isPlaying(self):
-		# Returns true if the player is playing, false if not.
-		return self.getState() == gst.STATE_PLAYING
-		
-	def isStopped(self):
-		# Returns true if the player is stopped, false if not.
-		return (self.getState() in [ gst.STATE_NULL, gst.STATE_READY ])
-	
-	def isPaused(self):
-		# Returns true if the player is paused, false if not.
-		return self.getState() == gst.STATE_PAUSED
-	
+
 	def playingVideo(self):
 		# If current-video is -1, a video is not playing.
 		return (self.player.get_property('current-video') != -1 or self.player.get_property('vis-plugin') != None)
 	
+	# Returns true if the player is playing, false if not.
+	isPlaying = lambda self: self.getState() == gst.STATE_PLAYING
+	# Returns true if the player is stopped, false if not.
+	isStopped = lambda self: (self.getState() in [ gst.STATE_NULL, gst.STATE_READY ])
+	# Returns true if the player is paused, false if not.
+	isPaused = lambda self: self.getState() == gst.STATE_PAUSED
 	
-	def getState(self):
-		# Returns the state of the player.
-		return self.player.get_state()[1]
+	# Returns the bus of the player.
+	getBus = lambda self: self.player.get_bus()
+	# Gets the current audio track.
+	getAudioTrack = lambda self: self.player.get_property('current-audio')
+	# Returns the state of the player.
+	getState = lambda self: self.player.get_state()[1]
+	# Returns the current URI.
+	getURI = lambda self: self.player.get_property('uri')
+	# Returns an array of stream information.
+	getStreamsInfo = lambda self: self.player.get_property('stream-info-value-array')
 	
-	
-	def getTimesSec(self):
-		## Returns the times, played seconds and duration.
-		return self.getPlayedSec(), self.getDurationSec()
-	
-	def getPlayedSec(self):
-		# Returns the played seconds.
-		return useful.nsTos(self.getPlayed())
-	
-	def getDurationSec(self):
-		# Returns the total duration seconds.
-		return useful.nsTos(self.getDuration())
-	
-	def getPlayed(self):
-		# Returns the played time (not in seconds).
-		return float(self.player.query_position(gst.FORMAT_TIME)[0])
+	# Returns the times, played seconds and duration.
+	getTimesSec = lambda self: (self.getPlayedSec(), self.getDurationSec())
+	# Returns the played seconds.
+	getPlayedSec = lambda self: useful.nsTos(self.getPlayed())
+	# Returns the total duration seconds.
+	getDurationSec = lambda self: useful.nsTos(self.getDuration())
+	# Returns the played time (in nanoseconds).
+	getPlayed = lambda self: self.player.query_position(gst.FORMAT_TIME)[0]
 	
 	def getDuration(self):
 		# Returns the duration (not in seconds).
 		try:
-			return float(self.player.query_duration(gst.FORMAT_TIME)[0])
+			return self.player.query_duration(gst.FORMAT_TIME)[0]
 		except:
 			return -1
-	
-	def getStreamsInfo(self):
-		# Returns an array of stream information.
-		return self.player.get_property('stream-info-value-array')
 	
 	
 	def seekFrac(self, frac):
 		# Seek from a fraction.
-		self.seek(self.getDuration() * frac)
+		dur = self.getDuration()
+		# getDuration returns -1 on error.
+		if (dur != -1):
+			self.seek(self.getDuration() * frac)
 	
 	def seek(self, loc):
 		## Seeks to a set location in the track.
-		# Set up the event for the seek.
-		e = gst.event_new_seek(1.0, gst.FORMAT_TIME,
+		# Seek to the requested position.
+		self.player.seek(1.0, gst.FORMAT_TIME,
 		    gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
 		    gst.SEEK_TYPE_SET, loc,
 		    gst.SEEK_TYPE_NONE, 0)
-		
-		# Send the event.
-		self.player.send_event(e)
 	
 	
 	def setURI(self, uri):
 		# Sets the player's uri to the one specified.
 		self.player.set_property('uri', uri)
 	
-	def getURI(self):
-		return self.player.get_property('uri')
 	
-	
-	def prepareImgSink(self, bus, message, far, b, c, h, s):
+	def prepareImgSink(self, bus, message, far=True, b=0, c=0, h=0, s=0):
 		# Sets the image sink.
 		self.imagesink = message.src
 		# Sets force aspect ratio, brightness etc according to options passed.
@@ -164,12 +151,12 @@ class player:
 	def setVideoSink(self, sinkName):
 		## Sets the player's video sink.
 		# If a name was passed, create the element, otherwise pass None
-		sink = gst.element_factory_make(sinkName, 'video-sink') if (sinkName) else None
+		sink = gst.element_factory_make(sinkName, 'video-sink')
 		# Set the player's sink accordingly.
 		self.player.set_property('video-sink', sink)
 		# Flag the colour settings and aspect settings accordingly.
-		self.colourSettings = (sinkName in [None, 'xvimagesink'])
-		self.aspectSettings = (sinkName in [None, 'xvimagesink', 'ximagesink'])
+		self.colourSettings = (sinkName in lists.vsinkColour)
+		self.aspectSettings = (sinkName in lists.vsinkAspect)
 	
 	
 	def enableVisualisation(self):
@@ -185,13 +172,6 @@ class player:
 		self.player.set_property('vis-plugin', None)
 	
 	
-	def getBus(self):
-		## Gets and returns the bus of the player.
-		bus = self.player.get_bus()
-		
-		return bus
-	
-	
 	def setVolume(self, vol):
 		## Sets the volume to the requested percentage.
 		self.player.set_property('volume', vol / 100)
@@ -200,11 +180,6 @@ class player:
 	def setAudioTrack(self, track):
 		## Sets the audio track to play.
 		self.player.set_property('current-audio', track)
-	
-	
-	def getAudioTrack(self):
-		## Gets the current audio track.
-		return self.player.get_property('current-audio')
 	
 	
 	def setSubtitleTrack(self, track):

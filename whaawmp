@@ -1,7 +1,4 @@
 #!/bin/sh
 
-ORIGDIR=$( pwd )
 WHAAWDIR=$(dirname $0)/src
-
-cd ${WHAAWDIR}
-exec python whaawmp.py "$@" "$ORIGDIR"
+exec python -O ${WHAAWDIR}/whaawmp.py "$@"

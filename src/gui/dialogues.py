@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 
-# Other Dialogues
-# Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
+#  Other Dialogues
+#  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
+#       This file is part of Whaaw! Media Player (whaawmp)
 #
-#       This program is free software: you can redistribute it and/or modify
+#       whaawmp is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
 #       the Free Software Foundation, either version 3 of the License, or
 #       (at your option) any later version.
 #       
-#       This program is distributed in the hope that it will be useful,
+#       whaawmp is distributed in the hope that it will be useful,
 #       but WITHOUT ANY WARRANTY; without even the implied warranty of
 #       MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 #       GNU General Public License for more details.
@@ -19,21 +20,21 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
-from common import lists
+from common import lists, useful
 
 class AboutDialogue:
-	def __init__(self, gladefile, parent, version):
+	def __init__(self, parent):
 		## Shows the about dialogue.
 		windowname = 'AboutDlg'
-		tree = gtk.glade.XML(gladefile, windowname)
+		tree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dlg = tree.get_widget(windowname)
 		# Sets the correct version.
-		dlg.set_version(version)
+		dlg.set_version(useful.version)
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
 		
-		# Run the destroy the dialogue.
+		# Run, then destroy the dialogue.
 		dlg.run()
 		dlg.destroy()
 
@@ -43,7 +44,7 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = gtk.FileChooserDialog(_("Choose a file"), parent,
+		dlg = gtk.FileChooserDialog(_("Choose a file to Open"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -53,7 +54,7 @@ class OpenFile:
 		# Add the file filter.
 		filter = gtk.FileFilter()
 		filter.set_name(_("Supported Media"))
-		for x in lists.compatFiles():
+		for x in lists.compatFiles:
 			filter.add_mime_type(x)
 		dlg.add_filter(filter)
 		# How about an all files one too.
@@ -84,7 +85,7 @@ class PreferencesDialogue:
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(main.gladefile, windowname)
+		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
@@ -101,6 +102,7 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('chkDisableXscreensaver') : "misc/disablexscreensaver",
 		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
 		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
+		                self.wTree.get_widget('chkHideVideoWindow') : "gui/hidevideowindow",
 		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
 		# And one for the scrollbars.
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
@@ -114,6 +116,13 @@ class PreferencesDialogue:
 		self.window = self.wTree.get_widget(windowname)
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
+		# Disable video options that aren't available.
+		if (not self.player.colourSettings):
+			for x in lists.colourSettings:
+				self.wTree.get_widget('hsc' + x).set_sensitive(False)
+			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
+		if (not self.player.aspectSettings):
+			self.wTree.get_widget('chkForceAspect').set_sensitive(False)
 		
 		# Load the preferences.
 		self.loadPreferences()
@@ -133,7 +142,7 @@ class PreferencesDialogue:
 			x.set_active(self.cfg.getBool(self.chkDic[x]))
 		
 		for x in self.adjDic:
-			x.set_value(self.cfg.getInt(self.adjDic[x]))
+			x.set_value(self.cfg.getFloat(self.adjDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
@@ -157,10 +166,8 @@ class PreferencesDialogue:
 	
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to 0.
-		self.wTree.get_widget('hscBrightness').set_value(0)
-		self.wTree.get_widget('hscContrast').set_value(0)
-		self.wTree.get_widget('hscHue').set_value(0)
-		self.wTree.get_widget('hscSaturation').set_value(0)
+		for x in lists.colourSettings:
+			self.wTree.get_widget('hsc' + x).set_value(0)
 			
 		# Call the colour changed settings so they are changed in the video.
 		self.scrollbarColourScroll(widget)
@@ -178,7 +185,7 @@ class PlayDVD:
 	def __init__(self, parent):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("DVD Options"), parent,
+		dlg = gtk.Dialog(_("Play DVD"), parent,
 		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
@@ -204,7 +211,8 @@ class PlayDVD:
 			hbox.pack_start(self.spnDic[x])
 			dlg.vbox.pack_start(hbox)
 		
-		
+		# Set the default response.
+		dlg.set_default_response(gtk.RESPONSE_OK)
 		# Show all the widgets, then run it.
 		dlg.show_all()
 		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
@@ -226,8 +234,10 @@ class PlayDVD:
 class OpenURI:
 	def __init__(self, parent):
 		## Creates an openURI dialogue.
+		# Initially flag the response as None.
+		self.res = None
 		# Create the dialogue.
-		dlg = gtk.Dialog(_("Input a URI"), parent,
+		dlg = gtk.Dialog(_("Open a URI"), parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
@@ -236,17 +246,26 @@ class OpenURI:
 		label.set_alignment(0, 0.5)
 		entry = gtk.Entry()
 		entry.set_size_request(350, -1)
+		entry.connect('activate', self.onResponse, True, dlg)
 		dlg.vbox.pack_start(label)
 		dlg.vbox.pack_start(entry)
 		# Show all the dialogues.
 		dlg.show_all()
 		
 		# Run the dialogue, then hide it.
-		res = dlg.run()
+		self.onResponse(entry, (True if (dlg.run() == gtk.RESPONSE_OK) else False), dlg)
+	
+	def onResponse(self, entry, res, dlg):
+		# If a result has already been obtained, cancel the call.
+		if (self.res is not None):
+			return
+		else:
+			self.res = res
+		# Hide the dialogue.
 		dlg.hide()
 		
 		# Save the URI if OK was pressed.
-		self.URI = entry.get_text() if (res == gtk.RESPONSE_OK) else None
+		self.URI = entry.get_text() if (self.res) else None
 		# Destroy the dialogue.
 		dlg.destroy()
 
