@@ -44,7 +44,13 @@ def compilePO():
 def makeInstall():
 	# Installs the program.
 	makeInstallDirs()
-	installBin()
+	if (not os.system('ls src/*.pyo 2> /dev/null')):
+		# Install the binary files if they exist.
+		installBin()
+	else:
+		# Otherwise, just the .py files.
+		print "Whaaw! Media Player has not been compiled, only installing the .py files"
+		installPy()
 	installLocales()
 	print '\n\nDone!!!'
 
@@ -101,7 +107,11 @@ def installLocales():
 def makeInstallSrc():
 	# Installs the source (.py) files along with the .pyo files.
 	makeInstall()
-	for x in pyoDir:
+	installPy()
+
+def installPy():
+	# Copys the .py files over.
+	for x in (pyoDir + ['src']):
 		# For all the directories we installed the .pyo file in, put the .py
 		# files in there too.
 		install('%s/*.py' % x, '%s/share/whaawmp/%s' % (base, x))
