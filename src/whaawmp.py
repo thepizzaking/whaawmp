@@ -73,7 +73,7 @@ class main:
 		(options, args) = config.clparser(OptionParser(usage=usage, prog=__sName__)).parseArgs(HELP)
 
 		# Open the settings.
-		cfgfile = os.path.join(os.getenv('HOME'), '.config', useful.sName, 'config.ini')
+		cfgfile = os.path.join(os.path.expanduser('~'), '.config', useful.sName, 'config.ini')
 		self.cfg = config.config(cfgfile)
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, options, args)
