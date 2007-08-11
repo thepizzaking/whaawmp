@@ -419,14 +419,14 @@ class mainWindow:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
 			if (pld == None or tot == None): pld, tot = self.player.getTimesSec()
-			if (tot >= 0): self.progressBar.set_fraction(pld / tot)
+			if (tot > 0): self.progressBar.set_fraction(pld / tot)
 		
 		# Convert played & total time to integers
 		p, t = int(pld), int(tot)
 		# Add the data to the progress bar's text.
 		text = ""
 		text += useful.secToStr(p)
-		if (tot >= 0):
+		if (tot > 0):
 			text += " / "
 			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
