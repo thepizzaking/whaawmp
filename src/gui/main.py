@@ -477,7 +477,7 @@ class mainWindow:
 	def seekStart(self, widget, event):
 		## Sets that seeking has started.
 		x, y, state = event.window.get_pointer()
-		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration() != -1):
+		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
 			
