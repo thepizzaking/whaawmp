@@ -309,6 +309,8 @@ class mainWindow:
 			if (self.fsActive()): self.deactivateFullscreen()
 			# Disable the Toggle Fullscreen menuitem.
 			self.wTree.get_widget('mnuiFS').set_sensitive(False)
+			# Reset the progress bar.
+			self.progressUpdate()
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
