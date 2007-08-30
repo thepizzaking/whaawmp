@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.2.2 on Mon Aug  6 21:14:28 2007 by jeff@jeff-->
+<!--Generated with glade3 3.2.2 on Thu Aug 30 22:36:54 2007 by jeff@jeff-->
 <glade-interface>
   <widget class="GtkWindow" id="main">
+    <property name="width_request">480</property>
     <property name="can_focus">True</property>
     <property name="has_focus">True</property>
     <property name="is_focus">True</property>
