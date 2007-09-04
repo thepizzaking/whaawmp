@@ -314,12 +314,13 @@ class mainWindow:
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
-		self.showVideoWindow()
 		if (message.structure is None):
 			return
 		
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
+			# First, show the video window.
+			self.showVideoWindow()
 			# Get the properties of the video.(Brightness etc)
 			far = self.cfg.getBool("video/force-aspect-ratio")
 			b = self.cfg.getInt("video/brightness")
