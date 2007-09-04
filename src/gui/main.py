@@ -314,6 +314,7 @@ class mainWindow:
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
+		self.showVideoWindow()
 		if (message.structure is None):
 			return
 		
@@ -459,18 +460,14 @@ class mainWindow:
 	
 	def showVideoWindow(self):
 		## Shows the video window.
-		# Set the packing type of the video window to expand.
-		self.hboxVideo.set_child_packing(self.movieWindow, True, True, 0, 'start')
-		# Set the video window's size too.
-		self.movieWindow.set_size_request(480, 360)
+		# Show the video window. (didn't I just say that?)
+		self.movieWindow.show()
 	
 	def hideVideoWindow(self, force=False):
 		## Hides the video window.
 		if (not self.fsActive() and (self.movieWindow.get_size_request() != (-1, -1) or force)):
-			# Set the packing type of the video window to not.
-			self.hboxVideo.set_child_packing(self.movieWindow, False, True, 0, 'start')
-			# Set the video window's size to small.
-			self.movieWindow.set_size_request(-1, -1)
+			# Hide the video window.
+			self.movieWindow.hide()
 			# Make the height of the window as small as possible.
 			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
@@ -718,8 +715,6 @@ class mainWindow:
 		else:
 			self.movieWindowOnStop(True)
 		
-		#Configure the movie window.
-		self.videoWindowConfigure(self.movieWindow)
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
 			self.activateFullscreen()
