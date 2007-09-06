@@ -17,6 +17,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000
@@ -39,3 +40,11 @@ def toRange(val, min, max):
 	if (val < min): val = min
 	if (val > max): val = max
 	return val
+
+def URLorMailOpen(link, type=None):
+	## Opens a url or an e-mail composer (only uses exo-open so far)
+	if (type == 'mail' and 'mailto:' not in link):
+		# If the address doesn't have mailto:, add it.
+		link = 'mailto:' + link
+	# Open the link in the default program.
+	os.system('exo-open %s' % link)

@@ -636,6 +636,10 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
+	def URLorMailOpen(self, dialog, link, type):
+		# Transfers the call to the useful call.
+		useful.URLorMailOpen(link, type)
+	
 	# Just a transfer call as player.stop takes only 1 argument.
 	stopPlayer = lambda self, widget: self.player.stop()
 	
@@ -716,6 +720,10 @@ class mainWindow:
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
 			self.activateFullscreen()
+		
+		# Make hooks for opening URLs and e-mails.
+		gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
+		gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
 		
 		# Enter the GTK main loop.
 		gtk.main()
