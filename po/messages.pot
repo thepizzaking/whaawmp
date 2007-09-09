@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-07-28 20:39+1000\n"
+"POT-Creation-Date: 2007-09-09 14:49+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -129,17 +129,21 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/main.py:366
+#: ../src/gui/main.py:363
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:553
+#: ../src/gui/main.py:550
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:553
+#: ../src/gui/main.py:550
 msgid "Play"
+msgstr ""
+
+#: ../src/gui/main.py:643
+msgid "xdg-open not found, links & e-mail addresses will not be clickable"
 msgstr ""
 
 #: ../src/common/config.py:35

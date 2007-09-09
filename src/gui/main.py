@@ -636,6 +636,15 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
+	def connectLinkHooks(self):
+		## Make hooks for opening URLs and e-mails.
+		if (os.system('which xdg-open >&- 2>&-')):
+			# xdg-open doesn't exist.
+			print _("xdg-open not found, links & e-mail addresses will not be clickable")
+		else:
+			gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
+			gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
+	
 	def URLorMailOpen(self, dialog, link, type):
 		# Transfers the call to the useful call.
 		useful.URLorMailOpen(link, type)
@@ -721,9 +730,8 @@ class mainWindow:
 			# If the fullscreen option was passed, start fullscreen.
 			self.activateFullscreen()
 		
-		# Make hooks for opening URLs and e-mails.
-		gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
-		gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
+		# Connect the hooks.
+		self.connectLinkHooks()
 		
 		# Enter the GTK main loop.
 		gtk.main()
