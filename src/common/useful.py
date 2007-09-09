@@ -19,6 +19,8 @@
 
 import os
 
+linkHandler = 'xdg-open'
+
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000
 
@@ -41,10 +43,12 @@ def toRange(val, min, max):
 	if (val > max): val = max
 	return val
 
+checkLinkHandler = not(os.system('which %s >&- 2>&-' % linkHandler))
+
 def URLorMailOpen(link, type=None):
 	## Opens a url or an e-mail composer (only uses exo-open so far)
 	if (type == 'mail' and 'mailto:' not in link):
 		# If the address doesn't have mailto:, add it.
 		link = 'mailto:' + link
 	# Open the link in the default program.
-	os.system('xdg-open %s' % link)
+	os.system('%s "%s"' % (linkHandler, link))

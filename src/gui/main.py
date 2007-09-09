@@ -638,16 +638,24 @@ class mainWindow:
 	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
-		if (os.system('which xdg-open >&- 2>&-')):
-			# xdg-open doesn't exist.
-			print _("xdg-open not found, links & e-mail addresses will not be clickable")
-		else:
+		if (useful.checkLinkHandler):
 			gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
 			gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
+		else:
+			# xdg-open doesn't exist.
+			print _("%s not found, links & e-mail addresses will not be clickable" % useful.linkHandler)
 	
 	def URLorMailOpen(self, dialog, link, type):
 		# Transfers the call to the useful call.
 		useful.URLorMailOpen(link, type)
+	
+	def openBugReporter(self, widget):
+		## Opens the bugs webpage.
+		link = "http://gna.org/bugs/?func=additem&group=whaawmp"
+		if (useful.checkLinkHandler):
+			useful.URLorMailOpen(link)
+		else:
+			dialogues.ErrorMsgBox(self.mainWindow, _("Could not execute browser command (via %s).\nPlease manually visit %s to report the problem" % (useful.linkHandler, link)))
 	
 	# Just a transfer call as player.stop takes only 1 argument.
 	stopPlayer = lambda self, widget: self.player.stop()
@@ -692,6 +700,7 @@ class mainWindow:
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
+		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent }
 		self.wTree.signal_autoconnect(dic)
 		
