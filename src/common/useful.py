@@ -47,4 +47,4 @@ def URLorMailOpen(link, type=None):
 		# If the address doesn't have mailto:, add it.
 		link = 'mailto:' + link
 	# Open the link in the default program.
-	os.system('exo-open %s' % link)
+	os.system('xdg-open %s' % link)
