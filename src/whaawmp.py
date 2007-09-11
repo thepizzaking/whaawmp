@@ -41,16 +41,17 @@ if (sys.version_info < (2, 5)):
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
-for x in sys.argv:
-	# For all arguments
-	if (x in ['--help', '-h']):
-		#  If -h or --help is there, help is true (also remove it so gstreamer doesn't get it)
+for x in ['--help', '-h']:
+	# If -h or --help is there, help is true (also remove it so gstreamer doesn't get it)
+	if (x in sys.argv):
 		HELP = True
 		sys.argv.remove(x)
-	if (x == '--version'):
+
+if ('--version' in sys.argv):
 		# If --version, print out the version, then quit.
 		print '%s - %s' % (useful.lName, useful.version)
 		sys.exit(0)
+
 
 from gui import main as whaawmp
 from common import config
