@@ -56,10 +56,11 @@ def makeInstall():
 
 def makeInstallDirs():
 	# Makes the install directories.
-	# Only need the end of the trees sinse makedirs is used.
+	# Only need the end of the trees since makedirs is used.
 	dirs = [ '/bin',
 	         '/share/applications',
 	         '/share/thumbnailers',
+	         '/share/pixmaps',
 	         '/share/whaawmp/images',
 	         '/share/whaawmp/src/common',
 	         '/share/whaawmp/src/gui',
@@ -73,7 +74,9 @@ def installBin():
 	install('whaawmp.desktop', '%s/share/applications' % base)
 	install('whaaw-thumbnailer.desktop', '%s/share/thumbnailers' % base)
 	# Images.
-	#install('images/*.png', '%s/share/whaawmp/images' % base)
+	install('images/*.svg', '%s/share/whaawmp/images' % base)
+	# And the main image.
+	install('images/*.svg', '%s/share/pixmaps' % base)
 	# The .py files used to start the program, the .pyo files of these aren't
 	# used anyway.
 	install('src/*.py', '%s/share/whaawmp/src' % base)
