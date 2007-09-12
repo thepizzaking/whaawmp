@@ -114,7 +114,7 @@ class mainWindow:
 	def hideControls(self):
 		## Hides the fullscreen controls (also the mouse).
 		# We don't want anything hidden if no video is playing.
-		if (not self.player.playingVideo()): return
+		if (not self.allowFSFuncs()): return
 		# Hide the cursor.
 		self.hideCursor(self.movieWindow)
 		if (self.fsActive()):
@@ -129,7 +129,7 @@ class mainWindow:
 	def hideCursor(self, widget):
 		## Hides the cursor (Thanks to mirage for the code).
 		# If there's no video playing, cancel it.
-		if (not self.player.playingVideo()): return
+		if (not self.allowFSFuncs()): return
 		pix_data = """/* XPM */
 			static char * invisible_xpm[] = {
 			"1 1 1 1",
@@ -149,10 +149,13 @@ class mainWindow:
 	def activateFullscreen(self, widget=None):
 		## Activates fullscreen.
 		# No use in doing fullscreen if no video is playing.
-		if (not self.player.playingVideo()): return
+		if (not self.allowFSFuncs()): return
 		
 		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
+	
+	# Checks if we should allow Fullscreen functions.
+	allowFSFuncs = lambda self: self.player.playingVideo() or not self.cfg.getBool('gui/hidevideowindow')
 
 	
 	def deactivateFullscreen(self):
@@ -390,7 +393,7 @@ class mainWindow:
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
 		# Disable XScreenSaver (if option is enabled).
-		if (self.cfg.getBool("misc/disablexscreensaver") and self.player.playingVideo()):
+		if (self.cfg.getBool("misc/disablexscreensaver") and self.allowFSFuncs()):
 			os.system("xscreensaver-command -deactivate >&- 2>&-")
 			os.system("xset s reset >&- 2>&-")
 		
