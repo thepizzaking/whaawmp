@@ -47,7 +47,7 @@ class mainWindow:
 		widget.window.draw_drawable(widget.get_style().bg_gc[gtk.STATE_NORMAL],
 		                            self.pixmap, x, y, x, y, w, h)
 		
-		# If we're not playing, draw the backing image.
+		# If we're not playing, configure the player accordingly.
 		if (not self.player.playingVideo()): self.movieWindowOnStop()
 	
 	
@@ -580,19 +580,28 @@ class mainWindow:
 	
 	def drawMovieWindowImage(self):
 		## Draws the background image.
-		# Just return until we actually have a picture to display.
-		return
+		alloc = self.movieWindow.get_allocation()
+		w = alloc.width
+		h = alloc.height
+		if (w < h):
+			size = w
+			x1 = 0
+			y1 = (h - w) / 2
+		else:
+			size = h
+			x1 = (w - h) / 2
+			y1 = 0
+
 		try:
 			# Try and draw the image.
-			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 		except:
 			# If that fails, we need to get the image from the file.
 			# Get the image file.
-			image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.png')
+			image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg')
 			# Create a pixbuf from the file.
 			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
-			# Draw the image on the file.
-			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf, 0, 0, 0, 0)
+			# This function is called again before things are shown, so I don't need to draw it here.
 
 	
 	def fsActive(self):
