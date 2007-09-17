@@ -583,28 +583,26 @@ class mainWindow:
 	
 	def drawMovieWindowImage(self):
 		## Draws the background image.
+		# Get the width & height of the movieWindow.
 		alloc = self.movieWindow.get_allocation()
 		w = alloc.width
 		h = alloc.height
 		if (w < h):
+			# It's wider than it is high, use the width as the size
+			# & find where the image should start.
 			size = w
 			x1 = 0
 			y1 = (h - w) / 2
 		else:
+			# Do the opposite.
 			size = h
 			x1 = (w - h) / 2
 			y1 = 0
-
-		try:
-			# Try and draw the image.
-			self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc, self.bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
-		except:
-			# If that fails, we need to get the image from the file.
-			# Get the image file.
-			image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg')
-			# Create a pixbuf from the file.
-			self.bgPixbuf = gtk.gdk.pixbuf_new_from_file(image)
-			# This function is called again before things are shown, so I don't need to draw it here.
+		
+		# Get the image's path, chuck it into a pixbuf, then draw it!
+		image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg')
+		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
+		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
 	
 	def fsActive(self):
