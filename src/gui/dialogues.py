@@ -20,6 +20,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade
+import os
 from common import lists, useful
 
 class AboutDialogue:
@@ -33,6 +34,8 @@ class AboutDialogue:
 		dlg.set_version(useful.version)
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
+		# Set the logo.
+		dlg.set_logo(gtk.gdk.pixbuf_new_from_file_at_size(os.path.join(useful.srcDir, '..', 'images', 'whaawmpL.svg'), 200, 200))
 		
 		# Run, then destroy the dialogue.
 		dlg.run()

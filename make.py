@@ -76,7 +76,7 @@ def installBin():
 	# Images.
 	install('images/*.svg', '%s/share/whaawmp/images' % base)
 	# And the main image.
-	install('images/*.svg', '%s/share/pixmaps' % base)
+	install('images/whaawmp.svg', '%s/share/pixmaps' % base)
 	# The .py files used to start the program, the .pyo files of these aren't
 	# used anyway.
 	install('src/*.py', '%s/share/whaawmp/src' % base)

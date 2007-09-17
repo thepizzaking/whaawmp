@@ -600,7 +600,7 @@ class mainWindow:
 			y1 = 0
 		
 		# Get the image's path, chuck it into a pixbuf, then draw it!
-		image = os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg')
+		image = os.path.join(useful.srcDir, '..', 'images', 'whaawmpL.svg')
 		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
 		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
@@ -721,6 +721,8 @@ class mainWindow:
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
+		# Set the icon.
+		self.mainWindow.set_icon_from_file(os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg'))
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
