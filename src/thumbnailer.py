@@ -62,7 +62,7 @@ class main:
 	def parseOptions(self):
 		## Parses the command line options.
 		# Create the parser, and set the usage.
-		parser = OptionParser(usage="\n  " + __sName__ + _(" [options] input-file"))
+		parser = OptionParser(usage="\n  " + __sName__ + _(" [options] -o output-file input-file"))
 		# Add parser options:
 		# Input file (can be an absolute or relative path).
 		parser.add_option("-i", "--input", dest="input",
