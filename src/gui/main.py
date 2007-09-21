@@ -573,6 +573,8 @@ class mainWindow:
 	
 	def movieWindowOnStop(self, force=False):
 		## Called when the player stops, acts on the movie window.
+		# If we're still playing a video, we shouldn't act.
+		if (self.player.playingVideo()): return
 		if (self.cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
