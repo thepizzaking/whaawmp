@@ -474,14 +474,16 @@ class mainWindow:
 			self.mainWindow.resize(w, 1)
 		
 	
-	def seekStart(self, widget, event):
-		## Sets that seeking has started.
+	def progressBarClick(self, widget, event):
+		## The progress bar has been clicked.
 		x, y, state = event.window.get_pointer()
 		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
-			
 			self.progressBarMotion(widget, event)
+		else:
+			# Otherwise do what would happen if the video window was clicked.
+			self.videoWindowClicked(widget, event)
 	
 	
 	def seekEnd(self, widget, event):
@@ -691,7 +693,7 @@ class mainWindow:
 		        "on_mnuiOpenURI_activate" : self.showOpenURIDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
-		        "on_pbarProgress_button_press_event" : self.seekStart,
+		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
 		        "on_chkVol_toggled" : self.volumeButtonToggled,
