@@ -449,12 +449,7 @@ class mainWindow:
 			# Flag the controls as being shown.
 			self.controlsShown = True
 		
-		if (not fs and not self.player.playingVideo()):
-			# If fullscreen is not active and no video is playing, call the
-			# movie stop function in 0ms (for some reason this seems to work).
-			gobject.timeout_add(0, self.movieWindowOnStop, True)
-	
-	
+
 	def showVideoWindow(self):
 		## Shows the video window.
 		# Allow fullscreen.
