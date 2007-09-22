@@ -163,9 +163,8 @@ class mainWindow:
 		# Hide all the widgets, before we unfullscreen.
 		for x in lists.hiddenFSWidgets:
 			self.wTree.get_widget(x).hide()
-		# Unfullscreens the window (in 100ms so the window is the right size
-		# (is there a better way of doing this?).
-		gobject.timeout_add(100, self.mainWindow.unfullscreen)
+		# Unfullscreen the window when we're idle (stops weird dimensions).
+		gobject.idle_add(self.mainWindow.unfullscreen)
 	
 	
 	def toggleFullscreen(self, widget=None):
