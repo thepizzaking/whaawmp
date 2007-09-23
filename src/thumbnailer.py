@@ -27,7 +27,7 @@ try:
 except:
 	pass
 
-import sys, os, os.path
+import sys, os
 from optparse import OptionParser
 import gettext
 gettext.install('whaawmp', unicode=1)
