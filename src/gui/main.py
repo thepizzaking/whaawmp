@@ -616,8 +616,8 @@ class mainWindow:
 		if (dlg.file):
 			# If the response is OK, play the file.		
 			self.playFile(dlg.file)
-			# Also set the last folder.
-			self.lastFolder = dlg.dir
+			# Also set the last folder, (if it exists).
+			if (dlg.dir): self.lastFolder = dlg.dir
 	
 	
 	def showAboutDialogue(self, widget):
