@@ -1,1 +1,4 @@
+Replace some 'gobject.timeout_add's with 'gobject.timout_add_seconds's when GOBJECT 2.14 gets more widespread since it's more efficient.
+Replace current volume with a GTK volume widget (only available in 2.12, so should wait until it gets more widespread too)
+
 Clean up __init__ and others
