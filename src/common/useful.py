@@ -17,12 +17,23 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
+import os, gobject
+
+## Set the basic timer function accordingly since using timeout_add_seconds
+# is probably a better idea (Argument is in seconds).
+# TODO: Remove this when glib 2.14 becomes more widespread.
+if (gobject.glib_version < (2,14)):
+	print "Old timer method used, since glib version is pre-2.14"
+	addTimer = lambda t, f: gobject.timeout_add(sToms(t), f)
+else:
+	addTimer = lambda t, f: gobject.timeout_add_seconds(t, f)
 
 linkHandler = 'xdg-open'
 
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000
+# Seconds to miliseconds.
+sToms = lambda s: 1000 * s
 
 
 def secToStr(s):
