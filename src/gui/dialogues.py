@@ -30,6 +30,8 @@ class AboutDialogue:
 		tree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dlg = tree.get_widget(windowname)
+		# Set the name.
+		dlg.set_name(useful.lName)
 		# Sets the correct version.
 		dlg.set_version(useful.version)
 		# Set the parent to the main window.

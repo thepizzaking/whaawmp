@@ -437,7 +437,6 @@
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
-    <property name="name">Whaaw! Media Player</property>
     <property name="copyright">Copyright 2007, Jeff Bailes</property>
     <property name="website">http://home.gna.org/whaawmp/</property>
     <property name="license">Copyright (C) Jeff Bailes, 2007.
