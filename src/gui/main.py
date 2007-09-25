@@ -358,12 +358,19 @@ class mainWindow:
 			if ('://' not in file): file = 'file://' + file
 			# Set the URI to the file's one.
 			self.player.setURI(file)
+			# Add the file to recently opened files.
+			self.addToRecent(file)
 			# Start the player.
 			self.player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
 			self.playFile(None)
+	
+	
+	def addToRecent(self, uri):
+		## Adds a certain URI to the recent files list.
+		gtk.recent_manager_get_default().add_item(uri)
 	
 	
 	def playDVD(self, title=None):
