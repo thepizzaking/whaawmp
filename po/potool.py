@@ -31,8 +31,8 @@ Onto the commands:
 		(Use ./potool.py po all to update all po files)
 	'./potool.py compile' will compile all the language file and put them
 		in LANGCODE/LC_MESSAGES/ folders.
-Once you finish a translation, add them to the task manager here:
-	http://gna.org/task/?group=whaawmp
+If you are producing a translation please use the launchpad tranlation
+	service: http://translations.launchpad.net/whaawmp
 Good luck, and happy translating.'''
 	sys.exit(0)
 
