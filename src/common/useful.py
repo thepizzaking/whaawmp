@@ -54,7 +54,7 @@ def toRange(val, min, max):
 	if (val > max): val = max
 	return val
 
-checkLinkHandler = not(os.system('which %s >&- 2>&-' % linkHandler))
+checkLinkHandler = not(os.system('which %s >& 2> /dev/null' % linkHandler))
 
 def URLorMailOpen(link, type=None):
 	## Opens a url or an e-mail composer (only uses exo-open so far)
