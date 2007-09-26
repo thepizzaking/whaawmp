@@ -1,3 +1,5 @@
+Use Metadata for finding the name of the file playing, only use filename if it doesn't exist.
+
 Remove gobject.timeout_add_seconds for pre glib 2.14 systems when it becomes more widespread.
 Replace current volume with a GTK volume widget (only available in 2.12, so should wait until it gets more widespread too)
 
