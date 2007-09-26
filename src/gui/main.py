@@ -282,6 +282,8 @@ class mainWindow:
 				self.player.enableVisualisation()
 			else:
 				self.player.disableVisualisation()
+			# Set the title accordingly.
+			self.setPlayingTitle(self.player.getURI())
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -306,6 +308,8 @@ class mainWindow:
 			if (self.fsActive()): self.deactivateFullscreen()
 			# Reset the progress bar.
 			self.progressUpdate()
+			# Clear the title.
+			self.setPlayingTitle(None)
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -368,6 +372,23 @@ class mainWindow:
 			self.playFile(None)
 	
 	
+	def setPlayingTitle(self, uri):
+		if (uri):
+			# If the URI passed isn't 'None'.
+			file = uri
+			# Get the last item when split at '/'.  eg a/b/c.d -> c.d
+			if (os.sep in file): file = file.split(os.sep)[-1]
+			# Remove the file extenstion (wow, this is messy).
+			if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
+			# Set the title name.
+			titlename = file + ' - ' + useful.lName
+		else:
+			# Otherwise set the title to just the normal name.
+			titlename = useful.lName
+		# Actually set it!
+		self.mainWindow.set_title(titlename)
+
+
 	def addToRecent(self, uri):
 		## Adds a certain URI to the recent files list.
 		gtk.recent_manager_get_default().add_item(uri)
@@ -730,6 +751,8 @@ class mainWindow:
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
+		# Set the title.
+		self.setPlayingTitle(None)
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg'))
 		# Create a tooltips instance for use in the code.
