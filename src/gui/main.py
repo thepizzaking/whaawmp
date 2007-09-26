@@ -375,6 +375,8 @@ class mainWindow:
 	def setPlayingTitle(self, uri):
 		if (uri):
 			# If the URI passed isn't 'None'.
+			# If we don't want to set it, return.
+			if (not self.cfg.getBool('gui/fileastitle')): return
 			file = uri
 			# Get the last item when split at '/'.  eg a/b/c.d -> c.d
 			if (os.sep in file): file = file.split(os.sep)[-1]
@@ -751,8 +753,6 @@ class mainWindow:
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
-		# Set the title.
-		self.setPlayingTitle(None)
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.srcDir, '..', 'images', 'whaawmp.svg'))
 		# Create a tooltips instance for use in the code.
