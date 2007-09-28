@@ -127,6 +127,7 @@ def makeUninstall():
 	os.system('rm -f %s/share/thumbnailers/whaaw-thumbnailer.desktop' % base)
 	os.system('rm -f %s/bin/whaawmp' % base)
 	os.system('rm -f %s/bin/whaaw-thumbnailer' % base)
+	os.system('rm -f %s/share/pixmaps/whaawmp.svg' % base)
 	for x in os.popen('find %s/share/locale -name whaawmp.mo' % base).read().split():
 		os.system('rm -f %s' % x)
 
