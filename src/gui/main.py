@@ -282,6 +282,8 @@ class mainWindow:
 				self.player.enableVisualisation()
 			else:
 				self.player.disableVisualisation()
+			# Set the title accordingly.
+			self.setPlayingTitle(self.player.getURI())
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -306,6 +308,8 @@ class mainWindow:
 			if (self.fsActive()): self.deactivateFullscreen()
 			# Reset the progress bar.
 			self.progressUpdate()
+			# Clear the title.
+			self.setPlayingTitle(None)
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
@@ -358,12 +362,38 @@ class mainWindow:
 			if ('://' not in file): file = 'file://' + file
 			# Set the URI to the file's one.
 			self.player.setURI(file)
+			# Add the file to recently opened files.
+			self.addToRecent(file)
 			# Start the player.
 			self.player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
 			self.playFile(None)
+	
+	
+	def setPlayingTitle(self, uri):
+		if (uri):
+			# If the URI passed isn't 'None'.
+			# If we don't want to set it, return.
+			if (not self.cfg.getBool('gui/fileastitle')): return
+			file = uri
+			# Get the last item when split at '/'.  eg a/b/c.d -> c.d
+			if (os.sep in file): file = file.split(os.sep)[-1]
+			# Remove the file extenstion (wow, this is messy).
+			if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
+			# Set the title name.
+			titlename = file + ' - ' + useful.lName
+		else:
+			# Otherwise set the title to just the normal name.
+			titlename = useful.lName
+		# Actually set it!
+		self.mainWindow.set_title(titlename)
+
+
+	def addToRecent(self, uri):
+		## Adds a certain URI to the recent files list.
+		gtk.recent_manager_get_default().add_item(uri)
 	
 	
 	def playDVD(self, title=None):
@@ -555,8 +585,8 @@ class mainWindow:
 		# Destroy the timers first to avoid about 20 of them.
 		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
-		self.tmrSec = gobject.timeout_add(1000, self.secondTimer)
-		self.tmrMin = gobject.timeout_add(60000, self.minuteTimer)
+		self.tmrSec = useful.addTimer(1, self.secondTimer)
+		self.tmrMin = useful.addTimer(60, self.minuteTimer)
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.
@@ -616,8 +646,8 @@ class mainWindow:
 		if (dlg.file):
 			# If the response is OK, play the file.		
 			self.playFile(dlg.file)
-			# Also set the last folder.
-			self.lastFolder = dlg.dir
+			# Also set the last folder, (if it exists).
+			if (dlg.dir): self.lastFolder = dlg.dir
 	
 	
 	def showAboutDialogue(self, widget):
@@ -674,6 +704,10 @@ class mainWindow:
 		self.cfg = main.cfg
 		self.options = options
 		self.lastFolder = useful.origDir
+		# Set the application's name (for about dialogue etc).
+		## TODO, remove this if when glib 2.14 is more widespread.
+		if (gobject.glib_version >= (2,14)):
+			gobject.set_application_name(useful.lName)
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
