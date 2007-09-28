@@ -74,7 +74,9 @@ class main:
 		(options, args) = config.clparser(OptionParser(usage=usage, prog=__sName__)).parseArgs(HELP)
 
 		# Open the settings.
-		cfgfile = os.path.join(os.path.expanduser('~'), '.config', useful.sName, 'config.ini')
+		xdgdir = os.getenv('XDG_CONFIG_HOME')
+		cfgdir = xdgdir if (xdgdir) else os.path.join(os.path.expanduser('~'), '.config')
+		cfgfile = os.path.join(cfgdir, useful.sName, 'config.ini')
 		self.cfg = config.config(cfgfile)
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, options, args)
