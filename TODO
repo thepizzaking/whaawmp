@@ -1,3 +1,7 @@
+Make make.py platform independent (the chmod bit!)
+Install translations
+Uninstall (maybe?)
+
 Use Metadata for finding the name of the file playing, only use filename if it doesn't exist.
 
 Remove gobject.timeout_add_seconds for pre glib 2.14 systems when it becomes more widespread.

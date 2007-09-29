@@ -20,18 +20,9 @@
 import sys, os
 from optparse import OptionParser
 
-__sName__ = 'whaawmp'
-
 import gettext
-gettext.install(__sName__, unicode=1)
+gettext.install('whaawmp', unicode=1)
 from common import useful
-
-useful.sName = __sName__
-useful.lName = _('Whaaw! Media Player')
-useful.version = '0.2.3'
-useful.origDir = os.getcwd()
-useful.srcDir = sys.path[0]
-useful.gladefile = os.path.join(sys.path[0], 'gui', __sName__ + '.glade')
 
 # Check that at least python 2.5 is running.
 if (sys.version_info < (2, 5)):
@@ -71,7 +62,7 @@ class main:
 		## Initialises everything.
 		# Option Parser
 		usage = "\n  " + useful.sName + _(" [options] filename")
-		(options, args) = config.clparser(OptionParser(usage=usage, prog=__sName__)).parseArgs(HELP)
+		(options, args) = config.clparser(OptionParser(usage=usage, prog=useful.sName)).parseArgs(HELP)
 
 		# Open the settings.
 		xdgdir = os.getenv('XDG_CONFIG_HOME')
