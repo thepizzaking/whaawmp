@@ -45,7 +45,9 @@ class smartInstall(install_data):
 		basedir = os.path.join(libDir[len(self.root):], 'whaawmp')
 		for x in scripts:
 			f = open(x, 'w')
-			f.write('#!/bin/sh\nexec python %s/%s.py "$@"' % (basedir, x))
+			# Fix this at some time.
+			xn = x if (x == 'whaawmp') else 'thumbnailer'
+			f.write('#!/bin/sh\nexec python %s/%s.py "$@"' % (basedir, xn))
 			f.close()
 			os.system('chmod 755 %s' % x)
 		return install_data.run(self)
