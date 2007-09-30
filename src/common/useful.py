@@ -37,6 +37,9 @@ if (gobject.glib_version < (2,14)):
 else:
 	addTimer = lambda t, f: gobject.timeout_add_seconds(t, f)
 
+# Executions with no output.
+hiddenExec = lambda x: os.system(x +  '>/dev/null 2>/dev/null &')
+
 linkHandler = 'xdg-open'
 
 # Converts nanoseconds to seconds.
@@ -63,7 +66,7 @@ def toRange(val, min, max):
 	if (val > max): val = max
 	return val
 
-checkLinkHandler = not(os.system('which %s >/dev/null 2>/dev/null' % linkHandler))
+checkLinkHandler = not(hiddenExec('which %s' % linkHandler))
 
 def URLorMailOpen(link, type=None):
 	## Opens a url or an e-mail composer (only uses exo-open so far)

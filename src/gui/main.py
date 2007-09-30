@@ -423,8 +423,8 @@ class mainWindow:
 		## A timer that runs every minute while playing.
 		# Disable XScreenSaver (if option is enabled).
 		if (self.cfg.getBool("misc/disablexscreensaver") and self.allowFSFuncs()):
-			os.system("xscreensaver-command -deactivate >&- 2>&-")
-			os.system("xset s reset >&- 2>&-")
+			useful.hiddenExec("xscreensaver-command -deactivate")
+			useful.hiddenExec("xset s reset")
 		
 		return self.player.isPlaying()
 	

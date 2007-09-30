@@ -7,7 +7,8 @@ from distutils import cmd
 import glob
 import os
 
-scripts = ['whaawmp', 'whaaw-thumbnailer']
+scripts = {'whaawmp' : 'whaawmp.py',
+           'whaaw-thumbnailer' : 'thumbnailer.py'}
 
 class fixDataPath(cmd.Command):
 	def initialize_options(self):
@@ -45,28 +46,26 @@ class smartInstall(install_data):
 		basedir = os.path.join(libDir[len(self.root):], 'whaawmp')
 		for x in scripts:
 			f = open(x, 'w')
-			# Fix this at some time.
-			xn = x if (x == 'whaawmp') else 'thumbnailer'
-			f.write('#!/bin/sh\nexec python %s/%s.py "$@"' % (basedir, xn))
+			f.write('#!/bin/sh\nexec python %s/%s "$@"' % (basedir, scripts[x]))
 			f.close()
 			os.system('chmod 755 %s' % x)
 		return install_data.run(self)
 		
 data = [('share/whaawmp/glade', glob.glob('glade/*.glade')),
-	('share/whaawmp/images', glob.glob('images/*.svg')),
-	('share/pixmaps', ['images/whaawmp.svg']),
-	('share/applications', ['whaawmp.desktop']),
-	('share/thumbnailers', ['whaaw-thumbnailer.desktop']),
-	('bin', scripts)]
+        ('share/whaawmp/images', glob.glob('images/*.svg')),
+        ('share/pixmaps', ['images/whaawmp.svg']),
+        ('share/applications', ['whaawmp.desktop']),
+        ('share/thumbnailers', ['whaaw-thumbnailer.desktop']),
+        ('bin', scripts.keys())]
 
-setup(	name="whaawmp", fullname="Whaaw! Media Player",
-	version='0.2.2',
-	description='Whaaw! Media Player',
-	author='Jeff Bailes',
-	author_email='thepizzaking@gmail.com',
-	url='http://home.gna.org/whaawmp/',
-	packages=['whaawmp','whaawmp.gui','whaawmp.common'],
-	package_dir={'whaawmp': 'src'},
-	data_files=data,
-	cmdclass = {'fixDataPath': fixDataPath,
-	            'install_data': smartInstall})
+setup(name="whaawmp", fullname="Whaaw! Media Player",
+      version='0.2.3',
+      description='Whaaw! Media Player',
+      author='Jeff Bailes',
+      author_email='thepizzaking@gmail.com',
+      url='http://home.gna.org/whaawmp/',
+      packages=['whaawmp','whaawmp.gui','whaawmp.common'],
+      package_dir={'whaawmp': 'src'},
+      data_files=data,
+      cmdclass = {'fixDataPath': fixDataPath,
+                  'install_data': smartInstall})
