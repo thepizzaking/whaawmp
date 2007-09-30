@@ -4,7 +4,7 @@ Written by Jeff Bailes.
 Before you try to install or run Whaaw! Media Player you should check that you
 have all the required dependencies, these include:
 python >= 2.5
-pygtk >= 2.8 (Not too sure about the version, 2.8 should work fine though)
+pygtk >= 2.10
 gstreamer-python >= 0.10
 
 I think that's about it (well, the ones I know about), the package names may
@@ -12,17 +12,12 @@ differ depending on your distribution, you will also need other gstreamer
 packages depending on the type of media you wish to play.
 
 Now, onto the building etc etc.
--To compile all the python files type ./make.py
--Then to install them type ./make.py install
---There are --prefix and --destdir options (see ./make.py --help for more
-information) (PREFIX and DESTDIR environmantal variables can also be used).
---This will only install the compiled files, to install the source files
-aswell type ./make.py installsrc instead.
+-To compile & install the files use ./make.py install
+--There are --prefix and --root options (see ./make.py --help for more
+information)
 
-Alternitavely you can type './make.py all install' to compile and install in
-one go.
 eg. To install to /usr:
-./make.py -p /usr all install
+./make.py install --prefix=/usr
 
 
 Also if you use a tool like checkinstall, I have added a Makefile which just
