@@ -1,3 +1,5 @@
+Fix Makefile
+
 Make make.py platform independent (the chmod bit!)
 Install translations
 Uninstall (maybe?)

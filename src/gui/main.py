@@ -520,10 +520,12 @@ class mainWindow:
 	
 	def seekFromProgress(self, widget, event):
 		x, y, state = event.window.get_pointer()
-		# Get the width of the bar.
-		maxX = widget.get_allocation().width
-		# Seek to the location.
-		self.player.seekFrac(float(x) / maxX)
+		# Get the width & height of the bar.
+		alloc = widget.get_allocation()
+		maxX = alloc.width
+		maxY = alloc.height
+		# Seek if cursor is still vertically over the bar.
+		if (y >= 0 and y <= maxY): self.player.seekFrac(float(x) / maxX)
 		# Update the progress bar to reflect the change.
 		self.progressUpdate()
 		
