@@ -90,9 +90,8 @@ class player:
 	def seek(self, loc):
 		## Seeks to a set location in the track.
 		# Seek to the requested position.
-		#  | gst.SEEK_FLAG_ACCURATE removed from 3rd field (did removing fix lockups?)
 		self.player.seek(1.0, gst.FORMAT_TIME,
-		    gst.SEEK_FLAG_FLUSH,
+		    gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
 		    gst.SEEK_TYPE_SET, loc,
 		    gst.SEEK_TYPE_NONE, 0)
 	
