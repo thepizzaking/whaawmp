@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 from distutils.core import setup
-from distutils.command.install import install as _install
 from distutils.command.install_data import install_data
+from distutils.command.install_lib import install_lib
 from distutils import cmd
 import glob
 import os
@@ -10,40 +10,27 @@ import os
 scripts = {'whaawmp' : 'whaawmp.py',
            'whaaw-thumbnailer' : 'thumbnailer.py'}
 
-class fixDataPath(cmd.Command):
-	def initialize_options(self):
-		self.prefix = None
-		self.lib_build_dir = None
-		self.libdir = None
-
-	def finalize_options(self):
-		self.set_undefined_options('install', ('prefix', 'prefix'))
-		self.set_undefined_options('install', ('libdir', 'libdir'))
-		self.set_undefined_options('build', ('build_lib', 'lib_build_dir'))
-
+class libInstall(install_lib):
 	def run(self):
-		print self.libdir
-		filename = os.path.join(self.lib_build_dir, 'whaawmp', 'common', 'useful.py')
-		file = open(filename, 'r')
-		data = file.read()
-		file.close()
-		data = data.replace('@datadir@', os.path.join(self.prefix, 'share', 'whaawmp'))
-		file = open(filename, 'w')
-		file.write(data)
-		file.close()
+		prefix = getattr(self.get_finalized_command('install'), 'prefix')
+		libDir = getattr(self.get_finalized_command('build'), 'build_lib')
+		# To fix the datadir location.
+		filename = os.path.join(libDir, 'whaawmp', 'common', 'useful.py')
+		f = open(filename, 'r')
+		data = f.read()
+		f.close()
+		data = data.replace('@datadir@', os.path.join(prefix, 'share', 'whaawmp'))
+		f = open(filename, 'w')
+		f.write(data)
+		f.close()
+		return install_lib.run(self)
 
-	def get_outputs(self): return []
-
-class install(_install):
-	sub_commands = [('fixDataPath', None)] + _install.sub_commands
-	def run(self):
-		_install.run(self)
-
-class smartInstall(install_data):
+class dataInstall(install_data):
 	def run(self):
 		install_cmd = self.get_finalized_command('install')
 		libDir = getattr(install_cmd, 'install_lib')
 		basedir = os.path.join(libDir[len(self.root):], 'whaawmp')
+		
 		for x in scripts:
 			f = open(x, 'w')
 			f.write('#!/bin/sh\nexec python %s/%s "$@"' % (basedir, scripts[x]))
@@ -67,5 +54,5 @@ setup(name="whaawmp", fullname="Whaaw! Media Player",
       packages=['whaawmp','whaawmp.gui','whaawmp.common'],
       package_dir={'whaawmp': 'src'},
       data_files=data,
-      cmdclass = {'fixDataPath': fixDataPath,
-                  'install_data': smartInstall})
+      cmdclass = {'install_lib' : libInstall,
+                  'install_data' : dataInstall})
