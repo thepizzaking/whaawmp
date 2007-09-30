@@ -1,4 +1,4 @@
 #!/bin/sh
 
 WHAAWDIR=$(dirname $0)/src
-exec python -O ${WHAAWDIR}/whaawmp.py "$@"
+exec python ${WHAAWDIR}/whaawmp.py "$@"
