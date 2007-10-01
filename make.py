@@ -29,7 +29,11 @@ class dataInstall(install_data):
 	def run(self):
 		install_cmd = self.get_finalized_command('install')
 		libDir = getattr(install_cmd, 'install_lib')
-		basedir = os.path.join(libDir[len(self.root):], 'whaawmp')
+		if (self.root and libDir.startswith(self.root)):
+			basedir = os.path.join(libDir[len(self.root):], 'whaawmp')
+			if not (basedir.startswith('/')): basedir = '/' + basedir
+		else:
+			basedir = os.path.join(libDir, 'whaawmp')
 		
 		for x in scripts:
 			f = open(x, 'w')
