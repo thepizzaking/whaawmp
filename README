@@ -6,6 +6,7 @@ have all the required dependencies, these include:
 python >= 2.5
 pygtk >= 2.10
 gstreamer-python >= 0.10
+pyxdg
 
 I think that's about it (well, the ones I know about), the package names may
 differ depending on your distribution, you will also need other gstreamer

@@ -20,12 +20,16 @@
 
 import os, sys
 from ConfigParser import SafeConfigParser
-from common import lists
+from common import lists, useful
+import xdg.BaseDirectory
+
+# Get the config file directory.
+cfgFile = os.path.join(xdg.BaseDirectory.save_config_path(useful.sName), 'config.ini')
 
 class config:
 	def save(self):
 		## Saves the configuration file.
-		f = open(self.loc, "w")
+		f = open(cfgFile, "w")
 		self.config.write(f)
 		f.close()
 	
@@ -71,26 +75,15 @@ class config:
 	getBool = lambda self, opt: str(self.get(opt)).lower() not in ['false', '0', 'none', 'no']
 		
 	
-	def prepareConfDir(self, file):
-		## Checks if the config directory exists, if not, create it.
-		dir = os.path.dirname(file)
-		if (not os.path.exists(dir)):
-			os.makedirs(dir)
-	
-	
-	def __init__(self, file):
+	def __init__(self):
 		## Preparation.
-		# Make sure the config directory exists.
-		self.prepareConfDir(file)
 		# Get the default settings.
 		self.defaults = lists.defaultOptions
 		# Create a config parser.
 		self.config = SafeConfigParser()
-		# Set the config files location.
-		self.loc = file
 		
 		# Open the config file.
-		self.config.read(self.loc)
+		self.config.read(cfgFile)
 
 
 
