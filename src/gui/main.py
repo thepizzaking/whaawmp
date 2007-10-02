@@ -421,10 +421,11 @@ class mainWindow:
 	
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
-		# Disable XScreenSaver (if option is enabled).
-		if (self.cfg.getBool("misc/disablexscreensaver") and self.allowFSFuncs()):
-			useful.hiddenExec("xscreensaver-command -deactivate")
-			useful.hiddenExec("xset s reset")
+		# Disable ScreenSaver (if option is enabled).
+		if (self.cfg.getBool("misc/disablescreensaver") and self.allowFSFuncs()):
+			# For all the commands in the disable screensaver config option, run them.
+			for x in self.cfg.getStr("misc/disablescrcmd").split(','):
+				useful.hiddenExec(x)
 		
 		return self.player.isPlaying()
 	
