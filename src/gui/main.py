@@ -21,6 +21,11 @@ import sys, os, urllib
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
+# Check that GTK+ 2.10 or greater is being used.
+if (gtk.gtk_version < (2, 10)):
+	print _("Cannot continue, this program requires at least GTK+ 2.10 to run.")
+	sys.exit(1)
+
 gobject.threads_init()
 import gtk.glade
 
