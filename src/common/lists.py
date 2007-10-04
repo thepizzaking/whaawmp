@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #  A few useful lists.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>.
 #       This file is part of Whaaw! Media Player (whaawmp)

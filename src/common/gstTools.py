@@ -1,6 +1,4 @@
-#!/usr/bin/env python
-
-#  A few gstreamer tools that I thought I could use.
+#  A few gstreamer tools that I thought might be handy.
 #  Copyright (C) 2007, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
