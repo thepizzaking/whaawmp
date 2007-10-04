@@ -3,6 +3,7 @@
 from distutils.core import setup
 from distutils.command.install_data import install_data
 from distutils.command.install_lib import install_lib
+import distutils.dir_util
 from distutils import cmd
 import glob
 import os
@@ -12,6 +13,7 @@ scripts = {'whaawmp' : 'whaawmp.py',
 
 class libInstall(install_lib):
 	def run(self):
+		root = getattr(self.get_finalized_command('install'), 'root')
 		prefix = getattr(self.get_finalized_command('install'), 'prefix')
 		libDir = getattr(self.get_finalized_command('build'), 'build_lib')
 		# To fix the datadir location.
@@ -23,6 +25,9 @@ class libInstall(install_lib):
 		f = open(filename, 'w')
 		f.write(data)
 		f.close()
+		# Install the locales.
+		os.system('./po/potool.py compile')
+		distutils.dir_util.copy_tree('po/locale', ('%s%s/share/locale' % (root, prefix)))
 		return install_lib.run(self)
 
 class dataInstall(install_data):

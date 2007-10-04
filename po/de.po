@@ -1,0 +1,404 @@
+# German translation for whaawmp
+# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# This file is distributed under the same license as the whaawmp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: whaawmp\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2007-10-04 15:42+1000\n"
+"PO-Revision-Date: 2007-10-04 11:00+0000\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: German <de@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2007-10-04 11:58+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../src/thumbnailer.py:65
+msgid " [options] -o output-file input-file"
+msgstr " [Optionen] -0 Ausgabe-Datei Eingabe-Datei"
+
+#: ../src/thumbnailer.py:70
+msgid "The file to create the thumbnail of"
+msgstr ""
+
+#: ../src/thumbnailer.py:74
+msgid "The destination of the resulting thumbnail"
+msgstr ""
+
+#: ../src/thumbnailer.py:78
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr ""
+
+#: ../src/thumbnailer.py:82
+msgid "The destination size (in pixels)"
+msgstr ""
+
+#: ../src/thumbnailer.py:92
+msgid "Sorry, an input and output file are required to be passed."
+msgstr ""
+
+#: ../src/thumbnailer.py:93
+#, python-format
+msgid "See '%s --help' for details"
+msgstr "Siehe '%s --help'  für Details"
+
+#: ../src/thumbnailer.py:100
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr ""
+
+#: ../src/thumbnailer.py:157
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:184
+msgid "An error occurred"
+msgstr "Ein Fehler trat auf."
+
+#: ../src/thumbnailer.py:200
+msgid "There are no video tracks in this stream, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:206
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:219
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
+
+#: ../src/whaawmp.py:29
+msgid "Cannot continue, python version must be at least 2.5."
+msgstr ""
+
+#: ../src/whaawmp.py:64
+msgid " [options] filename"
+msgstr ""
+
+#: ../src/gui/__init__.py:22
+msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
+msgstr ""
+
+#: ../src/gui/dialogues.py:52
+msgid "Choose a file to Open"
+msgstr ""
+
+#: ../src/gui/dialogues.py:61
+msgid "Supported Media"
+msgstr ""
+
+#: ../src/gui/dialogues.py:67
+msgid "All Files"
+msgstr ""
+
+#: ../src/gui/dialogues.py:194 ../glade/whaawmp.glade.h:25
+msgid "Play DVD"
+msgstr ""
+
+#: ../src/gui/dialogues.py:199
+msgid "Select options:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:201
+msgid "Title: "
+msgstr ""
+
+#: ../src/gui/dialogues.py:246
+msgid "Open a URI"
+msgstr ""
+
+#: ../src/gui/dialogues.py:251
+msgid "Enter the URI:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:284
+msgid "Select Tracks"
+msgstr ""
+
+#: ../src/gui/dialogues.py:288
+msgid "Audio:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:322 ../src/gui/main.py:257
+msgid "Error!"
+msgstr ""
+
+#: ../src/gui/dialogues.py:330
+msgid "Message"
+msgstr ""
+
+#: ../src/gui/main.py:369
+#, python-format
+msgid "Something's stuffed up, no such file: %s"
+msgstr ""
+
+#: ../src/gui/main.py:580
+msgid "Pause"
+msgstr ""
+
+#: ../src/gui/main.py:580
+msgid "Play"
+msgstr ""
+
+#: ../src/gui/main.py:685
+#, python-format
+msgid "%s not found, links & e-mail addresses will not be clickable"
+msgstr ""
+
+#: ../src/gui/main.py:697
+#, python-format
+msgid ""
+"Could not execute browser command (via %s).\n"
+"Please manually visit %s to report the problem"
+msgstr ""
+
+#: ../src/common/config.py:37
+msgid ""
+"Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
+"Defaulting to 'unknown' group."
+msgstr ""
+
+#: ../src/common/config.py:107
+msgid "Print the version and exit"
+msgstr ""
+
+#: ../src/common/config.py:111
+msgid "Play the file in fullscreen mode"
+msgstr ""
+
+#: ../src/common/config.py:115
+msgid "Sets the player's volume to VOL (0-100)"
+msgstr ""
+
+#: ../src/common/config.py:119
+msgid "Mute the player"
+msgstr ""
+
+#: ../src/common/config.py:123
+msgid "Sets the player's audio ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:127
+msgid "Sets the player's video ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:131 ../glade/whaawmp.glade.h:28
+msgid "Quits the player when the playing stream stops"
+msgstr ""
+
+#: ../src/common/gstTools.py:74
+msgid "Unknown"
+msgstr ""
+
+#: ../src/common/useful.py:22 ../glade/whaawmp.glade.h:46
+msgid "Whaaw! Media Player"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:1
+msgid "About Whaaw! Media Player"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:2
+msgid "Add current file's name to Title"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:3
+msgid "Add the currently playing file's name to the window's title."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:4
+msgid "Adjust video brightness"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:5
+msgid "Adjust video contrast"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:6
+msgid "Adjust video hue"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:7
+msgid "Adjust video saturation"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:8
+msgid "Audio Tracks"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:9
+msgid "Brightness:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:10
+msgid "Contrast:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:11
+msgid "Current player volume"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:12
+msgid "Disable Screensaver"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:13
+msgid "Disable Screensaver whilst playing a video."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:14
+msgid "Enable Visualisations (Requires stream restart)"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:15
+msgid "Force Aspect Ratio"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:16
+msgid "Force the video to keep its original aspect ratio"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:17
+msgid "Hide Video Window when Stopped"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:18
+msgid "Hide the video window when there is no video stream."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:19
+msgid "Hue:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:20
+msgid "Instantaneous Seek"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:21
+msgid "Leave Fullscreen"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:22
+msgid "Main"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:23
+msgid "Mouse hide timeout (ms): "
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:24
+msgid "Open URI"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:26
+msgid "Preferences"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:27
+msgid "Quit on Stop"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:29
+msgid "Report a bug to the Bugtracker"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:30
+msgid "Reset all adjustments to 0"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:31
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:32
+msgid "Saturation:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:33
+msgid ""
+"Seek instantaneously on draging over the progress bar, instead of waiting "
+"until the end."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:34
+msgid "Show Time Remaining"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:35
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:36
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted)."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:37
+msgid "Stop"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:38
+msgid ""
+"The amount to change the volume by when scrolling on the video area/volume "
+"control"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:39
+msgid ""
+"The time (in milliseconds) after which the mouse will disappear after not "
+"being moved over the video window."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:40
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:41
+msgid "Video"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:43
+msgid "Vol:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:44
+msgid "Volume (Mute/Unmute)"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:45
+msgid "Volume Change on Scroll: "
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:47
+msgid "_Edit"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:48
+msgid "_File"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:49
+msgid "_Help"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:50
+msgid "_Preferences"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:51
+msgid "_Report a Bug"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:52
+msgid "_Stream"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:53
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Thomas https://launchpad.net/~tux12345"

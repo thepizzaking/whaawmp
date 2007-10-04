@@ -79,11 +79,11 @@ if (sys.argv[1] == 'compile'):
 		if (x.endswith('.po')):
 			# For all the po files in the directory.
 			lang = x[:len(x)-3]
-			dest = os.path.join(lang, 'LC_MESSAGES')
+			dest = os.path.join('locale', lang, 'LC_MESSAGES')
 			if (not os.path.exists(dest)):
 				# If the direcory 'lang/LC_MESSAGES' doesn't exist, create it.
 				os.makedirs(dest)
 			# Compile the file and put it in the 'lang/LC_MESSAGES' directory.
 			print 'Creating translation %s' % lang
-			os.system('msgmerge -o - %s messages.pot | msgfmt -c -o %s/LC_MESSAGES/whaawmp.mo -' % (x, lang))
+			os.system('msgmerge -o - %s messages.pot | msgfmt -c -o %s/whaawmp.mo -' % (x, dest))	
 			
