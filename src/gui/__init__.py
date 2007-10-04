@@ -30,6 +30,6 @@ except Warning:
 warnings.resetwarnings()
 
 # Check that GTK+ 2.10 or greater is being used.
-if (gtk.gtk_version < (2, 10) or gtk.pygtk_version < (2,10)):
+if (gtk.gtk_version < (2, 10)):
 	print _("Cannot continue, this program requires at least GTK+ 2.10 to run.")
 	sys.exit(1)
