@@ -11,6 +11,15 @@ import os
 scripts = {'whaawmp' : 'whaawmp.py',
            'whaaw-thumbnailer' : 'thumbnailer.py'}
 
+def replaceStr(file, orig, new):
+	f = open(file, 'r')
+	data = f.read()
+	f.close()
+	data = data.replace(orig, new)
+	f = open(file, 'w')
+	f.write(data)
+	f.close()
+
 class libInstall(install_lib):
 	def run(self):
 		root = getattr(self.get_finalized_command('install'), 'root')
@@ -18,13 +27,8 @@ class libInstall(install_lib):
 		libDir = getattr(self.get_finalized_command('build'), 'build_lib')
 		# To fix the datadir location.
 		filename = os.path.join(libDir, 'whaawmp', 'common', 'useful.py')
-		f = open(filename, 'r')
-		data = f.read()
-		f.close()
-		data = data.replace('@datadir@', os.path.join(prefix, 'share', 'whaawmp'))
-		f = open(filename, 'w')
-		f.write(data)
-		f.close()
+		datadir = os.path.join(prefix, 'share', 'whaawmp')
+		replaceStr(filename, '@datadir@', datadir)
 		# Install the locales.
 		os.system('./po/potool.py compile')
 		distutils.dir_util.copy_tree('po/locale', ('%s%s/share/locale' % (root, prefix)))

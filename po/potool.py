@@ -30,7 +30,7 @@ Onto the commands:
 		already exist, otherwise it will just update it.
 		(Use ./potool.py po all to update all po files)
 	'./potool.py compile' will compile all the language file and put them
-		in LANGCODE/LC_MESSAGES/ folders.
+		in locale/LANGCODE/LC_MESSAGES/ folders.
 If you are producing a translation please use the launchpad tranlation
 	service: http://translations.launchpad.net/whaawmp
 Good luck, and happy translating.'''
@@ -39,23 +39,14 @@ Good luck, and happy translating.'''
 # Change to the directory the script is in, so functions can be performed easier.
 os.chdir(sys.path[0])
 
-def updatepo(lang):
-	## A function which updates an existing translation file.
-	# Merge the old file and the .pot file, then replace the old one with the
-	# merged one.
-	os.system('msgmerge %s.po messages.pot > tmp.po' % (lang))
-	os.system('mv tmp.po %s.po' % lang)
-	print '%s.po updated' % (lang)
+def updatePOT():
+	## Update the 'messages.pot' file, this happens whenever the script is run.
+	os.system('intltool-extract --type="gettext/glade" ../glade/whaawmp.glade')
+	os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py ../glade/whaawmp.glade.h')
+	print 'messages.pot updated!'
 
-## Update the 'messages.pot' file, this happens whenever the script is run.
-os.system('intltool-extract --type="gettext/glade" ../glade/whaawmp.glade')
-os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py ../glade/whaawmp.glade.h')
-print 'messages.pot updated!'
 
-## If no arguments were passed, exit, the messages.pot file has been updated.
-if not (len(sys.argv) > 1): sys.exit(0)
-
-if (sys.argv[1] == 'po' and len(sys.argv) > 2):
+def createUpdatePO(lang):
 	## If 'po' was passed, we want to either create or update a .po file.
 	lang = sys.argv[2]
 	if (lang == 'all'):
@@ -72,8 +63,15 @@ if (sys.argv[1] == 'po' and len(sys.argv) > 2):
 		os.system('cp messages.pot %s.po' % (lang))
 		print '%s.po created' % (lang)
 
+def updatepo(lang):
+	## A function which updates an existing translation file.
+	# Merge the old file and the .pot file, then replace the old one with the
+	# merged one.
+	os.system('msgmerge %s.po messages.pot > tmp.po' % (lang))
+	os.system('mv tmp.po %s.po' % lang)
+	print '%s.po updated' % (lang)
 
-if (sys.argv[1] == 'compile'):
+def compilePO():
 	## It was requested to compile the language files.
 	for x in os.listdir(os.getcwd()):
 		if (x.endswith('.po')):
@@ -86,4 +84,9 @@ if (sys.argv[1] == 'compile'):
 			# Compile the file and put it in the 'lang/LC_MESSAGES' directory.
 			print 'Creating translation %s' % lang
 			os.system('msgmerge -o - %s messages.pot | msgfmt -c -o %s/whaawmp.mo -' % (x, dest))	
-			
+
+updatePOT()
+## If no arguments were passed, exit, the messages.pot file has been updated.
+if not (len(sys.argv) > 1): sys.exit(0)
+if (sys.argv[1] == 'po' and len(sys.argv) > 2): createUpdatePO(sys.argv[2])
+if (sys.argv[1] == 'compile' and len(sys.argv) > 2): compilePO()
