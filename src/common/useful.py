@@ -67,7 +67,7 @@ def toRange(val, min, max):
 checkLinkHandler = not(hiddenExec('which %s' % linkHandler))
 
 def URLorMailOpen(link, type=None):
-	## Opens a url or an e-mail composer (only uses exo-open so far)
+	## Opens a url or an e-mail composer (only uses xdg-open so far)
 	if (type == 'mail' and 'mailto:' not in link):
 		# If the address doesn't have mailto:, add it.
 		link = 'mailto:' + link
