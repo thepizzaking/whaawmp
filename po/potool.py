@@ -89,4 +89,4 @@ updatePOT()
 ## If no arguments were passed, exit, the messages.pot file has been updated.
 if not (len(sys.argv) > 1): sys.exit(0)
 if (sys.argv[1] == 'po' and len(sys.argv) > 2): createUpdatePO(sys.argv[2])
-if (sys.argv[1] == 'compile' and len(sys.argv) > 2): compilePO()
+if (sys.argv[1] == 'compile'): compilePO()

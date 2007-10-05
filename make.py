@@ -31,7 +31,8 @@ class libInstall(install_lib):
 		replaceStr(filename, '@datadir@', datadir)
 		# Install the locales.
 		os.system('./po/potool.py compile')
-		distutils.dir_util.copy_tree('po/locale', ('%s%s/share/locale' % (root, prefix)))
+		if (os.path.exists('po/locale')):
+			distutils.dir_util.copy_tree('po/locale', ('%s%s/share/locale' % (root, prefix)))
 		return install_lib.run(self)
 
 class dataInstall(install_data):
