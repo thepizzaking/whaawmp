@@ -16,6 +16,8 @@ Now, onto the building etc etc.
 -To compile & install the files use ./make.py install
 --There are --prefix and --root options (see ./make.py --help for more
 information)
+-If you're using checkinstall, I was having touble unless I used this command:
+	'checkinstall ./make.py install --prefix=/usr'
 
 eg. To install to /usr:
 ./make.py install --prefix=/usr
