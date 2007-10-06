@@ -16,16 +16,15 @@ Now, onto the building etc etc.
 -To compile & install the files use ./make.py install
 --There are --prefix and --root options (see ./make.py --help for more
 information)
--If you're using checkinstall, I was having touble unless I used this command:
-	'checkinstall ./make.py install --prefix=/usr'
 
 eg. To install to /usr:
 ./make.py install --prefix=/usr
 
 
-Also if you use a tool like checkinstall, I have added a Makefile which just
-executes the correct commands for 'make' and 'make install'.  So it **should**
-work, I haven't actually tested this though.
+Also if you use a tool like checkinstall, there was a Makefile to make things
+easier, but it stopped working properly, so if you're using checkinstall, try
+this command:  'checkinstall ./make.py install --prefix=/usr' (it worked for
+me)
 
 To run it afterwards, use whaawmp to start Whaaw! Media Player.
 
