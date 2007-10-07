@@ -27,7 +27,6 @@ except:
 	print _("Mutagen not available, all tagging fetures will be unavailable")
 	avail = False
 
-import useful
 
 def getTags(file):
 	# Try and return the dictionary of tags.
