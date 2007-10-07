@@ -31,7 +31,7 @@ except:
 def getTags(file):
 	# Try and return the dictionary of tags.
 	try:
-		return mutagen.File(file)
+		return mutagen.File(file, tagType(file))
 	except:
 		return {}
 
@@ -59,7 +59,7 @@ def getDispTitle(file):
 	# Initialise the winTitle to empty.
 	winTitle = ""
 	### Fix this so it's not really slow with videos.
-	if (avail and False):
+	if avail:
 		tags = getTags(file)
 		# Get the first tag from title, and artist. (configuration maybe in the future).
 		title = getSTag(tags, 'title')
@@ -77,3 +77,23 @@ def getDispTitle(file):
 	if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
 	winTitle = file
 	return winTitle
+
+def tagType(file):
+	## Gets a tag type for some specific tag types (from file extension).
+	# Read the file extension.
+	ext = None
+	if ('.' in file): ext = file[-(len(file.split('.')[-1])):]
+	# Import the tag functions.
+	from mutagen.oggflac import OggFLAC
+	from mutagen.oggspeex import OggSpeex
+	from mutagen.oggtheora import OggTheora
+	from mutagen.oggvorbis import OggVorbis
+	# Make a dictionary for easy access to types.
+	dic = { 'ogg' : [OggFLAC, OggSpeex, OggTheora, OggVorbis],
+	        'ogv' : [OggTheora],
+	        'oga' : [OggFLAC, OggSpeex, OggVorbis] }
+	# Return the tag type, otherwise return None (which will check everything)
+	try:
+		return dic[ext]
+	except:
+		return None
