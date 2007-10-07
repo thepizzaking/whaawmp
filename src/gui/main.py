@@ -49,7 +49,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, configure the player accordingly.
-		if (not self.player.playingVideo()): self.movieWindowOnStop()
+		if (not self.player.playingVideo()): self.videoWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -102,7 +102,7 @@ class mainWindow:
 	def showControls(self):
 		## Shows the fullscreen controls (also the mouse):
 		# Re show the cursor.
-		self.setCursor(None, self.movieWindow)
+		self.setCursor(None, self.videoWindow)
 		# Shows all the widgets that should be shown.
 		if (not self.controlsShown):
 			# If the controls aren't shown, show them.
@@ -117,7 +117,7 @@ class mainWindow:
 		# We don't want anything hidden if no video is playing.
 		if (not self.videoWindowShown()): return
 		# Hide the cursor.
-		self.hideCursor(self.movieWindow)
+		self.hideCursor(self.videoWindow)
 		if (self.fsActive()):
 			# Only hide the controls if we're in fullscreen.
 			# Hides all the widgets that should be hidden.
@@ -156,7 +156,7 @@ class mainWindow:
 		self.mainWindow.fullscreen()
 	
 	# Checks if we should allow Fullscreen functions (It's 1 if it's hidden).
-	videoWindowShown = lambda self: self.movieWindow.get_allocation().height > 1
+	videoWindowShown = lambda self: self.videoWindow.get_allocation().height > 1
 
 	
 	def deactivateFullscreen(self):
@@ -181,7 +181,7 @@ class mainWindow:
 		if (not widget):
 			# If no widget was passed, use the right one. (This is left from
 			# when I had a separate fullscreen window, maybe it should be fixed?)
-			widget = self.movieWindow
+			widget = self.videoWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -304,7 +304,7 @@ class mainWindow:
 		elif (playerTools.isStopMsg(msg)):
 			if (self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
-			self.movieWindowOnStop()
+			self.videoWindowOnStop()
 			# Deactivate fullscreen.
 			if (self.fsActive()): self.deactivateFullscreen()
 			# Reset the progress bar.
@@ -329,6 +329,7 @@ class mainWindow:
 			s = self.cfg.getInt("video/saturation")
 			self.player.prepareImgSink(bus, message, far, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
+			# (idle_add to stop crashes when the video window wasn't shown yet)
 			gobject.idle_add(self.setImageSink)
 				
 	
@@ -481,7 +482,7 @@ class mainWindow:
 		# Allow fullscreen.
 		self.wTree.get_widget('mnuiFS').set_sensitive(True)
 		# Show the video window.
-		self.movieWindow.show()
+		self.videoWindow.show()
 	
 	def hideVideoWindow(self, force=False):
 		## Hides the video window.
@@ -489,7 +490,7 @@ class mainWindow:
 			# Disable fullscreen activation.
 			self.wTree.get_widget('mnuiFS').set_sensitive(False)
 			# Hide the video window.
-			self.movieWindow.hide()
+			self.videoWindow.hide()
 			# Make the height of the window as small as possible.
 			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
@@ -596,8 +597,8 @@ class mainWindow:
 			pass
 	
 	
-	def movieWindowOnStop(self, force=False):
-		## Called when the player stops, acts on the movie window.
+	def videoWindowOnStop(self, force=False):
+		## Called when the player stops, acts on the video window.
 		# If we're still playing a video, we shouldn't act.
 		if (self.player.playingVideo()): return
 		if (self.cfg.getBool("gui/hidevideowindow")):
@@ -605,13 +606,13 @@ class mainWindow:
 			self.hideVideoWindow(force)
 		else:
 			self.showVideoWindow()
-			self.drawMovieWindowImage()
+			self.drawvideoWindowImage()
 	
 	
-	def drawMovieWindowImage(self):
+	def drawvideoWindowImage(self):
 		## Draws the background image.
-		# Get the width & height of the movieWindow.
-		alloc = self.movieWindow.get_allocation()
+		# Get the width & height of the videoWindow.
+		alloc = self.videoWindow.get_allocation()
 		w = alloc.width
 		h = alloc.height
 		if (w < h):
@@ -629,7 +630,7 @@ class mainWindow:
 		# Get the image's path, chuck it into a pixbuf, then draw it!
 		image = os.path.join(useful.dataDir, 'images', 'whaawmpL.svg')
 		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
-		self.movieWindow.window.draw_pixbuf(self.movieWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
+		self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
 	
 	def fsActive(self):
@@ -748,7 +749,7 @@ class mainWindow:
 		# Get several items for access later.
 		self.mainWindow = self.wTree.get_widget(windowname)
 		self.progressBar = self.wTree.get_widget("pbarProgress")
-		self.movieWindow = self.wTree.get_widget("videoWindow")
+		self.videoWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
@@ -776,7 +777,7 @@ class mainWindow:
 		if (len(args) > 0):
 			self.playFile(args[0] if ('://' in args[0]) else os.path.abspath(args[0]))
 		else:
-			self.movieWindowOnStop(True)
+			self.videoWindowOnStop(True)
 		
 		if (options.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
