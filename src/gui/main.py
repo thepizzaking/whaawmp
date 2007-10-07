@@ -28,6 +28,7 @@ from common import gstPlayer as player
 from gui import dialogues
 from common import lists, useful
 from common import gstTools as playerTools
+from common import mutagenTagger as tagger
 
 class mainWindow:
 	def quit(self, widget=None, event=None):
@@ -377,13 +378,8 @@ class mainWindow:
 			# If the URI passed isn't 'None'.
 			# If we don't want to set it, return.
 			if (not self.cfg.getBool('gui/fileastitle')): return
-			file = uri
-			# Get the last item when split at '/'.  eg a/b/c.d -> c.d
-			if (os.sep in file): file = file.split(os.sep)[-1]
-			# Remove the file extenstion (wow, this is messy).
-			if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
 			# Set the title name.
-			titlename = file + ' - ' + useful.lName
+			titlename = tagger.getDispTitle(uri) + ' - ' + useful.lName
 		else:
 			# Otherwise set the title to just the normal name.
 			titlename = useful.lName

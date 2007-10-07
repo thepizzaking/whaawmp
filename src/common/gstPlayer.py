@@ -84,7 +84,6 @@ class player:
 		dur = self.getDuration()
 		# getDuration returns 0 on error.
 		if (dur != 0):
-			print self.getDuration() * frac
 			self.seek(int(self.getDuration() * frac))
 	
 	def seek(self, loc):
