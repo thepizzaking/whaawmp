@@ -75,3 +75,10 @@ def URLorMailOpen(link, type=None):
 		link = 'mailto:' + link
 	# Open the link in the default program.
 	os.system('%s "%s"' % (linkHandler, link))
+
+# Pix data for hidden cursors.
+hiddenCursorPix = """/* XPM */
+    		         static char * invisible_xpm[] = {
+    		         "1 1 1 1",
+    		         "       c None",
+    				 " "};"""

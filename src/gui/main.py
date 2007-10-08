@@ -131,11 +131,7 @@ class mainWindow:
 		## Hides the cursor (Thanks to mirage for the code).
 		# If there's no video playing, cancel it.
 		if (not self.videoWindowShown()): return
-		pix_data = """/* XPM */
-			static char * invisible_xpm[] = {
-			"1 1 1 1",
-			"       c None",
-			" "};"""
+		pix_data = useful.hiddenCursorPix
 		colour = gtk.gdk.Color()
 		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, colour, colour)
 		invisible = gtk.gdk.Cursor(pix, pix, colour, colour, 0, 0)
