@@ -48,15 +48,19 @@ class queues():
 		open = False
 		self.window.hide()
 	
+	def append(self, item):
+		row = self.list.append()
+		self.list.set_value(row, 0, item)
+	
 	def __init__(self):
 		open = False
-		list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+		self.list = gtk.ListStore(gobject.TYPE_STRING)
 		self.window = gtk.Window()
 		self.window.resize(250,250)
 		self.window.connect('delete-event', self.close)
-		tree = gtk.TreeView(list)
+		tree = gtk.TreeView(self.list)
 		renderer = gtk.CellRendererText()
-		column = gtk.TreeViewColumn("Str", renderer, text=1)
+		column = gtk.TreeViewColumn("Queue not implemented yet.", renderer, text=0)
 		tree.append_column(column)
 		tree.set_reorderable(True)
 		scrolly = gtk.ScrolledWindow()
@@ -65,7 +69,5 @@ class queues():
 		scrolly.show()
 		self.window.add(scrolly)
 		tree.show()
-		itm = list.append()
-		list.set_value(itm, 1, "Hi, this queue isn't actually working yet!!")
 
 queue = queues()

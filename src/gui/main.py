@@ -388,6 +388,8 @@ class mainWindow:
 	def addToRecent(self, uri):
 		## Adds a certain URI to the recent files list.
 		gtk.recent_manager_get_default().add_item(uri)
+		# Add it to the queue too (just for testing at the moment, might become permanent).
+		queue.append(uri)
 	
 	
 	def playDVD(self, title=None):
