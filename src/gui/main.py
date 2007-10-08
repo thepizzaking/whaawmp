@@ -755,6 +755,7 @@ class mainWindow:
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
 		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
+		queue.mnuiWidget = self.wTree.get_widget("mnuiQueue")
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp.svg'))
 		# Create a tooltips instance for use in the code.

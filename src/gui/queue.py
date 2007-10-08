@@ -23,6 +23,14 @@ import gtk, gtk.glade, gobject
 import os
 
 class queues():
+	mnuiWidget = None
+	
+	mnuiSet = lambda self, shown: self.mnuiWidget.set_active(shown)
+	
+	def close(self, widget, event):
+		self.hide()
+		return True
+	
 	def toggle(self, toShow=None):
 		if (toShow is None): toShow = not open
 		if (toShow):
@@ -31,9 +39,13 @@ class queues():
 			self.hide()
 	
 	def show(self, force=False):
+		self.mnuiSet(True)
+		open = True
 		self.window.show()
 	
 	def hide(self, force=False):
+		self.mnuiSet(False)
+		open = False
 		self.window.hide()
 	
 	def __init__(self):
@@ -41,6 +53,7 @@ class queues():
 		list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 		self.window = gtk.Window()
 		self.window.resize(250,250)
+		self.window.connect('delete-event', self.close)
 		tree = gtk.TreeView(list)
 		renderer = gtk.CellRendererText()
 		column = gtk.TreeViewColumn("Str", renderer, text=1)
