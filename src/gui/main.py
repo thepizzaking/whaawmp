@@ -26,6 +26,7 @@ import gtk.glade
 
 from common import gstPlayer as player
 from gui import dialogues
+from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
@@ -670,6 +671,10 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
 	
+	def toggleQueueWindow(self, widget):
+		# Toggle the queue window according to what the menu item is set to.
+		queue.toggle(widget.get_active())
+	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
 		if (useful.checkLinkHandler):
@@ -739,7 +744,8 @@ class mainWindow:
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
-		        "on_main_window_state_event" : self.onMainStateEvent }
+		        "on_main_window_state_event" : self.onMainStateEvent,
+		        "on_mnuiQueue_toggled" : self.toggleQueueWindow }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Get several items for access later.
