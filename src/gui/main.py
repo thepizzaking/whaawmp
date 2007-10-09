@@ -347,7 +347,7 @@ class mainWindow:
 		# Finish the drag.
 		context.finish(True, False, time)
 	
-	def playNext(self):
+	def playNext(self, widget=None):
 		## Plays the next file in the queue (if it exists).
 		self.playFile(queue.getNextLocRemove())
 	
@@ -588,6 +588,9 @@ class mainWindow:
 		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
 		# Set the stop button image too.
 		self.wTree.get_widget("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
+		# And the next one.
+		self.wTree.get_widget("btnNext").set_image(gtk.image_new_from_stock('gtk-media-next', size))
+		
 	
 	
 	def createPlayTimers(self):
@@ -734,6 +737,7 @@ class mainWindow:
 		        "on_mnuiOpenURI_activate" : self.showOpenURIDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
+		        "on_btnNext_clicked" : self.playNext,
 		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
@@ -786,6 +790,8 @@ class mainWindow:
 		self.seeking = False
 		# Call the function to change the play/pause image.
 		self.playPauseChange(False)
+		# Show the next button if enabled.
+		if (self.cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
 		# Show the window.
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
