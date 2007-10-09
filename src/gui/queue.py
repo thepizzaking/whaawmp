@@ -22,6 +22,8 @@ pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 import os, urllib
 
+from common import mutagenTagger as tagger
+
 class queues():
 	mnuiWidget = None
 	
@@ -52,6 +54,7 @@ class queues():
 	def append(self, item):
 		row = self.list.append()
 		self.list.set_value(row, 0, item)
+		self.list.set_value(row, 1, tagger.getDispTitle(item))
 	
 	def clear(self):
 		self.list.clear()
@@ -59,10 +62,12 @@ class queues():
 	def getNextLocRemove(self):
 		try:
 			path = self.list[0][0]
-			self.list.remove(self.list.get_iter(0))
+			self.remove(0)
 			return path
 		except IndexError:
 			return None
+	
+	remove = lambda self, index: self.list.remove(self.list.get_iter(index))
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
 		## Adds dropped files to the end of the queue.
@@ -71,14 +76,13 @@ class queues():
 		# Add all the items to the queue.
 		for x in uris:
 			uri = urllib.url2pathname(x)
-			if (uri.startswith('file://')): uri = uri[7:]
 			self.append(uri)
 		# Finish the drag.
 		context.finish(True, False, time)
 	
 	def __init__(self):
 		open = False
-		self.list = gtk.ListStore(gobject.TYPE_STRING)
+		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 		self.window = gtk.Window()
 		self.window.set_title(_("Queue"))
 		self.window.resize(250,250)
@@ -87,14 +91,17 @@ class queues():
 		self.window.connect('drag-data-received', self.enqueueDropped)
 		tree = gtk.TreeView(self.list)
 		renderer = gtk.CellRendererText()
-		column = gtk.TreeViewColumn(_("Path"), renderer, text=0)
+		column = gtk.TreeViewColumn(_("Track"), renderer, text=1)
 		tree.append_column(column)
 		tree.set_reorderable(True)
 		scrolly = gtk.ScrolledWindow()
 		scrolly.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 		scrolly.add(tree)
 		scrolly.show()
-		self.window.add(scrolly)
+		vBox = gtk.VBox()
+		vBox.pack_start(scrolly)
+		vBox.show()
+		self.window.add(vBox)
 		tree.show()
 
 queue = queues()

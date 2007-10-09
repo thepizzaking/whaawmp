@@ -339,7 +339,6 @@ class mainWindow:
 		# Add all the items to the queue.
 		for x in uris:
 			uri = urllib.url2pathname(x)
-			if (uri.startswith('file://')): uri = uri[7:]
 			queue.append(uri)
 		
 		# Play the first file by calling the next function.
