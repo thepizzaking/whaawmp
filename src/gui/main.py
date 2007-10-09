@@ -247,8 +247,8 @@ class mainWindow:
 	def onPlayerMessage(self, bus, message):
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
-			# At the end of a stream, stop the player.
-			self.player.stop()
+			# At the end of a stream, play next item from queue.
+			self.playNext()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -782,7 +782,9 @@ class mainWindow:
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
 			for x in args:
+				# For all the files, add them to the queue.
 				queue.append(x if ('://' in x) else os.path.abspath(x))
+			# Then play the next track.
 			self.playNext()
 		else:
 			self.videoWindowOnStop(True)

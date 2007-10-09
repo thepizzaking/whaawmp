@@ -53,9 +53,12 @@ class queues():
 		self.list.set_value(row, 0, item)
 	
 	def getNextLocRemove(self):
-		uri = self.list[0][0]
-		self.list.remove(self.list.get_iter(0))
-		return uri
+		try:
+			path = self.list[0][0]
+			self.list.remove(self.list.get_iter(0))
+			return path
+		except IndexError:
+			return None
 	
 	def __init__(self):
 		open = False
@@ -65,7 +68,7 @@ class queues():
 		self.window.connect('delete-event', self.close)
 		tree = gtk.TreeView(self.list)
 		renderer = gtk.CellRendererText()
-		column = gtk.TreeViewColumn("Queue not implemented yet.", renderer, text=0)
+		column = gtk.TreeViewColumn(_("Path"), renderer, text=0)
 		tree.append_column(column)
 		tree.set_reorderable(True)
 		scrolly = gtk.ScrolledWindow()
