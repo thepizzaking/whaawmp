@@ -299,7 +299,7 @@ class mainWindow:
 			self.progressUpdate()
 			
 		elif (playerTools.isStopMsg(msg)):
-			if (self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
+			if ((not self.player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
 			# Deactivate fullscreen.
