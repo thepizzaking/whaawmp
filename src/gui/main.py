@@ -227,6 +227,9 @@ class mainWindow:
 		elif (event.string == 'f'):
 			# Toggle fullscreen on 'f'.
 			self.toggleFullscreen()
+		elif (event.string == 'n'):
+			# Skip to the next track on 'n'.
+			self.playNext()
 
 	
 	def preparePlayer(self):
@@ -348,7 +351,7 @@ class mainWindow:
 	
 	def playNext(self, widget=None):
 		## Plays the next file in the queue (if it exists).
-		self.playFile(queue.getNextTackRemove())
+		self.playFile(queue.getNextTrackRemove())
 	
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
