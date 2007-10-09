@@ -334,11 +334,16 @@ class mainWindow:
 		## Opens a file after a drag and drop.
 		# Split all the files that were input.
 		uris = selection_data.data.strip().split()
-		# Can only play one file at once, so use the first one.
-		uri = urllib.url2pathname(uris[0])
+		# Clear the current queue.
+		queue.clear()
+		# Add all the items to the queue.
+		for x in uris:
+			uri = urllib.url2pathname(x)
+			if (uri.startswith('file://')): uri = uri[7:]
+			queue.append(uri)
 		
-		# Actually play the file.
-		self.playFile(uri)
+		# Play the first file by calling the next function.
+		self.playNext()
 		# Finish the drag.
 		context.finish(True, False, time)
 	

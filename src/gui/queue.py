@@ -52,6 +52,9 @@ class queues():
 		row = self.list.append()
 		self.list.set_value(row, 0, item)
 	
+	def clear(self):
+		self.list.clear()
+	
 	def getNextLocRemove(self):
 		try:
 			path = self.list[0][0]
