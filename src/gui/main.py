@@ -342,6 +342,9 @@ class mainWindow:
 		# Finish the drag.
 		context.finish(True, False, time)
 	
+	def playNext(self):
+		## Plays the next file in the queue (if it exists).
+		self.playFile(queue.getNextLocRemove())
 	
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
@@ -388,9 +391,7 @@ class mainWindow:
 	def addToRecent(self, uri):
 		## Adds a certain URI to the recent files list.
 		gtk.recent_manager_get_default().add_item(uri)
-		# Add it to the queue too (just for testing at the moment, might become permanent).
-		queue.append(uri)
-	
+		
 	
 	def playDVD(self, title=None):
 		## Plays a DVD
@@ -780,7 +781,9 @@ class mainWindow:
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
-			self.playFile(args[0] if ('://' in args[0]) else os.path.abspath(args[0]))
+			for x in args:
+				queue.append(x if ('://' in x) else os.path.abspath(x))
+			self.playNext()
 		else:
 			self.videoWindowOnStop(True)
 		

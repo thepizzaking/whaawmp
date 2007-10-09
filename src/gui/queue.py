@@ -52,6 +52,11 @@ class queues():
 		row = self.list.append()
 		self.list.set_value(row, 0, item)
 	
+	def getNextLocRemove(self):
+		uri = self.list[0][0]
+		self.list.remove(self.list.get_iter(0))
+		return uri
+	
 	def __init__(self):
 		open = False
 		self.list = gtk.ListStore(gobject.TYPE_STRING)
