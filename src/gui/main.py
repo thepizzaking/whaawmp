@@ -348,7 +348,7 @@ class mainWindow:
 	
 	def playNext(self, widget=None):
 		## Plays the next file in the queue (if it exists).
-		self.playFile(queue.getNextLocRemove())
+		self.playFile(queue.getNextTackRemove())
 	
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).

@@ -56,10 +56,10 @@ class queues():
 		self.list.set_value(row, 0, item)
 		self.list.set_value(row, 1, tagger.getDispTitle(item))
 	
-	def clear(self):
+	def clear(self, widget=None):
 		self.list.clear()
 	
-	def getNextLocRemove(self):
+	def getNextTrackRemove(self):
 		try:
 			path = self.list[0][0]
 			self.remove(0)
@@ -68,6 +68,10 @@ class queues():
 			return None
 	
 	remove = lambda self, index: self.list.remove(self.list.get_iter(index))
+	
+	def removeSelected(self, widget):
+		tree, item = self.tree.get_selection().get_selected()
+		if (item): tree.remove(item)
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
 		## Adds dropped files to the end of the queue.
@@ -89,19 +93,30 @@ class queues():
 		self.window.connect('delete-event', self.close)
 		self.window.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		self.window.connect('drag-data-received', self.enqueueDropped)
-		tree = gtk.TreeView(self.list)
+		tooltips = gtk.Tooltips()
+		self.tree = gtk.TreeView(self.list)
 		renderer = gtk.CellRendererText()
 		column = gtk.TreeViewColumn(_("Track"), renderer, text=1)
-		tree.append_column(column)
-		tree.set_reorderable(True)
+		self.tree.append_column(column)
+		self.tree.set_reorderable(True)
 		scrolly = gtk.ScrolledWindow()
 		scrolly.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-		scrolly.add(tree)
-		scrolly.show()
+		scrolly.add(self.tree)
+		btnClear = gtk.Button()
+		btnClear.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, 2))
+		tooltips.set_tip(btnClear, _('Clear Queue'))
+		btnClear.connect('clicked', self.clear)
+		btnRemove = gtk.Button()
+		btnRemove.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, 2))
+		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
+		btnRemove.connect('clicked', self.removeSelected)
+		hBox = gtk.HBox()
+		hBox.pack_end(btnClear, False, False)
+		hBox.pack_end(btnRemove, False, False)
 		vBox = gtk.VBox()
 		vBox.pack_start(scrolly)
-		vBox.show()
+		vBox.pack_start(hBox, False, False)
 		self.window.add(vBox)
-		tree.show()
+		vBox.show_all()
 
 queue = queues()
