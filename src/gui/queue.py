@@ -67,6 +67,7 @@ class queues():
 		open = False
 		self.list = gtk.ListStore(gobject.TYPE_STRING)
 		self.window = gtk.Window()
+		self.window.set_title(_("Queue"))
 		self.window.resize(250,250)
 		self.window.connect('delete-event', self.close)
 		tree = gtk.TreeView(self.list)
