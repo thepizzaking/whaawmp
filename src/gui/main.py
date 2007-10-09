@@ -330,7 +330,7 @@ class mainWindow:
 			gobject.idle_add(self.setImageSink)
 				
 	
-	def openDroppedFile(self, widget, context, x, y, selection_data, info, time):
+	def openDroppedFiles(self, widget, context, x, y, selection_data, info, time):
 		## Opens a file after a drag and drop.
 		# Split all the files that were input.
 		uris = selection_data.data.strip().split()
@@ -408,9 +408,13 @@ class mainWindow:
 		## Toggles the player play/pause.
 		
 		if (not self.player.getURI()):
-			# If there is no currently playing track, we should show the
-			# open file dialogue.
-			self.showOpenDialogue()
+			# If there is no currently playing track.
+			# Check the queue.
+			if (queue.length()):
+				self.playNext()
+			else:
+				# Otherwise show the open file dialogue.
+				self.showOpenDialogue()
 			return
 		
 		if (self.player.isPlaying()):
@@ -744,7 +748,7 @@ class mainWindow:
 		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
 		        "on_hscVolume_scroll_event" : self.videoWindowScroll,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
-		        "on_main_drag_data_received" : self.openDroppedFile,
+		        "on_main_drag_data_received" : self.openDroppedFiles,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
 		        "on_videoWindow_leave_notify_event" : self.videoWindowLeave,
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,

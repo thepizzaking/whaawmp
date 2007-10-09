@@ -20,12 +20,13 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
-import os
+import os, urllib
 
 class queues():
 	mnuiWidget = None
 	
 	mnuiSet = lambda self, shown: self.mnuiWidget.set_active(shown)
+	length = lambda self: len(self.list)
 	
 	def close(self, widget, event):
 		self.hide()
@@ -63,6 +64,18 @@ class queues():
 		except IndexError:
 			return None
 	
+	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
+		## Adds dropped files to the end of the queue.
+		# Split the files.
+		uris = selection_data.data.strip().split()
+		# Add all the items to the queue.
+		for x in uris:
+			uri = urllib.url2pathname(x)
+			if (uri.startswith('file://')): uri = uri[7:]
+			self.append(uri)
+		# Finish the drag.
+		context.finish(True, False, time)
+	
 	def __init__(self):
 		open = False
 		self.list = gtk.ListStore(gobject.TYPE_STRING)
@@ -70,6 +83,8 @@ class queues():
 		self.window.set_title(_("Queue"))
 		self.window.resize(250,250)
 		self.window.connect('delete-event', self.close)
+		self.window.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		self.window.connect('drag-data-received', self.enqueueDropped)
 		tree = gtk.TreeView(self.list)
 		renderer = gtk.CellRendererText()
 		column = gtk.TreeViewColumn(_("Path"), renderer, text=0)
