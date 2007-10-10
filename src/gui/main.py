@@ -30,6 +30,7 @@ from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
+from common.config import cfg
 
 class mainWindow:
 	def quit(self, widget=None, event=None):
@@ -37,7 +38,7 @@ class mainWindow:
 		# Stop the player first to avoid tracebacks.
 		self.player.stop()
 		# Save the configuration to the file.
-		self.cfg.save()
+		cfg.save()
 		gtk.main_quit()
 	
 	
@@ -97,7 +98,7 @@ class mainWindow:
 	
 	def createIdleTimer(self):
 		# Create the timer again, with the timeout reset.
-		self.idleTimer = gobject.timeout_add(self.cfg.getInt("gui/mousehidetimeout"), self.hideControls)
+		self.idleTimer = gobject.timeout_add(cfg.getInt("gui/mousehidetimeout"), self.hideControls)
 	
 	
 	def showControls(self):
@@ -204,9 +205,9 @@ class mainWindow:
 	def videoWindowScroll(self, widget, event):
 		## Changes the volume on scroll up/down.
 		if (event.direction == gtk.gdk.SCROLL_UP):
-			self.increaseVolumeBy(self.cfg.getFloat('gui/volumescrollchange'))
+			self.increaseVolumeBy(cfg.getFloat('gui/volumescrollchange'))
 		elif (event.direction == gtk.gdk.SCROLL_DOWN):
-			self.increaseVolumeBy(0 - self.cfg.getFloat('gui/volumescrollchange'))
+			self.increaseVolumeBy(0 - cfg.getFloat('gui/volumescrollchange'))
 	
 	
 	def increaseVolumeBy(self, change):
@@ -241,9 +242,9 @@ class mainWindow:
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		# Sets the sinks to that in the config (unless one was specified at launch).
-		asink = self.cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
+		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
 		self.player.setAudioSink(None if (asink == "default") else asink)
-		vsink = self.cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
+		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
 		self.player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
 	
 	
@@ -267,7 +268,7 @@ class mainWindow:
 		msg = message.parse_state_changed()
 		if (playerTools.isNull2ReadyMsg(msg)):
 			# Enable the visualisation if requested.
-			if (self.cfg.getBool('gui/enablevisualisation')):
+			if (cfg.getBool('gui/enablevisualisation')):
 				self.player.enableVisualisation()
 			else:
 				self.player.disableVisualisation()
@@ -279,7 +280,7 @@ class mainWindow:
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Enable the visualisation if requested.
-			if (self.cfg.getBool('gui/enablevisualisation')):
+			if (cfg.getBool('gui/enablevisualisation')):
 				self.player.enableVisualisation()
 			else:
 				self.player.disableVisualisation()
@@ -322,11 +323,11 @@ class mainWindow:
 			# First, show the video window.
 			self.showVideoWindow()
 			# Get the properties of the video.(Brightness etc)
-			far = self.cfg.getBool("video/force-aspect-ratio")
-			b = self.cfg.getInt("video/brightness")
-			c = self.cfg.getInt("video/contrast")
-			h = self.cfg.getInt("video/hue")
-			s = self.cfg.getInt("video/saturation")
+			far = cfg.getBool("video/force-aspect-ratio")
+			b = cfg.getInt("video/brightness")
+			c = cfg.getInt("video/contrast")
+			h = cfg.getInt("video/hue")
+			s = cfg.getInt("video/saturation")
 			self.player.prepareImgSink(bus, message, far, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
 			# (idle_add to stop crashes when the video window wasn't shown yet)
@@ -385,7 +386,7 @@ class mainWindow:
 		if (uri):
 			# If the URI passed isn't 'None'.
 			# If we don't want to set it, return.
-			if (not self.cfg.getBool('gui/fileastitle')): return
+			if (not cfg.getBool('gui/fileastitle')): return
 			# Set the title name.
 			titlename = tagger.getDispTitle(uri) + ' - ' + useful.lName
 		else:
@@ -430,9 +431,9 @@ class mainWindow:
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
 		# Disable ScreenSaver (if option is enabled).
-		if (self.cfg.getBool("misc/disablescreensaver") and self.videoWindowShown()):
+		if (cfg.getBool("misc/disablescreensaver") and self.videoWindowShown()):
 			# For all the commands in the disable screensaver config option, run them.
-			for x in self.cfg.getStr("misc/disablescrcmd").split(','):
+			for x in cfg.getStr("misc/disablescrcmd").split(','):
 				useful.hiddenExec(x)
 		
 		return self.player.isPlaying()
@@ -466,7 +467,7 @@ class mainWindow:
 		text += useful.secToStr(p)
 		if (tot > 0):
 			text += " / "
-			text += useful.secToStr(t - (self.cfg.getBool('gui/showtimeremaining') * p))
+			text += useful.secToStr(t - (cfg.getBool('gui/showtimeremaining') * p))
 		self.progressBar.set_text(text)
 	
 	
@@ -546,7 +547,7 @@ class mainWindow:
 		# Check if the mouse button is still down, just in case we missed it.
 		x, y, state = event.window.get_pointer()
 		if (not state & gtk.gdk.BUTTON1_MASK): self.seekEnd(widget, event)
-		if (self.cfg.getBool("gui/instantseek")):
+		if (cfg.getBool("gui/instantseek")):
 			# If instantaneous seek is set, seek!
 			self.seekFromProgress(widget, event)
 			return
@@ -566,20 +567,20 @@ class mainWindow:
 		## Toggles Mute
 		self.player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
 		# Save the mutedness in the config.
-		self.cfg.set("audio/mute", not widget.get_active())
+		cfg.set("audio/mute", not widget.get_active())
 		
 	def changeVolume(self, widget):
 		## Change the volume to that indicated by the volume bar.
 		vol = widget.get_value()
-		self.player.setVolume(vol if (not self.cfg.getBool("audio/mute")) else 0)
+		self.player.setVolume(vol if (not cfg.getBool("audio/mute")) else 0)
 		# Set the new volume on the configuration.
-		self.cfg.set("audio/volume", vol)
+		cfg.set("audio/volume", vol)
 	
 	
 	def playPauseChange(self, playing):
 		## Changes the play/pause image according to the argument.
 		# Set the size.
-		size = self.cfg.getInt("gui/iconsize")
+		size = cfg.getInt("gui/iconsize")
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
 		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
@@ -615,7 +616,7 @@ class mainWindow:
 		## Called when the player stops, acts on the video window.
 		# If we're still playing a video, we shouldn't act.
 		if (self.player.playingVideo()): return
-		if (self.cfg.getBool("gui/hidevideowindow")):
+		if (cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
 		else:
@@ -719,7 +720,6 @@ class mainWindow:
 	
 	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
-		self.cfg = main.cfg
 		self.options = options
 		self.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
@@ -783,8 +783,8 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("chkVol").set_active(not (self.cfg.getBool("audio/mute") or (options.mute)))
-		self.volAdj.value = self.cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
+		self.wTree.get_widget("chkVol").set_active(not (cfg.getBool("audio/mute") or (options.mute)))
+		self.volAdj.value = cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
 		# Set the quit on stop checkbox.
 		self.wTree.get_widget("mnuiQuitOnStop").set_active(options.quitOnEnd)
 		# Set up the default flags.
@@ -793,7 +793,7 @@ class mainWindow:
 		# Call the function to change the play/pause image.
 		self.playPauseChange(False)
 		# Show the next button if enabled.
-		if (self.cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
+		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
 		# Show the window.
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).

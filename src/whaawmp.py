@@ -65,8 +65,6 @@ class main:
 		usage = "\n  " + useful.sName + _(" [options] filename")
 		(options, args) = config.clparser(OptionParser(usage=usage, prog=useful.sName)).parseArgs(HELP)
 
-		# Open the settings.
-		self.cfg = config.config()
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, options, args)
 		

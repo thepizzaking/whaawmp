@@ -28,6 +28,7 @@ except:
 	avail = False
 
 import useful
+from common.config import cfg
 
 
 def getTags(file):
@@ -66,7 +67,7 @@ def getDispTitle(file):
 		tags = getTags(file)
 		# Flag that no tags have been added.
 		noneAdded = True
-		for x in useful.tagsToTuple('{artist} - {title}'):
+		for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
 			# For all the items in the list produced by tagsToTuple.
 			# New string = the associated tag if it's a tag, otherwise just the string.
 			nStr = getSTag(tags, x[1]) if (x[0]) else x[1]

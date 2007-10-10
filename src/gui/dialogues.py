@@ -22,6 +22,7 @@ pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 import os
 from common import lists, useful
+from common.config import cfg
 
 class AboutDialogue:
 	def __init__(self, parent):
@@ -87,7 +88,6 @@ class PreferencesDialogue:
 		## Shows the preferences dialogue.
 		# Sets some variables for easier access.
 		self.main = main
-		self.cfg = main.cfg
 		self.player = main.player
 		
 		# Then create the dialogue and connect the signals.
@@ -98,6 +98,7 @@ class PreferencesDialogue:
 		        "on_checkbox_toggled" : self.checkboxToggle,
 		        "on_scrollbar_changed" : self.adjustmentChanged,
 		        "on_spinbutton_changed" : self.adjustmentChanged,
+		        "on_entry_changed" : self.entryChanged,
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
@@ -119,6 +120,9 @@ class PreferencesDialogue:
 		                self.wTree.get_widget('hscContrast') : "video/contrast",
 		                self.wTree.get_widget('hscHue') : "video/hue",
 		                self.wTree.get_widget('hscSaturation') : "video/saturation" }
+		
+		# And entries.
+		self.entDic = {self.wTree.get_widget('entTagSyntax') : "gui/tagsyntax"}
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -147,29 +151,36 @@ class PreferencesDialogue:
 		## Reads the preferences from the config and displays them.
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
-			x.set_active(self.cfg.getBool(self.chkDic[x]))
+			x.set_active(cfg.getBool(self.chkDic[x]))
 		
 		for x in self.adjDic:
-			x.set_value(self.cfg.getFloat(self.adjDic[x]))
+			x.set_value(cfg.getFloat(self.adjDic[x]))
+		
+		for x in self.entDic:
+			x.set_text(cfg.getStr(self.entDic[x]))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
-		self.cfg.set(self.chkDic[widget], widget.get_active())
+		cfg.set(self.chkDic[widget], widget.get_active())
 	
 	def adjustmentChanged(self, widget):
 		## A generic function called when scrolling a scrollbar.
-		self.cfg.set(self.adjDic[widget], widget.get_value())
+		cfg.set(self.adjDic[widget], widget.get_value())
+	
+	def entryChanged(self, widget):
+		## A generic function called when text in an entry is changed.
+		cfg.set(self.entDic[widget], widget.get_text())
 	
 	
 	def scrollbarColourScroll(self, widget):
 		## Reads all the colour settings and sets them.
 		if (self.player.playingVideo()):
 			# Set it if a video is playing.
-			self.player.setBrightness(self.cfg.getInt("video/brightness"))
-			self.player.setContrast(self.cfg.getInt("video/contrast"))
-			self.player.setHue(self.cfg.getInt("video/hue"))
-			self.player.setSaturation(self.cfg.getInt("video/saturation"))
+			self.player.setBrightness(cfg.getInt("video/brightness"))
+			self.player.setContrast(cfg.getInt("video/contrast"))
+			self.player.setHue(cfg.getInt("video/hue"))
+			self.player.setSaturation(cfg.getInt("video/saturation"))
 	
 	
 	def resetVideoDefaults(self, widget):
@@ -184,7 +195,7 @@ class PreferencesDialogue:
 	def toggleForceAspect(self, widget):
 		## Sets force aspect ratio to if it's set or not.
 		if (self.player.playingVideo()):
-			self.player.setForceAspectRatio(self.cfg.getBool("video/force-aspect-ratio"))
+			self.player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
 			self.main.videoWindowConfigure(self.main.videoWindow)
 
 
