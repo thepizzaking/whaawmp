@@ -25,52 +25,83 @@ import os, urllib
 from common import mutagenTagger as tagger
 
 class queues():
+	# The menu item widget, which is changed when the window closes.
 	mnuiWidget = None
 	
+	# Sets the menu item to active/inactive.
 	mnuiSet = lambda self, shown: self.mnuiWidget.set_active(shown)
+	# Gets the length of the items in the list.
 	length = lambda self: len(self.list)
 	
 	def close(self, widget, event):
+		## Called to 'close' the window.
+		# Just hide it.
 		self.hide()
+		# Return True so it doesn't get destroyed.
 		return True
 	
 	def toggle(self, toShow=None):
+		## Toggles the window shown or not.
+		# If the destination state wasn't passed, do the inverse of its current state.
 		if (toShow is None): toShow = not open
 		if (toShow):
+			# If we want it shown, show it.
 			self.show()
 		else:
+			# Otherwise, hide it.
 			self.hide()
 	
 	def show(self, force=False):
+		## Shows the window.
+		# Set the menu item to activated.
 		self.mnuiSet(True)
+		# Flag the window as open.
 		open = True
+		# Actually show it.
 		self.window.show()
 	
 	def hide(self, force=False):
+		## Hides the window.
+		# Set the menu item to deactivated.
 		self.mnuiSet(False)
+		# Flag the window as closed.
 		open = False
+		# Hide the window.
 		self.window.hide()
 	
 	def append(self, item):
+		## Appends an item to the queue.
+		# Create a new row.
 		row = self.list.append()
+		# Add the path and the interpreted name to the row item.
 		self.list.set_value(row, 0, item)
 		self.list.set_value(row, 1, tagger.getDispTitle(item))
 	
 	def clear(self, widget=None):
+		## Clears the queue.
 		self.list.clear()
 	
 	def getNextTrackRemove(self):
+		## Gets the next track and removes it from the list.
 		try:
+			# Try and get the first list items path.
 			path = self.list[0][0]
+			# Remove it from the queue.
 			self.remove(0)
+			# Return the path.
 			return path
 		except IndexError:
+			# Index error (queue empty), return None.
 			return None
 	
+	# Removes a selected index from the queue.
 	remove = lambda self, index: self.list.remove(self.list.get_iter(index))
 	
 	def removeSelected(self, widget):
+		## Removes the selected item from the queue.
+		# Get the item.
 		tree, item = self.tree.get_selection().get_selected()
+		# If we get the item, remove it.
 		if (item): tree.remove(item)
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
@@ -85,6 +116,7 @@ class queues():
 		context.finish(True, False, time)
 	
 	def __init__(self):
+		## I'll commend this mess soon (maybe pull it out to its own function too.
 		open = False
 		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
 		self.window = gtk.Window()
