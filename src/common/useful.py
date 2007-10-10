@@ -76,6 +76,23 @@ def URLorMailOpen(link, type=None):
 	# Open the link in the default program.
 	os.system('%s "%s"' % (linkHandler, link))
 
+def tagsToTuple(str):
+	## Takes a string and returns a list of eihter (True, *tag*) or (False, *str*)
+	tags = []
+	# First split the string at { (start of a tag).
+	split = str.partition('{')
+	while (len(split[1])):
+		# While we aren't done.
+		# Append the bit before the tag.
+		tags.append((False, split[0]))
+		# Split at } (end of tag).
+		split = split[2].partition('}')
+		# Append the tag to the list.
+		tags.append((True, split[0]))
+		# Split at the { again.
+		split = split[2].partition('{')
+	return tags
+
 # Pix data for hidden cursors.
 hiddenCursorPix = """/* XPM */
     		         static char * invisible_xpm[] = {
