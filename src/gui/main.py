@@ -231,6 +231,9 @@ class mainWindow:
 		elif (event.string == 'n'):
 			# Skip to the next track on 'n'.
 			self.playNext()
+		elif (event.string in ['p', 'r']):
+			# On 'p' or 'r' restart the track (almost previous).
+			self.restartTrack()
 
 	
 	def preparePlayer(self):
@@ -559,6 +562,13 @@ class mainWindow:
 		
 		# Set the progress bar to the new data.
 		self.progressUpdate((frac * dur), dur)
+	
+	def restartTrack(self, widget=None):
+		## Restarts the currently playing track.
+		# Just seek to 0.
+		player.seek(0)
+		# Update the progrss bar.
+		gobject.idle_add(self.progressUpdate)
 		
 	
 	def volumeButtonToggled(self, widget):
@@ -591,6 +601,8 @@ class mainWindow:
 		self.wTree.get_widget("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
 		# And the next one.
 		self.wTree.get_widget("btnNext").set_image(gtk.image_new_from_stock('gtk-media-next', size))
+		# Restart one too.
+		self.wTree.get_widget("btnRestart").set_image(gtk.image_new_from_stock('gtk-media-previous', size))
 		
 	
 	
@@ -738,6 +750,7 @@ class mainWindow:
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
 		        "on_btnNext_clicked" : self.playNext,
+		        "on_btnRestart_clicked" : self.restartTrack,
 		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
@@ -790,8 +803,9 @@ class mainWindow:
 		self.seeking = False
 		# Call the function to change the play/pause image.
 		self.playPauseChange(False)
-		# Show the next button if enabled.
+		# Show the next button & restart track button if enabled.
 		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
+		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_widget("btnRestart").show()
 		# Show the window.
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
