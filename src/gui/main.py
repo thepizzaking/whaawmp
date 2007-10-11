@@ -24,19 +24,19 @@ import gtk, gobject
 gobject.threads_init()
 import gtk.glade
 
-from common import gstPlayer as player
 from gui import dialogues, preferences
 from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
 from common.config import cfg
+from common.gstPlayer import player
 
 class mainWindow:
 	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
-		self.player.stop()
+		player.stopCompletely()
 		# Save the configuration to the file.
 		cfg.save()
 		gtk.main_quit()
@@ -51,7 +51,7 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, configure the player accordingly.
-		if (not self.player.playingVideo()): self.videoWindowOnStop()
+		if (not player.playingVideo()): self.videoWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -185,7 +185,7 @@ class mainWindow:
 		self.videoWindowConfigure(widget)
 		
 		# Set the image sink accordingly.
-		self.player.setImgSink(widget)
+		player.setImgSink(widget)
 		
 		return False
 	
@@ -235,17 +235,15 @@ class mainWindow:
 	
 	def preparePlayer(self):
 		## This prepares the player.
-		# Create a new player.
-		self.player = player.player()
 		# Get the bus and connect the signals.
-		bus = self.player.getBus()
+		bus = player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		# Sets the sinks to that in the config (unless one was specified at launch).
 		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
-		self.player.setAudioSink(None if (asink == "default") else asink)
+		player.setAudioSink(None if (asink == "default") else asink)
 		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
-		self.player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
+		player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
 	
 	
 	def onPlayerMessage(self, bus, message):
@@ -259,7 +257,7 @@ class mainWindow:
 			# Show an error about the failure.
 			msg = message.parse_error()
 			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
-		elif (t == 'state_changed' and message.src == self.player.player):
+		elif (t == 'state_changed' and message.src == player.player):
 			self.onPlayerStateChange(message)
 	
 	
@@ -269,23 +267,23 @@ class mainWindow:
 		if (playerTools.isNull2ReadyMsg(msg)):
 			# Enable the visualisation if requested.
 			if (cfg.getBool('gui/enablevisualisation')):
-				self.player.enableVisualisation()
+				player.enableVisualisation()
 			else:
-				self.player.disableVisualisation()
+				player.disableVisualisation()
 		
 		elif (playerTools.isStop2PauseMsg(msg)):
 			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
-			self.audioTracks = playerTools.getAudioLangArray(self.player)
+			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 			# Enable the visualisation if requested.
 			if (cfg.getBool('gui/enablevisualisation')):
-				self.player.enableVisualisation()
+				player.enableVisualisation()
 			else:
-				self.player.disableVisualisation()
+				player.disableVisualisation()
 			# Set the title accordingly.
-			self.setPlayingTitle(self.player.getURI())
+			self.setPlayingTitle(player.getURI())
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -303,7 +301,7 @@ class mainWindow:
 			self.progressUpdate()
 			
 		elif (playerTools.isStopMsg(msg)):
-			if ((not self.player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
+			if ((not player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
 			# Deactivate fullscreen.
@@ -328,7 +326,7 @@ class mainWindow:
 			c = cfg.getInt("video/contrast")
 			h = cfg.getInt("video/hue")
 			s = cfg.getInt("video/saturation")
-			self.player.prepareImgSink(bus, message, far, b, c, h, s)
+			player.prepareImgSink(bus, message, far, b, c, h, s)
 			# Set the image sink to whichever viewer is active.
 			# (idle_add to stop crashes when the video window wasn't shown yet)
 			gobject.idle_add(self.setImageSink)
@@ -357,25 +355,25 @@ class mainWindow:
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
-		self.player.stop()
+		player.stop()
 		# Set the audio track to 0
-		self.player.setAudioTrack(0)
+		player.setAudioTrack(0)
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
 			file = ""
-			self.player.setURI(file)
+			player.setURI(file)
 		# Set the now playing label to the file to be played.
 		self.nowPlyLbl.set_label("" + file)
 		if (os.path.exists(file) or '://' in file):
 			# If it's not already a uri, make it one.
 			if ('://' not in file): file = 'file://' + file
 			# Set the URI to the file's one.
-			self.player.setURI(file)
+			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
 			# Start the player.
-			self.player.play()
+			player.play()
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -410,7 +408,7 @@ class mainWindow:
 	def togglePlayPause(self, widget=None):
 		## Toggles the player play/pause.
 		
-		if (not self.player.getURI()):
+		if (not player.getURI()):
 			# If there is no currently playing track.
 			# Check the queue.
 			if (queue.length()):
@@ -420,12 +418,12 @@ class mainWindow:
 				self.showOpenDialogue()
 			return
 		
-		if (self.player.isPlaying()):
+		if (player.isPlaying()):
 			# If the player is playing, pause the player.
-			self.player.pause()
+			player.pause()
 		else:
 			# If it's already paused (or stopped with a file): play.
-			self.player.play()
+			player.play()
 	
 	
 	def minuteTimer(self):
@@ -436,7 +434,7 @@ class mainWindow:
 			for x in cfg.getStr("misc/disablescrcmd").split(','):
 				useful.hiddenExec(x)
 		
-		return self.player.isPlaying()
+		return player.isPlaying()
 	
 	
 	def secondTimer(self):
@@ -444,12 +442,12 @@ class mainWindow:
 		if (not self.seeking): self.progressUpdate()
 		
 		# Causes it to go again if it's playing, but stop if it's not.
-		return self.player.isPlaying()
+		return player.isPlaying()
 		
 	
 	def progressUpdate(self, pld=None, tot=None):
 		## Updates the progress bar.
-		if (self.player.isStopped()):
+		if (player.isStopped()):
 			# If the player is stopped, played time and total should 
 			# be 0, and the progress should be 0.
 			pld = tot = 0
@@ -457,7 +455,7 @@ class mainWindow:
 		else:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
-			if (pld == None or tot == None): pld, tot = self.player.getTimesSec()
+			if (pld == None or tot == None): pld, tot = player.getTimesSec()
 			self.progressBar.set_fraction(pld / tot if (tot > 0) else 0)
 		
 		# Convert played & total time to integers
@@ -511,7 +509,7 @@ class mainWindow:
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
 		x, y, state = event.window.get_pointer()
-		if (state & gtk.gdk.BUTTON1_MASK and not self.player.isStopped() and self.player.getDuration()):
+		if (state & gtk.gdk.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
 			self.progressBarMotion(widget, event)
@@ -535,7 +533,7 @@ class mainWindow:
 		maxX = alloc.width
 		maxY = alloc.height
 		# Seek if cursor is still vertically over the bar.
-		if (y >= 0 and y <= maxY): self.player.seekFrac(float(x) / maxX)
+		if (y >= 0 and y <= maxY): player.seekFrac(float(x) / maxX)
 		# Update the progress bar to reflect the change.
 		self.progressUpdate()
 		
@@ -555,7 +553,7 @@ class mainWindow:
 		# Get the mouse co-ordinates, the width of the bar and the file duration.
 		x, y = event.get_coords()
 		maxX = widget.get_allocation().width
-		dur = self.player.getDurationSec()
+		dur = player.getDurationSec()
 		# Convert the information to a fraction, and make sure 0 <= frac <= 1
 		frac = useful.toRange(float(x) / maxX, 0, 1)
 		
@@ -565,14 +563,14 @@ class mainWindow:
 	
 	def volumeButtonToggled(self, widget):
 		## Toggles Mute
-		self.player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
+		player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
 		# Save the mutedness in the config.
 		cfg.set("audio/mute", not widget.get_active())
 		
 	def changeVolume(self, widget):
 		## Change the volume to that indicated by the volume bar.
 		vol = widget.get_value()
-		self.player.setVolume(vol if (not cfg.getBool("audio/mute")) else 0)
+		player.setVolume(vol if (not cfg.getBool("audio/mute")) else 0)
 		# Set the new volume on the configuration.
 		cfg.set("audio/volume", vol)
 	
@@ -615,7 +613,7 @@ class mainWindow:
 	def videoWindowOnStop(self, force=False):
 		## Called when the player stops, acts on the video window.
 		# If we're still playing a video, we shouldn't act.
-		if (self.player.playingVideo()): return
+		if (player.playingVideo()): return
 		if (cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
@@ -687,7 +685,7 @@ class mainWindow:
 	
 	def showAudioTracksDialogue(self, widget):
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
-		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks, self.player)
+		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
 	def toggleQueueWindow(self, widget):
 		# Toggle the queue window according to what the menu item is set to.
@@ -715,7 +713,7 @@ class mainWindow:
 			dialogues.ErrorMsgBox(self.mainWindow, _("Could not execute browser command (via %s).\nPlease manually visit %s to report the problem" % (useful.linkHandler, link)))
 	
 	# Just a transfer call as player.stop takes only 1 argument.
-	stopPlayer = lambda self, widget: self.player.stop()
+	stopPlayer = lambda self, widget: player.stop()
 	
 	
 	def __init__(self, main, options, args):

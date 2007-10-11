@@ -23,6 +23,7 @@ import gtk, gtk.glade, gobject
 import os
 from common import lists, useful
 from common.config import cfg
+from common.gstPlayer import player
 
 class AboutDialogue:
 	def __init__(self, parent):
@@ -173,8 +174,7 @@ class OpenURI:
 
 
 class SelectAudioTrack:
-	def __init__(self, parent, tracks, player):
-		self.player = player
+	def __init__(self, parent, tracks):
 		cur = player.getAudioTrack()
 		# Creates an audio track selector dialogue.
 		dlg = gtk.Dialog(_("Select Tracks"), parent,
@@ -203,15 +203,15 @@ class SelectAudioTrack:
 	
 	def buttonToggled(self, widget, track):
 		## When a button is toggled.
-		if (self.player.getAudioTrack() != track):
+		if (player.getAudioTrack() != track):
 			# If the current track differs to the selected one.
 			# Get the current time, change the track, seek to 0 to activate
 			# the new track, then seek back to the original position.
 			# (Just changing the track didn't work)
-			t = self.player.getPlayed()
-			self.player.setAudioTrack(track)
-			self.player.seek(0)
-			self.player.seek(t)
+			t = player.getPlayed()
+			player.setAudioTrack(track)
+			player.seek(0)
+			player.seek(t)
 
 
 class ErrorMsgBox:

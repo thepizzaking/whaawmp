@@ -22,13 +22,13 @@ pygtk.require('2.0')
 import gtk, gtk.glade, gobject
 from common import useful, lists
 from common.config import cfg
+from common.gstPlayer import player
 
 class Dialogue:
 	def __init__(self, main, parent):
 		## Shows the preferences dialogue.
 		# Sets some variables for easier access.
 		self.main = main
-		self.player = main.player
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
@@ -69,11 +69,11 @@ class Dialogue:
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
 		# Disable video options that aren't available.
-		if (not self.player.colourSettings):
+		if (not player.colourSettings):
 			for x in lists.colourSettings:
 				self.wTree.get_widget('hsc' + x).set_sensitive(False)
 			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
-		if (not self.player.aspectSettings):
+		if (not player.aspectSettings):
 			self.wTree.get_widget('chkForceAspect').set_sensitive(False)
 		
 		# Load the preferences.
@@ -115,12 +115,12 @@ class Dialogue:
 	
 	def scrollbarColourScroll(self, widget):
 		## Reads all the colour settings and sets them.
-		if (self.player.playingVideo()):
+		if (player.playingVideo()):
 			# Set it if a video is playing.
-			self.player.setBrightness(cfg.getInt("video/brightness"))
-			self.player.setContrast(cfg.getInt("video/contrast"))
-			self.player.setHue(cfg.getInt("video/hue"))
-			self.player.setSaturation(cfg.getInt("video/saturation"))
+			player.setBrightness(cfg.getInt("video/brightness"))
+			player.setContrast(cfg.getInt("video/contrast"))
+			player.setHue(cfg.getInt("video/hue"))
+			player.setSaturation(cfg.getInt("video/saturation"))
 	
 	
 	def resetVideoDefaults(self, widget):
@@ -134,6 +134,6 @@ class Dialogue:
 	
 	def toggleForceAspect(self, widget):
 		## Sets force aspect ratio to if it's set or not.
-		if (self.player.playingVideo()):
-			self.player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
+		if (player.playingVideo()):
+			player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
 			self.main.videoWindowConfigure(self.main.videoWindow)

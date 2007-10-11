@@ -23,7 +23,7 @@ import gst
 from common import lists, useful
 
 
-class player:
+class Player:
 	colourSettings = False
 	aspectSettings = False
 	
@@ -38,6 +38,10 @@ class player:
 	def stop(self):
 		# Stops the player.
 		self.player.set_state(gst.STATE_READY)
+	
+	def stopCompletely(self):
+		# Stops the player completely (ie -> NULL).
+		self.player.set_state(gst.STATE_NULL)
 	
 
 	def playingVideo(self):
@@ -196,3 +200,5 @@ class player:
 		bus = self.getBus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
+
+player = Player()
