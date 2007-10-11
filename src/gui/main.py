@@ -25,7 +25,7 @@ gobject.threads_init()
 import gtk.glade
 
 from common import gstPlayer as player
-from gui import dialogues
+from gui import dialogues, preferences
 from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
@@ -670,7 +670,7 @@ class mainWindow:
 	
 	
 	def showPreferencesDialogue(self, widget):
-		dialogues.PreferencesDialogue(self, self.mainWindow)
+		preferences.Dialogue(self, self.mainWindow)
 	
 	def showPlayDVDDialogue(self, widget):
 		# Create the dialogue.

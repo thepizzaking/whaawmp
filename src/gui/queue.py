@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  Other Dialogues
+#  The queue dialogue.
 #  Copyright © 2007, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
@@ -19,7 +19,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject
+import gtk, gobject
 import os, urllib
 
 from common import mutagenTagger as tagger
@@ -115,40 +115,61 @@ class queues():
 		# Finish the drag.
 		context.finish(True, False, time)
 	
-	def __init__(self):
-		## I'll commend this mess soon (maybe pull it out to its own function too.
-		open = False
+	def createWindow(self):
+		## Creates the window of the queue.
+		# First create the list, it contains two strings (1st path, 2nd display).
 		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+		# Create the window, set the title & size.
 		self.window = gtk.Window()
 		self.window.set_title(_("Queue"))
 		self.window.resize(250,250)
+		# On a delete event, call the close function.
 		self.window.connect('delete-event', self.close)
+		# Set the window up for draq & drop.
 		self.window.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		self.window.connect('drag-data-received', self.enqueueDropped)
-		tooltips = gtk.Tooltips()
+		# Create the tree view.
 		self.tree = gtk.TreeView(self.list)
+		# Add a text renderer for the display column & add it to the view.
 		renderer = gtk.CellRendererText()
 		column = gtk.TreeViewColumn(_("Track"), renderer, text=1)
 		self.tree.append_column(column)
+		# Allow the queue to be drag & drop reorderable.
 		self.tree.set_reorderable(True)
+		# Add a scrolling widget, set automatic bar display, and add the tree to it.
 		scrolly = gtk.ScrolledWindow()
 		scrolly.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 		scrolly.add(self.tree)
+		# Create a clear button which clears the queue.
 		btnClear = gtk.Button()
 		btnClear.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, 2))
-		tooltips.set_tip(btnClear, _('Clear Queue'))
 		btnClear.connect('clicked', self.clear)
+		# Add a remove button which removes the currently selected item.
 		btnRemove = gtk.Button()
 		btnRemove.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, 2))
-		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
 		btnRemove.connect('clicked', self.removeSelected)
+		# Create a horizontal box and add the clear & remove buttons to it.
 		hBox = gtk.HBox()
 		hBox.pack_end(btnClear, False, False)
 		hBox.pack_end(btnRemove, False, False)
+		# Create a vertical box and add the tree (in the scroll widget) and
+		# the horizontal box with the buttons to it.
 		vBox = gtk.VBox()
 		vBox.pack_start(scrolly)
 		vBox.pack_start(hBox, False, False)
+		# Add the vertical box to the window.
 		self.window.add(vBox)
+		# Create a tooltip instance and add tooltips to the buttons.
+		tooltips = gtk.Tooltips()
+		tooltips.set_tip(btnClear, _('Clear Queue'))
+		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
+		# Show all the widgets contained in and including the vertical box.
 		vBox.show_all()
+	
+	def __init__(self):
+		# Flag the window as closed.
+		open = False
+		# Create the window.
+		self.createWindow()
 
 queue = queues()
