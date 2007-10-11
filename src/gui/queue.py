@@ -122,7 +122,7 @@ class queues():
 		# Create the window, set the title & size.
 		self.window = gtk.Window()
 		self.window.set_title(_("Queue"))
-		self.window.resize(250,250)
+		self.window.set_default_size(250,250)
 		# On a delete event, call the close function.
 		self.window.connect('delete-event', self.close)
 		# Set the window up for draq & drop.
@@ -132,7 +132,7 @@ class queues():
 		self.tree = gtk.TreeView(self.list)
 		# Add a text renderer for the display column & add it to the view.
 		renderer = gtk.CellRendererText()
-		column = gtk.TreeViewColumn(_("Track"), renderer, text=1)
+		column = gtk.TreeViewColumn(_("Queued Tracks:"), renderer, text=1)
 		self.tree.append_column(column)
 		# Allow the queue to be drag & drop reorderable.
 		self.tree.set_reorderable(True)
