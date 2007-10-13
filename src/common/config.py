@@ -85,6 +85,8 @@ class config:
 		# Open the config file.
 		self.config.read(cfgFile)
 
+cfg = config()
+
 
 
 class clparser:

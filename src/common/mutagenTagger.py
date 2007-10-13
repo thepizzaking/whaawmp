@@ -27,6 +27,9 @@ except:
 	print _("Mutagen not available, all tagging fetures will be unavailable")
 	avail = False
 
+import useful
+from common.config import cfg
+
 
 def getTags(file):
 	# Try and return the dictionary of tags.
@@ -58,17 +61,25 @@ def getDispTitle(file):
 	if (file.startswith('file:///')): file = file[7:]
 	# Initialise the winTitle to empty.
 	winTitle = ""
-	### Fix this so it's not really slow with videos.
+	# If the tagger is available.
 	if avail:
+		# Get all the tags.
 		tags = getTags(file)
-		# Get the first tag from title, and artist. (configuration maybe in the future).
-		title = getSTag(tags, 'title')
-		if (title):
-			artist = getSTag(tags, 'artist')
-			# If title exists, we use metadata, add artist to the front if it exists too.
-			if (artist): winTitle += artist + ' - '
-			winTitle += title
-			return winTitle
+		# Flag that no tags have been added.
+		noneAdded = True
+		for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
+			# For all the items in the list produced by tagsToTuple.
+			# New string = the associated tag if it's a tag, otherwise just the string.
+			nStr = getSTag(tags, x[1]) if (x[0]) else x[1]
+			if (nStr):
+				# If there was a string.
+				# Flag that a tag has been added if it's a tag.
+				if (x[0]): noneAdded = False
+				# Add the string to the new window title.
+				winTitle += nStr
+		# If at least one tag was added, return the title, otherwise fall
+		# back to the filename function.
+		if (not noneAdded): return winTitle
 
 	# Otherwise we want to use the filename (files name - extension)
 	# Get the last item when split at '/'.  eg a/b/c.d -> c.d

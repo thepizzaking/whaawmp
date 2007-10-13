@@ -91,7 +91,7 @@ def hasVideoTrack(player):
 def vsinkDef():
 	## Returns the default video sink.
 	for x in lists.vsinkTypes:
-		# For all the vsink types, break if it exists.
-		if (gst.element_factory_find(x)): break
+		# For all the vsink types, return the first one that exists.
+		if (gst.element_factory_find(x)): return x
 	
-	return x
+	return None
