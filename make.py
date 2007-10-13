@@ -100,7 +100,7 @@ data = [('share/whaawmp/glade', glob.glob('glade/*.glade')),
 
 # The actual setup thing, mostly self explanatory.
 setup(name="whaawmp", fullname="Whaaw! Media Player",
-      version='0.2.3',
+      version='0.2.5',
       description='Whaaw! Media Player',
       author='Jeff Bailes',
       author_email='thepizzaking@gmail.com',
