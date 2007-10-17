@@ -117,7 +117,11 @@ class Player:
 	
 	def setImgSink(self, widget):
 		## Sets the video output to the desired widget.
-		self.imagesink.set_xwindow_id(widget.window.xid)
+		try:
+			id = widget.window.xid
+		except AttributeError:
+			id = widget.window.handle # win32
+		self.imagesink.set_xwindow_id(id)
 	
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.

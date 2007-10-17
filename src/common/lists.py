@@ -86,7 +86,7 @@ defaultOptions = { 'video/brightness' : 0,
 gstStreamType = [ 'unknown', 'audio', 'video', 'text', 'element' ]
 
 ## A list of video-sinks, (in order of preference).
-vsinkTypes = [ 'xvimagesink', 'ximagesink', 'glimagesink', 'fakesink' ]
+vsinkTypes = [ 'xvimagesink', 'ximagesink', 'glimagesink', 'directdrawsink', 'fakesink' ]
 
 ## Lists of video sinks which support colour and aspect settings.
 vsinkColour = ['xvimagesink']

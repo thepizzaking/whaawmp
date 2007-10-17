@@ -375,6 +375,17 @@ class mainWindow:
 			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
+			
+			# HACK: Force embedding the video into our video window because
+			# onPlayerSyncMessage is never called in Windows.
+			if sys.platform == 'win32':
+				class C: pass
+				message = C()
+				message.src = player.player.props.video_sink
+				message.structure = C()
+				message.structure.get_name = lambda: 'prepare-xwindow-id'
+				self.onPlayerSyncMessage(None, message)
+
 			# Start the player.
 			player.play()
 		elif (file != ""):
@@ -636,6 +647,7 @@ class mainWindow:
 	
 	def drawvideoWindowImage(self):
 		## Draws the background image.
+		if (sys.platform == 'win32'): return
 		# Get the width & height of the videoWindow.
 		alloc = self.videoWindow.get_allocation()
 		w = alloc.width
@@ -786,7 +798,7 @@ class mainWindow:
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
 		queue.mnuiWidget = self.wTree.get_widget("mnuiQueue")
 		# Set the icon.
-		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp.svg'))
+		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp.png'))
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
