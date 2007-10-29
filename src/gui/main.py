@@ -580,6 +580,8 @@ class mainWindow:
 		player.seek(0)
 		# Update the progrss bar.
 		gobject.idle_add(self.progressUpdate)
+		# Make sure the player is playing (ie. if it was paused etc)
+		player.play()
 		
 	
 	def volumeButtonToggled(self, widget):
