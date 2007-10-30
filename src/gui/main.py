@@ -47,11 +47,12 @@ class mainWindow:
 		x, y, w, h = event.area
 		
 		# Let the whole thing be drawn upon.
-		widget.window.draw_drawable(widget.get_style().bg_gc[gtk.STATE_NORMAL],
+		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		widget.window.draw_drawable(colour,
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, configure the player accordingly.
-		if (not player.playingVideo()): self.videoWindowOnStop()
+		if (self.videoWindowShown()): self.videoWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -62,7 +63,8 @@ class mainWindow:
 		self.pixmap = gtk.gdk.Pixmap(widget.window, w, h)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
-		self.pixmap.draw_rectangle(widget.get_style().black_gc, True, 0, 0, w, h)
+		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		self.pixmap.draw_rectangle(colour, True, 0, 0, w, h)
 		# Queue the drawing area.
 		widget.queue_draw()
 	
@@ -154,7 +156,7 @@ class mainWindow:
 		self.mainWindow.fullscreen()
 	
 	# Checks if we should allow Fullscreen functions (It's 1 if it's hidden).
-	videoWindowShown = lambda self: self.videoWindow.get_allocation().height > 1
+	videoWindowShown = lambda self: self.videoWindow.get_size_request() > (1,1)
 
 	
 	def deactivateFullscreen(self):
@@ -175,11 +177,8 @@ class mainWindow:
 	
 	
 	def setImageSink(self, widget=None):
-		## Sets the image sink to 'widget' or whichever it discovers.
-		if (not widget):
-			# If no widget was passed, use the right one. (This is left from
-			# when I had a separate fullscreen window, maybe it should be fixed?)
-			widget = self.videoWindow
+		## Sets the image sink to 'widget' or the default if none passed.
+		if (not widget): widget = self.videoWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -330,9 +329,8 @@ class mainWindow:
 			h = cfg.getInt("video/hue")
 			s = cfg.getInt("video/saturation")
 			player.prepareImgSink(bus, message, far, b, c, h, s)
-			# Set the image sink to whichever viewer is active.
-			# (idle_add to stop crashes when the video window wasn't shown yet)
-			gobject.idle_add(self.setImageSink)
+			# Set the image sink.
+			self.setImageSink()
 				
 	
 	def openDroppedFiles(self, widget, context, x, y, selection_data, info, time):
@@ -506,7 +504,7 @@ class mainWindow:
 		# Allow fullscreen.
 		self.wTree.get_widget('mnuiFS').set_sensitive(True)
 		# Show the video window.
-		self.videoWindow.show()
+		self.videoWindow.set_size_request(480, 320)
 	
 	def hideVideoWindow(self, force=False):
 		## Hides the video window.
@@ -514,7 +512,7 @@ class mainWindow:
 			# Disable fullscreen activation.
 			self.wTree.get_widget('mnuiFS').set_sensitive(False)
 			# Hide the video window.
-			self.videoWindow.hide()
+			self.videoWindow.set_size_request(1,1)
 			# Make the height of the window as small as possible.
 			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
