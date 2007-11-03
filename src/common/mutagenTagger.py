@@ -18,14 +18,17 @@
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-try:
-	# Try and import mutagen.
-	import mutagen
-	avail = True
-except:
-	# If it fails, print an error message.
-	print _("Mutagen not available, all tagging fetures will be unavailable")
-	avail = False
+#try:
+#	# Try and import mutagen.
+#	import mutagen
+#	avail = True
+#except:
+#	# If it fails, print an error message.
+#	print _("Mutagen not available, all tagging fetures will be unavailable")
+#	avail = False
+## Above is commented out because it was very slow etc (especially for ogv files.
+## It will be uncommented when the hangs are fixed.
+avail = False
 
 import useful
 from common.config import cfg
