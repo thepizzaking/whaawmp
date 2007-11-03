@@ -17,7 +17,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os, urllib
+import sys, os, urllib, urlparse
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
@@ -340,9 +340,9 @@ class mainWindow:
 		# Clear the current queue.
 		queue.clear()
 		# Add all the items to the queue.
-		for x in uris:
-			uri = urllib.url2pathname(x)
-			queue.append(uri)
+		for uri in uris:
+			path = urllib.url2pathname(urlparse.urlparse(uri)[2])
+			queue.append(path)
 		
 		# Play the first file by calling the next function.
 		self.playNext()

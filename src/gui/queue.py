@@ -20,7 +20,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
-import os, urllib
+import os, urllib, urlparse
 
 from common import mutagenTagger as tagger
 
@@ -109,9 +109,9 @@ class queues():
 		# Split the files.
 		uris = selection_data.data.strip().split()
 		# Add all the items to the queue.
-		for x in uris:
-			uri = urllib.url2pathname(x)
-			self.append(uri)
+		for uri in uris:
+			path = urllib.url2pathname(urlparse.urlparse(uri)[2])
+			self.append(path)
 		# Finish the drag.
 		context.finish(True, False, time)
 	
