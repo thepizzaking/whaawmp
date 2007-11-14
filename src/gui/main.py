@@ -252,7 +252,8 @@ class mainWindow:
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, play next item from queue.
-			self.playNext()
+			# Or stop if the queue is empty.
+			self.playNext() if (queue.length() > 0) else player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
