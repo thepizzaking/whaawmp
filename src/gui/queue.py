@@ -58,7 +58,7 @@ class queues():
 		# Flag the window as open.
 		open = True
 		# Actually show it.
-		self.window.show()
+		self.qwin.show_all()
 	
 	def hide(self, force=False):
 		## Hides the window.
@@ -67,7 +67,7 @@ class queues():
 		# Flag the window as closed.
 		open = False
 		# Hide the window.
-		self.window.hide()
+		self.qwin.hide()
 	
 	def append(self, item):
 		## Appends an item to the queue.
@@ -119,15 +119,11 @@ class queues():
 		## Creates the window of the queue.
 		# First create the list, it contains two strings (1st path, 2nd display).
 		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
-		# Create the window, set the title & size.
-		self.window = gtk.Window()
-		self.window.set_title(_("Queue"))
-		self.window.set_default_size(250,250)
-		# On a delete event, call the close function.
-		self.window.connect('delete-event', self.close)
+		# Create the queue window/box
+		self.qwin = gtk.VBox()
 		# Set the window up for draq & drop.
-		self.window.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
-		self.window.connect('drag-data-received', self.enqueueDropped)
+		self.qwin.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		self.qwin.connect('drag-data-received', self.enqueueDropped)
 		# Create the tree view.
 		self.tree = gtk.TreeView(self.list)
 		# Add a text renderer for the display column & add it to the view.
@@ -154,17 +150,12 @@ class queues():
 		hBox.pack_end(btnRemove, False, False)
 		# Create a vertical box and add the tree (in the scroll widget) and
 		# the horizontal box with the buttons to it.
-		vBox = gtk.VBox()
-		vBox.pack_start(scrolly)
-		vBox.pack_start(hBox, False, False)
-		# Add the vertical box to the window.
-		self.window.add(vBox)
+		self.qwin.pack_start(scrolly)
+		self.qwin.pack_start(hBox, False, False)
 		# Create a tooltip instance and add tooltips to the buttons.
 		tooltips = gtk.Tooltips()
 		tooltips.set_tip(btnClear, _('Clear Queue'))
 		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
-		# Show all the widgets contained in and including the vertical box.
-		vBox.show_all()
 	
 	def __init__(self):
 		# Flag the window as closed.

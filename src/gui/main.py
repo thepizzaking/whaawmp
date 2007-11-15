@@ -790,6 +790,9 @@ class mainWindow:
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow }
 		self.wTree.signal_autoconnect(dic)
 		
+		# Add the queue to the queue box.
+		self.wTree.get_widget("queueBox").pack_start(queue.qwin)
+		
 		# Get several items for access later.
 		self.mainWindow = self.wTree.get_widget(windowname)
 		self.progressBar = self.wTree.get_widget("pbarProgress")
