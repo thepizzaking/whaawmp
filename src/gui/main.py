@@ -713,8 +713,13 @@ class mainWindow:
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
 	def toggleQueueWindow(self, widget):
+		toShow = widget.get_active()
 		# Toggle the queue window according to what the menu item is set to.
-		queue.toggle(widget.get_active())
+		queue.toggle(toShow)
+		if (not toShow):
+			# Shrink the window if we're closing the queue.
+			qwinHeight = queue.qwin.get_allocation().height
+			useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
 	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.

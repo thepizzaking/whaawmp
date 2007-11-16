@@ -99,3 +99,8 @@ hiddenCursorPix = """/* XPM */
     		         "1 1 1 1",
     		         "       c None",
     				 " "};"""
+
+# Modify a window's height by a set amount.
+def modifyWinHeight(window, change):
+	(w, h) = window.get_size()
+	window.resize(w, h + change)
