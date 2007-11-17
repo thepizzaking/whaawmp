@@ -43,7 +43,7 @@ class queues():
 	def toggle(self, toShow=None):
 		## Toggles the window shown or not.
 		# If the destination state wasn't passed, do the inverse of its current state.
-		if (toShow is None): toShow = not open
+		if (toShow is None): toShow = not self.open
 		if (toShow):
 			# If we want it shown, show it.
 			self.show()
@@ -56,7 +56,7 @@ class queues():
 		# Set the menu item to activated.
 		self.mnuiSet(True)
 		# Flag the window as open.
-		open = True
+		self.open = True
 		# Actually show it.
 		self.qwin.show_all()
 	
@@ -65,7 +65,7 @@ class queues():
 		# Set the menu item to deactivated.
 		self.mnuiSet(False)
 		# Flag the window as closed.
-		open = False
+		self.open = False
 		# Hide the window.
 		self.qwin.hide()
 	
@@ -161,7 +161,7 @@ class queues():
 	
 	def __init__(self):
 		# Flag the window as closed.
-		open = False
+		self.open = False
 		# Create the window.
 		self.createWindow()
 

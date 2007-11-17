@@ -233,6 +233,9 @@ class mainWindow:
 		elif (event.string in ['p', 'r']):
 			# On 'p' or 'r' restart the track (almost previous).
 			self.restartTrack()
+		elif (event.string == 'q'):
+			# On 'q' show/hide the queue.
+			queue.toggle()
 
 	
 	def preparePlayer(self):
