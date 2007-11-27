@@ -310,8 +310,6 @@ class mainWindow:
 			if ((not player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
-			# Deactivate fullscreen.
-			if (self.fsActive()): self.deactivateFullscreen()
 			# Reset the progress bar.
 			self.progressUpdate()
 			# Clear the title.
@@ -644,6 +642,8 @@ class mainWindow:
 		if (cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
+			# Deactivate fullscreen if it's active.
+			if (self.fsActive()): self.deactivateFullscreen()
 		else:
 			self.showVideoWindow()
 			self.drawvideoWindowImage()
