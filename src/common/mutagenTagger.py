@@ -18,17 +18,14 @@
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os
-#try:
-#	# Try and import mutagen.
-#	import mutagen
-#	avail = True
-#except:
-#	# If it fails, print an error message.
-#	print _("Mutagen not available, all tagging fetures will be unavailable")
-#	avail = False
-## Above is commented out because it was very slow etc (especially for ogv files.
-## It will be uncommented when the hangs are fixed.
-avail = False
+try:
+	# Try and import mutagen.
+	import mutagen
+	avail = True
+except:
+	# If it fails, print an error message.
+	print _("Mutagen not available, all tagging fetures will be unavailable")
+	avail = False
 
 import useful
 from common.config import cfg
@@ -37,7 +34,15 @@ from common.config import cfg
 def getTags(file):
 	# Try and return the dictionary of tags.
 	try:
-		return mutagen.File(file, tagType(file))
+		# Workaround of ogv files (for some reason mutagen.File is really slow for them.
+		ext = None
+		if ('.' in file): ext = file[-(len(file.split('.')[-1])):]
+		if (ext == 'ogv'):
+			from mutagen import oggtheora
+			return oggtheora.Open(file)
+		else:
+			# If not .ogv, just do the mutagen.File
+			return mutagen.File(file, tagType(file))
 	except:
 		return {}
 
