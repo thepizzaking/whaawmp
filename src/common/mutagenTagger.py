@@ -38,8 +38,7 @@ def getTags(file):
 		ext = None
 		if ('.' in file): ext = file[-(len(file.split('.')[-1])):]
 		if (ext == 'ogv'):
-			from mutagen import oggtheora
-			return oggtheora.Open(file)
+			return {}
 		else:
 			# If not .ogv, just do the mutagen.File
 			return mutagen.File(file, tagType(file))
