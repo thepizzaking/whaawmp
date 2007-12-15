@@ -34,14 +34,8 @@ from common.config import cfg
 def getTags(file):
 	# Try and return the dictionary of tags.
 	try:
-		# Workaround of ogv files (for some reason mutagen.File is really slow for them.
-		ext = None
-		if ('.' in file): ext = file[-(len(file.split('.')[-1])):]
-		if (ext == 'ogv'):
-			return {}
-		else:
-			# If not .ogv, just do the mutagen.File
-			return mutagen.File(file, tagType(file))
+		# If not .ogv, just do the mutagen.File
+		return mutagen.File(file, tagType(file))
 	except:
 		return {}
 
@@ -107,8 +101,9 @@ def tagType(file):
 	from mutagen.oggtheora import OggTheora
 	from mutagen.oggvorbis import OggVorbis
 	# Make a dictionary for easy access to types.
-	dic = { 'ogg' : [OggFLAC, OggSpeex, OggTheora, OggVorbis],
-	        'ogv' : [OggTheora],
+	# TODO: Add OggTheora to ogg & ogv again, if it's no-longer slow.
+	dic = { 'ogg' : [OggFLAC, OggSpeex, OggVorbis],
+	        'ogv' : [OggFLAC, OggSpeex, OggVorbis],
 	        'oga' : [OggFLAC, OggSpeex, OggVorbis] }
 	# Return the tag type, otherwise return None (which will check everything)
 	try:
