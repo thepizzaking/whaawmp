@@ -17,7 +17,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os, urllib, urlparse
+import sys, os, signal, urllib, urlparse
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
@@ -748,6 +748,11 @@ class mainWindow:
 	# Just a transfer call as player.stop takes only 1 argument.
 	stopPlayer = lambda self, widget: player.stop()
 	
+	def sigterm(self,num,frame):
+		# Quit when sigterm signal caught.
+		print _("TERM signal caught, exiting.")
+		self.quit()
+	
 	
 	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
@@ -760,6 +765,8 @@ class mainWindow:
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
+		# Connect up the sigterm signal.
+		signal.signal(signal.SIGTERM, self.sigterm)
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
