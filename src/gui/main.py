@@ -26,7 +26,7 @@ import gtk.glade
 
 from gui import dialogues, preferences
 from gui.queue import queue
-from common import lists, useful
+from common import lists, useful, dbusBus
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
 from common.config import cfg
