@@ -17,15 +17,28 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+try:
+	import dbus
+	import dbus.service
+	from dbus.mainloop.glib import DBusGMainLoop
+	avail = True
+except ImportError:
+	print _("Dbus import failed, dbus features will be unavailable")
+	# Dummy D-Bus library (From exaile)
+	class _Connection:
+		get_object = lambda *a: object()
+	class _Interface:
+		__init__ = lambda *a: None
+		ListNames = lambda *a: []
+	class Dummy: pass
+	dbus = Dummy()
+	dbus.Interface = _Interface
+	dbus.service = Dummy()
+	dbus.service.method = lambda *a: lambda f: f
+	dbus.service.Object = object
+	dbus.SessionBus = _Connection
+	avail = False
 
-import dbus
-import dbus.service
-from dbus.mainloop.glib import DBusGMainLoop
-
-DBusGMainLoop(set_as_default=True)
-
-bus = dbus.SessionBus()
-name = dbus.service.BusName("org.gna.whaawmp", bus)
 
 class IntObject(dbus.service.Object):
 	def __init__(self):
@@ -35,7 +48,13 @@ class IntObject(dbus.service.Object):
 	def playfile(self):
 		print 'a'
 
-busObject = IntObject()
+if avail:
+	DBusGMainLoop(set_as_default=True)
+	
+	bus = dbus.SessionBus()
+	name = dbus.service.BusName("org.gna.whaawmp", bus)
+	
+	busObject = IntObject()
 
 '''
 The following code will make it print 'a':

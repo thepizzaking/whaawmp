@@ -22,7 +22,7 @@ try:
 	# Try and import mutagen.
 	import mutagen
 	avail = True
-except:
+except ImportError:
 	# If it fails, print an error message.
 	print _("Mutagen not available, all tagging fetures will be unavailable")
 	avail = False
