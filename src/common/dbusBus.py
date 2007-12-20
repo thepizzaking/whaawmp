@@ -78,9 +78,6 @@ class initBus:
 		# If it gets to here, whaawmp is already running.
 		print _("%s is already running" % useful.lName)
 		
-		# If a new window was requested, just do it!
-		if (options.forceNewWin): return
-		
 		for x in args:
 			# Play all the files passed.
 			self.iface.playFile(x)

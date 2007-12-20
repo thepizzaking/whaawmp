@@ -67,7 +67,8 @@ class main:
 		(options, args) = config.clparser(OptionParser(usage=usage, prog=useful.sName)).parseArgs(HELP)
 		
 		# Check if whaawmp is already running and send dbus messages if it is.
-		if (initBus(options, args).quitAfter): sys.exit()
+		# Unless of course, the user hasn't requested a new window regardless.
+		if (not options.forceNewWin and initBus(options, args).quitAfter): sys.exit()
 
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, options, args)
