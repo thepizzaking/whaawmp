@@ -72,10 +72,13 @@ class initBus:
 		# If it gets to here, whaawmp is already running.
 		print _("Whaaw! Media Player is already running")
 		
-		# Flag that we should quit after this.
-		self.quitAfter = True
+		# Flag that we should not quit after this.
+		quit = False
 		for x in args:
 			self.iface.playFile(x)
+			quit = True
+		
+		self.quitAfter = quit
 
 			
 	def prepareIface(self):
