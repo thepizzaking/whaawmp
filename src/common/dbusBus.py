@@ -17,6 +17,9 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from common.gstPlayer import player
+from gui.queue import queue
+
 try:
 	import dbus
 	import dbus.service
@@ -41,24 +44,50 @@ except ImportError:
 
 
 class IntObject(dbus.service.Object):
-	def __init__(self):
+	def __init__(self, mainWindow):
+		name = dbus.service.BusName("org.gna.whaawmp", bus)
 		dbus.service.Object.__init__(self, name, "/IntObject")
+		self.main = mainWindow
 	
-	@dbus.service.method("org.gna.whaawmp", "")
-	def playfile(self):
-		print 'a'
+	@dbus.service.method("org.gna.whaawmp", "s")
+	def playFile(self, file):
+		queue.append(file)
+		if (not player.getURI()): self.main.playNext()
 
 if avail:
 	DBusGMainLoop(set_as_default=True)
 	
 	bus = dbus.SessionBus()
-	name = dbus.service.BusName("org.gna.whaawmp", bus)
+
+class initBus:
+	quitAfter = False
 	
-	busObject = IntObject()
+	def __init__(self, mainWin, options, args):
+		try:
+			self.prepareIface()
+		except dbus.exceptions.DBusException:
+			IntObject(mainWin)
+			return
+		
+		# If it gets to here, whaawmp is already running.
+		print _("Whaaw! Media Player is already running")
+		
+		# Flag that we should quit after this.
+		self.quitAfter = True
+		for x in args:
+			self.iface.playFile(x)
+
+			
+	def prepareIface(self):
+		ro = bus.get_object("org.gna.whaawmp", "/IntObject")
+		self.iface = dbus.Interface(ro, "org.gna.whaawmp")
+	
 
 '''
-The following code will make it print 'a':
+Code to do something:
+import dbus
+bus = dbus.SessionBus()
 ro = bus.get_object('org.gna.whaawmp', '/IntObject')
 iface = dbus.Interface(ro, "org.gna.whaawmp")
-iface.playfile()
+iface.playFile("/home/jeff/Music/10cc/10cc - The Things We Do For Love.oga")
 '''

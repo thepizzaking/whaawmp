@@ -26,9 +26,10 @@ import gtk.glade
 
 from gui import dialogues, preferences
 from gui.queue import queue
-from common import lists, useful, dbusBus
+from common import lists, useful
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
+from common import dbusBus as msgBus
 from common.config import cfg
 from common.gstPlayer import player
 
@@ -761,6 +762,10 @@ class mainWindow:
 		# Connect up the sigterm signal.
 		signal.signal(signal.SIGTERM, self.sigterm)
 		
+		if msgBus.avail:
+			self.dbus = msgBus.initBus(self, options, args)
+			if (self.dbus.quitAfter): sys.exit()
+		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
@@ -834,9 +839,8 @@ class mainWindow:
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
-			for x in args:
-				# For all the files, add them to the queue.
-				queue.append(x if ('://' in x) else os.path.abspath(x))
+			# Append all tracks to the queue.
+			queue.appendMany(args)
 			# Then play the next track.
 			self.playNext()
 		else:

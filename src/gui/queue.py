@@ -77,6 +77,12 @@ class queues():
 		self.list.set_value(row, 0, item)
 		self.list.set_value(row, 1, tagger.getDispTitle(item))
 	
+	def appendMany(self, items):
+		## Appends many queue items.
+		for x in items:
+			# For all the files, add them to the queue.
+			queue.append(x if ('://' in x) else os.path.abspath(x))
+	
 	def clear(self, widget=None):
 		## Clears the queue.
 		self.list.clear()
