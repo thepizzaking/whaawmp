@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  Configuration Backend
+#  DBus Backend
 #  Copyright © 2007, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
@@ -16,6 +16,8 @@
 #       
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+from common import useful
 
 try:
 	import dbus
@@ -74,16 +76,15 @@ class initBus:
 			return
 		
 		# If it gets to here, whaawmp is already running.
-		print _("Whaaw! Media Player is already running")
+		print _("%s is already running" % useful.lName)
 		
-		# Flag that we should not quit after this.
-		quit = False
+		# If a new window was requested, just do it!
+		if (options.forceNewWin): return
+		
 		for x in args:
 			# Play all the files passed.
 			self.iface.playFile(x)
-			quit = True
-		
-		self.quitAfter = quit
+			self.quitAfter = True
 
 			
 	def prepareIface(self):

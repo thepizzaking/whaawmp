@@ -133,4 +133,8 @@ class clparser:
 		self.parser.add_option("-q", "--quit", dest="quitOnEnd",
 		                       action="store_true", default=False,
 		                       help=_("Quits the player when the playing stream stops"))
+		# Forces a new window if whaawmp is already running.
+		self.parser.add_option("--new", dest="forceNewWin",
+		                       action="store_true", default=False,
+		                       help=_("Forces a new window if %s is already running" % useful.lName))
 		
