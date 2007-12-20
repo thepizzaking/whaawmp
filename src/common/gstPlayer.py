@@ -43,6 +43,20 @@ class Player:
 		# Stops the player completely (ie -> NULL).
 		self.player.set_state(gst.STATE_NULL)
 	
+	def togglePlayPause(self):
+		# Toggles play/pause.
+		if (not self.getURI()):
+			# If no file is currently opened, return an error.
+			return 1
+		
+		if (self.isPlaying()):
+			# If the player is playing, pause the player.
+			self.pause()
+		else:
+			# If it's already paused (or stopped with a file): play.
+			self.play()
+		return 0
+	
 
 	def playingVideo(self):
 		# If current-video is -1, a video is not playing.

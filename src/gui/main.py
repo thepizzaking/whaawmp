@@ -422,8 +422,8 @@ class mainWindow:
 	def togglePlayPause(self, widget=None):
 		## Toggles the player play/pause.
 		
-		if (not player.getURI()):
-			# If there is no currently playing track.
+		if (player.togglePlayPause()):
+			# If toggling fails:
 			# Check the queue.
 			if (queue.length()):
 				self.playNext()
@@ -431,13 +431,6 @@ class mainWindow:
 				# Otherwise show the open file dialogue.
 				self.showOpenDialogue()
 			return
-		
-		if (player.isPlaying()):
-			# If the player is playing, pause the player.
-			player.pause()
-		else:
-			# If it's already paused (or stopped with a file): play.
-			player.play()
 	
 	
 	def minuteTimer(self):
