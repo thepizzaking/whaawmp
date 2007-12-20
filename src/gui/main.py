@@ -762,9 +762,7 @@ class mainWindow:
 		# Connect up the sigterm signal.
 		signal.signal(signal.SIGTERM, self.sigterm)
 		
-		if msgBus.avail:
-			self.dbus = msgBus.initBus(self, options, args)
-			if (self.dbus.quitAfter): sys.exit()
+		if msgBus.avail: self.dbus = msgBus.IntObject(self)
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)

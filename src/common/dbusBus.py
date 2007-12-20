@@ -17,14 +17,13 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from common.gstPlayer import player
-from gui.queue import queue
-
 try:
 	import dbus
 	import dbus.service
 	from dbus.mainloop.glib import DBusGMainLoop
-	avail = True
+	DBusGMainLoop(set_as_default=True)
+	bus = dbus.SessionBus()
+	avail = True	
 except ImportError:
 	print _("Dbus import failed, dbus features will be unavailable")
 	# Dummy D-Bus library (From exaile)
@@ -44,29 +43,34 @@ except ImportError:
 
 
 class IntObject(dbus.service.Object):
+	from common.gstPlayer import player
+	from gui.queue import queue
+	
 	def __init__(self, mainWindow):
+		# Initialises the bus so it can receive signals & handle them.
 		name = dbus.service.BusName("org.gna.whaawmp", bus)
 		dbus.service.Object.__init__(self, name, "/IntObject")
 		self.main = mainWindow
 	
 	@dbus.service.method("org.gna.whaawmp", "s")
 	def playFile(self, file):
-		queue.append(file)
-		if (not player.getURI()): self.main.playNext()
+		# Plays a file (well, enqueues it).
+		self.queue.append(file)
+		if (not self.player.getURI()): self.main.playNext()
 
-if avail:
-	DBusGMainLoop(set_as_default=True)
-	
-	bus = dbus.SessionBus()
 
 class initBus:
 	quitAfter = False
 	
-	def __init__(self, mainWin, options, args):
+	def __init__(self, options, args):
+		if (not avail): return
+		
 		try:
+			# Try and connect to a previous whaawmp process.
 			self.prepareIface()
 		except dbus.exceptions.DBusException:
-			IntObject(mainWin)
+			# If that fails, whaawmp is not running, so just return and start
+			# normally.
 			return
 		
 		# If it gets to here, whaawmp is already running.
@@ -75,6 +79,7 @@ class initBus:
 		# Flag that we should not quit after this.
 		quit = False
 		for x in args:
+			# Play all the files passed.
 			self.iface.playFile(x)
 			quit = True
 		
@@ -82,15 +87,7 @@ class initBus:
 
 			
 	def prepareIface(self):
+		# Try to connect to a previously running whaawmp process, this *will*
+		# throw an exception if whaawmp is not running.
 		ro = bus.get_object("org.gna.whaawmp", "/IntObject")
 		self.iface = dbus.Interface(ro, "org.gna.whaawmp")
-	
-
-'''
-Code to do something:
-import dbus
-bus = dbus.SessionBus()
-ro = bus.get_object('org.gna.whaawmp', '/IntObject')
-iface = dbus.Interface(ro, "org.gna.whaawmp")
-iface.playFile("/home/jeff/Music/10cc/10cc - The Things We Do For Love.oga")
-'''

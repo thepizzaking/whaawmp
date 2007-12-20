@@ -47,6 +47,7 @@ if ('--version' in sys.argv):
 
 from gui import main as whaawmp
 from common import config
+from common.dbusBus import initBus
 
 # Change the process name (only for python >= 2.5, or if ctypes installed)
 # Though, this program requires 2.5 anyway?:
@@ -64,6 +65,9 @@ class main:
 		# Option Parser
 		usage = "\n  " + useful.sName + _(" [options] filename")
 		(options, args) = config.clparser(OptionParser(usage=usage, prog=useful.sName)).parseArgs(HELP)
+		
+		# Check if whaawmp is already running and send dbus messages if it is.
+		if (initBus(options, args).quitAfter): sys.exit()
 
 		# Creates the window.
 		self.mainWindow = whaawmp.mainWindow(self, options, args)
