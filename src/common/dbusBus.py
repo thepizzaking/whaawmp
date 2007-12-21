@@ -64,6 +64,21 @@ class IntObject(dbus.service.Object):
 	def togglePlayPause(self):
 		# Toggles the player to play/pause.
 		return self.player.togglePlayPause()
+	
+	@dbus.service.method("org.gna.whaawmp", "", "b")
+	def play(self):
+		# Starts the player playing.
+		return self.player.play()
+	
+	@dbus.service.method("org.gna.whaawmp", "", "b")
+	def pause(self):
+		# Pauses the player.
+		return self.player.pause()
+
+	@dbus.service.method("org.gna.whaawmp")
+	def stop(self):
+		# Pauses the player.
+		self.player.stop()
 
 
 class initBus:
@@ -92,6 +107,23 @@ class initBus:
 			# Toggle play/pause.
 			if (not self.iface.togglePlayPause()):
 				print _("Toggle of Play/Pause failed, no file is currently open.")
+			self.quitAfter = True
+		
+		if options.play:
+			# Start playing.
+			if (not self.iface.play()):
+				print _("Play failed, no file is currently open.")
+			self.quitAfter = True
+		
+		if options.pause:
+			# Pause the player.
+			if (not self.iface.pause()):
+				print _("Pause failed, not file is currently open.")
+			self.quitAfter = True
+		
+		if options.stop:
+			# Stops the player.
+			self.iface.stop()
 			self.quitAfter = True
 
 			

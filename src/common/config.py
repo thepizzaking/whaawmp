@@ -141,3 +141,15 @@ class clparser:
 		self.parser.add_option("-t", "--play-pause", dest="togglePlayPause",
 		                       action="store_true", default=False,
 		                       help=_("Toggles play/pause on an already running %s process" % useful.lName))
+		# Starts the player (of previous process).
+		self.parser.add_option("--play", dest="play",
+		                       action="store_true", default=False,
+		                       help=_("Starts the player in an already running %s process" % useful.lName))
+		# Pause the player (of previous process).
+		self.parser.add_option("--pause", dest="pause",
+		                       action="store_true", default=False,
+		                       help=_("Pauses the player in an already running %s process" % useful.lName))
+		# Stop the player (of previous process).
+		self.parser.add_option("--stop", dest="stop",
+		                       action="store_true", default=False,
+		                       help=_("Stops the player in an already running %s process" % useful.lName))

@@ -28,12 +28,18 @@ class Player:
 	aspectSettings = False
 	
 	def play(self):
-		# Starts the player playing.
-		self.player.set_state(gst.STATE_PLAYING)
+		# Starts the player playing, only if the player has a URI.
+		if (player.getURI()):
+			self.player.set_state(gst.STATE_PLAYING)
+			return True
+		return False
 	
 	def pause(self):
-		# Pauses the player.
-		self.player.set_state(gst.STATE_PAUSED)
+		# Pauses the player, only if the player has a URI.
+		if (player.getURI()):
+			self.player.set_state(gst.STATE_PAUSED)
+			return True
+		return False
 	
 	def stop(self):
 		# Stops the player.
