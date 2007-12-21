@@ -30,25 +30,37 @@ except ImportError:
 import useful
 from common.config import cfg
 
+tagDic = {}
 
 def getTags(file):
-	# Try and return the dictionary of tags.
+	# Turn it into a URI.
+	if (not file.startswith("file://")): file = "file://" + os.path.abspath(file)
 	try:
-		# If not .ogv, just do the mutagen.File
-		return mutagen.File(file, tagType(file))
-	except:
-		return {}
+		# Try to get the tags from a dictionary cache.
+		return tagDic[file]
+	except KeyError:
+		nonURI = file[7:]
+		try:
+			# If they weren't in the cache, try to get the tags through mutagen.
+			tags = mutagen.File(nonURI, tagType(nonURI))
+		except:
+			# If that fails too, just use an empty dictionary.
+			tags = {}
+		# Save the tags to the dictionary and return them.
+		tagDic[file] = tags
+		return tags
 
-def getTag(tags, tag):
+
+def getTag(file, tag):
 	try:
-		return tags[tag]
+		return getTags(file)[tag]
 	except:
 		return []
 
-def getSTag(tags, tag):
+def getSTag(file, tag):
 	## Gets a single tag.
 	# Get the list of tags.
-	tagsi = getTag(tags, tag)
+	tagsi = getTag(file, tag)
 	# If it's empty, return None.
 	if (tagsi == []): return None
 	# Otherwise, return the first item.
@@ -58,20 +70,16 @@ def getDispTitle(file):
 	## Gets the (window) title to be displayed from Tags / filename.
 	# If no file was passed, return an empty string. 
 	if (not file): return ""
-	# Remove any file:// first.
-	if (file.startswith('file:///')): file = file[7:]
 	# Initialise the winTitle to empty.
 	winTitle = ""
 	# If the tagger is available.
 	if avail:
-		# Get all the tags.
-		tags = getTags(file)
 		# Flag that no tags have been added.
 		noneAdded = True
 		for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
 			# For all the items in the list produced by tagsToTuple.
 			# New string = the associated tag if it's a tag, otherwise just the string.
-			nStr = getSTag(tags, x[1]) if (x[0]) else x[1]
+			nStr = getSTag(file, x[1]) if (x[0]) else x[1]
 			if (nStr):
 				# If there was a string.
 				# Flag that a tag has been added if it's a tag.
