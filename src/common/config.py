@@ -161,3 +161,7 @@ class clparser:
 		self.parser.add_option("--previous", "--restart", dest="prev",
 		                       action="store_true", default=False,
 		                       help=_("Restarts the current track in an already running %s process" % useful.lName))
+		# Query the informations of current track.
+		self.parser.add_option("--query", dest="query",
+		                       action="store_true", default=False,
+		                       help=_("Querys the current track in an already running %s process" % useful.lName))

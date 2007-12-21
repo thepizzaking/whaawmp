@@ -33,6 +33,8 @@ from common.config import cfg
 tagDic = {}
 
 def getTags(file):
+	# Check the file exists.
+	if (file is None): return {}
 	# Turn it into a URI.
 	if (not file.startswith("file://")): file = "file://" + os.path.abspath(file)
 	try:

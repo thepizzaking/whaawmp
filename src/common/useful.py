@@ -104,3 +104,14 @@ hiddenCursorPix = """/* XPM */
 def modifyWinHeight(window, change):
 	(w, h) = window.get_size()
 	window.resize(w, h + change)
+
+# Convert tags to a readable string.
+def tagsToStr(tags):
+	str = ""
+	for x in tags:
+		# For all the items in the dictionary, add them to the string.
+		str += '\t' + x + ':\n'
+		for y in tags[x]:
+			# Add all strings in the list too.
+			str += '\t\t' + y + '\n'
+	return str

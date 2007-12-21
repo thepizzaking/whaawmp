@@ -47,6 +47,7 @@ except ImportError:
 class IntObject(dbus.service.Object):
 	from common.gstPlayer import player
 	from gui.queue import queue
+	from common import mutagenTagger as tagger
 	
 	def __init__(self, mainWindow):
 		# Initialises the bus so it can receive signals & handle them.
@@ -89,6 +90,12 @@ class IntObject(dbus.service.Object):
 	def prev(self):
 		# Restarts the current track.
 		self.main.restartTrack()
+	
+	@dbus.service.method("org.gna.whaawmp", "", "s")
+	def query(self):
+		#Querys the current track.
+		tags = useful.tagsToStr(self.tagger.getTags(self.player.getURI()))
+		return _("Tags of %s:\n%s" % (self.player.getURI(), tags))
 
 
 class initBus:
@@ -144,6 +151,11 @@ class initBus:
 		if options.prev:
 			# Restart current playing stream.
 			self.iface.prev()
+			self.quitAfter = True
+		
+		if options.query:
+			# Query the current track (for tags etc)
+			print self.iface.query()
 			self.quitAfter = True
 
 			
