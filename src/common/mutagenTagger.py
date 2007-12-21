@@ -81,6 +81,7 @@ def getDispTitle(file):
 		for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
 			# For all the items in the list produced by tagsToTuple.
 			# New string = the associated tag if it's a tag, otherwise just the string.
+			# Remember in each x, [0] is True if [1] is a tag, False if it's not.
 			nStr = getSTag(file, x[1]) if (x[0]) else x[1]
 			if (nStr):
 				# If there was a string.
