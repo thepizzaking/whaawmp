@@ -137,12 +137,12 @@ class initBus:
 			self.quitAfter = True
 		
 		if options.next:
-			# Stops the player.
+			# Skip to the next track.
 			self.iface.next()
 			self.quitAfter = True
 		
 		if options.prev:
-			# Stops the player.
+			# Restart current playing stream.
 			self.iface.prev()
 			self.quitAfter = True
 
