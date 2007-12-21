@@ -77,8 +77,18 @@ class IntObject(dbus.service.Object):
 
 	@dbus.service.method("org.gna.whaawmp")
 	def stop(self):
-		# Pauses the player.
+		# Stops the player.
 		self.player.stop()
+
+	@dbus.service.method("org.gna.whaawmp")
+	def next(self):
+		# Skips to the next track.
+		self.main.playNext()
+
+	@dbus.service.method("org.gna.whaawmp")
+	def prev(self):
+		# Restarts the current track.
+		self.main.restartTrack()
 
 
 class initBus:
@@ -124,6 +134,16 @@ class initBus:
 		if options.stop:
 			# Stops the player.
 			self.iface.stop()
+			self.quitAfter = True
+		
+		if options.next:
+			# Stops the player.
+			self.iface.next()
+			self.quitAfter = True
+		
+		if options.prev:
+			# Stops the player.
+			self.iface.prev()
 			self.quitAfter = True
 
 			

@@ -153,3 +153,11 @@ class clparser:
 		self.parser.add_option("--stop", dest="stop",
 		                       action="store_true", default=False,
 		                       help=_("Stops the player in an already running %s process" % useful.lName))
+		# Play the next track in the queue.
+		self.parser.add_option("--next", dest="next",
+		                       action="store_true", default=False,
+		                       help=_("Skips to the next track in an already running %s process" % useful.lName))
+		# Restart the playing track.
+		self.parser.add_option("--previous", "--restart", dest="prev",
+		                       action="store_true", default=False,
+		                       help=_("Restarts the current track in an already running %s process" % useful.lName))
