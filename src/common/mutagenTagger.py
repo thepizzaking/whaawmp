@@ -35,21 +35,22 @@ tagDic = {}
 def getTags(file):
 	# Check the file exists.
 	if (file is None): return {}
-	# Turn it into a URI.
-	if (not file.startswith("file://")): file = "file://" + os.path.abspath(file)
+	# Get the path (not URI bit)
+	if (file.startswith('file://')): file = file[7:]
+	# Get the modification time so if it changes we can re-read the tags.
+	modtime = os.stat(file).st_mtime
 	try:
 		# Try to get the tags from a dictionary cache.
-		return tagDic[file]
+		return tagDic[(file, modtime)]
 	except KeyError:
-		nonURI = file[7:]
 		try:
 			# If they weren't in the cache, try to get the tags through mutagen.
-			tags = mutagen.File(nonURI, tagType(nonURI))
+			tags = mutagen.File(file, tagType(file))
 		except:
 			# If that fails too, just use an empty dictionary.
 			tags = {}
 		# Save the tags to the dictionary and return them.
-		tagDic[file] = tags
+		tagDic[(file, modtime)] = tags
 		return tags
 
 
