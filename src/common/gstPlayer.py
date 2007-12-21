@@ -47,7 +47,7 @@ class Player:
 		# Toggles play/pause.
 		if (not self.getURI()):
 			# If no file is currently opened, return an error.
-			return 1
+			return False
 		
 		if (self.isPlaying()):
 			# If the player is playing, pause the player.
@@ -55,7 +55,7 @@ class Player:
 		else:
 			# If it's already paused (or stopped with a file): play.
 			self.play()
-		return 0
+		return True
 	
 
 	def playingVideo(self):

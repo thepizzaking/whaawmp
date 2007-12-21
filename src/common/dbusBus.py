@@ -59,6 +59,11 @@ class IntObject(dbus.service.Object):
 		# Plays a file (well, enqueues it).
 		self.queue.append(file)
 		if (not self.player.getURI()): self.main.playNext()
+	
+	@dbus.service.method("org.gna.whaawmp", "", "b")
+	def togglePlayPause(self):
+		# Toggles the player to play/pause.
+		return self.player.togglePlayPause()
 
 
 class initBus:
@@ -76,11 +81,17 @@ class initBus:
 			return
 		
 		# If it gets to here, whaawmp is already running.
-		print _("%s is already running" % useful.lName)
+		print _("%s is already running." % useful.lName)
 		
 		for x in args:
 			# Play all the files passed.
 			self.iface.playFile(x)
+			self.quitAfter = True
+		
+		if options.togglePlayPause:
+			# Toggle play/pause.
+			if (not self.iface.togglePlayPause()):
+				print _("Toggle of Play/Pause failed, no file is currently open.")
 			self.quitAfter = True
 
 			

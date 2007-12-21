@@ -137,4 +137,7 @@ class clparser:
 		self.parser.add_option("--new", dest="forceNewWin",
 		                       action="store_true", default=False,
 		                       help=_("Forces a new window if %s is already running" % useful.lName))
-		
+		# Toggles play/pause on an already running process.
+		self.parser.add_option("-t", "--play-pause", dest="togglePlayPause",
+		                       action="store_true", default=False,
+		                       help=_("Toggles play/pause on an already running %s process" % useful.lName))

@@ -423,7 +423,7 @@ class mainWindow:
 	def togglePlayPause(self, widget=None):
 		## Toggles the player play/pause.
 		
-		if (player.togglePlayPause()):
+		if (not player.togglePlayPause()):
 			# If toggling fails:
 			# Check the queue.
 			if (queue.length()):
