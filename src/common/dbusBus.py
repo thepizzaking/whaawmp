@@ -48,6 +48,7 @@ class IntObject(dbus.service.Object):
 	from common.gstPlayer import player
 	from gui.queue import queue
 	from common import mutagenTagger as tagger
+	from common.config import cfg
 	
 	def __init__(self, mainWindow):
 		# Initialises the bus so it can receive signals & handle them.
@@ -55,11 +56,25 @@ class IntObject(dbus.service.Object):
 		dbus.service.Object.__init__(self, name, "/IntObject")
 		self.main = mainWindow
 	
-	@dbus.service.method("org.gna.whaawmp", "s")
+	@dbus.service.method("org.gna.whaawmp", "s", "b")
 	def playFile(self, file):
-		# Plays a file (well, enqueues it).
-		self.queue.append(file)
-		if (not self.player.getURI()): self.main.playNext()
+		# Plays a file depending on the configured action,
+		# (returns False if the other process should not quit).
+		
+		
+		cfgOption = self.cfg.getInt('misc/onextnewfile')
+		if (cfgOption == 0):
+			# 0 - Force play even if it's already playing.
+			self.main.playFile(file)
+		elif (cfgOption == 2):
+			# 2 - Play in new process, so return False.
+			return False
+		else:
+			# 1 - Add to the end of the queue. (Put at end so this is used as
+			# the default action if the configuration is screwed.
+			self.queue.append(file)
+			if (not self.player.getURI()): self.main.playNext()
+		return True
 	
 	@dbus.service.method("org.gna.whaawmp", "", "b")
 	def togglePlayPause(self):
@@ -117,8 +132,12 @@ class initBus:
 		
 		for x in args:
 			# Play all the files passed.
-			self.iface.playFile(x)
-			self.quitAfter = True
+			if (self.iface.playFile(x)):
+				# Return of True = I've handled it, you can now quit.
+				self.quitAfter = True
+			else:
+				# Return of False = You handle it!
+				return
 		
 		if options.togglePlayPause:
 			# Toggle play/pause.
