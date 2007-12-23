@@ -38,6 +38,7 @@ class Dialogue:
 		        "on_checkbox_toggled" : self.checkboxToggle,
 		        "on_scrollbar_changed" : self.adjustmentChanged,
 		        "on_spinbutton_changed" : self.adjustmentChanged,
+		        "on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
 		        "on_entry_changed" : self.entryChanged,
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
@@ -99,6 +100,8 @@ class Dialogue:
 		for x in self.entDic:
 			x.set_text(cfg.getStr(self.entDic[x]))
 		
+		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
+		
 		self.wTree.get_widget('entTagSyntax').set_sensitive(mutagenTagger.avail)
 	
 	
@@ -139,3 +142,7 @@ class Dialogue:
 		if (player.playingVideo()):
 			player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
 			self.main.videoWindowConfigure(self.main.videoWindow)
+	
+	def extNewFileChanged(self, widget):
+		## Changes the saved option for the external file action.
+		cfg.set('misc/onextnewfile', widget.get_active())
