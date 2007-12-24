@@ -108,7 +108,25 @@ class queues():
 		# Get the item.
 		tree, item = self.tree.get_selection().get_selected()
 		# If we get the item, remove it.
-		if (item): tree.remove(item)
+		if (item):
+			# Get the items index (for later).
+			itmNo = self.tree.get_model().get_path(item)[0]
+			tree.remove(item)
+			# Now to select a new item in the queue.
+			# Get the new length of the queue.
+			newLen = self.length()
+			if (newLen > itmNo):
+				# If the queue length is bigger than the item number, select
+				# the item which is taking the old ones spot.
+				self.tree.get_selection().select_path(itmNo)
+			elif (newLen == itmNo and newLen > 0):
+				# If the queue length is the same as the item number, there is
+				# no item taking its place, chose the previous item (should be
+				# the last one)
+				self.tree.get_selection().select_path(itmNo - 1)
+			else:
+				# Don't do anything if the queue is now empty.
+				pass
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
 		## Adds dropped files to the end of the queue.
