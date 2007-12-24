@@ -26,6 +26,7 @@ from common import lists, useful
 class Player:
 	colourSettings = False
 	aspectSettings = False
+	version = gst.gst_version
 	
 	def play(self):
 		# Starts the player playing, only if the player has a URI.

@@ -115,3 +115,6 @@ def tagsToStr(tags):
 			# Add all strings in the list too.
 			str += '\t\t' + y + '\n'
 	return str
+
+# Convert a version tuple to a sting.
+verTupleToStr = lambda tuple: '.'.join(map(str, tuple))

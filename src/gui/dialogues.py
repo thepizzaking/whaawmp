@@ -42,6 +42,8 @@ class AboutDialogue:
 		dlg.set_transient_for(parent)
 		# Set the logo.
 		dlg.set_logo(gtk.gdk.pixbuf_new_from_file_at_size(os.path.join(useful.dataDir, 'images', 'whaawmp800.png'), 200, 200))
+		# Set the comment.
+		dlg.set_comments("GTK+ %s, GStreamer %s" % (useful.verTupleToStr(gtk.gtk_version), useful.verTupleToStr(player.version)))
 		
 		# Run, then destroy the dialogue.
 		dlg.run()
