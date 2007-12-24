@@ -244,3 +244,42 @@ class MsgBox:
 		dlg.run()
 		dlg.destroy()
 
+class SupportedFeatures:
+	def __init__(self, parent):
+		# Shows a list of supported features.
+		dlg = gtk.Dialog(_("Supported Features"), parent,
+		                 buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+		
+		# Import the librarys needed to check availability.
+		import common.mutagenTagger as tagger
+		import common.dbusBus as bus
+		
+		# Create a dictionary with the library title and its availability.
+		dic = {_("Mutagen Tagging"): tagger.avail,
+		       _("Dbus Message Bus"): bus.avail}
+		
+		for x in dic:
+			# For all the items in the dictionary.
+			# Make the availability easier to use.
+			a = dic[x]
+			# Make a button and add an icon according to the feature's availability.
+			btn = gtk.Button()
+			icon = gtk.STOCK_APPLY if a else gtk.STOCK_CANCEL
+			btn.set_image(gtk.image_new_from_stock(icon, 2))
+			# Pack in the button and a label into an HBox, then into the dialogue.
+			hbox = gtk.HBox()
+			hbox.pack_start(btn, False, False)
+			hbox.pack_start(gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))))
+			dlg.vbox.pack_start(hbox, False, False)
+		
+		# Displaying library versions.
+		lbl = gtk.Label(_("Library Versions:"))
+		lbl.set_alignment(0, 0.5)
+		dlg.vbox.pack_start(lbl)
+		dlg.vbox.pack_start(gtk.Label("GTK+ - %s" % useful.verTupleToStr(gtk.gtk_version)))
+		dlg.vbox.pack_start(gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)))
+		
+		# Show run and destroy it.
+		dlg.show_all()
+		dlg.run()
+		dlg.destroy()

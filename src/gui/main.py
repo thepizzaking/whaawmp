@@ -747,6 +747,10 @@ class mainWindow:
 		print _("TERM signal caught, exiting.")
 		self.quit()
 	
+	def openSupFeaturesDlg(self, widget):
+		# Shows the supported features dialogue.
+		dialogues.SupportedFeatures(self.mainWindow)
+	
 	
 	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
@@ -798,7 +802,8 @@ class mainWindow:
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
-		        "on_mnuiQueue_toggled" : self.toggleQueueWindow }
+		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
+		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Add the queue to the queue box.
