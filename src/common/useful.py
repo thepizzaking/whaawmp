@@ -22,7 +22,7 @@ import os, gobject, sys
 # Nice variables.
 sName = 'whaawmp'
 lName = _('Whaaw! Media Player')
-version = '0.2.5'
+version = '0.2.7'
 origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
