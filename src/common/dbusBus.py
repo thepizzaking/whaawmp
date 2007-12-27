@@ -56,13 +56,12 @@ class IntObject(dbus.service.Object):
 		dbus.service.Object.__init__(self, name, "/IntObject")
 		self.main = mainWindow
 	
-	@dbus.service.method("org.gna.whaawmp", "s", "b")
-	def playFile(self, file):
+	@dbus.service.method("org.gna.whaawmp", "si", "b")
+	def playFile(self, file, cfgOption):
 		# Plays a file depending on the configured action,
 		# (returns False if the other process should not quit).
 		
-		
-		cfgOption = self.cfg.getInt('misc/onextnewfile')
+		if (cfgOption not in range(3)): cfgOption = self.cfg.getInt('misc/onextnewfile')
 		if (cfgOption == 0):
 			# 0 - Force play even if it's already playing.
 			self.main.playFile(file)
@@ -130,14 +129,21 @@ class initBus:
 		# If it gets to here, whaawmp is already running.
 		print _("%s is already running." % useful.lName)
 		
-		for x in args:
-			# Play all the files passed.
-			if (self.iface.playFile(x)):
-				# Return of True = I've handled it, you can now quit.
-				self.quitAfter = True
-			else:
-				# Return of False = You handle it!
-				return
+		if (len(args) > 0):
+			# Get the play behaviour so we know what to do with the files.
+			playBehaviour = -1
+			if (options.forceNow): playBehaviour = 0
+			if (options.forceQueue): playBehaviour = 1
+			if (options.forceNewWin): playBehaviour = 2
+		
+			for x in args:
+				# Play all the files passed.
+				if (self.iface.playFile(x, playBehaviour)):
+					# Return of True = I've handled it, you can now quit.
+					self.quitAfter = True
+				else:
+					# Return of False = You handle it!
+					return
 		
 		if options.togglePlayPause:
 			# Toggle play/pause.

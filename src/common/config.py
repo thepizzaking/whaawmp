@@ -137,6 +137,14 @@ class clparser:
 		self.parser.add_option("--new", dest="forceNewWin",
 		                       action="store_true", default=False,
 		                       help=_("Forces a new window if %s is already running" % useful.lName))
+		# Forces the file passed to be queued in a previous whaawmp process.
+		self.parser.add_option("--queue", dest="forceQueue",
+		                       action="store_true", default=False,
+		                       help=_("Forces the file passed to be queued if %s is already running" % useful.lName))
+		# Forces the file to be played immediately in a previous whaawmp process.
+		self.parser.add_option("--now", dest="forceNow",
+		                       action="store_true", default=False,
+		                       help=_("Forces the file to be played now in a previous %s process" % useful.lName))
 		# Toggles play/pause on an already running process.
 		self.parser.add_option("-t", "--play-pause", dest="togglePlayPause",
 		                       action="store_true", default=False,
