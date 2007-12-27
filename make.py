@@ -92,7 +92,7 @@ class dataInstall(install_data):
 
 # A list of tuples containing all the data files & their destinations.
 data = [('share/whaawmp/glade', glob.glob('glade/*.glade')),
-        ('share/whaawmp/images', glob.glob('images/*.svg')),
+        ('share/whaawmp/images', (glob.glob('images/*.png') + glob.glob('images/*.svg'))),
         ('share/pixmaps', ['images/whaawmp.svg']),
         ('share/applications', ['whaawmp.desktop']),
         ('share/thumbnailers', ['whaaw-thumbnailer.desktop']),
@@ -100,7 +100,7 @@ data = [('share/whaawmp/glade', glob.glob('glade/*.glade')),
 
 # The actual setup thing, mostly self explanatory.
 setup(name="whaawmp", fullname="Whaaw! Media Player",
-      version='0.2.5',
+      version='0.2.6',
       description='Whaaw! Media Player',
       author='Jeff Bailes',
       author_email='thepizzaking@gmail.com',

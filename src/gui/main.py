@@ -17,7 +17,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os, urllib
+import sys, os, signal, urllib, urlparse
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
@@ -29,6 +29,7 @@ from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
 from common import mutagenTagger as tagger
+from common import dbusBus as msgBus
 from common.config import cfg
 from common.gstPlayer import player
 
@@ -47,11 +48,12 @@ class mainWindow:
 		x, y, w, h = event.area
 		
 		# Let the whole thing be drawn upon.
-		widget.window.draw_drawable(widget.get_style().bg_gc[gtk.STATE_NORMAL],
+		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		widget.window.draw_drawable(colour,
 		                            self.pixmap, x, y, x, y, w, h)
 		
 		# If we're not playing, configure the player accordingly.
-		if (not player.playingVideo()): self.videoWindowOnStop()
+		if (self.videoWindowShown()): self.videoWindowOnStop()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -62,7 +64,8 @@ class mainWindow:
 		self.pixmap = gtk.gdk.Pixmap(widget.window, w, h)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
-		self.pixmap.draw_rectangle(widget.get_style().black_gc, True, 0, 0, w, h)
+		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		self.pixmap.draw_rectangle(colour, True, 0, 0, w, h)
 		# Queue the drawing area.
 		widget.queue_draw()
 	
@@ -154,7 +157,7 @@ class mainWindow:
 		self.mainWindow.fullscreen()
 	
 	# Checks if we should allow Fullscreen functions (It's 1 if it's hidden).
-	videoWindowShown = lambda self: self.videoWindow.get_allocation().height > 1
+	videoWindowShown = lambda self: self.videoWindow.get_size_request() > (1,1)
 
 	
 	def deactivateFullscreen(self):
@@ -175,11 +178,8 @@ class mainWindow:
 	
 	
 	def setImageSink(self, widget=None):
-		## Sets the image sink to 'widget' or whichever it discovers.
-		if (not widget):
-			# If no widget was passed, use the right one. (This is left from
-			# when I had a separate fullscreen window, maybe it should be fixed?)
-			widget = self.videoWindow
+		## Sets the image sink to 'widget' or the default if none passed.
+		if (not widget): widget = self.videoWindow
 		
 		# Configure the video area.
 		self.videoWindowConfigure(widget)
@@ -234,6 +234,9 @@ class mainWindow:
 		elif (event.string in ['p', 'r']):
 			# On 'p' or 'r' restart the track (almost previous).
 			self.restartTrack()
+		elif (event.string == 'q'):
+			# On 'q' show/hide the queue.
+			queue.toggle()
 
 	
 	def preparePlayer(self):
@@ -253,7 +256,8 @@ class mainWindow:
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
 			# At the end of a stream, play next item from queue.
-			self.playNext()
+			# Or stop if the queue is empty.
+			self.playNext() if (queue.length() > 0) else player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -307,8 +311,6 @@ class mainWindow:
 			if ((not player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
-			# Deactivate fullscreen.
-			if (self.fsActive()): self.deactivateFullscreen()
 			# Reset the progress bar.
 			self.progressUpdate()
 			# Clear the title.
@@ -330,9 +332,8 @@ class mainWindow:
 			h = cfg.getInt("video/hue")
 			s = cfg.getInt("video/saturation")
 			player.prepareImgSink(bus, message, far, b, c, h, s)
-			# Set the image sink to whichever viewer is active.
-			# (idle_add to stop crashes when the video window wasn't shown yet)
-			gobject.idle_add(self.setImageSink)
+			# Set the image sink.
+			self.setImageSink()
 				
 	
 	def openDroppedFiles(self, widget, context, x, y, selection_data, info, time):
@@ -342,9 +343,9 @@ class mainWindow:
 		# Clear the current queue.
 		queue.clear()
 		# Add all the items to the queue.
-		for x in uris:
-			uri = urllib.url2pathname(x)
-			queue.append(uri)
+		for uri in uris:
+			path = urllib.url2pathname(urlparse.urlparse(uri)[2])
+			queue.append(path)
 		
 		# Play the first file by calling the next function.
 		self.playNext()
@@ -375,6 +376,17 @@ class mainWindow:
 			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
+			
+			# HACK: Force embedding the video into our video window because
+			# onPlayerSyncMessage is never called in Windows.
+			if sys.platform == 'win32':
+				class C: pass
+				message = C()
+				message.src = player.player.props.video_sink
+				message.structure = C()
+				message.structure.get_name = lambda: 'prepare-xwindow-id'
+				self.onPlayerSyncMessage(None, message)
+
 			# Start the player.
 			player.play()
 		elif (file != ""):
@@ -411,8 +423,8 @@ class mainWindow:
 	def togglePlayPause(self, widget=None):
 		## Toggles the player play/pause.
 		
-		if (not player.getURI()):
-			# If there is no currently playing track.
+		if (not player.togglePlayPause()):
+			# If toggling fails:
 			# Check the queue.
 			if (queue.length()):
 				self.playNext()
@@ -420,13 +432,6 @@ class mainWindow:
 				# Otherwise show the open file dialogue.
 				self.showOpenDialogue()
 			return
-		
-		if (player.isPlaying()):
-			# If the player is playing, pause the player.
-			player.pause()
-		else:
-			# If it's already paused (or stopped with a file): play.
-			player.play()
 	
 	
 	def minuteTimer(self):
@@ -495,7 +500,7 @@ class mainWindow:
 		# Allow fullscreen.
 		self.wTree.get_widget('mnuiFS').set_sensitive(True)
 		# Show the video window.
-		self.videoWindow.show()
+		self.videoWindow.set_size_request(480, 320)
 	
 	def hideVideoWindow(self, force=False):
 		## Hides the video window.
@@ -503,7 +508,7 @@ class mainWindow:
 			# Disable fullscreen activation.
 			self.wTree.get_widget('mnuiFS').set_sensitive(False)
 			# Hide the video window.
-			self.videoWindow.hide()
+			self.videoWindow.set_size_request(1,1)
 			# Make the height of the window as small as possible.
 			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
@@ -569,6 +574,8 @@ class mainWindow:
 		player.seek(0)
 		# Update the progrss bar.
 		gobject.idle_add(self.progressUpdate)
+		# Make sure the player is playing (ie. if it was paused etc)
+		player.play()
 		
 	
 	def volumeButtonToggled(self, widget):
@@ -629,6 +636,8 @@ class mainWindow:
 		if (cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
+			# Deactivate fullscreen if it's active.
+			if (self.fsActive()): self.deactivateFullscreen()
 		else:
 			self.showVideoWindow()
 			self.drawvideoWindowImage()
@@ -636,6 +645,7 @@ class mainWindow:
 	
 	def drawvideoWindowImage(self):
 		## Draws the background image.
+		if (sys.platform == 'win32'): return
 		# Get the width & height of the videoWindow.
 		alloc = self.videoWindow.get_allocation()
 		w = alloc.width
@@ -653,7 +663,7 @@ class mainWindow:
 			y1 = 0
 		
 		# Get the image's path, chuck it into a pixbuf, then draw it!
-		image = os.path.join(useful.dataDir, 'images', 'whaawmpL.svg')
+		image = os.path.join(useful.dataDir, 'images', 'whaawmp.svg')
 		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
 		self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
@@ -700,8 +710,13 @@ class mainWindow:
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
 	def toggleQueueWindow(self, widget):
+		toShow = widget.get_active()
 		# Toggle the queue window according to what the menu item is set to.
-		queue.toggle(widget.get_active())
+		queue.toggle(toShow)
+		if (not toShow):
+			# Shrink the window if we're closing the queue.
+			qwinHeight = queue.qwin.get_allocation().height
+			useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
 	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
@@ -727,6 +742,15 @@ class mainWindow:
 	# Just a transfer call as player.stop takes only 1 argument.
 	stopPlayer = lambda self, widget: player.stop()
 	
+	def sigterm(self,num,frame):
+		# Quit when sigterm signal caught.
+		print _("TERM signal caught, exiting.")
+		self.quit()
+	
+	def openSupFeaturesDlg(self, widget):
+		# Shows the supported features dialogue.
+		dialogues.SupportedFeatures(self.mainWindow)
+	
 	
 	def __init__(self, main, options, args):
 		# Set the last folder to the directory from which the program was called.
@@ -739,6 +763,10 @@ class mainWindow:
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
+		# Connect up the sigterm signal.
+		signal.signal(signal.SIGTERM, self.sigterm)
+		
+		if msgBus.avail: self.dbus = msgBus.IntObject(self)
 		
 		windowname = "main"
 		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
@@ -774,8 +802,12 @@ class mainWindow:
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
-		        "on_mnuiQueue_toggled" : self.toggleQueueWindow }
+		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
+		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg }
 		self.wTree.signal_autoconnect(dic)
+		
+		# Add the queue to the queue box.
+		self.wTree.get_widget("queueBox").pack_start(queue.qwin)
 		
 		# Get several items for access later.
 		self.mainWindow = self.wTree.get_widget(windowname)
@@ -786,7 +818,7 @@ class mainWindow:
 		self.hboxVideo = self.wTree.get_widget("hboxVideo")
 		queue.mnuiWidget = self.wTree.get_widget("mnuiQueue")
 		# Set the icon.
-		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp.svg'))
+		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
 		# Create a tooltips instance for use in the code.
 		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
@@ -810,9 +842,8 @@ class mainWindow:
 		self.mainWindow.show()
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
-			for x in args:
-				# For all the files, add them to the queue.
-				queue.append(x if ('://' in x) else os.path.abspath(x))
+			# Append all tracks to the queue.
+			queue.appendMany(args)
 			# Then play the next track.
 			self.playNext()
 		else:

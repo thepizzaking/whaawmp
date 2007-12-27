@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.0 on Thu Oct 11 22:37:09 2007 -->
+<!--Generated with glade3 3.4.1 on Mon Dec 24 16:31:30 2007 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -149,7 +149,7 @@
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="tooltip" translatable="yes">View and edit the current queue</property>
-                            <property name="label" translatable="yes">Queue</property>
+                            <property name="label" translatable="yes">_Queue</property>
                             <property name="use_underline">True</property>
                             <signal name="toggled" handler="on_mnuiQueue_toggled"/>
                           </widget>
@@ -233,6 +233,15 @@
                                 <property name="icon_size">1</property>
                               </widget>
                             </child>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkMenuItem" id="mnuiSupFeatures">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Supported Features</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiSupFeatures_activate"/>
                           </widget>
                         </child>
                         <child>
@@ -326,8 +335,7 @@
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
             <child>
               <widget class="GtkDrawingArea" id="videoWindow">
-                <property name="width_request">480</property>
-                <property name="height_request">320</property>
+                <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_SCROLL_MASK</property>
                 <signal name="leave_notify_event" handler="on_videoWindow_leave_notify_event"/>
                 <signal name="expose_event" handler="on_videoWindow_expose_event"/>
@@ -342,6 +350,20 @@
           </widget>
           <packing>
             <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="GtkHBox" id="queueBox">
+            <property name="visible">True</property>
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <placeholder/>
+            </child>
+          </widget>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
           </packing>
         </child>
         <child>
@@ -469,7 +491,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">2</property>
+            <property name="position">3</property>
           </packing>
         </child>
         <child>
@@ -480,7 +502,7 @@
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="position">3</property>
+            <property name="position">4</property>
           </packing>
         </child>
       </widget>
@@ -657,6 +679,72 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </packing>
                 </child>
                 <child>
+                  <widget class="GtkHBox" id="hbox6">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <child>
+                      <widget class="GtkLabel" id="label11">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Upon opening new file:</property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkComboBox" id="cmbOnExtNewFile">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="tooltip" translatable="yes">The action to take when another Whaaw! Media Player process is requested to open a file.</property>
+                        <property name="items" translatable="yes">Play Immediately
+Add to end of queue
+Play in separate process</property>
+                        <signal name="changed" handler="on_cmbOnExtNewFile_changed"/>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">6</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkHBox" id="hbox5">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <child>
+                      <widget class="GtkLabel" id="label10">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Tag Display Syntax: </property>
+                      </widget>
+                      <packing>
+                        <property name="expand">False</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <widget class="GtkEntry" id="entTagSyntax">
+                        <property name="visible">True</property>
+                        <property name="can_focus">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="tooltip" translatable="yes">Syntax for how to display the tags, encapsulate a tag name in {}.</property>
+                        <signal name="changed" handler="on_entry_changed"/>
+                      </widget>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">7</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="GtkHBox" id="hbox1">
                     <property name="visible">True</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -688,7 +776,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">6</property>
+                    <property name="position">8</property>
                   </packing>
                 </child>
                 <child>
@@ -723,39 +811,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">7</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkHBox" id="hbox5">
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <child>
-                      <widget class="GtkLabel" id="label10">
-                        <property name="visible">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="label" translatable="yes">Tag Display Syntax: </property>
-                      </widget>
-                      <packing>
-                        <property name="expand">False</property>
-                      </packing>
-                    </child>
-                    <child>
-                      <widget class="GtkEntry" id="entTagSyntax">
-                        <property name="visible">True</property>
-                        <property name="can_focus">True</property>
-                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <property name="tooltip" translatable="yes">Syntax for how to display the tags, encapsulate a tag name in {}.</property>
-                        <signal name="changed" handler="on_entry_changed"/>
-                      </widget>
-                      <packing>
-                        <property name="position">1</property>
-                      </packing>
-                    </child>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">8</property>
+                    <property name="position">9</property>
                   </packing>
                 </child>
               </widget>

@@ -22,7 +22,7 @@ try:
 	# Try and import mutagen.
 	import mutagen
 	avail = True
-except:
+except ImportError:
 	# If it fails, print an error message.
 	print _("Mutagen not available, all tagging fetures will be unavailable")
 	avail = False
@@ -30,24 +30,40 @@ except:
 import useful
 from common.config import cfg
 
+tagDic = {}
 
 def getTags(file):
-	# Try and return the dictionary of tags.
+	# Check the file exists.
+	if (file is None): return {}
+	# Get the path (not URI bit)
+	if (file.startswith('file://')): file = file[7:]
+	# Get the modification time so if it changes we can re-read the tags.
+	modtime = os.stat(file).st_mtime
 	try:
-		return mutagen.File(file, tagType(file))
-	except:
-		return {}
+		# Try to get the tags from a dictionary cache.
+		return tagDic[(file, modtime)]
+	except KeyError:
+		try:
+			# If they weren't in the cache, try to get the tags through mutagen.
+			tags = mutagen.File(file, tagType(file))
+		except:
+			# If that fails too, just use an empty dictionary.
+			tags = {}
+		# Save the tags to the dictionary and return them.
+		tagDic[(file, modtime)] = tags
+		return tags
 
-def getTag(tags, tag):
+
+def getTag(file, tag):
 	try:
-		return tags[tag]
+		return getTags(file)[tag]
 	except:
 		return []
 
-def getSTag(tags, tag):
+def getSTag(file, tag):
 	## Gets a single tag.
 	# Get the list of tags.
-	tagsi = getTag(tags, tag)
+	tagsi = getTag(file, tag)
 	# If it's empty, return None.
 	if (tagsi == []): return None
 	# Otherwise, return the first item.
@@ -57,20 +73,17 @@ def getDispTitle(file):
 	## Gets the (window) title to be displayed from Tags / filename.
 	# If no file was passed, return an empty string. 
 	if (not file): return ""
-	# Remove any file:// first.
-	if (file.startswith('file:///')): file = file[7:]
 	# Initialise the winTitle to empty.
 	winTitle = ""
 	# If the tagger is available.
 	if avail:
-		# Get all the tags.
-		tags = getTags(file)
 		# Flag that no tags have been added.
 		noneAdded = True
 		for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
 			# For all the items in the list produced by tagsToTuple.
 			# New string = the associated tag if it's a tag, otherwise just the string.
-			nStr = getSTag(tags, x[1]) if (x[0]) else x[1]
+			# Remember in each x, [0] is True if [1] is a tag, False if it's not.
+			nStr = getSTag(file, x[1]) if (x[0]) else x[1]
 			if (nStr):
 				# If there was a string.
 				# Flag that a tag has been added if it's a tag.
@@ -100,8 +113,9 @@ def tagType(file):
 	from mutagen.oggtheora import OggTheora
 	from mutagen.oggvorbis import OggVorbis
 	# Make a dictionary for easy access to types.
-	dic = { 'ogg' : [OggFLAC, OggSpeex, OggTheora, OggVorbis],
-	        'ogv' : [OggTheora],
+	# TODO: Add OggTheora to ogg & ogv again, if it's no-longer slow.
+	dic = { 'ogg' : [OggFLAC, OggSpeex, OggVorbis],
+	        'ogv' : [OggFLAC, OggSpeex, OggVorbis],
 	        'oga' : [OggFLAC, OggSpeex, OggVorbis] }
 	# Return the tag type, otherwise return None (which will check everything)
 	try:

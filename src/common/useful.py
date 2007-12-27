@@ -22,7 +22,7 @@ import os, gobject, sys
 # Nice variables.
 sName = 'whaawmp'
 lName = _('Whaaw! Media Player')
-version = '0.2.5'
+version = '0.2.6'
 origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
@@ -99,3 +99,22 @@ hiddenCursorPix = """/* XPM */
     		         "1 1 1 1",
     		         "       c None",
     				 " "};"""
+
+# Modify a window's height by a set amount.
+def modifyWinHeight(window, change):
+	(w, h) = window.get_size()
+	window.resize(w, h + change)
+
+# Convert tags to a readable string.
+def tagsToStr(tags):
+	str = ""
+	for x in tags:
+		# For all the items in the dictionary, add them to the string.
+		str += '\t' + x + ':\n'
+		for y in tags[x]:
+			# Add all strings in the list too.
+			str += '\t\t' + y + '\n'
+	return str
+
+# Convert a version tuple to a sting.
+verTupleToStr = lambda tuple: '.'.join(map(str, tuple))

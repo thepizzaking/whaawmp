@@ -133,4 +133,43 @@ class clparser:
 		self.parser.add_option("-q", "--quit", dest="quitOnEnd",
 		                       action="store_true", default=False,
 		                       help=_("Quits the player when the playing stream stops"))
-		
+		# Forces a new window if whaawmp is already running.
+		self.parser.add_option("--new", dest="forceNewWin",
+		                       action="store_true", default=False,
+		                       help=_("Forces a new window if %s is already running" % useful.lName))
+		# Forces the file passed to be queued in a previous whaawmp process.
+		self.parser.add_option("--queue", dest="forceQueue",
+		                       action="store_true", default=False,
+		                       help=_("Forces the file passed to be queued if %s is already running" % useful.lName))
+		# Forces the file to be played immediately in a previous whaawmp process.
+		self.parser.add_option("--now", dest="forceNow",
+		                       action="store_true", default=False,
+		                       help=_("Forces the file to be played now in a previous %s process" % useful.lName))
+		# Toggles play/pause on an already running process.
+		self.parser.add_option("-t", "--play-pause", dest="togglePlayPause",
+		                       action="store_true", default=False,
+		                       help=_("Toggles play/pause on an already running %s process" % useful.lName))
+		# Starts the player (of previous process).
+		self.parser.add_option("--play", dest="play",
+		                       action="store_true", default=False,
+		                       help=_("Starts the player in an already running %s process" % useful.lName))
+		# Pause the player (of previous process).
+		self.parser.add_option("--pause", dest="pause",
+		                       action="store_true", default=False,
+		                       help=_("Pauses the player in an already running %s process" % useful.lName))
+		# Stop the player (of previous process).
+		self.parser.add_option("--stop", dest="stop",
+		                       action="store_true", default=False,
+		                       help=_("Stops the player in an already running %s process" % useful.lName))
+		# Play the next track in the queue.
+		self.parser.add_option("--next", dest="next",
+		                       action="store_true", default=False,
+		                       help=_("Skips to the next track in an already running %s process" % useful.lName))
+		# Restart the playing track.
+		self.parser.add_option("--previous", "--restart", dest="prev",
+		                       action="store_true", default=False,
+		                       help=_("Restarts the current track in an already running %s process" % useful.lName))
+		# Query the informations of current track.
+		self.parser.add_option("--query", dest="query",
+		                       action="store_true", default=False,
+		                       help=_("Querys the current track in an already running %s process" % useful.lName))

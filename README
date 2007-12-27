@@ -25,3 +25,8 @@ To run it afterwards, use whaawmp to start Whaaw! Media Player.
 
 Any queries see the FAQ: http://home.gna.org/whaawmp/faq.html
 Otherwise, see me on irc: #whaawmp on irc://irc.oftc.net
+
+### NOTE ###
+If you are experiencing random lockups, it's possibly due to the
+screensaver disable command, for more information:
+http://gna.org/cookbook/?func=detailitem&item_id=286

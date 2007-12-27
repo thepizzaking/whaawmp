@@ -1,4 +1,4 @@
-# German translation for whaawmp
+# English (United States) translation for whaawmp
 # Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
 # This file is distributed under the same license as the whaawmp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
@@ -8,9 +8,9 @@ msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2007-10-13 22:47+1000\n"
-"PO-Revision-Date: 2007-10-20 13:01+0000\n"
+"PO-Revision-Date: 2007-10-13 11:18+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: German <de@li.org>\n"
+"Language-Team: English (United States) <en_US@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,152 +19,142 @@ msgstr ""
 
 #: ../src/thumbnailer.py:66
 msgid " [options] -o output-file input-file"
-msgstr " [Optionen] -o Ausgabedatei Eingabedatei"
+msgstr " [options] -o output-file input-file"
 
 #: ../src/thumbnailer.py:71
 msgid "The file to create the thumbnail of"
-msgstr "Die Datei aus der das Miniaturbild erstellt werden soll"
+msgstr "The file to create the thumbnail of"
 
 #: ../src/thumbnailer.py:75
 msgid "The destination of the resulting thumbnail"
-msgstr ""
+msgstr "The destination of the resulting thumbnail"
 
 #: ../src/thumbnailer.py:79
-#, fuzzy
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
-msgstr ""
-"Die Position (der Teil) aus dem das Miniaturbild geholt werden soll "
-"(Standard ist 0.3)"
+msgstr "The position (Fraction) to take the thumbnail from (default 0.3)"
 
 #: ../src/thumbnailer.py:83
 msgid "The destination size (in pixels)"
-msgstr "The Zeilgröß (in Pixeln)"
+msgstr "The destination size (in pixels)"
 
 #: ../src/thumbnailer.py:93
 msgid "Sorry, an input and output file are required to be passed."
-msgstr ""
-"Entschuldigung, eine Eingabe und eine Ausgabedatei werden benötigt um "
-"fortzufahren"
+msgstr "Sorry, an input and output file are required to be passed."
 
 #: ../src/thumbnailer.py:94
 #, python-format
 msgid "See '%s --help' for details"
-msgstr "Siehe '%s --help'  für Details"
+msgstr "See '%s --help' for details"
 
 #: ../src/thumbnailer.py:101
 msgid "The requested position must be between 0 and 1, using 0.3."
-msgstr "Die angeforderte Position muss zwischen 0 und 1 sein, benutze 0.3"
+msgstr "The requested position must be between 0 and 1, using 0.3."
 
 #: ../src/thumbnailer.py:158
-#, fuzzy
 msgid "Stream returned no caps, exiting"
-msgstr "Der Stream hat keine Caps zurückgegeben, beendend"
+msgstr "Stream returned no caps, exiting"
 
 #: ../src/thumbnailer.py:185
 msgid "An error occurred"
-msgstr "Ein Fehler ist aufgetreten"
+msgstr "An error occurred"
 
 #: ../src/thumbnailer.py:201
 msgid "There are no video tracks in this stream, exiting."
-msgstr "Es gibt keine Videotracks in diesem Stream, beendend."
+msgstr "There are no video tracks in this stream, exiting."
 
 #: ../src/thumbnailer.py:207
-#, fuzzy
 msgid "Duration unable to be read, exiting."
-msgstr "Es ist unmöglich die Zeit zu lesen, beendend."
+msgstr "Duration unable to be read, exiting."
 
 #: ../src/thumbnailer.py:220
 msgid "Unable to seek to requested position, exiting."
-msgstr "Unmöglich die geforderte Position zu finden, beendend."
+msgstr "Unable to seek to requested position, exiting."
 
 #: ../src/whaawmp.py:30
 msgid "Cannot continue, python version must be at least 2.5."
-msgstr "Kann nicht fortfahren, Python muss mindestend Version 2.5 haben,"
+msgstr "Cannot continue, python version must be at least 2.5."
 
 #: ../src/whaawmp.py:65
 msgid " [options] filename"
-msgstr " [optionen] Deteiname"
+msgstr " [options] filename"
 
 #: ../src/gui/__init__.py:27
 msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
-msgstr ""
-"Kann nicht fortfahren, pygtk ist nicht installiert (Version 2.10 wird "
-"benötigt)"
+msgstr "Cannot continue, pygtk is not installed (version 2.10 required)"
 
 #: ../src/gui/__init__.py:30
 msgid "Cannot continue, X server not found!"
-msgstr "Kann nicht fortfahren, der X Server wurde nicht gefunden!"
+msgstr "Cannot continue, X server not found!"
 
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
-msgstr "Kann nicht forfahren, das Programm benötigt mindestens GTK+ 2.10."
+msgstr "Cannot continue, this program requires at least GTK+ 2.10 to run."
 
 #: ../src/gui/dialogues.py:56
 msgid "Choose a file to Open"
-msgstr "Wähle eine datei zum Öffnen"
+msgstr "Choose a file to Open"
 
 #: ../src/gui/dialogues.py:65
 msgid "Supported Media"
-msgstr "Unterstüzte Medienformate"
+msgstr "Supported Media"
 
 #: ../src/gui/dialogues.py:71
 msgid "All Files"
-msgstr "Alle Dateien"
+msgstr "All Files"
 
 #: ../src/gui/dialogues.py:91 ../glade/whaawmp.glade.h:26
 msgid "Play DVD"
-msgstr "DVD abspielen"
+msgstr "Play DVD"
 
 #: ../src/gui/dialogues.py:96
 msgid "Select options:"
-msgstr "Wähle Optionen aus:"
+msgstr "Select options:"
 
 #: ../src/gui/dialogues.py:98
 msgid "Title: "
-msgstr "Titel: "
+msgstr "Title: "
 
 #: ../src/gui/dialogues.py:143
 msgid "Open a URI"
-msgstr "Öffne eine URI"
+msgstr "Open a URI"
 
 #: ../src/gui/dialogues.py:148
 msgid "Enter the URI:"
-msgstr "Gebe eine URI ein"
+msgstr "Enter the URI:"
 
 #: ../src/gui/dialogues.py:180
 msgid "Select Tracks"
-msgstr "Wähle Kapitel aus"
+msgstr "Select Tracks"
 
 #: ../src/gui/dialogues.py:184
 msgid "Audio:"
-msgstr "Ton:"
+msgstr "Audio:"
 
 #: ../src/gui/dialogues.py:218 ../src/gui/main.py:262
 msgid "Error!"
-msgstr "Fehler!"
+msgstr "Error!"
 
 #: ../src/gui/dialogues.py:226
 msgid "Message"
-msgstr "Nachricht"
+msgstr "Message"
 
 #: ../src/gui/main.py:382
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
-msgstr "Etwas lief falsch, es gibt keine Datei: %s"
+msgstr ""
 
 #: ../src/gui/main.py:599
 msgid "Pause"
-msgstr "Pause"
+msgstr ""
 
 #: ../src/gui/main.py:599
 msgid "Play"
-msgstr "Wiedergabe"
+msgstr ""
 
 #: ../src/gui/main.py:713
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
-"%s nicht gefunden, Links & Emailadressen werden nicht anklickbar sein"
 
 #: ../src/gui/main.py:725
 #, python-format
@@ -172,42 +162,36 @@ msgid ""
 "Could not execute browser command (via %s).\n"
 "Please manually visit %s to report the problem"
 msgstr ""
-"Konnte den Browser nicht starten (via %s).\n"
-"Biite besuche manuell %s um das Problem zu berichten."
 
 #: ../src/gui/queue.py:124 ../glade/whaawmp.glade.h:28
 msgid "Queue"
-msgstr "Liste"
+msgstr ""
 
 #: ../src/gui/queue.py:135
 msgid "Queued Tracks:"
-msgstr "Angereihte Kapitel:"
+msgstr ""
 
 #: ../src/gui/queue.py:164
 msgid "Clear Queue"
-msgstr "Lösche die Liste"
+msgstr ""
 
 #: ../src/gui/queue.py:165
 msgid "Remove item from Queue"
-msgstr "Lösche den Eintrag aus der Liste"
+msgstr ""
 
 #: ../src/common/config.py:39
-#, fuzzy
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
 msgstr ""
-"Aghh! Es gab kein \"/\" in den Optionen. Das ist ein Bug! Berichte ihn "
-"bitte!\n"
-"Ein Fehler ist im Verhältnis zur unbekannten Gruppe aufgetreten."
 
 #: ../src/common/config.py:111
 msgid "Print the version and exit"
-msgstr "Drucke die Version aus und beende das Programm"
+msgstr ""
 
 #: ../src/common/config.py:115
 msgid "Play the file in fullscreen mode"
-msgstr "spiele die Datei im Vollbildmodus ab"
+msgstr ""
 
 #: ../src/common/config.py:119
 msgid "Sets the player's volume to VOL (0-100)"
@@ -215,7 +199,7 @@ msgstr ""
 
 #: ../src/common/config.py:123
 msgid "Mute the player"
-msgstr "Schaltet den Player stumm"
+msgstr ""
 
 #: ../src/common/config.py:127
 msgid "Sets the player's audio ouput to SINK"
@@ -231,7 +215,7 @@ msgstr ""
 
 #: ../src/common/gstTools.py:76
 msgid "Unknown"
-msgstr "unbekannt"
+msgstr ""
 
 #: ../src/common/mutagenTagger.py:27
 msgid "Mutagen not available, all tagging fetures will be unavailable"
@@ -239,11 +223,11 @@ msgstr ""
 
 #: ../src/common/useful.py:24
 msgid "Whaaw! Media Player"
-msgstr "Whaaw! Media Player"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:1
 msgid "About Whaaw! Media Player"
-msgstr "Über Whaaw! Media Player"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:2
 msgid "Add current file's tags/name to Title"
@@ -277,11 +261,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:9
 msgid "Brightness:"
-msgstr "Helligkeit:"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:10
 msgid "Contrast:"
-msgstr "Kontrast:"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:11
 msgid "Current player volume"
@@ -289,11 +273,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:12
 msgid "Disable Screensaver"
-msgstr "Bildschirmschoner deaktivieren"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:13
 msgid "Disable Screensaver whilst playing a video."
-msgstr "Bildschirmschoner deaktivieren, während Video gespielt wird"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:14
 msgid "Enable Visualisations (Requires stream restart)"
@@ -345,7 +329,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:27
 msgid "Preferences"
-msgstr "Einstellungen"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:29
 msgid "Quit on Stop"
@@ -471,7 +455,4 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Friedrich Weber https://launchpad.net/~fredreichbier\n"
-"  Thomas https://launchpad.net/~tux12345\n"
-"  joghurt https://launchpad.net/~joghurt\n"
-"  pano https://launchpad.net/~pano90"
+"  Johannes Sasongko https://launchpad.net/~sjohannes"
