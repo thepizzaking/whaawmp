@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2007-10-13 22:47+1000\n"
-"PO-Revision-Date: 2007-10-20 13:01+0000\n"
+"POT-Creation-Date: 2007-12-28 10:18+1100\n"
+"PO-Revision-Date: 2007-12-30 13:03+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2007-12-06 09:28+0000\n"
+"X-Launchpad-Export-Date: 2007-12-30 19:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../src/thumbnailer.py:66
@@ -81,7 +81,7 @@ msgstr "Unmöglich die geforderte Position zu finden, beendend."
 msgid "Cannot continue, python version must be at least 2.5."
 msgstr "Kann nicht fortfahren, Python muss mindestend Version 2.5 haben,"
 
-#: ../src/whaawmp.py:65
+#: ../src/whaawmp.py:66
 msgid " [options] filename"
 msgstr " [optionen] Deteiname"
 
@@ -99,74 +99,98 @@ msgstr "Kann nicht fortfahren, der X Server wurde nicht gefunden!"
 msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
 msgstr "Kann nicht forfahren, das Programm benötigt mindestens GTK+ 2.10."
 
-#: ../src/gui/dialogues.py:56
+#: ../src/gui/dialogues.py:58
 msgid "Choose a file to Open"
 msgstr "Wähle eine datei zum Öffnen"
 
-#: ../src/gui/dialogues.py:65
+#: ../src/gui/dialogues.py:67
 msgid "Supported Media"
 msgstr "Unterstüzte Medienformate"
 
-#: ../src/gui/dialogues.py:71
+#: ../src/gui/dialogues.py:73
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../src/gui/dialogues.py:91 ../glade/whaawmp.glade.h:26
+#: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:26
 msgid "Play DVD"
 msgstr "DVD abspielen"
 
-#: ../src/gui/dialogues.py:96
+#: ../src/gui/dialogues.py:98
 msgid "Select options:"
 msgstr "Wähle Optionen aus:"
 
-#: ../src/gui/dialogues.py:98
+#: ../src/gui/dialogues.py:100
 msgid "Title: "
 msgstr "Titel: "
 
-#: ../src/gui/dialogues.py:143
+#: ../src/gui/dialogues.py:145
 msgid "Open a URI"
 msgstr "Öffne eine URI"
 
-#: ../src/gui/dialogues.py:148
+#: ../src/gui/dialogues.py:150
 msgid "Enter the URI:"
 msgstr "Gebe eine URI ein"
 
-#: ../src/gui/dialogues.py:180
+#: ../src/gui/dialogues.py:182
 msgid "Select Tracks"
 msgstr "Wähle Kapitel aus"
 
-#: ../src/gui/dialogues.py:184
+#: ../src/gui/dialogues.py:186
 msgid "Audio:"
 msgstr "Ton:"
 
-#: ../src/gui/dialogues.py:218 ../src/gui/main.py:262
+#: ../src/gui/dialogues.py:220 ../src/gui/main.py:266
 msgid "Error!"
 msgstr "Fehler!"
 
-#: ../src/gui/dialogues.py:226
+#: ../src/gui/dialogues.py:228
 msgid "Message"
 msgstr "Nachricht"
 
-#: ../src/gui/main.py:382
+#: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:43
+msgid "Supported Features"
+msgstr ""
+
+#: ../src/gui/dialogues.py:258
+msgid "Mutagen Tagging"
+msgstr ""
+
+#: ../src/gui/dialogues.py:259
+msgid "Dbus Message Bus"
+msgstr ""
+
+#: ../src/gui/dialogues.py:272
+msgid "Available"
+msgstr "Verfügbar"
+
+#: ../src/gui/dialogues.py:272
+msgid "Unavailable"
+msgstr "Nicht verfügbar"
+
+#: ../src/gui/dialogues.py:276
+msgid "Library Versions:"
+msgstr "Bibliotheksversion:"
+
+#: ../src/gui/main.py:394
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr "Etwas lief falsch, es gibt keine Datei: %s"
 
-#: ../src/gui/main.py:599
+#: ../src/gui/main.py:606
 msgid "Pause"
 msgstr "Pause"
 
-#: ../src/gui/main.py:599
+#: ../src/gui/main.py:606
 msgid "Play"
 msgstr "Wiedergabe"
 
-#: ../src/gui/main.py:713
+#: ../src/gui/main.py:728
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
 "%s nicht gefunden, Links & Emailadressen werden nicht anklickbar sein"
 
-#: ../src/gui/main.py:725
+#: ../src/gui/main.py:740
 #, python-format
 msgid ""
 "Could not execute browser command (via %s).\n"
@@ -175,19 +199,19 @@ msgstr ""
 "Konnte den Browser nicht starten (via %s).\n"
 "Biite besuche manuell %s um das Problem zu berichten."
 
-#: ../src/gui/queue.py:124 ../glade/whaawmp.glade.h:28
-msgid "Queue"
-msgstr "Liste"
+#: ../src/gui/main.py:747
+msgid "TERM signal caught, exiting."
+msgstr "TERM-Signal empfangen, beende."
 
-#: ../src/gui/queue.py:135
+#: ../src/gui/queue.py:157
 msgid "Queued Tracks:"
 msgstr "Angereihte Kapitel:"
 
-#: ../src/gui/queue.py:164
+#: ../src/gui/queue.py:183
 msgid "Clear Queue"
 msgstr "Lösche die Liste"
 
-#: ../src/gui/queue.py:165
+#: ../src/gui/queue.py:184
 msgid "Remove item from Queue"
 msgstr "Lösche den Eintrag aus der Liste"
 
@@ -211,7 +235,7 @@ msgstr "spiele die Datei im Vollbildmodus ab"
 
 #: ../src/common/config.py:119
 msgid "Sets the player's volume to VOL (0-100)"
-msgstr ""
+msgstr "Setze die Lautstärke auf VOL (0-100)"
 
 #: ../src/common/config.py:123
 msgid "Mute the player"
@@ -225,8 +249,86 @@ msgstr ""
 msgid "Sets the player's video ouput to SINK"
 msgstr ""
 
-#: ../src/common/config.py:135 ../glade/whaawmp.glade.h:30
+#: ../src/common/config.py:135 ../glade/whaawmp.glade.h:32
 msgid "Quits the player when the playing stream stops"
+msgstr ""
+
+#: ../src/common/config.py:139
+#, python-format
+msgid "Forces a new window if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:143
+#, python-format
+msgid "Forces the file passed to be queued if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:147
+#, python-format
+msgid "Forces the file to be played now in a previous %s process"
+msgstr ""
+
+#: ../src/common/config.py:151
+#, python-format
+msgid "Toggles play/pause on an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:155
+#, python-format
+msgid "Starts the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:159
+#, python-format
+msgid "Pauses the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:163
+#, python-format
+msgid "Stops the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:167
+#, python-format
+msgid "Skips to the next track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:171
+#, python-format
+msgid "Restarts the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:175
+#, python-format
+msgid "Querys the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/dbusBus.py:30
+msgid "Dbus import failed, dbus features will be unavailable"
+msgstr ""
+
+#: ../src/common/dbusBus.py:112
+#, python-format
+msgid ""
+"Tags of %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:130
+#, python-format
+msgid "%s is already running."
+msgstr ""
+
+#: ../src/common/dbusBus.py:151
+msgid "Toggle of Play/Pause failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:157
+msgid "Play failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:163
+msgid "Pause failed, not file is currently open."
 msgstr ""
 
 #: ../src/common/gstTools.py:76
@@ -344,130 +446,151 @@ msgid "Open URI"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:27
+msgid ""
+"Play Immediately\n"
+"Add to end of queue\n"
+"Play in separate process"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:30
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../glade/whaawmp.glade.h:29
+#: ../glade/whaawmp.glade.h:31
 msgid "Quit on Stop"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:31
+#: ../glade/whaawmp.glade.h:33
 msgid "Report a bug to the Bugtracker"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:32
+#: ../glade/whaawmp.glade.h:34
 msgid "Reset all adjustments to 0"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:33
+#: ../glade/whaawmp.glade.h:35
 msgid "Restart Track"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:34
+#: ../glade/whaawmp.glade.h:36
 msgid "Restore Defaults"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:35
+#: ../glade/whaawmp.glade.h:37
 msgid "Saturation:"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:36
+#: ../glade/whaawmp.glade.h:38
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:37
+#: ../glade/whaawmp.glade.h:39
 msgid "Show Time Remaining"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:38
+#: ../glade/whaawmp.glade.h:40
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:39
+#: ../glade/whaawmp.glade.h:41
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted)."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:40
+#: ../glade/whaawmp.glade.h:42
 msgid "Stop"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:41
+#: ../glade/whaawmp.glade.h:44
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:42
+#: ../glade/whaawmp.glade.h:45
 msgid "Tag Display Syntax: "
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:43
+#: ../glade/whaawmp.glade.h:46
+msgid ""
+"The action to take when another Whaaw! Media Player process is requested to "
+"open a file."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:47
 msgid ""
 "The amount to change the volume by when scrolling on the video area/volume "
 "control"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:44
+#: ../glade/whaawmp.glade.h:48
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:45
+#: ../glade/whaawmp.glade.h:49
 msgid "Toggle Fullscreen"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:46
-msgid "Video"
-msgstr ""
-
-#: ../glade/whaawmp.glade.h:47
-msgid "View and edit the current queue"
-msgstr ""
-
-#: ../glade/whaawmp.glade.h:49
-msgid "Vol:"
-msgstr ""
-
 #: ../glade/whaawmp.glade.h:50
-msgid "Volume (Mute/Unmute)"
+msgid "Upon opening new file:"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:51
-msgid "Volume Change on Scroll: "
+msgid "Video"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:52
-msgid "_Edit"
-msgstr ""
-
-#: ../glade/whaawmp.glade.h:53
-msgid "_File"
+msgid "View and edit the current queue"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:54
-msgid "_Help"
+msgid "Vol:"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:55
-msgid "_Preferences"
+msgid "Volume (Mute/Unmute)"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:56
-msgid "_Report a Bug"
+msgid "Volume Change on Scroll: "
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:57
-msgid "_Stream"
+msgid "_Edit"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:58
-msgid "_View"
+msgid "_File"
 msgstr ""
 
 #: ../glade/whaawmp.glade.h:59
+msgid "_Help"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:60
+msgid "_Preferences"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:61
+msgid "_Queue"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:62
+msgid "_Report a Bug"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:63
+msgid "_Stream"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:64
+msgid "_View"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:65
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
