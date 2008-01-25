@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.1 on Mon Dec 24 16:31:30 2007 -->
+<!--Generated with glade3 3.4.1 on Fri Jan 25 14:26:21 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -631,38 +631,6 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </packing>
                 </child>
                 <child>
-                  <widget class="GtkCheckButton" id="chkEnableVisualisation">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="tooltip" translatable="yes">Show visualisations when no video track is available (Current stream must be restarted).</property>
-                    <property name="label" translatable="yes">Enable Visualisations (Requires stream restart)</property>
-                    <property name="response_id">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_checkbox_toggled"/>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">3</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="GtkCheckButton" id="chkHideVideoWindow">
-                    <property name="visible">True</property>
-                    <property name="can_focus">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                    <property name="tooltip" translatable="yes">Hide the video window when there is no video stream.</property>
-                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
-                    <property name="response_id">0</property>
-                    <property name="draw_indicator">True</property>
-                    <signal name="toggled" handler="on_checkbox_toggled"/>
-                  </widget>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">4</property>
-                  </packing>
-                </child>
-                <child>
                   <widget class="GtkCheckButton" id="chkFileAsTitle">
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
@@ -675,7 +643,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">5</property>
+                    <property name="position">3</property>
                   </packing>
                 </child>
                 <child>
@@ -709,7 +677,7 @@ Play in separate process</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">6</property>
+                    <property name="position">4</property>
                   </packing>
                 </child>
                 <child>
@@ -741,7 +709,7 @@ Play in separate process</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">7</property>
+                    <property name="position">5</property>
                   </packing>
                 </child>
                 <child>
@@ -776,9 +744,26 @@ Play in separate process</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">8</property>
+                    <property name="position">6</property>
                   </packing>
                 </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="label2">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="label" translatable="yes">Main</property>
+              </widget>
+              <packing>
+                <property name="type">tab</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVBox" id="vbox3">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
                   <widget class="GtkHBox" id="hbox4">
                     <property name="visible">True</property>
@@ -811,19 +796,28 @@ Play in separate process</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
-                    <property name="position">9</property>
                   </packing>
                 </child>
+                <child>
+                  <placeholder/>
+                </child>
+                <child>
+                  <placeholder/>
+                </child>
               </widget>
+              <packing>
+                <property name="position">1</property>
+              </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label2">
+              <widget class="GtkLabel" id="label12">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label" translatable="yes">Main</property>
+                <property name="label" translatable="yes">Audio</property>
               </widget>
               <packing>
                 <property name="type">tab</property>
+                <property name="position">1</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -986,9 +980,41 @@ Play in separate process</property>
                     <property name="position">9</property>
                   </packing>
                 </child>
+                <child>
+                  <widget class="GtkCheckButton" id="chkEnableVisualisation">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Show visualisations when no video track is available (Current stream must be restarted).</property>
+                    <property name="label" translatable="yes">Enable Visualisations (Requires stream restart)</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">10</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="GtkCheckButton" id="chkHideVideoWindow">
+                    <property name="visible">True</property>
+                    <property name="can_focus">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <property name="tooltip" translatable="yes">Hide the video window when there is no video stream.</property>
+                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
+                    <property name="response_id">0</property>
+                    <property name="draw_indicator">True</property>
+                    <signal name="toggled" handler="on_checkbox_toggled"/>
+                  </widget>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">11</property>
+                  </packing>
+                </child>
               </widget>
               <packing>
-                <property name="position">1</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -999,7 +1025,7 @@ Play in separate process</property>
               </widget>
               <packing>
                 <property name="type">tab</property>
-                <property name="position">1</property>
+                <property name="position">2</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>

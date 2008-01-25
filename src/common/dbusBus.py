@@ -20,7 +20,7 @@
 from common import useful
 
 try:
-	import dbusa
+	import dbus
 	import dbus.service
 	from dbus.mainloop.glib import DBusGMainLoop
 	DBusGMainLoop(set_as_default=True)
