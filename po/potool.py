@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-#  Configuration Backend
-#  Copyright © 2007, Jeff Bailes <thepizzaking@gmail.com>
+#  A tool to help localisations.
+#  Copyright © 2007-2008, Jeff Bailes <thepizzaking@gmail.com>
 #
 #       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by

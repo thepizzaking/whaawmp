@@ -517,9 +517,9 @@
     <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
     <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
     <property name="has_separator">False</property>
-    <property name="copyright">Copyright 2007, Jeff Bailes</property>
+    <property name="copyright">Copyright 2008, Jeff Bailes</property>
     <property name="website">http://home.gna.org/whaawmp/</property>
-    <property name="license">Copyright © Jeff Bailes, 2007.
+    <property name="license">Copyright © Jeff Bailes, 2007-2008.
 
 Whaaw! Media Player (whaawmp)
 
@@ -537,7 +537,7 @@ You should have received a copy of the GNU General Public License along with
 this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
 
 </property>
-    <property name="authors">Jeff Bailes &lt;thepizzaking@gmail.com&gt;, 2007.</property>
+    <property name="authors">Jeff Bailes &lt;thepizzaking@gmail.com&gt;, 2007-2008.</property>
     <property name="translator_credits" translatable="yes">translator-credits</property>
     <child internal-child="vbox">
       <widget class="GtkVBox" id="dialog-vbox1">

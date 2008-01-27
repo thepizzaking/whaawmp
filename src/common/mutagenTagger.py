@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-#  A player module for gstreamer.
-#  Copyright © 2007, Jeff Bailes <thepizzaking@gmail.com>
+#  An interface to mutagen tagging.
+#  Copyright © 2007-2008, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify
