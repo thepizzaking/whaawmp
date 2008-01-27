@@ -71,8 +71,12 @@ class IntObject(dbus.service.Object):
 		else:
 			# 1 - Add to the end of the queue. (Put at end so this is used as
 			# the default action if the configuration is screwed.
-			self.queue.append(file)
-			if (not self.player.getURI()): self.main.playNext()
+			# If the player is stopped, play the file immediately.
+			if (self.player.isStopped()):
+				self.main.playFile(file)
+			else:
+				self.queue.append(file)
+				if (not self.player.getURI()): self.main.playNext()
 		return True
 	
 	@dbus.service.method("org.gna.whaawmp", "", "b")
