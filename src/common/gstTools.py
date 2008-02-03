@@ -32,7 +32,8 @@ def messageType(message):
 	## Returns the message type as a string.
 	types = { gst.MESSAGE_EOS : 'eos',
 	          gst.MESSAGE_ERROR : 'error',
-	          gst.MESSAGE_STATE_CHANGED : 'state_changed' }
+	          gst.MESSAGE_STATE_CHANGED : 'state_changed',
+	          gst.MESSAGE_TAG : 'tag' }
 	# Try and return the corresponding sting, if it's not listed, return 'other'.
 	try:
 		return types[message.type]

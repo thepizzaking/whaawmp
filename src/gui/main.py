@@ -27,7 +27,7 @@ from gui import dialogues, preferences
 from gui.queue import queue
 from common import lists, useful
 from common import gstTools as playerTools
-from common import mutagenTagger as tagger
+from common import gstTagger as tagger
 from common import dbusBus as msgBus
 from common.config import cfg
 from common.gstPlayer import player
@@ -265,6 +265,9 @@ class mainWindow:
 			dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
 		elif (t == 'state_changed' and message.src == player.player):
 			self.onPlayerStateChange(message)
+		elif (t == 'tag'):
+			# Tags!!
+			self.setPlayingTitle(message.parse_tag())
 	
 	
 	def onPlayerStateChange(self, message):
@@ -288,8 +291,6 @@ class mainWindow:
 				player.enableVisualisation()
 			else:
 				player.disableVisualisation()
-			# Set the title accordingly.
-			self.setPlayingTitle(player.getURI())
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -394,17 +395,17 @@ class mainWindow:
 			self.playFile(None)
 	
 	
-	def setPlayingTitle(self, uri):
-		if (uri):
-			# If the URI passed isn't 'None'.
+	def setPlayingTitle(self, tags):
+		# If the URI passed isn't 'None'.
+		if (tags):
 			# If we don't want to set it, return.
 			if (not cfg.getBool('gui/fileastitle')): return
 			# Set the title name.
-			titlename = tagger.getDispTitle(uri) + ' - ' + useful.lName
+			titlename = tagger.getDispTitle(tags) + ' - ' + useful.lName
 		else:
-			# Otherwise set the title to just the normal name.
+			# Otherwise, the default title.
 			titlename = useful.lName
-		# Actually set it!
+		# Set the title.
 		self.mainWindow.set_title(titlename)
 
 
