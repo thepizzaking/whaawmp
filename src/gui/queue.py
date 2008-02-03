@@ -22,7 +22,7 @@ pygtk.require('2.0')
 import gtk, gobject
 import os, urllib, urlparse
 
-from common import mutagenTagger as tagger
+from common import gstTagger as tagger
 
 class queues():
 	# The menu item widget, which is changed when the window closes.
@@ -75,7 +75,7 @@ class queues():
 		row = self.list.append()
 		# Add the path and the interpreted name to the row item.
 		self.list.set_value(row, 0, item)
-		self.list.set_value(row, 1, tagger.getDispTitle(item))
+		self.list.set_value(row, 1, item + " - Tags Here Temporarily disabled")#tagger.getDispTitleFile(item))
 	
 	def appendMany(self, items):
 		## Appends many queue items.

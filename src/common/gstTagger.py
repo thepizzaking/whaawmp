@@ -39,4 +39,7 @@ def getDispTitle(tags):
 			winTitle += nStr
 	# If at least one tag was added, return the title, otherwise fall
 	# back to the filename function.
-	if (not noneAdded): return winTitle
+	return winTitle if (not noneAdded) else useful.lName
+
+def getDispTitleFile(uri):
+	pass
