@@ -107,14 +107,12 @@ def modifyWinHeight(window, change):
 
 # Convert tags to a readable string.
 def tagsToStr(tags):
-	str = ""
-	for x in tags:
+	tagStr = ""
+	for x in tags.keys():
 		# For all the items in the dictionary, add them to the string.
-		str += '\t' + x + ':\n'
-		for y in tags[x]:
-			# Add all strings in the list too.
-			str += '\t\t' + y + '\n'
-	return str
+		tagStr += '\t' + x + ':\n'
+		tagStr += '\t\t' + str(tags[x]) + '\n'
+	return tagStr
 
 # Convert a version tuple to a sting.
 verTupleToStr = lambda tuple: '.'.join(map(str, tuple))

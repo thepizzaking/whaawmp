@@ -17,11 +17,18 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
 import gst
 from common import useful
 from common.config import cfg
+from common.gstPlayer import player
+
+curTags = []
 
 def getDispTitle(tags):
+	# Set the tags for the current file.
+	global curTags
+	curTags = tags
 	# Flag that no tags have been added.
 	noneAdded = True
 	# Initiate the windows title.
@@ -30,7 +37,10 @@ def getDispTitle(tags):
 		# For all the items in the list produced by tagsToTuple.
 		# New string = the associated tag if it's a tag, otherwise just the string.
 		# Remember in each x, [0] is True if [1] is a tag, False if it's not.
-		nStr = tags[x[1]] if (x[0]) else x[1]
+		try:
+			nStr = tags[x[1]] if (x[0]) else x[1]
+		except KeyError:
+			nStr = None
 		if (nStr):
 			# If there was a string.
 			# Flag that a tag has been added if it's a tag.
@@ -39,7 +49,14 @@ def getDispTitle(tags):
 			winTitle += nStr
 	# If at least one tag was added, return the title, otherwise fall
 	# back to the filename function.
-	return winTitle if (not noneAdded) else useful.lName
+	if (not noneAdded):
+		return winTitle
+	else:
+		file = player.getURI()
+		if (os.sep in file): file = file.split(os.sep)[-1]
+		# Remove the file extenstion (wow, this is messy).
+		if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
+		return file
 
 def getDispTitleFile(uri):
 	pass
