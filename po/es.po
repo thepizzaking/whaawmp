@@ -1,16 +1,16 @@
-# Russian translation for whaawmp
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# Spanish translation for whaawmp
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the whaawmp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
-"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"Report-Msgid-Bugs-To: Miguel Latorre García <kuan@graffiti.net>\n"
 "POT-Creation-Date: 2008-01-31 19:36+1100\n"
-"PO-Revision-Date: 2007-11-06 23:11+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: Russian <ru@li.org>\n"
+"PO-Revision-Date: 2008-01-25 10:47+0000\n"
+"Last-Translator: Miguel Latorre García <kuan@graffiti.net>\n"
+"Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,171 +19,170 @@ msgstr ""
 
 #: ../src/thumbnailer.py:66
 msgid " [options] -o output-file input-file"
-msgstr " [options] -o output-file input-file"
+msgstr " [opciones] -o archivo-salida archivo-entrada"
 
 #: ../src/thumbnailer.py:71
 msgid "The file to create the thumbnail of"
-msgstr "Создать файл эскиза"
+msgstr "El archivo para el cual crear miniatura"
 
 #: ../src/thumbnailer.py:75
 msgid "The destination of the resulting thumbnail"
-msgstr "Назначение результата эскиза"
+msgstr "El destino de la miniatura resultante"
 
 #: ../src/thumbnailer.py:79
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
-msgstr "Назначить позицию (дробное число) эскиза (по умолчанию 0.3)"
+msgstr "La posición (Fracción) de donde hacer la miniatura (defecto 0.3)"
 
 #: ../src/thumbnailer.py:83
 msgid "The destination size (in pixels)"
-msgstr "Назначение размера (в пикселях)"
+msgstr "El tamaño final (en pixels)"
 
 #: ../src/thumbnailer.py:93
 msgid "Sorry, an input and output file are required to be passed."
-msgstr "Извините, входящий и исходящий файлы должны быть указаны"
+msgstr "Disculpe, los archivos de entrada y salida son necesarios."
 
 #: ../src/thumbnailer.py:94
 #, python-format
 msgid "See '%s --help' for details"
-msgstr "Смотрите '%s --help' для подробностей"
+msgstr "Ver '%s --help' para los detalles"
 
 #: ../src/thumbnailer.py:101
 msgid "The requested position must be between 0 and 1, using 0.3."
-msgstr ""
-"Расположение должно быть указано обязательно между 0 и 1, используется 0.3"
+msgstr "La posición solicitada debe estar entre 0 y 1, se usa 0.3."
 
 #: ../src/thumbnailer.py:158
 msgid "Stream returned no caps, exiting"
-msgstr ""
+msgstr "La secuencia no devolvió capturas, saliendo"
 
 #: ../src/thumbnailer.py:185
 msgid "An error occurred"
-msgstr "Произошла ошибка"
+msgstr "Se produjo un error"
 
 #: ../src/thumbnailer.py:201
 msgid "There are no video tracks in this stream, exiting."
-msgstr "Нет видео-дорожки в этом потоки, выходим"
+msgstr "No hay pistas de video en esta secuencia, saliendo."
 
 #: ../src/thumbnailer.py:207
 msgid "Duration unable to be read, exiting."
-msgstr "Не смог прочитать продолжительность, выходим"
+msgstr "No se pudo leer la duración, saliendo."
 
 #: ../src/thumbnailer.py:220
 msgid "Unable to seek to requested position, exiting."
-msgstr "Выключен просмотр запроса положения, выходим"
+msgstr "No se pudo ir a la posición solicitada, saliendo."
 
 #: ../src/whaawmp.py:32
 msgid "Cannot continue, python version must be at least 2.5."
-msgstr "Невозможно продолжить, версия python должна быть минимум 2.5"
+msgstr "No se puede continuar, la versión de python ha de ser 2.5 ó sup."
 
 #: ../src/whaawmp.py:68
 msgid " [options] filename"
-msgstr " [options] имя файла"
+msgstr " [opciones] nombre del archivo"
 
 #: ../src/gui/__init__.py:27
 msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
 msgstr ""
-"Невозможно продолжить, pygtk не установлено  (необходима версия 2.10)"
+"No se puede continuar, pygtk no está instalado (se requiere la versión 2.10)"
 
 #: ../src/gui/__init__.py:30
 msgid "Cannot continue, X server not found!"
-msgstr "Невозможно продолжить, X сервер не найден!"
+msgstr "No se puede continuar, ¡no se encontró el servidor X!"
 
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
 msgstr ""
-"Невозможно продолжить, этой программе требуется GTK+ версии не ранее 2.10 "
-"для запуска"
+"No se puede continuar, para que funcione este programa se necesita GTK+ 2.10 "
+"ó sup."
 
 #: ../src/gui/dialogues.py:58
 msgid "Choose a file to Open"
-msgstr "Выберите файл для открытия"
+msgstr "Elegir un archivo a Abrir"
 
 #: ../src/gui/dialogues.py:67
 msgid "Supported Media"
-msgstr "Поддерживаемое Медиа"
+msgstr "Formatos Soportados"
 
 #: ../src/gui/dialogues.py:73
 msgid "All Files"
-msgstr "Все файлы"
+msgstr "Todos los Archivos"
 
 #: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:27
 msgid "Play DVD"
-msgstr "Играть DVD"
+msgstr "Reproducir DVD"
 
 #: ../src/gui/dialogues.py:98
 msgid "Select options:"
-msgstr "Выбрать опции:"
+msgstr "Elegir opciones:"
 
 #: ../src/gui/dialogues.py:100
 msgid "Title: "
-msgstr "Заголовок: "
+msgstr "Título: "
 
 #: ../src/gui/dialogues.py:145
 msgid "Open a URI"
-msgstr "Открыть URI"
+msgstr "Abrir una URI"
 
 #: ../src/gui/dialogues.py:150
 msgid "Enter the URI:"
-msgstr "Введите URI:"
+msgstr "Introducir la URI:"
 
 #: ../src/gui/dialogues.py:182
 msgid "Select Tracks"
-msgstr "Выбор дорожек"
+msgstr "Elegir Pistas"
 
 #: ../src/gui/dialogues.py:186
 msgid "Audio:"
-msgstr "Аудио:"
+msgstr "Sonido:"
 
 #: ../src/gui/dialogues.py:220 ../src/gui/main.py:265
 msgid "Error!"
-msgstr "Ошибка!"
+msgstr "¡Error!"
 
 #: ../src/gui/dialogues.py:228
 msgid "Message"
-msgstr "Сообщение"
+msgstr "Mensaje"
 
 #: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:44
 msgid "Supported Features"
-msgstr ""
+msgstr "Características Soportadas"
 
 #: ../src/gui/dialogues.py:258
 msgid "Mutagen Tagging"
-msgstr ""
+msgstr "Etiquetado Mutagen"
 
 #: ../src/gui/dialogues.py:259
 msgid "Dbus Message Bus"
-msgstr ""
+msgstr "Bus de Mensajes Dbus"
 
 #: ../src/gui/dialogues.py:272
 msgid "Available"
-msgstr ""
+msgstr "Disponible"
 
 #: ../src/gui/dialogues.py:272
 msgid "Unavailable"
-msgstr ""
+msgstr "No disponible"
 
 #: ../src/gui/dialogues.py:276
 msgid "Library Versions:"
-msgstr ""
+msgstr "Versiones de Bibliotecas:"
 
 #: ../src/gui/main.py:393
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
-msgstr "Something's stuffed up, файл не найден: %s"
+msgstr "Algo no es correcto, no existe el archivo: %s"
 
 #: ../src/gui/main.py:605
 msgid "Pause"
-msgstr "Пауза"
+msgstr "Detener"
 
 #: ../src/gui/main.py:605
 msgid "Play"
-msgstr "Играть"
+msgstr "Reproducir"
 
 #: ../src/gui/main.py:727
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
-"%s не найден, ссылки и электронные почтовые адреса не будут не кликабельны"
+"no se encontró %s, los enlaces y direcciones e-mail no podrán pulsarse"
 
 #: ../src/gui/main.py:739
 #, python-format
@@ -191,114 +190,116 @@ msgid ""
 "Could not execute browser command (via %s).\n"
 "Please manually visit %s to report the problem"
 msgstr ""
-"Не удается выполнить команду обозревателя (через %s). Пожалуйста, посетите "
-"%s вручную чтобы сообщить о проблеме"
+"No se pudo ejecutar la orden del navegador (con %s).\n"
+"Por favor, visite manualmente %s para informar del problema"
 
 #: ../src/gui/main.py:746
 msgid "TERM signal caught, exiting."
-msgstr ""
+msgstr "Se recibió la señal TERM, saliendo"
 
 #: ../src/gui/queue.py:157
 msgid "Queued Tracks:"
-msgstr "Дорожки в Очереди:"
+msgstr "Pistas en Cola:"
 
 #: ../src/gui/queue.py:183
 msgid "Clear Queue"
-msgstr "Очистить Очередь"
+msgstr "Limpiar Cola"
 
 #: ../src/gui/queue.py:184
 msgid "Remove item from Queue"
-msgstr "Удалить пункт из Очереди"
+msgstr "Eliminar elemento de la Cola"
 
 #: ../src/common/config.py:39
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
 msgstr ""
-"Ох! \"/\" не может быть в опции! Это баг! Сообщите об этом! По умолчанию в "
-"группе \"неизвестный\""
+"¡Aghh!  ¡No hay una '/' en la opción!  ¡Esto es un fallo! ¡Notifíquelo!\n"
+"Pasando al grupo 'unknown' por defecto."
 
 #: ../src/common/config.py:111
 msgid "Print the version and exit"
-msgstr "Распечатать версия и выйти"
+msgstr "Imprimir la versión y salir"
 
 #: ../src/common/config.py:115
 msgid "Play the file in fullscreen mode"
-msgstr "Проиграть файл в полноэкранном режиме"
+msgstr "Reproducir el archivo a pantall completa"
 
 #: ../src/common/config.py:119
 msgid "Sets the player's volume to VOL (0-100)"
-msgstr "Установить громкость проигрывателя в VOL (0-100)"
+msgstr "Ajusta el volumen del reproductor a VOL (0-100)"
 
 #: ../src/common/config.py:123
 msgid "Mute the player"
-msgstr "Выключить звук"
+msgstr "Silenciar el reproductor"
 
 #: ../src/common/config.py:127
 msgid "Sets the player's audio ouput to SINK"
-msgstr "Установить аудио-выход проигрывателя на SINK"
+msgstr "Ajusta la salida de sonido del reproductor a SINK"
 
 #: ../src/common/config.py:131
 msgid "Sets the player's video ouput to SINK"
-msgstr "Установить видео-выход проигрывателя на SINK"
+msgstr "Ajusta la salida de vídeo del reproductor a SINK"
 
 #: ../src/common/config.py:135 ../glade/whaawmp.glade.h:33
 msgid "Quits the player when the playing stream stops"
-msgstr "Выйти из проигрывателя, когда остановится проигрывание потока"
+msgstr "Cierra el reproductor cuando la secuencia se pare"
 
 #: ../src/common/config.py:139
 #, python-format
 msgid "Forces a new window if %s is already running"
-msgstr ""
+msgstr "Obliga a abrir una ventana nueva si %s ya está ejecutándose"
 
 #: ../src/common/config.py:143
 #, python-format
 msgid "Forces the file passed to be queued if %s is already running"
 msgstr ""
+"Obliga a poner el archivo indicado en cola si %s ya está ejecutándose"
 
 #: ../src/common/config.py:147
 #, python-format
 msgid "Forces the file to be played now in a previous %s process"
 msgstr ""
+"Obliga a reproducir el archivo en este momento en un proceso %s anterior"
 
 #: ../src/common/config.py:151
 #, python-format
 msgid "Toggles play/pause on an already running %s process"
-msgstr ""
+msgstr "Cambia reproducir/detener en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:155
 #, python-format
 msgid "Starts the player in an already running %s process"
-msgstr ""
+msgstr "Inicia el reproductor en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:159
 #, python-format
 msgid "Pauses the player in an already running %s process"
-msgstr ""
+msgstr "Detiene el reproductor en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:163
 #, python-format
 msgid "Stops the player in an already running %s process"
-msgstr ""
+msgstr "Para el reproductor en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:167
 #, python-format
 msgid "Skips to the next track in an already running %s process"
-msgstr ""
+msgstr "Salta a la pista siguiente en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:171
 #, python-format
 msgid "Restarts the current track in an already running %s process"
-msgstr ""
+msgstr "Reinicia la pista actual en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/config.py:175
 #, python-format
 msgid "Querys the current track in an already running %s process"
-msgstr ""
+msgstr "Solicita la pista actual en un proceso %s que está ya ejecutándose"
 
 #: ../src/common/dbusBus.py:30
 msgid "Dbus import failed, dbus features will be unavailable"
-msgstr ""
+msgstr "Dbus no se pudo importar, sus caracteríticas no estarán disponibles"
 
 #: ../src/common/dbusBus.py:116
 #, python-format
@@ -306,65 +307,71 @@ msgid ""
 "Tags of %s:\n"
 "%s"
 msgstr ""
+"Etiquetas de %s:\n"
+"%s"
 
 #: ../src/common/dbusBus.py:134
 #, python-format
 msgid "%s is already running."
-msgstr ""
+msgstr "%s ya está ejecutándose."
 
 #: ../src/common/dbusBus.py:155
 msgid "Toggle of Play/Pause failed, no file is currently open."
-msgstr ""
+msgstr "No se pudo cambiar de Reproducir/Detener, no hay un archivo abierto."
 
 #: ../src/common/dbusBus.py:161
 msgid "Play failed, no file is currently open."
-msgstr ""
+msgstr "No se pudo reproducir, no hay un archivo abierto."
 
 #: ../src/common/dbusBus.py:167
 msgid "Pause failed, not file is currently open."
-msgstr ""
+msgstr "No se pudo detener, no hay un archivo abierto."
 
 #: ../src/common/gstTools.py:76
 msgid "Unknown"
-msgstr "Неизвестный"
+msgstr "Desconocido"
 
 #: ../src/common/mutagenTagger.py:27
 msgid "Mutagen not available, all tagging fetures will be unavailable"
-msgstr "Mutagen не доступен, все пометки fetures будут недоступны"
+msgstr ""
+"Mutagen no está disponible, todas las características de etiquetado no "
+"estarán disponibles"
 
 #: ../src/common/useful.py:24
 msgid "Whaaw! Media Player"
-msgstr "Whaaw! Медиапроигрыватель"
+msgstr "Reproductor Multimedia Whaaw!"
 
 #: ../glade/whaawmp.glade.h:1
 msgid "About Whaaw! Media Player"
-msgstr "О Whaaw! Медиапроигрывателе"
+msgstr "Acerca del Reproductor Multimedia Whaaw!"
 
 #: ../glade/whaawmp.glade.h:2
 msgid "Add current file's tags/name to Title"
-msgstr "Добавить теги/имя текущего файла в Заголовок"
+msgstr "Añadir las etiquetas/nombre del archivo actual al Título"
 
 #: ../glade/whaawmp.glade.h:3
 msgid ""
 "Add the currently playing file's tags (or name if unavailable) to the "
 "window's title."
-msgstr "Добавить тег текущего проигрываемого файла в заголовок окна"
+msgstr ""
+"Añadir las etiquetas (o el nombre si no están disponibles) del archivo que "
+"está en reproducción al título de la ventana."
 
 #: ../glade/whaawmp.glade.h:4
 msgid "Adjust video brightness"
-msgstr "Настроить яркость видео"
+msgstr "Ajustar brillo del vídeo"
 
 #: ../glade/whaawmp.glade.h:5
 msgid "Adjust video contrast"
-msgstr "Настроить контраст видео"
+msgstr "Ajustar contraste del vídeo"
 
 #: ../glade/whaawmp.glade.h:6
 msgid "Adjust video hue"
-msgstr "Настроить цветность видео"
+msgstr "Ajustar tono del vídeo"
 
 #: ../glade/whaawmp.glade.h:7
 msgid "Adjust video saturation"
-msgstr "Настроить насыщенность видео"
+msgstr "Ajustar saturación del vídeo"
 
 #: ../glade/whaawmp.glade.h:8
 msgid "Audio"
@@ -372,75 +379,75 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:9
 msgid "Audio Tracks"
-msgstr "Звуковые дорожки"
+msgstr "Pistas de Sonido"
 
 #: ../glade/whaawmp.glade.h:10
 msgid "Brightness:"
-msgstr "Яркость:"
+msgstr "Brillo:"
 
 #: ../glade/whaawmp.glade.h:11
 msgid "Contrast:"
-msgstr "Контрастность"
+msgstr "Contraste:"
 
 #: ../glade/whaawmp.glade.h:12
 msgid "Current player volume"
-msgstr "Текущая громкость проигрывателя"
+msgstr "Volumen actual del reproductor"
 
 #: ../glade/whaawmp.glade.h:13
 msgid "Disable Screensaver"
-msgstr "Отключить скринсейвер"
+msgstr "Desactivar Salvapantallas"
 
 #: ../glade/whaawmp.glade.h:14
 msgid "Disable Screensaver whilst playing a video."
-msgstr "Отключить скринсейвер пока играет видео"
+msgstr "Desactivar Salvapantallas mientras se visualiza un vídeo."
 
 #: ../glade/whaawmp.glade.h:15
 msgid "Enable Visualisations (Requires stream restart)"
-msgstr "Включить визуализацию (Требуется перезапуск потока)"
+msgstr "Activar Visualizaciones (Requiere reiniciar la secuencia)"
 
 #: ../glade/whaawmp.glade.h:16
 msgid "Force Aspect Ratio"
-msgstr "Изменить пропорции"
+msgstr "Obligar la Relación de Tamaño"
 
 #: ../glade/whaawmp.glade.h:17
 msgid "Force the video to keep its original aspect ratio"
-msgstr "Установить оригинальные пропорции"
+msgstr "Obligar al vídeo a mantener su relación de tamaño original"
 
 #: ../glade/whaawmp.glade.h:18
 msgid "Hide Video Window when Stopped"
-msgstr "Скрыть окно с видео когда остановится проигрывание"
+msgstr "Ocultar la Ventana de Vídeo cuando está Parado"
 
 #: ../glade/whaawmp.glade.h:19
 msgid "Hide the video window when there is no video stream."
-msgstr "Скрыть окно с видео когда оно играет не видеопоток"
+msgstr "Ocultar la Ventana de Vídeo cuando no hay secuencia de vídeo."
 
 #: ../glade/whaawmp.glade.h:20
 msgid "Hue:"
-msgstr "Цветность:"
+msgstr "Tono:"
 
 #: ../glade/whaawmp.glade.h:21
 msgid "Instantaneous Seek"
-msgstr "Быстрый просмотр"
+msgstr "Búsqueda Instantánea"
 
 #: ../glade/whaawmp.glade.h:22
 msgid "Leave Fullscreen"
-msgstr "Покинуть полноэкранный режим"
+msgstr "Salir de Pantalla Completa"
 
 #: ../glade/whaawmp.glade.h:23
 msgid "Main"
-msgstr "Основное"
+msgstr "Principal"
 
 #: ../glade/whaawmp.glade.h:24
 msgid "Mouse hide timeout (ms): "
-msgstr "Скрыть мышь после простоя (мс): "
+msgstr "Retardo para ocultar ratón (ms): "
 
 #: ../glade/whaawmp.glade.h:25
 msgid "Next"
-msgstr "Далее"
+msgstr "Siguiente"
 
 #: ../glade/whaawmp.glade.h:26
 msgid "Open URI"
-msgstr "Открыть URI"
+msgstr "Abrir URI"
 
 #: ../glade/whaawmp.glade.h:28
 msgid ""
@@ -448,151 +455,162 @@ msgid ""
 "Add to end of queue\n"
 "Play in separate process"
 msgstr ""
+"Reproducir directamente\n"
+"Añadir al final de la cola\n"
+"Reproducir en un proceso separado"
 
 #: ../glade/whaawmp.glade.h:31
 msgid "Preferences"
-msgstr "Настройки"
+msgstr "Configuración"
 
 #: ../glade/whaawmp.glade.h:32
 msgid "Quit on Stop"
-msgstr "Выйти при остановке"
+msgstr "Salir al Parar"
 
 #: ../glade/whaawmp.glade.h:34
 msgid "Report a bug to the Bugtracker"
-msgstr "Сообщить о неисправностях Bugtracker'у"
+msgstr "Notificar un fallo en el Bugtracker"
 
 #: ../glade/whaawmp.glade.h:35
 msgid "Reset all adjustments to 0"
-msgstr "Сбросить все установки на 0"
+msgstr "Poner todos los ajustes a 0"
 
 #: ../glade/whaawmp.glade.h:36
 msgid "Restart Track"
-msgstr "Перезапустить дорожки"
+msgstr "Reiniciar Pista"
 
 #: ../glade/whaawmp.glade.h:37
 msgid "Restore Defaults"
-msgstr "Восстановить по умолчанию"
+msgstr "Restaurar valores por defecto"
 
 #: ../glade/whaawmp.glade.h:38
 msgid "Saturation:"
-msgstr "Насыщенность:"
+msgstr "Saturación:"
 
 #: ../glade/whaawmp.glade.h:39
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
+"Buscar instantáneamente al arrastrar la barra de progreso, en lugar de "
+"esperar hasta el final."
 
 #: ../glade/whaawmp.glade.h:40
 msgid "Show Time Remaining"
-msgstr "Показать время остановки"
+msgstr "Mostrar Tiempo Restante"
 
 #: ../glade/whaawmp.glade.h:41
 msgid "Show the time remaining instead of total time in the progress bar."
-msgstr "Показать время остановки вместо общего времени в прогресс-баре"
+msgstr ""
+"Mostrar el tiempo restante en lugar del total en la barra de progreso."
 
 #: ../glade/whaawmp.glade.h:42
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted)."
 msgstr ""
-"Показать визуализацию когда не видео дорожка доступна (Текущий поток должен "
-"быть перезапущен)"
+"Mostrar visualizaciones cuando no haya una pista de vídeo disponible (Se "
+"debe reiniciar la secuencia actual)."
 
 #: ../glade/whaawmp.glade.h:43
 msgid "Stop"
-msgstr "Отстановить"
+msgstr "Parar"
 
 #: ../glade/whaawmp.glade.h:45
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr ""
+"Sintaxis para mostrar las etiquetas. Encerrar un título de etiqueta entre {}."
 
 #: ../glade/whaawmp.glade.h:46
 msgid "Tag Display Syntax: "
-msgstr "Показать синтаксис тега "
+msgstr "Sintaxis para Mostrar Etiquetas: "
 
 #: ../glade/whaawmp.glade.h:47
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr ""
+"La acción a realizar cuando otro proceso del Reproductor Multimedia Whaaw! "
+"solicite abrir un archivo."
 
 #: ../glade/whaawmp.glade.h:48
 msgid ""
 "The amount to change the volume by when scrolling on the video area/volume "
 "control"
 msgstr ""
+"La variación del volumen con scroll en la zona de video/mandos de volumen"
 
 #: ../glade/whaawmp.glade.h:49
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
-"Время (в миллисекундах), после которого мышь, перенесенная на окно с видео, "
-"исчезнет"
+"El tiempo (en milisegundos) que debe transcurrir sin moverse el ratón sobre "
+"la ventana de vídeo para que desaparezca el cursor."
 
 #: ../glade/whaawmp.glade.h:50
 msgid "Toggle Fullscreen"
-msgstr ""
+msgstr "Cambiar a Pantalla Completa"
 
 #: ../glade/whaawmp.glade.h:51
 msgid "Upon opening new file:"
-msgstr ""
+msgstr "Una vez abierto archivo nuevo:"
 
 #: ../glade/whaawmp.glade.h:52
 msgid "Video"
-msgstr "Видео"
+msgstr "Vídeo"
 
 #: ../glade/whaawmp.glade.h:53
 msgid "View and edit the current queue"
-msgstr "Просмотреть и редактировать текущую очередь"
+msgstr "Ver y editar la cola actual"
 
 #: ../glade/whaawmp.glade.h:55
 msgid "Vol:"
-msgstr "Громкость:"
+msgstr "Vol:"
 
 #: ../glade/whaawmp.glade.h:56
 msgid "Volume (Mute/Unmute)"
-msgstr "Громкость (Выключить/Включить)"
+msgstr "Volumen (Poner/Quitar silencio)"
 
 #: ../glade/whaawmp.glade.h:57
 msgid "Volume Change on Scroll: "
-msgstr "Громксоть изменена на Scroll: "
+msgstr "Cambiar Volumen con Scroll: "
 
 #: ../glade/whaawmp.glade.h:58
 msgid "_Edit"
-msgstr "_Править"
+msgstr "_Editar"
 
 #: ../glade/whaawmp.glade.h:59
 msgid "_File"
-msgstr "_Файл"
+msgstr "_Archivo"
 
 #: ../glade/whaawmp.glade.h:60
 msgid "_Help"
-msgstr "_Справка"
+msgstr "A_yuda"
 
 #: ../glade/whaawmp.glade.h:61
 msgid "_Preferences"
-msgstr "_Настройки"
+msgstr "Confi_guración"
 
 #: ../glade/whaawmp.glade.h:62
 msgid "_Queue"
-msgstr ""
+msgstr "_Cola"
 
 #: ../glade/whaawmp.glade.h:63
 msgid "_Report a Bug"
-msgstr "_Отправить отчет"
+msgstr "_Informar de Fallo"
 
 #: ../glade/whaawmp.glade.h:64
 msgid "_Stream"
-msgstr "_Поток"
+msgstr "_Secuencia"
 
 #: ../glade/whaawmp.glade.h:65
 msgid "_View"
-msgstr "_Просмотр"
+msgstr "_Ver"
 
 #: ../glade/whaawmp.glade.h:66
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Sergei Zivukov https://launchpad.net/~ekonomvygoda"
+"  Miguel Latorre García https://launchpad.net/~kuan-graffiti\n"
+"  Miguel Latorre García https://launchpad.net/~mlatorre"
