@@ -75,6 +75,7 @@ class queues():
 		row = self.list.append()
 		# Add the path and the interpreted name to the row item.
 		self.list.set_value(row, 0, item)
+		#TODO!
 		self.list.set_value(row, 1, item + " - Tags Here Temporarily disabled")#tagger.getDispTitleFile(item))
 	
 	def appendMany(self, items):

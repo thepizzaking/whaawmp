@@ -20,7 +20,7 @@
 import pygtk
 pygtk.require('2.0')
 import gtk, gtk.glade, gobject
-from common import useful, lists, mutagenTagger
+from common import useful, lists
 from common.config import cfg
 from common.gstPlayer import player
 
@@ -101,8 +101,6 @@ class Dialogue:
 			x.set_text(cfg.getStr(self.entDic[x]))
 		
 		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
-		
-		self.wTree.get_widget('entTagSyntax').set_sensitive(mutagenTagger.avail)
 	
 	
 	def checkboxToggle(self, widget):

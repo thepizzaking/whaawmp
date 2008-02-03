@@ -47,7 +47,6 @@ except ImportError:
 class IntObject(dbus.service.Object):
 	from common.gstPlayer import player
 	from gui.queue import queue
-	from common import mutagenTagger as tagger
 	from common.config import cfg
 	
 	def __init__(self, mainWindow):
@@ -112,8 +111,9 @@ class IntObject(dbus.service.Object):
 	@dbus.service.method("org.gna.whaawmp", "", "s")
 	def query(self):
 		#Querys the current track.
-		tags = useful.tagsToStr(self.tagger.getTags(self.player.getURI()))
-		return _("Tags of %s:\n%s" % (self.player.getURI(), tags))
+		#tags = useful.tagsToStr(self.tagger.getTags(self.player.getURI()))
+		#TODO!
+		return "Not currently implemented" #_("Tags of %s:\n%s" % (self.player.getURI(), tags))
 
 
 class initBus:
