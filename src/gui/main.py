@@ -840,6 +840,8 @@ class mainWindow:
 		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_widget("btnRestart").show()
 		# Show the window.
 		self.mainWindow.show()
+		# Set the queue play command, so it can play tracks.
+		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
 		if (len(args) > 0):
 			# Append all tracks to the queue.

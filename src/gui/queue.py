@@ -22,7 +22,6 @@ pygtk.require('2.0')
 import gtk, gobject
 import os, urllib, urlparse
 
-from common import gstTagger as tagger
 
 class queues():
 	# The menu item widget, which is changed when the window closes.
@@ -32,6 +31,8 @@ class queues():
 	mnuiSet = lambda self, shown: self.mnuiWidget.set_active(shown)
 	# Gets the length of the items in the list.
 	length = lambda self: len(self.list)
+	# The play command to play a file.
+	playCommand = None
 	
 	def close(self, widget, event):
 		## Called to 'close' the window.
@@ -88,18 +89,27 @@ class queues():
 		## Clears the queue.
 		self.list.clear()
 	
-	def getNextTrackRemove(self):
-		## Gets the next track and removes it from the list.
+	def getTrackRemove(self, no):
+		## Gets the track with the index 'no' & removes it.
 		try:
-			# Try and get the first list items path.
-			path = self.list[0][0]
+			# Try and get the list items path.
+			path = self.list[no][0]
 			# Remove it from the queue.
-			self.remove(0)
+			self.remove(no)
 			# Return the path.
 			return path
-		except IndexError:
-			# Index error (queue empty), return None.
+		except:
+			# Index error, just return None.
 			return None
+	
+	# Get & remove the next track (top of queue)
+	getNextTrackRemove = lambda self: self.getTrackRemove(0)
+
+	
+	def rowActivated(self, tree, path, view_column):
+		## Plays the track that has been activated in the queue.
+		## (Double click an item)
+		self.playCommand(self.getTrackRemove(path[0]))
 	
 	# Removes a selected index from the queue.
 	remove = lambda self, index: self.list.remove(self.list.get_iter(index))
@@ -157,6 +167,8 @@ class queues():
 		renderer = gtk.CellRendererText()
 		column = gtk.TreeViewColumn(_("Queued Tracks:"), renderer, text=1)
 		self.tree.append_column(column)
+		# Connect a callback for a row activated.
+		self.tree.connect('row-activated', self.rowActivated)
 		# Allow the queue to be drag & drop reorderable.
 		self.tree.set_reorderable(True)
 		# Add a scrolling widget, set automatic bar display, and add the tree to it.
