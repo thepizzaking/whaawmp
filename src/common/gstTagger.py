@@ -28,6 +28,7 @@ curTags = [None, None]
 
 def getCurTags():
 	## Gets the currently playing file's tags.
+	# If the first item isn't the current playing file, the tags are old, so return None.
 	return curTags[1] if (curTags[0] == player.getURI()) else None
 
 def getDispTitle(tags):
