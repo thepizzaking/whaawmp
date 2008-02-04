@@ -107,6 +107,8 @@ def modifyWinHeight(window, change):
 
 # Convert tags to a readable string.
 def tagsToStr(tags):
+	# If tags is empty, don't try and read anything, just send a notification.
+	if (not tags): return _("No tags available")
 	tagStr = ""
 	for x in tags.keys():
 		# For all the items in the dictionary, add them to the string.

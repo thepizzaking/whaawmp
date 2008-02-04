@@ -112,7 +112,7 @@ class IntObject(dbus.service.Object):
 	@dbus.service.method("org.gna.whaawmp", "", "s")
 	def query(self):
 		#Querys the current track.
-		tags = useful.tagsToStr(self.tagger.curTags)
+		tags = useful.tagsToStr(self.tagger.getCurTags())
 		return _("Tags of %s:\n%s" % (self.player.getURI(), tags))
 
 

@@ -23,12 +23,17 @@ from common import useful
 from common.config import cfg
 from common.gstPlayer import player
 
-curTags = []
+# A global current tags list for reading.
+curTags = [None, None]
+
+def getCurTags():
+	## Gets the currently playing file's tags.
+	return curTags[1] if (curTags[0] == player.getURI()) else None
 
 def getDispTitle(tags):
 	# Set the tags for the current file.
 	global curTags
-	curTags = tags
+	curTags = [player.getURI(), tags]
 	# Flag that no tags have been added.
 	noneAdded = True
 	# Initiate the windows title.
@@ -59,4 +64,5 @@ def getDispTitle(tags):
 		return file
 
 def getDispTitleFile(uri):
+	## A function that will in future read tags from a file URI.
 	pass
