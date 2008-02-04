@@ -251,12 +251,10 @@ class SupportedFeatures:
 		                 buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
 		
 		# Import the librarys needed to check availability.
-		import common.mutagenTagger as tagger
 		import common.dbusBus as bus
 		
 		# Create a dictionary with the library title and its availability.
-		dic = {_("Mutagen Tagging"): tagger.avail,
-		       _("Dbus Message Bus"): bus.avail}
+		dic = {_("Dbus Message Bus"): bus.avail}
 		
 		for x in dic:
 			# For all the items in the dictionary.
