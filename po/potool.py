@@ -44,6 +44,7 @@ def updatePOT():
 	## Update the 'messages.pot' file, this happens whenever the script is run.
 	os.system('intltool-extract --type="gettext/glade" ../glade/whaawmp.glade')
 	os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py ../glade/whaawmp.glade.h')
+	os.system('rm ../glade/whaawmp.glade.h')
 	print 'messages.pot updated!'
 
 
