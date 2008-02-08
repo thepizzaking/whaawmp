@@ -248,7 +248,7 @@ class mainWindow:
 		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
 		player.setAudioSink(None if (asink == "default") else asink)
 		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
-		player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
+		player.setVideoSink(None if (vsink == "default") else vsink)
 	
 	
 	def onPlayerMessage(self, bus, message):
