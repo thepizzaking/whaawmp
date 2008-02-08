@@ -24,8 +24,6 @@ from common import lists, useful
 
 
 class Player:
-	colourSettings = False
-	aspectSettings = False
 	version = gst.gst_version
 	
 	def play(self):
@@ -125,7 +123,7 @@ class Player:
 		self.player.set_property('uri', uri)
 	
 	
-	def prepareImgSink(self, bus, message, far=True, b=0, c=0, h=0, s=0):
+	def prepareImgSink(self, bus, message, far=True, b=0, c=1, h=0, s=1):
 		# Sets the image sink.
 		self.imagesink = message.src
 		# Sets force aspect ratio, brightness etc according to options passed.
@@ -146,28 +144,26 @@ class Player:
 	
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.
-		if (self.aspectSettings):
+		try:
 			self.imagesink.set_property('force-aspect-ratio', val)
+		except TypeError:
+			pass
 	
 	def setBrightness(self, val):
 		## Sets the brightness of the video.
-		if (self.colourSettings):
-			self.imagesink.set_property('brightness', val)
+		self.colourBalance.set_property('brightness', val)
 	
 	def setContrast(self, val):
 		## Sets the contrast of the video.
-		if (self.colourSettings):
-			self.imagesink.set_property('contrast', val)
+		self.colourBalance.set_property('contrast', val)
 	
 	def setHue(self, val):
 		## Sets the hue of the video.
-		if (self.colourSettings):
-			self.imagesink.set_property('hue', val)
+		self.colourBalance.set_property('hue', val)
 	
 	def setSaturation(self, val):
 		## Sets the saturation of the video.
-		if (self.colourSettings):
-			self.imagesink.set_property('saturation', val)
+		self.colourBalance.set_property('saturation', val)
 	
 	
 	def setAudioSink(self, sinkName):
@@ -177,15 +173,27 @@ class Player:
 		# Set the player's sink accordingly.
 		self.player.set_property('audio-sink', sink)
 	
-	def setVideoSink(self, sinkName):
-		## Sets the player's video sink.
-		# If a name was passed, create the element, otherwise pass None
-		sink = gst.element_factory_make(sinkName, 'video-sink')
-		# Set the player's sink accordingly.
-		self.player.set_property('video-sink', sink)
-		# Flag the colour settings and aspect settings accordingly.
-		self.colourSettings = (sinkName in lists.vsinkColour)
-		self.aspectSettings = (sinkName in lists.vsinkAspect)
+	def setVideoSink(self, sinkName=None):
+		## Sets the player's video sink.		
+		# Create the sink bin.
+		bin =  gst.Bin()
+		# Create a filter for colour balancing & add it to the bin.
+		colourBalance = gst.element_factory_make('videobalance')
+		bin.add(colourBalance)
+		# Create a ghostpad so I can connect to it from the playbin.
+		pad = colourBalance.get_pad('sink')
+		ghostPad = gst.GhostPad('sink', pad)
+		bin.add_pad(ghostPad)
+		# If a name was passed, create the element, otherwise pass use autosink.
+		sink = gst.element_factory_make(sinkName if sinkName else 'autovideosink')
+		bin.add(sink)
+		# Link the elements.
+		gst.element_link_many(colourBalance, sink)
+		
+		# Actually set the player's sink.
+		self.player.set_property('video-sink', bin)
+		# Need to change colour settings externally.
+		self.colourBalance = colourBalance
 	
 	
 	def enableVisualisation(self):

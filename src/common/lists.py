@@ -58,9 +58,9 @@ fsShowWMouse = ['hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 
 ## A dicrtionary with all the default options.
 defaultOptions = { 'video/brightness' : 0,
-                   'video/contrast' : 0,
+                   'video/contrast' : 1,
                    'video/hue' : 0,
-                   'video/saturation' : 0,
+                   'video/saturation' : 1,
                    'video/force-aspect-ratio' : True,
                    'video/videosink' : 'default',
                    'gui/mousehidetimeout' : 2000,

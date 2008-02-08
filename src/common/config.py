@@ -73,7 +73,7 @@ class config:
 	getInt = lambda self, opt: int(float(self.get(opt)))
 	getFloat = lambda self, opt: float(self.get(opt))
 	getBool = lambda self, opt: str(self.get(opt)).lower() not in ['false', '0', 'none', 'no']
-		
+	
 	
 	def __init__(self):
 		## Preparation.
