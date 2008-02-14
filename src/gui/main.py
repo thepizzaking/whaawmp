@@ -617,8 +617,8 @@ class mainWindow:
 		# Destroy the timers first to avoid about 20 of them.
 		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
-		self.tmrSec = useful.addTimer(1, self.secondTimer)
-		self.tmrMin = useful.addTimer(60, self.minuteTimer)
+		self.tmrSec = gobject.timeout_add_seconds(1, self.secondTimer)
+		self.tmrMin = gobject.timeout_add_seconds(60, self.minuteTimer)
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.

@@ -28,15 +28,6 @@ dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
 gladefile = os.path.join(dataDir, 'glade', sName + '.glade')
 
-## Set the basic timer function accordingly since using timeout_add_seconds
-# is probably a better idea (Argument is in seconds).
-# TODO: Remove this when glib 2.14 becomes more widespread.
-if (gobject.glib_version < (2,14)):
-	print "Old timer method used, since glib version is pre-2.14"
-	addTimer = lambda t, f: gobject.timeout_add(sToms(t), f)
-else:
-	addTimer = lambda t, f: gobject.timeout_add_seconds(t, f)
-
 # Executions with no output.
 hiddenExec = lambda x: os.system(x +  '>/dev/null 2>/dev/null &')
 

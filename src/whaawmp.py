@@ -18,7 +18,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import sys, os
+import sys
 from optparse import OptionParser
 
 import gobject
@@ -32,6 +32,11 @@ if (sys.version_info < (2, 5)):
 	print _('Cannot continue, python version must be at least 2.5.')
 	sys.exit(1)
 
+# If gobject version < 2.14 we need to define timeout_add_seconds.
+if (gobject.glib_version < (2,14)):
+	print _("Old timer method used, since glib version is pre-2.14")
+	# Define our own timeout_add wrapper.
+	gobject.timeout_add_seconds = lambda *args: gobject.timeout_add(useful.sToms(args[0]), *args[1:])
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
