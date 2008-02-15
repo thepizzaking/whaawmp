@@ -36,7 +36,7 @@ if (sys.version_info < (2, 5)):
 if (gobject.glib_version < (2,14)):
 	print _("Old timer method used, since glib version is pre-2.14")
 	# Define our own timeout_add wrapper.
-	gobject.timeout_add_seconds = lambda *args: gobject.timeout_add(useful.sToms(args[0]), *args[1:])
+	gobject.timeout_add_seconds = lambda time, *args: gobject.timeout_add(useful.sToms(time), *args)
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
 HELP = False
