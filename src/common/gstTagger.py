@@ -67,3 +67,45 @@ def getDispTitle(tags):
 def getDispTitleFile(uri):
 	## A function that will in future read tags from a file URI.
 	pass
+
+
+class FileTag:
+	lock = False
+	queue = []
+	funcDic = {}
+	
+	def file(self, uri, function):
+		self.queue.append(uri)
+		self.funcDic[uri] = function
+		if (not self.lock): self.nextTrack()
+	
+	def nextTrack(self):
+		if (not len(queue)):
+			lock = False
+			return
+		next = self.queue[0]
+		self.queue = self.queue[1:]
+		self.player.set_property('uri', uri)
+		self.player.set_state(gst.STATE_PAUSED)
+	
+	def onMessage(self, bus, message):
+		if (message.type not in [gst.MESSAGE_ERROR, gst.MESSAGE_TAG]):
+			uri = self.player.get_property('uri')
+			if (message.type == gst.MESSAGE_TAG):
+				self.funcDic[uri](uri, message.parse_tag())
+				self.player.set_state(gst.STATE_READY)
+			
+			del self.funcDic[uri]
+			self.nextTrack()
+	
+	
+	def __init__(self):
+		self.player = gst.element_factory_make('playbin')
+		self.player.set_property('video-sink', gst.element_factory_make('fakesink'))
+		self.player.set_property('audio-sink', gst.element_factory_make('fakesink'))
+		
+		bus = self.player.get_bus()
+		bus.add_signal_watch()
+		bus.connect('message', self.onMessage)
+
+fileTag = FileTag()
