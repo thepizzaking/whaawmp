@@ -64,10 +64,6 @@ def getDispTitle(tags):
 		if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
 		return file
 
-def getDispTitleFile(uri):
-	## A function that will in future read tags from a file URI.
-	pass
-
 
 class FileTag:
 	## A class for reading tags from a uri/filename.
@@ -79,11 +75,12 @@ class FileTag:
 	# A dictionary holding the functions to call after reading the tags.
 	funcDic = {}
 	
-	def file(self, uri, function):
+	def file(self, uri, function, *args):
+		if ('://' not in uri): uri = 'file://' + uri
 		## Adds the file to be read.
 		# Add to the queue, and store the function to be called later.
 		self.queue.append(uri)
-		self.funcDic[uri] = function
+		self.funcDic[uri] = (function, args)
 		# If we're not locked, read the next track.
 		if (not self.lock): self.nextTrack()
 	
@@ -109,7 +106,8 @@ class FileTag:
 			uri = self.player.get_property('uri')
 			if (message.type == gst.MESSAGE_TAG):
 				# If it's a tag, run the function passed in with the file.
-				self.funcDic[uri](uri, message.parse_tag())
+				func, args = self.funcDic[uri]
+				func(uri, message.parse_tag(), *args)
 				# Stop the player
 				self.player.set_state(gst.STATE_READY)
 			
