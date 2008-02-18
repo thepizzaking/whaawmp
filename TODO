@@ -12,4 +12,6 @@ Replace current volume with a GTK volume widget (only available in 2.12, so shou
 
 Clean up __init__ and others
 
+Allow changing playback speed, (first argument in player.seek)
+
 Move to playbin2 when gstreamer-base? 0.10.17 (~ 1/02/08) becomes more widespread (still alpha, wait for a later version than 0.10.17?)
