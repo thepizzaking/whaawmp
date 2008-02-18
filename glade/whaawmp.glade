@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.1 on Mon Feb  4 13:43:05 2008 -->
+<!--Generated with glade3 3.4.1 on Fri Feb  8 23:17:31 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -902,8 +902,8 @@ Play in separate process</property>
                                 <property name="can_focus">True</property>
                                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                                 <property name="tooltip" translatable="yes">Adjust video brightness</property>
-                                <property name="adjustment">0 -1000 1010 1 10 10</property>
-                                <property name="digits">0</property>
+                                <property name="adjustment">0 -1 1.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
+                                <property name="digits">2</property>
                                 <property name="value_pos">GTK_POS_BOTTOM</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                                 <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
@@ -930,8 +930,8 @@ Play in separate process</property>
                                 <property name="can_focus">True</property>
                                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                                 <property name="tooltip" translatable="yes">Adjust video contrast</property>
-                                <property name="adjustment">0 -1000 1010 1 10 10</property>
-                                <property name="digits">0</property>
+                                <property name="adjustment">1 0 2.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
+                                <property name="digits">2</property>
                                 <property name="value_pos">GTK_POS_BOTTOM</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                                 <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
@@ -958,8 +958,8 @@ Play in separate process</property>
                                 <property name="can_focus">True</property>
                                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                                 <property name="tooltip" translatable="yes">Adjust video hue</property>
-                                <property name="adjustment">0 -1000 1010 1 10 10</property>
-                                <property name="digits">0</property>
+                                <property name="adjustment">0 -1 1.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
+                                <property name="digits">2</property>
                                 <property name="value_pos">GTK_POS_BOTTOM</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                                 <signal name="value_changed" handler="on_scrollbar_colour_changed"/>
@@ -986,8 +986,8 @@ Play in separate process</property>
                                 <property name="can_focus">True</property>
                                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                                 <property name="tooltip" translatable="yes">Adjust video saturation</property>
-                                <property name="adjustment">0 -1000 1010 1 10 10</property>
-                                <property name="digits">0</property>
+                                <property name="adjustment">1 0 2.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
+                                <property name="digits">2</property>
                                 <property name="value_pos">GTK_POS_BOTTOM</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                                 <signal name="value_changed" handler="on_scrollbar_colour_changed"/>

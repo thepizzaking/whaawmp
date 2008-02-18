@@ -64,6 +64,70 @@ def getDispTitle(tags):
 		if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
 		return file
 
-def getDispTitleFile(uri):
-	## A function that will in future read tags from a file URI.
-	pass
+
+class FileTag:
+	## A class for reading tags from a uri/filename.
+	## Unfortunately, gstreamer only reads tags when it plays a file, so we
+	## Add fakesinks and pause it so it emits the tags for us.
+	lock = False
+	# A queue for files wairing to be read.
+	queue = []
+	# A dictionary holding the functions to call after reading the tags.
+	funcDic = {}
+	
+	def file(self, uri, function, *args):
+		if ('://' not in uri): uri = 'file://' + uri
+		## Adds the file to be read.
+		# Add to the queue, and store the function to be called later.
+		self.queue.append(uri)
+		self.funcDic[uri] = (function, args)
+		# If we're not locked, read the next track.
+		if (not self.lock): self.nextTrack()
+	
+	def nextTrack(self):
+		## Read the next files tags.
+		if (not len(self.queue)):
+			# If the queue is empty, unlock and return.
+			self.lock = False
+			return
+		# Otherwise, lock, add the next track to the playbin and pause (causes
+		# tags to be read).
+		self.lock = True
+		next = self.queue[0]
+		self.queue = self.queue[1:]
+		self.player.set_property('uri', next)
+		self.player.set_state(gst.STATE_PAUSED)
+	
+	def onMessage(self, bus, message):
+		## Called when a message is emitted, from the playbin.
+		if (message.type in [gst.MESSAGE_ERROR, gst.MESSAGE_TAG]):
+			# Only continue if the message was an error or a tag.
+			# Read the URI.
+			uri = self.player.get_property('uri')
+			if (message.type == gst.MESSAGE_TAG):
+				# If it's a tag, run the function passed in with the file.
+				func, args = self.funcDic[uri]
+				func(uri, message.parse_tag(), *args)
+				# Stop the player
+				self.player.set_state(gst.STATE_READY)
+			
+			# Remove the function from the dictionary, then read the next track.
+			del self.funcDic[uri]
+			self.nextTrack()
+	
+	
+	def __init__(self):
+		## Need to use a playbin to read the tags.
+		# Create the playbin.
+		self.player = gst.element_factory_make('playbin')
+		# Set the audio & video sinks to fakesinks so weird things don't happen.
+		self.player.set_property('video-sink', gst.element_factory_make('fakesink'))
+		self.player.set_property('audio-sink', gst.element_factory_make('fakesink'))
+		
+		# Get the players bus, add signal watch and connect the onMessage function.
+		bus = self.player.get_bus()
+		bus.add_signal_watch()
+		bus.connect('message', self.onMessage)
+
+# So we can run commands easier.
+fileTag = FileTag()

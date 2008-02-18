@@ -69,13 +69,6 @@ class Dialogue:
 		self.window = self.wTree.get_widget(windowname)
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
-		# Disable video options that aren't available.
-		if (not player.colourSettings):
-			for x in lists.colourSettings:
-				self.wTree.get_widget('hsc' + x).set_sensitive(False)
-			self.wTree.get_widget('btnVideoDefaults').set_sensitive(False)
-		if (not player.aspectSettings):
-			self.wTree.get_widget('chkForceAspect').set_sensitive(False)
 		
 		# Load the preferences.
 		self.loadPreferences()
@@ -120,16 +113,16 @@ class Dialogue:
 		## Reads all the colour settings and sets them.
 		if (player.playingVideo()):
 			# Set it if a video is playing.
-			player.setBrightness(cfg.getInt("video/brightness"))
-			player.setContrast(cfg.getInt("video/contrast"))
-			player.setHue(cfg.getInt("video/hue"))
-			player.setSaturation(cfg.getInt("video/saturation"))
+			player.setBrightness(cfg.getFloat("video/brightness"))
+			player.setContrast(cfg.getFloat("video/contrast"))
+			player.setHue(cfg.getFloat("video/hue"))
+			player.setSaturation(cfg.getFloat("video/saturation"))
 	
 	
 	def resetVideoDefaults(self, widget):
-		## Resets all the settings to 0.
+		## Resets all the settings to their defaults (according to the list).
 		for x in lists.colourSettings:
-			self.wTree.get_widget('hsc' + x).set_value(0)
+			self.wTree.get_widget('hsc' + x).set_value(lists.defaultOptions['video/' + x.lower()])
 			
 		# Call the colour changed settings so they are changed in the video.
 		self.scrollbarColourScroll(widget)

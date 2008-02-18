@@ -58,9 +58,9 @@ fsShowWMouse = ['hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
 
 ## A dicrtionary with all the default options.
 defaultOptions = { 'video/brightness' : 0,
-                   'video/contrast' : 0,
+                   'video/contrast' : 1,
                    'video/hue' : 0,
-                   'video/saturation' : 0,
+                   'video/saturation' : 1,
                    'video/force-aspect-ratio' : True,
                    'video/videosink' : 'default',
                    'gui/mousehidetimeout' : 2000,
@@ -83,15 +83,8 @@ defaultOptions = { 'video/brightness' : 0,
 
 
 ## Some gstreamer lists.
-## A list of gstreamer list types (in order too!).
+## A list of gstreamer stream types (in order too!).
 gstStreamType = [ 'unknown', 'audio', 'video', 'text', 'element' ]
-
-## A list of video-sinks, (in order of preference).
-vsinkTypes = [ 'xvimagesink', 'ximagesink', 'glimagesink', 'directdrawsink', 'fakesink' ]
-
-## Lists of video sinks which support colour and aspect settings.
-vsinkColour = ['xvimagesink']
-vsinkAspect = ['xvimagesink', 'ximagesink']
 
 ## Available colour settings (Remember to use .lower() if lowercase required.
 colourSettings = [ 'Brightness', 'Contrast', 'Hue', 'Saturation' ]

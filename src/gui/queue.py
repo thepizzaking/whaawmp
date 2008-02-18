@@ -21,6 +21,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gobject
 import os, urllib, urlparse
+from common import gstTagger as tagger
 
 
 class queues():
@@ -76,8 +77,13 @@ class queues():
 		row = self.list.append()
 		# Add the path and the interpreted name to the row item.
 		self.list.set_value(row, 0, item)
-		#TODO! Use tags instead of the file name here.
+		# Initiate the tag reading process, but show the filename in case it fails.
 		self.list.set_value(row, 1, item.split('/')[-1])
+		tagger.fileTag.file(item, self.setItmTags, row)
+	
+	def setItmTags(self, uri, tags, row):
+		## Sets the items tags and displays them.
+		self.list.set_value(row, 1, tagger.getDispTitle(tags))
 	
 	def appendMany(self, items):
 		## Appends many queue items.

@@ -248,7 +248,7 @@ class mainWindow:
 		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
 		player.setAudioSink(None if (asink == "default") else asink)
 		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
-		player.setVideoSink(playerTools.vsinkDef() if (vsink == "default") else vsink)
+		player.setVideoSink(None if (vsink == "default") else vsink)
 	
 	
 	def onPlayerMessage(self, bus, message):
@@ -617,8 +617,8 @@ class mainWindow:
 		# Destroy the timers first to avoid about 20 of them.
 		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
-		self.tmrSec = useful.addTimer(1, self.secondTimer)
-		self.tmrMin = useful.addTimer(60, self.minuteTimer)
+		self.tmrSec = gobject.timeout_add_seconds(1, self.secondTimer)
+		self.tmrMin = gobject.timeout_add_seconds(60, self.minuteTimer)
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.
