@@ -107,5 +107,16 @@ def tagsToStr(tags):
 		tagStr += '\t\t' + str(tags[x]) + '\n'
 	return tagStr
 
+# Converts a URI/File into just the files name (no preceeding directories)
+def uriToFilename(file, ext=True):
+	# Get rid of preceeding directories.
+	name = file.split(os.sep)[-1]
+	# Get rid of the extension (if requested).
+	if ((not ext) and ('.' in name)):
+		name = name[:-(len(name.split('.')[-1]) + 1)]
+	
+	return name
+	
+
 # Convert a version tuple to a sting.
 verTupleToStr = lambda tuple: '.'.join(map(str, tuple))

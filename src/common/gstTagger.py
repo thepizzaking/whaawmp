@@ -53,16 +53,11 @@ def getDispTitle(tags):
 			if (x[0]): noneAdded = False
 			# Add the string to the new window title.
 			winTitle += nStr
-	# If at least one tag was added, return the title, otherwise fall
-	# back to the filename function.
+	# If at least one tag was added, return the title, otherwise return None.
 	if (not noneAdded):
 		return winTitle
 	else:
-		file = player.getURI()
-		if (os.sep in file): file = file.split(os.sep)[-1]
-		# Remove the file extenstion (wow, this is messy).
-		if ('.' in file): file = file[:-(len(file.split('.')[-1]) + 1)]
-		return file
+		return None
 
 
 class FileTag:

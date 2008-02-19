@@ -401,7 +401,9 @@ class mainWindow:
 			# If we don't want to set it, return.
 			if (not cfg.getBool('gui/fileastitle')): return
 			# Set the title name.
-			titlename = tagger.getDispTitle(tags) + ' - ' + useful.lName
+			dispTitle = tagger.getDispTitle(tags)
+			if (not dispTitle): dispTitle = useful.uriToFilename(player.getURI(), ext=False)
+			titlename = dispTitle + ' - ' + useful.lName
 		else:
 			# Otherwise, the default title.
 			titlename = useful.lName
