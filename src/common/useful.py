@@ -40,11 +40,11 @@ sToms = lambda s: 1000 * s
 
 def strPartition(str, separator):
 	## Replacement for str.partition (not available in py 2.4)
-	print str.split(separator,1)
-	if (str.index(separator) == 0):
-		return "", separator, str.split(separator,1)
-	first, last = str.split(separator,1)
-	return first, separator, last
+	try:
+	    first, last = str.split(separator,1)
+	    return first, separator, last
+	except ValueError:
+		return (str, "", "")
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
