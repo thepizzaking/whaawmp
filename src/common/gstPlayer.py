@@ -169,7 +169,8 @@ class Player:
 	def setAudioSink(self, sinkName):
 		## Sets the player's audio sink.
 		# If a name was passed, create the element, otherwise pass None
-		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
+		if (sinkName): sink = gst.element_factory_make(sinkName, 'audio-sink')
+		else: sink = None
 		# Set the player's sink accordingly.
 		self.player.set_property('audio-sink', sink)
 	
@@ -185,7 +186,8 @@ class Player:
 		ghostPad = gst.GhostPad('sink', pad)
 		bin.add_pad(ghostPad)
 		# If a name was passed, create the element, otherwise pass use autosink.
-		sink = gst.element_factory_make(sinkName if sinkName else 'autovideosink')
+		if sinkName: sink = gst.element_factory_make(sinkName)
+		else: sink = gst.element_factory_make('autovideosink')
 		bin.add(sink)
 		# Link the elements.
 		gst.element_link_many(colourBalance, sink)

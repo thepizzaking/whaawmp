@@ -25,7 +25,7 @@ from common import gstTagger as tagger
 from common import useful
 
 
-class queues():
+class queues:
 	# The menu item widget, which is changed when the window closes.
 	mnuiWidget = None
 	
@@ -93,7 +93,8 @@ class queues():
 		## Appends many queue items.
 		for x in items:
 			# For all the files, add them to the queue.
-			queue.append(x if ('://' in x) else os.path.abspath(x))
+			if ('://' in x): queue.append(x)
+			else: queue.append(os.path.abspath(x))
 	
 	def clear(self, widget=None):
 		## Clears the queue.

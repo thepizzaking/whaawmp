@@ -47,7 +47,8 @@ class mainWindow:
 		x, y, w, h = event.area
 		
 		# Let the whole thing be drawn upon.
-		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		if (self.videoWindowShown()): colour = widget.get_style().black_gc
+		else: colour =  widget.get_style().bg_gc[0]
 		widget.window.draw_drawable(colour,
 		                            self.pixmap, x, y, x, y, w, h)
 		
@@ -63,7 +64,8 @@ class mainWindow:
 		self.pixmap = gtk.gdk.Pixmap(widget.window, w, h)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
-		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		if (self.videoWindowShown()): colour = widget.get_style().black_gc 
+		else: colour = widget.get_style().bg_gc[0]
 		self.pixmap.draw_rectangle(colour, True, 0, 0, w, h)
 		# Queue the drawing area.
 		widget.queue_draw()
@@ -245,10 +247,14 @@ class mainWindow:
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		# Sets the sinks to that in the config (unless one was specified at launch).
-		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
-		player.setAudioSink(None if (asink == "default") else asink)
-		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
-		player.setVideoSink(None if (vsink == "default") else vsink)
+		if (not self.options.audiosink): asink = cfg.getStr("audio/audiosink")
+		else: asink = self.options.audiosink
+		if (asink == "default"): player.setAudioSink(None)
+		else: player.setAudioSink(asink)
+		if (not self.options.videosink): vsink = cfg.getStr("video/videosink")
+		else: vsink = self.options.videosink
+		if (vsink == "default"): player.setVideoSink(None)
+		else: player.setVideoSink(vsink)
 	
 	
 	def onPlayerMessage(self, bus, message):
@@ -256,7 +262,8 @@ class mainWindow:
 		if (t == 'eos'):
 			# At the end of a stream, play next item from queue.
 			# Or stop if the queue is empty.
-			self.playNext() if (queue.length() > 0) else player.stop()
+			if (queue.length() > 0): self.playNext()
+			else: player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -419,7 +426,8 @@ class mainWindow:
 	def playDVD(self, title=None):
 		## Plays a DVD
 		# Start the player playing the DVD.
-		self.playFile('dvd://%s' % (title if (title != None) else ""))
+		if (title != None): self.playFile('dvd://%s' % (title))
+		else: self.playFile('dvd://%s' % (""))
 			
 	
 	def togglePlayPause(self, widget=None):
@@ -466,7 +474,8 @@ class mainWindow:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
 			if (pld == None or tot == None): pld, tot = player.getTimesSec()
-			self.progressBar.set_fraction(pld / tot if (tot > 0) else 0)
+			if (tot > 0): self.progressBar.set_fraction(pld / tot)
+			else: self.progressBar.set_fraction(0)
 		
 		# Convert played & total time to integers
 		p, t = int(pld), int(tot)
@@ -582,14 +591,16 @@ class mainWindow:
 	
 	def volumeButtonToggled(self, widget):
 		## Toggles Mute
-		player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
+		if (widget.get_active()): player.setVolume(self.volAdj.value)
+		else: player.setVolume(0)
 		# Save the mutedness in the config.
 		cfg.set("audio/mute", not widget.get_active())
 		
 	def changeVolume(self, widget):
 		## Change the volume to that indicated by the volume bar.
 		vol = widget.get_value()
-		player.setVolume(vol if (not cfg.getBool("audio/mute")) else 0)
+		if (not cfg.getBool("audio/mute")): player.setVolume(vol)
+		else: player.setVolume(0)
 		# Set the new volume on the configuration.
 		cfg.set("audio/volume", vol)
 	
@@ -599,13 +610,15 @@ class mainWindow:
 		# Set the size.
 		size = cfg.getInt("gui/iconsize")
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
-		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
+		if (not playing): img = gtk.image_new_from_stock('gtk-media-play', size)
+		else: img = gtk.image_new_from_stock('gtk-media-pause', size)
 		
 		btn = self.wTree.get_widget("btnPlayToggle")
 		# Actually set the icon.
 		btn.set_image(img)
 		# Also set the tooltip.
-		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
+		if (playing): self.tooltips.set_tip(btn, _('Pause'))
+		else: self.tooltips.set_tip(btn, _('Play'))
 		# Set the stop button image too.
 		self.wTree.get_widget("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
 		# And the next one.
@@ -829,7 +842,8 @@ class mainWindow:
 		self.progressUpdate()
 		# Get the volume from the configuration.
 		self.wTree.get_widget("chkVol").set_active(not (cfg.getBool("audio/mute") or (options.mute)))
-		self.volAdj.value = cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
+		if (options.volume == None): self.volAdj.value = cfg.getFloat("audio/volume")
+		else: value = float(options.volume)
 		# Set the quit on stop checkbox.
 		self.wTree.get_widget("mnuiQuitOnStop").set_active(options.quitOnEnd)
 		# Set up the default flags.

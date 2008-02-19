@@ -38,6 +38,13 @@ nsTos = lambda ns: float(ns) / 1000000000
 # Seconds to miliseconds.
 sToms = lambda s: 1000 * s
 
+def strPartition(str, separator):
+	## Replacement for str.partition (not available in py 2.4)
+	print str.split(separator,1)
+	if (str.index(separator) == 0):
+		return "", separator, str.split(separator,1)
+	first, last = str.split(separator,1)
+	return first, separator, last
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
@@ -71,17 +78,17 @@ def tagsToTuple(str):
 	## Takes a string and returns a list of eihter (True, *tag*) or (False, *str*)
 	tags = []
 	# First split the string at { (start of a tag).
-	split = str.partition('{')
+	split = strPartition(str, '{')
 	while (len(split[1])):
 		# While we aren't done.
 		# Append the bit before the tag.
 		tags.append((False, split[0]))
 		# Split at } (end of tag).
-		split = split[2].partition('}')
+		split = strPartition(split[2], '}')
 		# Append the tag to the list.
 		tags.append((True, split[0]))
 		# Split at the { again.
-		split = split[2].partition('{')
+		split = strPartition(split[2], '{')
 	return tags
 
 # Pix data for hidden cursors.

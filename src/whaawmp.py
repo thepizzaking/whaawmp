@@ -28,8 +28,8 @@ gettext.install('whaawmp', unicode=1)
 from common import useful
 
 # Check that at least python 2.5 is running.
-if (sys.version_info < (2, 5)):
-	print _('Cannot continue, python version must be at least 2.5.')
+if (sys.version_info < (2, 4)):
+	print _('Cannot continue, python version must be at least 2.4.')
 	sys.exit(1)
 
 # If gobject version < 2.14 we need to define timeout_add_seconds.

@@ -29,7 +29,8 @@ curTags = [None, None]
 def getCurTags():
 	## Gets the currently playing file's tags.
 	# If the first item isn't the current playing file, the tags are old, so return None.
-	return curTags[1] if (curTags[0] == player.getURI()) else None
+	if (curTags[0] == player.getURI()): return curTags[1] 
+	return None
 
 def getDispTitle(tags):
 	# Set the tags for the current file.
@@ -44,7 +45,8 @@ def getDispTitle(tags):
 		# New string = the associated tag if it's a tag, otherwise just the string.
 		# Remember in each x, [0] is True if [1] is a tag, False if it's not.
 		try:
-			nStr = tags[x[1]] if (x[0]) else x[1]
+			if (x[0]): nStr = tags[x[1]]
+			else: nStr = x[1]
 		except KeyError:
 			nStr = None
 		if (nStr):

@@ -80,7 +80,8 @@ class OpenFile:
 		
 		# Save the current folder.
 		self.dir = dlg.get_current_folder()
-		self.file = dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
+		if (res == gtk.RESPONSE_OK): self.file = dlg.get_filename()
+		else: self.file = None
 		
 		# Destroy the dialogue.
 		dlg.destroy()
@@ -120,11 +121,13 @@ class PlayDVD:
 		dlg.set_default_response(gtk.RESPONSE_OK)
 		# Show all the widgets, then run it.
 		dlg.show_all()
-		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
+		if (dlg.run() == gtk.RESPONSE_OK): self.res = True
+		else: self.res = False
 		dlg.hide()
 		
 		# Save all the values.
-		self.Title = int(spnTitle.get_value()) if (chkTitle.get_active()) else None
+		if (chkTitle.get_active()): self.Title = int(spnTitle.get_value())
+		else: self.Title = None
 		
 		# Finally, destroy the widget.
 		dlg.destroy()
@@ -158,7 +161,8 @@ class OpenURI:
 		dlg.show_all()
 		
 		# Run the dialogue, then hide it.
-		self.onResponse(entry, (True if (dlg.run() == gtk.RESPONSE_OK) else False), dlg)
+		if (dlg.run() == gtk.RESPONSE_OK): self.onResponse(entry, True, dlg)
+		else: self.onResponse(entry, False, dlg)
 	
 	def onResponse(self, entry, res, dlg):
 		# If a result has already been obtained, cancel the call.
@@ -170,7 +174,8 @@ class OpenURI:
 		dlg.hide()
 		
 		# Save the URI if OK was pressed.
-		self.URI = entry.get_text() if (self.res) else None
+		if (self.res): self.URI = entry.get_text()
+		else: self.URI = None
 		# Destroy the dialogue.
 		dlg.destroy()
 
@@ -262,12 +267,14 @@ class SupportedFeatures:
 			a = dic[x]
 			# Make a button and add an icon according to the feature's availability.
 			btn = gtk.Button()
-			icon = gtk.STOCK_APPLY if a else gtk.STOCK_CANCEL
+			if a: icon = gtk.STOCK_APPLY
+			else: icon = gtk.STOCK_CANCEL
 			btn.set_image(gtk.image_new_from_stock(icon, 2))
 			# Pack in the button and a label into an HBox, then into the dialogue.
 			hbox = gtk.HBox()
 			hbox.pack_start(btn, False, False)
-			hbox.pack_start(gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))))
+			if a: hbox.pack_start(gtk.Label("%s - %s" % (x, _("Available"))))
+			else: hbox.pack_start(gtk.Label("%s - %s" % (x, _("Unavailable"))))
 			dlg.vbox.pack_start(hbox, False, False)
 		
 		# Displaying library versions.
