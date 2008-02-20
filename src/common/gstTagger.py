@@ -65,17 +65,20 @@ class FileTag:
 	## Unfortunately, gstreamer only reads tags when it plays a file, so we
 	## Add fakesinks and pause it so it emits the tags for us.
 	lock = False
-	# A queue for files wairing to be read.
+	# A queue for files waiting to be read.
 	queue = []
-	# A dictionary holding the functions to call after reading the tags.
-	funcDic = {}
+	# A variable to hold the current file data.
+	current = None
 	
 	def file(self, uri, function, *args):
-		if ('://' not in uri): uri = 'file://' + uri
 		## Adds the file to be read.
+		if ('://' not in uri): uri = 'file://' + uri
 		# Add to the queue, and store the function to be called later.
-		self.queue.append(uri)
-		self.funcDic[uri] = (function, args)
+		dic = {}
+		dic['uri'] = uri
+		dic['func'] = function
+		dic['args'] = args
+		self.queue.append(dic)
 		# If we're not locked, read the next track.
 		if (not self.lock): self.nextTrack()
 	
@@ -88,26 +91,28 @@ class FileTag:
 		# Otherwise, lock, add the next track to the playbin and pause (causes
 		# tags to be read).
 		self.lock = True
-		next = self.queue[0]
-		self.queue = self.queue[1:]
-		self.player.set_property('uri', next)
+		self.current = self.queue[0]
+		del self.queue[0]
+		self.player.set_property('uri', self.current['uri'])
 		self.player.set_state(gst.STATE_PAUSED)
 	
 	def onMessage(self, bus, message):
 		## Called when a message is emitted, from the playbin.
 		if (message.type in [gst.MESSAGE_ERROR, gst.MESSAGE_TAG]):
 			# Only continue if the message was an error or a tag.
-			# Read the URI.
+			# Read the URI, and check it matches the current URI.
 			uri = self.player.get_property('uri')
-			if (message.type == gst.MESSAGE_TAG):
+			if (uri != self.current['uri']):
+				print _("Something bad happened which shouldn't\nTell me: current data did not match player URI")
+			elif (message.type == gst.MESSAGE_TAG):
 				# If it's a tag, run the function passed in with the file.
-				func, args = self.funcDic[uri]
+				func, args = self.current['func'], self.current['args']
 				func(uri, message.parse_tag(), *args)
 				# Stop the player
 				self.player.set_state(gst.STATE_READY)
 			
-			# Remove the function from the dictionary, then read the next track.
-			del self.funcDic[uri]
+			# Clear the current data, then read the next track.
+			self.current = None
 			self.nextTrack()
 	
 	
