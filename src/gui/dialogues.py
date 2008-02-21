@@ -35,7 +35,8 @@ class AboutDialogue:
 		# Set the name.
 		## TODO!!: Remove this when glib 2.14 is more widespread (or GTK 2.12
 		# it's one of them), because it defaults to application name set.
-		if (gobject.glib_version < (2,14)): dlg.set_name(useful.lName)
+		if (gobject.glib_version >= (2,14) and gobject.pygobject_version >= (2, 14)):
+			dlg.set_name(useful.lName)
 		# Sets the correct version.
 		dlg.set_version(useful.version)
 		# Set the parent to the main window.

@@ -379,7 +379,7 @@ class mainWindow:
 			
 			# HACK: Force embedding the video into our video window because
 			# onPlayerSyncMessage is never called in Windows.
-			if sys.platform == 'win32':
+			if (sys.platform == 'win32'):
 				class C: pass
 				message = C()
 				message.src = player.player.props.video_sink
@@ -760,7 +760,7 @@ class mainWindow:
 		self.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
 		## TODO, remove this if when glib 2.14 is more widespread.
-		if (gobject.glib_version >= (2,14)):
+		if (gobject.glib_version >= (2,14) and gobject.pygobject_version >= (2, 14)):
 			gobject.set_application_name(useful.lName)
 		
 		# Create & prepare the player for playing.
