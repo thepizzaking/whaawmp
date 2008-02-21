@@ -74,20 +74,25 @@ class queues:
 	
 	def append(self, item):
 		## Appends an item to the queue.
+		# Make sure 'item' is a URI.
+		if ('://' not in item): item = 'file://' + item
 		# Create a new row.
 		row = self.list.append()
 		# Add the path and the interpreted name to the row item.
 		self.list.set_value(row, 0, item)
 		# Initiate the tag reading process, but show the filename in case it fails.
 		self.list.set_value(row, 1, useful.uriToFilename(item))
-		tagger.fileTag.file(item, self.setItmTags, row)
+		tagger.fileTag.file(item, self.setItmTags)
 	
-	def setItmTags(self, uri, tags, row):
-		## Sets the items tags and displays them.
-		# This line currently causes segfaults if the row is removed before this is called.
-		#print int(row)
-		pass #dispTitle = tagger.getDispTitle(tags)
-		# if (dispTitle): self.list.set_value(row, 1, dispTitle)
+	def setItmTags(self, uri, tags):
+		## Sets the items tags and displays them (maybe not very efficient).
+		dispTitle = tagger.getDispTitle(tags)
+		# If not display title was returned, just pass.
+		if not dispTitle: return
+		# For all the items in the list, if they have that URI, add the tags.
+		for x in range(len(self.list)):
+			if (self.list[x][0] == uri):
+				self.list[x][1] = dispTitle
 	
 	def appendMany(self, items):
 		## Appends many queue items.

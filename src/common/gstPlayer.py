@@ -17,6 +17,7 @@
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import sys
 import pygst
 pygst.require('0.10')
 import gst
@@ -191,6 +192,11 @@ class Player:
 		bin.add(sink)
 		# Link the elements.
 		gst.element_link_many(colourBalance, sink)
+		
+		# HACK: In Windows, scrap the bin and always use directdrawsink without
+ 		# videobalance.
+ 		if (sys.platform == 'win32'):
+			bin = gst.element_factory_make('directdrawsink')
 		
 		# Actually set the player's sink.
 		self.player.set_property('video-sink', bin)

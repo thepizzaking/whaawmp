@@ -18,6 +18,7 @@
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from common import useful
+import os
 
 try:
 	import dbus
@@ -142,7 +143,7 @@ class initBus:
 		
 			for x in args:
 				# Play all the files passed.
-				if (self.iface.playFile(x, playBehaviour)):
+				if (self.iface.playFile(os.path.abspath(x), playBehaviour)):
 					# Return of True = I've handled it, you can now quit.
 					self.quitAfter = True
 				else:
