@@ -27,6 +27,11 @@ import xdg.BaseDirectory
 cfgFile = os.path.join(xdg.BaseDirectory.save_config_path(useful.sName), 'config.ini')
 
 class config:
+	## This variable holds the command line options on runtime.
+	cl = None
+	## This one the args.
+	args = None
+	
 	def save(self):
 		## Saves the configuration file.
 		f = open(cfgFile, "w")

@@ -168,8 +168,14 @@ class Player:
 		self.colourBalance.set_property('saturation', val)
 	
 	
-	def setAudioSink(self, sinkName):
+	def setAudioSink(self, sinkName=None):
 		## Sets the player's audio sink.
+		if (not sinkName):
+			# Get the sink name if None was passed.
+			sinkName = cfg.cl.audiosink or cfg.getStr("audio/audiosink")
+		# If default is selected, just use None.
+		sinkName = (None if (sinkName == "default") else sinkName)
+		
 		# If a name was passed, create the element, otherwise pass None
 		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
 		# Set the selected audio device.
@@ -179,7 +185,13 @@ class Player:
 		self.player.set_property('audio-sink', sink)
 	
 	def setVideoSink(self, sinkName=None):
-		## Sets the player's video sink.		
+		## Sets the player's video sink.
+		if (not sinkName):
+			# Get the sink name if None was passed.
+			sinkName = cfg.cl.videosink or cfg.getStr("video/videosink")
+		# If default is selected, just use None.
+		sinkName = (None if (sinkName == "default") else sinkName)
+		
 		# Create the sink bin.
 		bin =  gst.Bin()
 		# Create a filter for colour balancing & add it to the bin.

@@ -244,11 +244,9 @@ class mainWindow:
 		bus = player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
-		# Sets the sinks to that in the config (unless one was specified at launch).
-		asink = cfg.getStr("audio/audiosink") if (not self.options.audiosink) else self.options.audiosink
-		player.setAudioSink(None if (asink == "default") else asink)
-		vsink = cfg.getStr("video/videosink") if (not self.options.videosink) else self.options.videosink
-		player.setVideoSink(None if (vsink == "default") else vsink)
+		# Sets the sinks.
+		player.setAudioSink()
+		player.setVideoSink()
 	
 	
 	def onPlayerMessage(self, bus, message):
@@ -754,9 +752,8 @@ class mainWindow:
 		dialogues.SupportedFeatures(self.mainWindow)
 	
 	
-	def __init__(self, main, options, args):
+	def __init__(self):
 		# Set the last folder to the directory from which the program was called.
-		self.options = options
 		self.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
 		## TODO, remove this if when glib 2.14 is more widespread.
@@ -828,10 +825,10 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("chkVol").set_active(not (cfg.getBool("audio/mute") or (options.mute)))
-		self.volAdj.value = cfg.getFloat("audio/volume") if (options.volume == None) else float(options.volume)
+		self.wTree.get_widget("chkVol").set_active(not (cfg.getBool("audio/mute") or (cfg.cl.mute)))
+		self.volAdj.value = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
 		# Set the quit on stop checkbox.
-		self.wTree.get_widget("mnuiQuitOnStop").set_active(options.quitOnEnd)
+		self.wTree.get_widget("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
 		# Set up the default flags.
 		self.controlsShown = True
 		self.seeking = False
@@ -845,15 +842,15 @@ class mainWindow:
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
-		if (len(args) > 0):
+		if (len(cfg.args) > 0):
 			# Append all tracks to the queue.
-			queue.appendMany(args)
+			queue.appendMany(cfg.args)
 			# Then play the next track.
 			self.playNext()
 		else:
 			self.videoWindowOnStop(True)
 		
-		if (options.fullscreen):
+		if (cfg.cl.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
 			self.activateFullscreen()
 		
