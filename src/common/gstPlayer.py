@@ -22,6 +22,7 @@ import pygst
 pygst.require('0.10')
 import gst
 from common import lists, useful
+from common.config import cfg
 
 
 class Player:
@@ -171,6 +172,9 @@ class Player:
 		## Sets the player's audio sink.
 		# If a name was passed, create the element, otherwise pass None
 		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
+		# Set the selected audio device.
+		device = cfg.getStr('audio/audiodevice')
+		if (device != ''): sink.set_property('device', device)
 		# Set the player's sink accordingly.
 		self.player.set_property('audio-sink', sink)
 	
