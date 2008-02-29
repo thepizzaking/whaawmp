@@ -194,3 +194,31 @@ class initBus:
 		# throw an exception if whaawmp is not running.
 		ro = bus.get_object("org.gna.whaawmp", "/IntObject")
 		self.iface = dbus.Interface(ro, "org.gna.whaawmp")
+
+
+class sessionBus:	
+	def getAlsaDevices(self, type="playback"):
+		## A function which returns a dictionary of name:cardnum pairs (for alsa).
+		# Get the hal manager object and the manager.
+		object = self.bus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
+		manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
+		
+		# Initialise the device dictionary with the default device.
+		deviceDic = {"Default" : "default"}
+		# Get all the devices of the requested type.
+		devices = manager.FindDeviceStringMatch("alsa.type", type)
+		
+		for x in devices:
+			# For all the devices read.
+			deviceObj = self.bus.get_object("org.freedesktop.Hal", x)
+			props = deviceObj.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
+			cardnum = "hw:" + str(props["alsa.card"])
+			
+			name = props["alsa.device_id"] if ("alsa.device_id" in props) else cardnum
+		
+			deviceDic[name] = cardnum
+		
+		return deviceDic
+		
+	def __init__(self):
+		self.bus = dbus.SystemBus()
