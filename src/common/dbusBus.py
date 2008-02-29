@@ -196,29 +196,31 @@ class initBus:
 		self.iface = dbus.Interface(ro, "org.gna.whaawmp")
 
 
-class sessionBus:	
-	def getAlsaDevices(self, type="playback"):
-		## A function which returns a dictionary of name:cardnum pairs (for alsa).
-		# Get the hal manager object and the manager.
-		object = self.bus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
-		manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
+def getAlsaDevices(type="playback"):
+	## A function which returns a dictionary of cardnum:name pairs (for alsa).
+	# Initialise the device dictionary with the default device.
+	deviceDic = {"default" : "Default"}
+	# If dbus isn't available, just return the device dictionary.
+	if (not avail): return deviceDic
+	
+	# Get the hal manager object and the manager.
+	sysBus = dbus.SystemBus()
+	object = sysBus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
+	manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
+	
+	# Get all the devices of the requested type.
+	devices = manager.FindDeviceStringMatch("alsa.type", type)
+	
+	for x in devices:
+		# For all the devices read.
+		# Get all the properties of the cards to get the cardnumber and the name.
+		deviceObj = sysBus.get_object("org.freedesktop.Hal", x)
+		props = deviceObj.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
+		cardnum = "hw:" + str(props["alsa.card"])
 		
-		# Initialise the device dictionary with the default device.
-		deviceDic = {"Default" : "default"}
-		# Get all the devices of the requested type.
-		devices = manager.FindDeviceStringMatch("alsa.type", type)
+		name = props["alsa.device_id"] if ("alsa.device_id" in props) else cardnum
 		
-		for x in devices:
-			# For all the devices read.
-			deviceObj = self.bus.get_object("org.freedesktop.Hal", x)
-			props = deviceObj.GetAllProperties(dbus_interface="org.freedesktop.Hal.Device")
-			cardnum = "hw:" + str(props["alsa.card"])
-			
-			name = props["alsa.device_id"] if ("alsa.device_id" in props) else cardnum
-		
-			deviceDic[name] = cardnum
-		
-		return deviceDic
-		
-	def __init__(self):
-		self.bus = dbus.SystemBus()
+		#Add the device to the dictionary.
+		deviceDic[cardnum] = name
+	
+	return deviceDic
