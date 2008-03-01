@@ -76,9 +76,13 @@ class main:
 		# Check if whaawmp is already running and send dbus messages if it is.
 		# Quit if the command is one it should quit after.
 		if (initBus(options, args).quitAfter): sys.exit()
-
+		
+		# Save the command line options & args.
+		from common.config import cfg
+		cfg.cl = options
+		cfg.args = args
 		# Creates the window.
-		self.mainWindow = whaawmp.mainWindow(self, options, args)
+		self.mainWindow = whaawmp.mainWindow()
 		
 		return
 
