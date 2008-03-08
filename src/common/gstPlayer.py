@@ -174,7 +174,7 @@ class Player:
 			# Get the sink name if None was passed.
 			sinkName = cfg.cl.audiosink or cfg.getStr("audio/audiosink")
 		# If default is selected, just use None.
-		sinkName = (None if (sinkName == "default") else sinkName)
+		if (sinkName == "default"): sinkName = None
 		
 		# If a name was passed, create the element, otherwise pass None
 		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
@@ -190,7 +190,7 @@ class Player:
 			# Get the sink name if None was passed.
 			sinkName = cfg.cl.videosink or cfg.getStr("video/videosink")
 		# If default is selected, just use None.
-		sinkName = (None if (sinkName == "default") else sinkName)
+		if (sinkName == "default"): sinkName = None
 		
 		# Create the sink bin.
 		bin =  gst.Bin()
