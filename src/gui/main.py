@@ -676,7 +676,7 @@ class mainWindow:
 	def showOpenDialogue(self, widget=None):
 		## Shows the open file dialogue.
 		# Prepare the dialogue.
-		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
+		dlg = dialogues.OpenFile(self.mainWindow, useful.lastFolder)
 
 		if (dlg.files):
 			# If the response is OK, play the first file, then queue the others.
@@ -685,7 +685,7 @@ class mainWindow:
 			self.playFile(dlg.files[0])
 			queue.appendMany(dlg.files[1:])
 			# Also set the last folder, (if it exists).
-			if (dlg.dir): self.lastFolder = dlg.dir
+			if (dlg.dir): useful.lastFolder = dlg.dir
 	
 	
 	def showAboutDialogue(self, widget):
@@ -757,7 +757,7 @@ class mainWindow:
 	
 	def __init__(self):
 		# Set the last folder to the directory from which the program was called.
-		self.lastFolder = useful.origDir
+		useful.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
 		## TODO, remove this if when glib 2.14 is more widespread.
 		if (gobject.glib_version >= (2,14) and gobject.pygobject_version >= (2,14)):
@@ -812,7 +812,7 @@ class mainWindow:
 		self.wTree.get_widget("queueBox").pack_start(queue.qwin)
 		
 		# Get several items for access later.
-		self.mainWindow = self.wTree.get_widget(windowname)
+		useful.mainWin = self.mainWindow = self.wTree.get_widget(windowname)
 		self.progressBar = self.wTree.get_widget("pbarProgress")
 		self.videoWindow = self.wTree.get_widget("videoWindow")
 		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
