@@ -678,9 +678,12 @@ class mainWindow:
 		# Prepare the dialogue.
 		dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
 
-		if (dlg.file):
-			# If the response is OK, play the file.		
-			self.playFile(dlg.file)
+		if (dlg.files):
+			# If the response is OK, play the first file, then queue the others.
+			# Clear the queue first though, since it is now obsolete.
+			queue.clear()
+			self.playFile(dlg.files[0])
+			queue.appendMany(dlg.files[1:])
 			# Also set the last folder, (if it exists).
 			if (dlg.dir): self.lastFolder = dlg.dir
 	

@@ -52,7 +52,7 @@ class AboutDialogue:
 
 
 class OpenFile:
-	def __init__(self, parent, loc):
+	def __init__(self, parent, loc, multiple=True):
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
@@ -62,6 +62,8 @@ class OpenFile:
 		
 		# Set the current folder to the one passed.
 		dlg.set_current_folder(loc)
+		# Let the dialogue support multiple files (if requested).
+		dlg.set_select_multiple(multiple)
 		
 		# Add the file filter.
 		filter = gtk.FileFilter()
@@ -81,7 +83,7 @@ class OpenFile:
 		
 		# Save the current folder.
 		self.dir = dlg.get_current_folder()
-		self.file = dlg.get_filename() if (res == gtk.RESPONSE_OK) else None
+		self.files = dlg.get_filenames() if (res == gtk.RESPONSE_OK) else None
 		
 		# Destroy the dialogue.
 		dlg.destroy()
