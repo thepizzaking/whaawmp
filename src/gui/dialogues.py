@@ -24,6 +24,7 @@ import os
 from common import lists, useful
 from common.config import cfg
 from common.gstPlayer import player
+from common.signals import signals
 
 class AboutDialogue:
 	def __init__(self, parent):
@@ -220,16 +221,17 @@ class SelectAudioTrack:
 
 
 class ErrorMsgBox:
-	def __init__(self, parent, message, title=_('Error!')):
+	def __init__(self, message, title=_('Error!'), parent=None):
 		## Creates an error message box (Use the MsgBox, just add an image).
 		icon = gtk.image_new_from_stock('gtk-dialog-error', gtk.ICON_SIZE_DIALOG)
 		# Run the message box, with the parameters already passed.
-		MsgBox(parent, message, title, icon)
+		MsgBox(message, title, icon, parent=parent)
 
 
 class MsgBox:
-	def __init__(self, parent, message, title=_('Message'), icon=None):
+	def __init__(self, message, title=_('Message'), icon=None, parent=None):
 		## Creates a message box containing the message 'message'.
+		if (not parent): parent = useful.mainWin
 		# Create the dialogue.
 		dlg = gtk.Dialog(title, parent,
 		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
@@ -284,3 +286,10 @@ class SupportedFeatures:
 		dlg.show_all()
 		dlg.run()
 		dlg.destroy()
+
+
+def __init__():
+	# Connect the error signal.
+	signals.connect('error', ErrorMsgBox)
+
+__init__()

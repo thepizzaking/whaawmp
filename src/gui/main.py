@@ -843,8 +843,6 @@ class mainWindow:
 		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_widget("btnRestart").show()
 		# Show the window.
 		self.mainWindow.show()
-		# Connect the error signal.
-		signals.connect('error', dialogues.MsgBox, self.mainWindow)
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
