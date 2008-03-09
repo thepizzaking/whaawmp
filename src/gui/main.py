@@ -724,6 +724,18 @@ class mainWindow:
 			qwinHeight = queue.qwin.get_allocation().height
 			useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
 	
+	def toggleAdvControls(self, widget):
+		toShow = widget.get_active()
+		# Toggle the advanced controls according to the menu item's state.
+		ctrls = self.wTree.get_widget("hboxAdvCtrls")
+		if (toShow):
+			ctrls.show()
+		else:
+			ctrls.hide()
+			# If we're closing it, we should shrink the main window too.
+			hboxHeight = ctrls.get_allocation().height
+			useful.modifyWinHeight(self.mainWindow, - (hboxHeight))
+	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
 		if (useful.checkLinkHandler):
@@ -812,6 +824,7 @@ class mainWindow:
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
+		        "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
 		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
 		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
 		self.wTree.signal_autoconnect(dic)
