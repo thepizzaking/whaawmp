@@ -31,6 +31,7 @@ from common import gstTagger as tagger
 from common import dbusBus as msgBus
 from common.config import cfg
 from common.gstPlayer import player
+from common.signals import signals
 
 class mainWindow:
     def quit(self, widget=None, event=None):
@@ -238,6 +239,10 @@ class mainWindow:
         elif (event.string == 'q'):
             # On 'q' show/hide the queue.
             queue.toggle()
+        elif (event.string == 'a'):
+            # On 'a' show/hide the advanced controls by reversing the menu item's status.
+            menuItm = self.wTree.get_widget("mnuiAdvCtrls")
+            menuItm.set_active(not menuItm.get_active())
 
     
     def preparePlayer(self):
@@ -262,7 +267,7 @@ class mainWindow:
             self.playFile(None)
             # Show an error about the failure.
             msg = message.parse_error()
-            dialogues.ErrorMsgBox(self.mainWindow, str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
+            signals.emit('error', str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
         elif (t == 'state_changed' and message.src == player.player):
             self.onPlayerStateChange(message)
         elif (t == 'tag'):
@@ -360,8 +365,10 @@ class mainWindow:
         ## Plays the file 'file' (Could also be a URI).
         # First, stop the player.
         player.stop()
-        # Set the audio track to 0
+        # Set the audio track to 0.
         player.setAudioTrack(0)
+        # Reset the player's speed to 1.
+        self.wTree.get_widget("spnPlaySpeed").set_value(1)
         
         if (file == None):
             # If no file is to be played, set the URI to None, and the file to ""
@@ -684,13 +691,16 @@ class mainWindow:
     def showOpenDialogue(self, widget=None):
         ## Shows the open file dialogue.
         # Prepare the dialogue.
-        dlg = dialogues.OpenFile(self.mainWindow, self.lastFolder)
+        dlg = dialogues.OpenFile(self.mainWindow, useful.lastFolder)
 
-        if (dlg.file):
-            # If the response is OK, play the file.     
-            self.playFile(dlg.file)
+        if (dlg.files):
+            # If the response is OK, play the first file, then queue the others.
+            # Clear the queue first though, since it is now obsolete.
+            queue.clear()
+            self.playFile(dlg.files[0])
+            queue.appendMany(dlg.files[1:])
             # Also set the last folder, (if it exists).
-            if (dlg.dir): self.lastFolder = dlg.dir
+            if (dlg.dir): useful.lastFolder = dlg.dir
     
     
     def showAboutDialogue(self, widget):
@@ -726,6 +736,20 @@ class mainWindow:
             qwinHeight = queue.qwin.get_allocation().height
             useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
     
+    def toggleAdvControls(self, widget=None):
+        ## Toggles the advanced controls.
+        # Get the menu item's state so we know to show or hide.
+        toShow = widget.get_active()
+        # Get the hbix, then show or hide it accordingly.
+        ctrls = self.wTree.get_widget("hboxAdvCtrls")
+        if (toShow):
+            ctrls.show()
+        else:
+            ctrls.hide()
+            # If we're closing it, we should shrink the main window too.
+            hboxHeight = ctrls.get_allocation().height
+            useful.modifyWinHeight(self.mainWindow, - (hboxHeight))
+   
     def connectLinkHooks(self):
         ## Make hooks for opening URLs and e-mails.
         if (useful.checkLinkHandler):
@@ -759,10 +783,13 @@ class mainWindow:
         # Shows the supported features dialogue.
         dialogues.SupportedFeatures(self.mainWindow)
     
-    
+    def onPlaySpeedChange(self, widget):
+        # Changes the players current speed.
+        player.changeSpeed(widget.get_value())
+   
     def __init__(self):
         # Set the last folder to the directory from which the program was called.
-        self.lastFolder = useful.origDir
+        useful.lastFolder = useful.origDir
         # Set the application's name (for about dialogue etc).
         ## TODO, remove this if when glib 2.14 is more widespread.
         if (gobject.glib_version >= (2,14) and gobject.pygobject_version >= (2,14)):
@@ -810,14 +837,16 @@ class mainWindow:
                 "on_mnuiReportBug_activate" : self.openBugReporter,
                 "on_main_window_state_event" : self.onMainStateEvent,
                 "on_mnuiQueue_toggled" : self.toggleQueueWindow,
-                "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg }
+                "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
+                "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
+                "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
         self.wTree.signal_autoconnect(dic)
         
         # Add the queue to the queue box.
         self.wTree.get_widget("queueBox").pack_start(queue.qwin)
         
         # Get several items for access later.
-        self.mainWindow = self.wTree.get_widget(windowname)
+        useful.mainWin = self.mainWindow = self.wTree.get_widget(windowname)
         self.progressBar = self.wTree.get_widget("pbarProgress")
         self.videoWindow = self.wTree.get_widget("videoWindow")
         self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")

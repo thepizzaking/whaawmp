@@ -27,6 +27,7 @@ from common.config import cfg
 
 class Player:
     version = gst.gst_version
+    speed = 1
     
     def play(self):
         # Starts the player playing, only if the player has a URI.
@@ -93,8 +94,13 @@ class Player:
     getPlayedSec = lambda self: useful.nsTos(self.getPlayed())
     # Returns the total duration seconds.
     getDurationSec = lambda self: useful.nsTos(self.getDuration())
-    # Returns the played time (in nanoseconds).
-    getPlayed = lambda self: self.player.query_position(gst.FORMAT_TIME)[0]
+
+    def getPlayed(self):
+        # Returns the played time (in nanoseconds).
+        try:
+            return self.player.query_position(gst.FORMAT_TIME)[0]
+        except:
+            return 0
     
     def getDuration(self):
         # Returns the duration (nanoseconds).
@@ -103,6 +109,16 @@ class Player:
         except:
             return 0
     
+    def changeSpeed(self, speed):
+        # Changes the playing speed of the player.
+        # Set the default speed.
+        self.speed = speed
+        # Get the current position, then seek there with the new speed.
+        loc = self.getPlayed()
+        self.player.seek(speed, gst.FORMAT_TIME,
+            gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
+            gst.SEEK_TYPE_SET, loc,
+            gst.SEEK_TYPE_NONE, 0)
     
     def seekFrac(self, frac):
         # Seek from a fraction.
@@ -114,7 +130,7 @@ class Player:
     def seek(self, loc):
         ## Seeks to a set location in the track.
         # Seek to the requested position.
-        self.player.seek(1.0, gst.FORMAT_TIME,
+        self.player.seek(self.speed, gst.FORMAT_TIME,
             gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
             gst.SEEK_TYPE_SET, loc,
             gst.SEEK_TYPE_NONE, 0)

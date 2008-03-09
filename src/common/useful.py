@@ -27,6 +27,9 @@ origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
 gladefile = os.path.join(dataDir, 'glade', sName + '.glade')
+# Other things stored here are:
+#mainWin (the main window)
+#lastDir (the last directory used in the open file dialogue etc)
 
 # Executions with no output.
 hiddenExec = lambda x: os.system(x +  '>/dev/null 2>/dev/null &')

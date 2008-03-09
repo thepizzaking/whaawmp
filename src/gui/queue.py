@@ -21,6 +21,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gobject
 import os, urllib, urlparse
+from gui import dialogues
 from common import gstTagger as tagger
 from common import useful
 
@@ -166,6 +167,16 @@ class queues:
 		# Finish the drag.
 		context.finish(True, False, time)
 	
+	def startAddDialogue(self, widget):
+		## Adds items to the queue from a file selection.
+		dlg = dialogues.OpenFile(useful.mainWin, useful.lastFolder)
+		
+		if (dlg.files):
+			# Append all the files to the queue.
+			self.appendMany(dlg.files)
+			# Set the last folder (if it exists).
+			if (dlg.dir): useful.lastFolder = dlg.dir
+	
 	def createWindow(self):
 		## Creates the window of the queue.
 		# First create the list, it contains two strings (1st path, 2nd display).
@@ -193,16 +204,21 @@ class queues:
 		scrolly.add(self.tree)
 		# Create a clear button which clears the queue.
 		btnClear = gtk.Button()
-		btnClear.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, 2))
+		btnClear.set_image(gtk.image_new_from_stock(gtk.STOCK_CLEAR, gtk.ICON_SIZE_SMALL_TOOLBAR))
 		btnClear.connect('clicked', self.clear)
 		# Add a remove button which removes the currently selected item.
 		btnRemove = gtk.Button()
-		btnRemove.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, 2))
+		btnRemove.set_image(gtk.image_new_from_stock(gtk.STOCK_REMOVE, gtk.ICON_SIZE_SMALL_TOOLBAR))
 		btnRemove.connect('clicked', self.removeSelected)
+		# How about an 'add' button too.
+		btnAdd = gtk.Button()
+		btnAdd.set_image(gtk.image_new_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_SMALL_TOOLBAR))
+		btnAdd.connect('clicked', self.startAddDialogue)
 		# Create a horizontal box and add the clear & remove buttons to it.
 		hBox = gtk.HBox()
 		hBox.pack_end(btnClear, False, False)
 		hBox.pack_end(btnRemove, False, False)
+		hBox.pack_end(btnAdd, False, False)
 		# Create a vertical box and add the tree (in the scroll widget) and
 		# the horizontal box with the buttons to it.
 		self.qwin.pack_start(scrolly)
@@ -211,6 +227,7 @@ class queues:
 		tooltips = gtk.Tooltips()
 		tooltips.set_tip(btnClear, _('Clear Queue'))
 		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
+		tooltips.set_tip(btnAdd, _('(Add items to queue'))
 	
 	def __init__(self):
 		# Flag the window as closed.
