@@ -237,6 +237,10 @@ class mainWindow:
 		elif (event.string == 'q'):
 			# On 'q' show/hide the queue.
 			queue.toggle()
+		elif (event.string == 'a'):
+			# On 'a' show/hide the advanced controls by reversing the menu item's status.
+			menuItm = self.wTree.get_widget("mnuiAdvCtrls")
+			menuItm.set_active(not menuItm.get_active())
 
 	
 	def preparePlayer(self):
@@ -724,9 +728,11 @@ class mainWindow:
 			qwinHeight = queue.qwin.get_allocation().height
 			useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
 	
-	def toggleAdvControls(self, widget):
+	def toggleAdvControls(self, widget=None):
+		## Toggles the advanced controls.
+		# Get the menu item's state so we know to show or hide.
 		toShow = widget.get_active()
-		# Toggle the advanced controls according to the menu item's state.
+		# Get the hbix, then show or hide it accordingly.
 		ctrls = self.wTree.get_widget("hboxAdvCtrls")
 		if (toShow):
 			ctrls.show()
