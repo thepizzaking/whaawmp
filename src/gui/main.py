@@ -359,8 +359,10 @@ class mainWindow:
 		## Plays the file 'file' (Could also be a URI).
 		# First, stop the player.
 		player.stop()
-		# Set the audio track to 0
+		# Set the audio track to 0.
 		player.setAudioTrack(0)
+		# Reset the player's speed to 1.
+		self.wTree.get_widget("spnPlaySpeed").set_value(1)
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
@@ -755,6 +757,10 @@ class mainWindow:
 		# Shows the supported features dialogue.
 		dialogues.SupportedFeatures(self.mainWindow)
 	
+	def onPlaySpeedChange(self, widget):
+		# Changes the players current speed.
+		player.changeSpeed(widget.get_value())
+	
 	
 	def __init__(self):
 		# Set the last folder to the directory from which the program was called.
@@ -806,7 +812,8 @@ class mainWindow:
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
-		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg }
+		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
+		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Add the queue to the queue box.
