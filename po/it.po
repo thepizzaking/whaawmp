@@ -1,0 +1,598 @@
+# Italian translation for whaawmp
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# This file is distributed under the same license as the whaawmp package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: whaawmp\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2008-02-15 09:41+1100\n"
+"PO-Revision-Date: 2008-03-04 21:01+0000\n"
+"Last-Translator: texxxxxx <Unknown>\n"
+"Language-Team: Italian <it@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-03-10 10:24+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: ../src/thumbnailer.py:66
+msgid " [options] -o output-file input-file"
+msgstr ""
+
+#: ../src/thumbnailer.py:71
+msgid "The file to create the thumbnail of"
+msgstr ""
+
+#: ../src/thumbnailer.py:75
+#, fuzzy
+msgid "The destination of the resulting thumbnail"
+msgstr "La destinazione del thumbnail risultante"
+
+#: ../src/thumbnailer.py:79
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr ""
+
+#: ../src/thumbnailer.py:83
+#, fuzzy
+msgid "The destination size (in pixels)"
+msgstr "La dimensione finale (in pixel)"
+
+#: ../src/thumbnailer.py:93
+msgid "Sorry, an input and output file are required to be passed."
+msgstr ""
+
+#: ../src/thumbnailer.py:94
+#, fuzzy, python-format
+msgid "See '%s --help' for details"
+msgstr "Guarda '%s --help' per dettagli"
+
+#: ../src/thumbnailer.py:101
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr ""
+
+#: ../src/thumbnailer.py:158
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:185
+msgid "An error occurred"
+msgstr "Si è verificato un errore"
+
+#: ../src/thumbnailer.py:201
+msgid "There are no video tracks in this stream, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:207
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:220
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
+
+#: ../src/whaawmp.py:32
+msgid "Cannot continue, python version must be at least 2.5."
+msgstr ""
+
+#: ../src/whaawmp.py:37
+msgid "Old timer method used, since glib version is pre-2.14"
+msgstr ""
+
+#: ../src/whaawmp.py:73
+msgid " [options] filename"
+msgstr ""
+
+#: ../src/gui/dialogues.py:58
+msgid "Choose a file to Open"
+msgstr "Scegli un file da aprire"
+
+#: ../src/gui/dialogues.py:67
+msgid "Supported Media"
+msgstr "Media supportati"
+
+#: ../src/gui/dialogues.py:73
+msgid "All Files"
+msgstr "Tutti i FIle"
+
+#: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:28
+msgid "Play DVD"
+msgstr "Riproduci DVD"
+
+#: ../src/gui/dialogues.py:98
+msgid "Select options:"
+msgstr "Scegli le opzioni:"
+
+#: ../src/gui/dialogues.py:100
+msgid "Title: "
+msgstr "Titolo: "
+
+#: ../src/gui/dialogues.py:145
+msgid "Open a URI"
+msgstr "Apri un URI"
+
+#: ../src/gui/dialogues.py:150
+msgid "Enter the URI:"
+msgstr "Inserisci l' URI:"
+
+#: ../src/gui/dialogues.py:182
+msgid "Select Tracks"
+msgstr "Seleziona Traccie"
+
+#: ../src/gui/dialogues.py:186
+msgid "Audio:"
+msgstr "Audio:"
+
+#: ../src/gui/dialogues.py:220 ../src/gui/main.py:265
+msgid "Error!"
+msgstr "Errore!"
+
+#: ../src/gui/dialogues.py:228
+msgid "Message"
+msgstr "Messaggio"
+
+#: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:45
+msgid "Supported Features"
+msgstr "Caratteristiche Supportate"
+
+#: ../src/gui/dialogues.py:257
+msgid "Dbus Message Bus"
+msgstr "Dbus Bus Messaggi"
+
+#: ../src/gui/dialogues.py:270
+msgid "Available"
+msgstr "Disponibile"
+
+#: ../src/gui/dialogues.py:270
+msgid "Unavailable"
+msgstr "Non disponibile"
+
+#: ../src/gui/dialogues.py:274
+msgid "Library Versions:"
+msgstr "Versioni librerie:"
+
+#: ../src/gui/__init__.py:27
+msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
+msgstr ""
+"Impossibile continuare, pygtk non è installato (versione 2.10 richiesta)"
+
+#: ../src/gui/__init__.py:30
+msgid "Cannot continue, X server not found!"
+msgstr "Impossibile continuare, X server non trovato!"
+
+#: ../src/gui/__init__.py:36
+msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
+msgstr ""
+"Impossibile continuare, questo programma richiede almeno GTK+ 2.10 per "
+"funzionare."
+
+#: ../src/gui/main.py:394
+#, python-format
+msgid "Something's stuffed up, no such file: %s"
+msgstr ""
+
+#: ../src/gui/main.py:606
+msgid "Pause"
+msgstr "Pausa"
+
+#: ../src/gui/main.py:606
+msgid "Play"
+msgstr "Riproduci"
+
+#: ../src/gui/main.py:728
+#, fuzzy, python-format
+msgid "%s not found, links & e-mail addresses will not be clickable"
+msgstr ""
+"%s Non trovato, collegamento & e-mail indirizzabili non saranno "
+"selezionabili."
+
+#: ../src/gui/main.py:740
+#, python-format
+msgid ""
+"Could not execute browser command (via %s).\n"
+"Please manually visit %s to report the problem"
+msgstr ""
+
+#: ../src/gui/main.py:747
+msgid "TERM signal caught, exiting."
+msgstr ""
+
+#: ../src/gui/queue.py:168
+msgid "Queued Tracks:"
+msgstr "Coda Tracce:"
+
+#: ../src/gui/queue.py:196
+msgid "Clear Queue"
+msgstr "Pulisci coda"
+
+#: ../src/gui/queue.py:197
+msgid "Remove item from Queue"
+msgstr "Rimuovi oggetto dalla coda"
+
+#: ../src/common/config.py:39
+msgid ""
+"Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
+"Defaulting to 'unknown' group."
+msgstr ""
+"Aghh!  Non ci sono stati '/' nelle opzioni!  questo è un bug! Riportalo!\n"
+"Defaulting to 'unknown' group."
+
+#: ../src/common/config.py:111
+msgid "Print the version and exit"
+msgstr "Stampa la versione e esci"
+
+#: ../src/common/config.py:115
+msgid "Play the file in fullscreen mode"
+msgstr "Esegui il file a pieno scermo"
+
+#: ../src/common/config.py:119
+msgid "Sets the player's volume to VOL (0-100)"
+msgstr "Imposta il volume del player a VOL (0-100)"
+
+#: ../src/common/config.py:123
+msgid "Mute the player"
+msgstr "Mute"
+
+#: ../src/common/config.py:127
+msgid "Sets the player's audio ouput to SINK"
+msgstr "Imposta l'uscita audio del player a SINK"
+
+#: ../src/common/config.py:131
+msgid "Sets the player's video ouput to SINK"
+msgstr "Imposta l'uscita audio del player to SINK"
+
+#: ../src/common/config.py:135 ../glade/whaawmp.glade.h:34
+msgid "Quits the player when the playing stream stops"
+msgstr "Chiude il player quando la traccia si interrompe"
+
+#: ../src/common/config.py:139
+#, python-format
+msgid "Forces a new window if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:143
+#, python-format
+msgid "Forces the file passed to be queued if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:147
+#, python-format
+msgid "Forces the file to be played now in a previous %s process"
+msgstr ""
+
+#: ../src/common/config.py:151
+#, python-format
+msgid "Toggles play/pause on an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:155
+#, python-format
+msgid "Starts the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:159
+#, python-format
+msgid "Pauses the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:163
+#, python-format
+msgid "Stops the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:167
+#, python-format
+msgid "Skips to the next track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:171
+#, python-format
+msgid "Restarts the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:175
+#, python-format
+msgid "Querys the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/dbusBus.py:30
+msgid "Dbus import failed, dbus features will be unavailable"
+msgstr ""
+
+#: ../src/common/dbusBus.py:116
+#, python-format
+msgid ""
+"Tags of %s:\n"
+"%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:134
+#, python-format
+msgid "%s is already running."
+msgstr ""
+
+#: ../src/common/dbusBus.py:155
+msgid "Toggle of Play/Pause failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:161
+msgid "Play failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:167
+msgid "Pause failed, not file is currently open."
+msgstr ""
+
+#: ../src/common/gstTools.py:77
+msgid "Unknown"
+msgstr ""
+
+#: ../src/common/useful.py:24
+msgid "Whaaw! Media Player"
+msgstr ""
+
+#: ../src/common/useful.py:102
+msgid "No tags available"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:1
+msgid "<b>Colour Settings</b>"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:2
+msgid "About Whaaw! Media Player"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:3
+msgid "Add current file's tags/name to Title"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:4
+msgid ""
+"Add the currently playing file's tags (or name if unavailable) to the "
+"window's title."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:5
+msgid "Adjust video brightness"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:6
+msgid "Adjust video contrast"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:7
+msgid "Adjust video hue"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:8
+msgid "Adjust video saturation"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:9
+msgid "Audio"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:10
+msgid "Audio Tracks"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:11
+msgid "Brightness:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:12
+msgid "Contrast:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:13
+msgid "Current player volume"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:14
+msgid "Disable Screensaver"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:15
+msgid "Disable Screensaver whilst playing a video."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:16
+msgid "Enable Visualisations (Requires stream restart)"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:17
+msgid "Force Aspect Ratio"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:18
+msgid "Force the video to keep its original aspect ratio"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:19
+msgid "Hide Video Window when Stopped"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:20
+msgid "Hide the video window when there is no video stream."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:21
+msgid "Hue:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:22
+msgid "Instantaneous Seek"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:23
+msgid "Leave Fullscreen"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:24
+msgid "Main"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:25
+msgid "Mouse hide timeout (ms): "
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:26
+msgid "Next"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:27
+msgid "Open URI"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:29
+msgid ""
+"Play Immediately\n"
+"Add to end of queue\n"
+"Play in separate process"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:32
+msgid "Preferences"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:33
+msgid "Quit on Stop"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:35
+msgid "Report a bug to the Bugtracker"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:36
+msgid "Reset all adjustments to 0"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:37
+msgid "Restart Track"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:38
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:39
+msgid "Saturation:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:40
+msgid ""
+"Seek instantaneously on draging over the progress bar, instead of waiting "
+"until the end."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:41
+msgid "Show Time Remaining"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:42
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:43
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted)."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:44
+msgid "Stop"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:46
+msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:47
+msgid "Tag Display Syntax: "
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:48
+msgid ""
+"The action to take when another Whaaw! Media Player process is requested to "
+"open a file."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:49
+msgid ""
+"The amount to change the volume by when scrolling on the video area/volume "
+"control"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:50
+msgid ""
+"The time (in milliseconds) after which the mouse will disappear after not "
+"being moved over the video window."
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:51
+msgid "Toggle Fullscreen"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:52
+msgid "Upon opening new file:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:53
+msgid "Video"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:54
+msgid "View and edit the current queue"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:56
+msgid "Vol:"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:57
+msgid "Volume (Mute/Unmute)"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:58
+msgid "Volume Change on Scroll: "
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:59
+msgid "_Edit"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:60
+msgid "_File"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:61
+msgid "_Help"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:62
+msgid "_Preferences"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:63
+msgid "_Queue"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:64
+msgid "_Report a Bug"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:65
+msgid "_Stream"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:66
+msgid "_View"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:67
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  texxxxxx https://launchpad.net/~asdfghjkl01"
