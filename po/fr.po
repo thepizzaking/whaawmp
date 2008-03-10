@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2008-01-31 19:36+1100\n"
+"POT-Creation-Date: 2008-02-15 09:41+1100\n"
 "PO-Revision-Date: 2007-12-14 10:12+0000\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: royto <royto@free.fr>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-02-03 03:12+0000\n"
+"X-Launchpad-Export-Date: 2008-03-10 10:24+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: ../src/thumbnailer.py:66
@@ -75,24 +75,13 @@ msgid "Cannot continue, python version must be at least 2.5."
 msgstr ""
 "Impossible de continuer, la version de python doit être au moins 2.5."
 
-#: ../src/whaawmp.py:68
+#: ../src/whaawmp.py:37
+msgid "Old timer method used, since glib version is pre-2.14"
+msgstr ""
+
+#: ../src/whaawmp.py:73
 msgid " [options] filename"
 msgstr ""
-
-#: ../src/gui/__init__.py:27
-msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
-msgstr ""
-"Impossible de continuer, pygtk n'est pas installé (version 2.10 requise)"
-
-#: ../src/gui/__init__.py:30
-msgid "Cannot continue, X server not found!"
-msgstr "Impossible de continuer, le serveur X n'a pas été trouvé!"
-
-#: ../src/gui/__init__.py:36
-msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
-msgstr ""
-"Impossible de continuer, ce programme exige au moins GTK+ 2.10 pour "
-"fonctionner."
 
 #: ../src/gui/dialogues.py:58
 msgid "Choose a file to Open"
@@ -106,7 +95,7 @@ msgstr ""
 msgid "All Files"
 msgstr "Tous les fichiers"
 
-#: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:27
+#: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:28
 msgid "Play DVD"
 msgstr "Lire un DVD"
 
@@ -142,68 +131,79 @@ msgstr "Erreur !"
 msgid "Message"
 msgstr "Message"
 
-#: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:44
+#: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:45
 msgid "Supported Features"
 msgstr ""
 
-#: ../src/gui/dialogues.py:258
-msgid "Mutagen Tagging"
-msgstr ""
-
-#: ../src/gui/dialogues.py:259
+#: ../src/gui/dialogues.py:257
 msgid "Dbus Message Bus"
 msgstr ""
 
-#: ../src/gui/dialogues.py:272
+#: ../src/gui/dialogues.py:270
 msgid "Available"
 msgstr ""
 
-#: ../src/gui/dialogues.py:272
+#: ../src/gui/dialogues.py:270
 msgid "Unavailable"
 msgstr ""
 
-#: ../src/gui/dialogues.py:276
+#: ../src/gui/dialogues.py:274
 msgid "Library Versions:"
 msgstr ""
 
-#: ../src/gui/main.py:393
+#: ../src/gui/__init__.py:27
+msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
+msgstr ""
+"Impossible de continuer, pygtk n'est pas installé (version 2.10 requise)"
+
+#: ../src/gui/__init__.py:30
+msgid "Cannot continue, X server not found!"
+msgstr "Impossible de continuer, le serveur X n'a pas été trouvé!"
+
+#: ../src/gui/__init__.py:36
+msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
+msgstr ""
+"Impossible de continuer, ce programme exige au moins GTK+ 2.10 pour "
+"fonctionner."
+
+#: ../src/gui/main.py:394
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:605
+#: ../src/gui/main.py:606
 msgid "Pause"
 msgstr "Pause"
 
-#: ../src/gui/main.py:605
+#: ../src/gui/main.py:606
 msgid "Play"
 msgstr ""
 
-#: ../src/gui/main.py:727
+#: ../src/gui/main.py:728
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
 
-#: ../src/gui/main.py:739
+#: ../src/gui/main.py:740
 #, python-format
 msgid ""
 "Could not execute browser command (via %s).\n"
 "Please manually visit %s to report the problem"
 msgstr ""
 
-#: ../src/gui/main.py:746
+#: ../src/gui/main.py:747
 msgid "TERM signal caught, exiting."
 msgstr ""
 
-#: ../src/gui/queue.py:157
+#: ../src/gui/queue.py:168
 msgid "Queued Tracks:"
 msgstr ""
 
-#: ../src/gui/queue.py:183
+#: ../src/gui/queue.py:196
 msgid "Clear Queue"
 msgstr "Vider la File"
 
-#: ../src/gui/queue.py:184
+#: ../src/gui/queue.py:197
 msgid "Remove item from Queue"
 msgstr "Supprimer l'élément de la file"
 
@@ -237,7 +237,7 @@ msgstr ""
 msgid "Sets the player's video ouput to SINK"
 msgstr ""
 
-#: ../src/common/config.py:135 ../glade/whaawmp.glade.h:33
+#: ../src/common/config.py:135 ../glade/whaawmp.glade.h:34
 msgid "Quits the player when the playing stream stops"
 msgstr ""
 
@@ -319,272 +319,276 @@ msgstr ""
 msgid "Pause failed, not file is currently open."
 msgstr ""
 
-#: ../src/common/gstTools.py:76
+#: ../src/common/gstTools.py:77
 msgid "Unknown"
 msgstr "Inconnu"
-
-#: ../src/common/mutagenTagger.py:27
-msgid "Mutagen not available, all tagging fetures will be unavailable"
-msgstr ""
 
 #: ../src/common/useful.py:24
 msgid "Whaaw! Media Player"
 msgstr "Whaaw! Media Player"
 
+#: ../src/common/useful.py:102
+msgid "No tags available"
+msgstr ""
+
 #: ../glade/whaawmp.glade.h:1
+msgid "<b>Colour Settings</b>"
+msgstr ""
+
+#: ../glade/whaawmp.glade.h:2
 msgid "About Whaaw! Media Player"
 msgstr "A propos de Whaaw! Media Player"
 
-#: ../glade/whaawmp.glade.h:2
+#: ../glade/whaawmp.glade.h:3
 msgid "Add current file's tags/name to Title"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:3
+#: ../glade/whaawmp.glade.h:4
 msgid ""
 "Add the currently playing file's tags (or name if unavailable) to the "
 "window's title."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:4
+#: ../glade/whaawmp.glade.h:5
 msgid "Adjust video brightness"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:5
+#: ../glade/whaawmp.glade.h:6
 msgid "Adjust video contrast"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:6
+#: ../glade/whaawmp.glade.h:7
 msgid "Adjust video hue"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:7
+#: ../glade/whaawmp.glade.h:8
 msgid "Adjust video saturation"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:8
+#: ../glade/whaawmp.glade.h:9
 msgid "Audio"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:9
+#: ../glade/whaawmp.glade.h:10
 msgid "Audio Tracks"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:10
+#: ../glade/whaawmp.glade.h:11
 msgid "Brightness:"
 msgstr "Luminosité :"
 
-#: ../glade/whaawmp.glade.h:11
+#: ../glade/whaawmp.glade.h:12
 msgid "Contrast:"
 msgstr "Contraste :"
 
-#: ../glade/whaawmp.glade.h:12
+#: ../glade/whaawmp.glade.h:13
 msgid "Current player volume"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:13
+#: ../glade/whaawmp.glade.h:14
 msgid "Disable Screensaver"
 msgstr "Désactiver l'écran de veille"
 
-#: ../glade/whaawmp.glade.h:14
+#: ../glade/whaawmp.glade.h:15
 msgid "Disable Screensaver whilst playing a video."
 msgstr "Désactiver l'écran de veille pendant la lecture d'une vidéo."
 
-#: ../glade/whaawmp.glade.h:15
+#: ../glade/whaawmp.glade.h:16
 msgid "Enable Visualisations (Requires stream restart)"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:16
+#: ../glade/whaawmp.glade.h:17
 msgid "Force Aspect Ratio"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:17
+#: ../glade/whaawmp.glade.h:18
 msgid "Force the video to keep its original aspect ratio"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:18
+#: ../glade/whaawmp.glade.h:19
 msgid "Hide Video Window when Stopped"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:19
+#: ../glade/whaawmp.glade.h:20
 msgid "Hide the video window when there is no video stream."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:20
+#: ../glade/whaawmp.glade.h:21
 msgid "Hue:"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:21
+#: ../glade/whaawmp.glade.h:22
 msgid "Instantaneous Seek"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:22
+#: ../glade/whaawmp.glade.h:23
 msgid "Leave Fullscreen"
 msgstr "Quitter le plein écran"
 
-#: ../glade/whaawmp.glade.h:23
+#: ../glade/whaawmp.glade.h:24
 msgid "Main"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:24
+#: ../glade/whaawmp.glade.h:25
 msgid "Mouse hide timeout (ms): "
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:25
+#: ../glade/whaawmp.glade.h:26
 msgid "Next"
 msgstr "Suivant"
 
-#: ../glade/whaawmp.glade.h:26
+#: ../glade/whaawmp.glade.h:27
 msgid "Open URI"
 msgstr "Ouvrir l'URI"
 
-#: ../glade/whaawmp.glade.h:28
+#: ../glade/whaawmp.glade.h:29
 msgid ""
 "Play Immediately\n"
 "Add to end of queue\n"
 "Play in separate process"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:31
+#: ../glade/whaawmp.glade.h:32
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../glade/whaawmp.glade.h:32
+#: ../glade/whaawmp.glade.h:33
 msgid "Quit on Stop"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:34
+#: ../glade/whaawmp.glade.h:35
 msgid "Report a bug to the Bugtracker"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:35
+#: ../glade/whaawmp.glade.h:36
 msgid "Reset all adjustments to 0"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:36
+#: ../glade/whaawmp.glade.h:37
 msgid "Restart Track"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:37
+#: ../glade/whaawmp.glade.h:38
 msgid "Restore Defaults"
 msgstr "Rétablir les paramètres par défaut"
 
-#: ../glade/whaawmp.glade.h:38
+#: ../glade/whaawmp.glade.h:39
 msgid "Saturation:"
 msgstr "Saturation :"
 
-#: ../glade/whaawmp.glade.h:39
+#: ../glade/whaawmp.glade.h:40
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:40
+#: ../glade/whaawmp.glade.h:41
 msgid "Show Time Remaining"
 msgstr "Afficher le temps restant"
 
-#: ../glade/whaawmp.glade.h:41
+#: ../glade/whaawmp.glade.h:42
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
 "Afficher le temps restant au lieu du temps total dans la barre de "
 "progression."
 
-#: ../glade/whaawmp.glade.h:42
+#: ../glade/whaawmp.glade.h:43
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted)."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:43
+#: ../glade/whaawmp.glade.h:44
 msgid "Stop"
 msgstr "Arrêter"
 
-#: ../glade/whaawmp.glade.h:45
+#: ../glade/whaawmp.glade.h:46
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:46
+#: ../glade/whaawmp.glade.h:47
 msgid "Tag Display Syntax: "
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:47
+#: ../glade/whaawmp.glade.h:48
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:48
+#: ../glade/whaawmp.glade.h:49
 msgid ""
 "The amount to change the volume by when scrolling on the video area/volume "
 "control"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:49
+#: ../glade/whaawmp.glade.h:50
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:50
+#: ../glade/whaawmp.glade.h:51
 msgid "Toggle Fullscreen"
 msgstr "Basculer en mode plein écran"
 
-#: ../glade/whaawmp.glade.h:51
+#: ../glade/whaawmp.glade.h:52
 msgid "Upon opening new file:"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:52
+#: ../glade/whaawmp.glade.h:53
 msgid "Video"
 msgstr "Vidéo"
 
-#: ../glade/whaawmp.glade.h:53
+#: ../glade/whaawmp.glade.h:54
 msgid "View and edit the current queue"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:55
+#: ../glade/whaawmp.glade.h:56
 msgid "Vol:"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:56
+#: ../glade/whaawmp.glade.h:57
 msgid "Volume (Mute/Unmute)"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:57
+#: ../glade/whaawmp.glade.h:58
 msgid "Volume Change on Scroll: "
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:58
+#: ../glade/whaawmp.glade.h:59
 msgid "_Edit"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:59
+#: ../glade/whaawmp.glade.h:60
 msgid "_File"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:60
+#: ../glade/whaawmp.glade.h:61
 msgid "_Help"
 msgstr "_Aide"
 
-#: ../glade/whaawmp.glade.h:61
+#: ../glade/whaawmp.glade.h:62
 msgid "_Preferences"
 msgstr "_Préférences"
 
-#: ../glade/whaawmp.glade.h:62
+#: ../glade/whaawmp.glade.h:63
 msgid "_Queue"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:63
+#: ../glade/whaawmp.glade.h:64
 msgid "_Report a Bug"
 msgstr "_Rapporter un Bug"
 
-#: ../glade/whaawmp.glade.h:64
+#: ../glade/whaawmp.glade.h:65
 msgid "_Stream"
 msgstr "_Flux"
 
-#: ../glade/whaawmp.glade.h:65
+#: ../glade/whaawmp.glade.h:66
 msgid "_View"
 msgstr ""
 
-#: ../glade/whaawmp.glade.h:66
+#: ../glade/whaawmp.glade.h:67
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
