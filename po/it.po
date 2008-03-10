@@ -1,16 +1,16 @@
-# French translation for whaawmp
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# Italian translation for whaawmp
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the whaawmp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2008-02-15 09:41+1100\n"
-"PO-Revision-Date: 2007-12-14 10:12+0000\n"
-"Last-Translator: royto <royto@free.fr>\n"
-"Language-Team: French <fr@li.org>\n"
+"PO-Revision-Date: 2008-03-04 21:01+0000\n"
+"Last-Translator: texxxxxx <Unknown>\n"
+"Language-Team: Italian <it@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,25 +26,27 @@ msgid "The file to create the thumbnail of"
 msgstr ""
 
 #: ../src/thumbnailer.py:75
+#, fuzzy
 msgid "The destination of the resulting thumbnail"
-msgstr ""
+msgstr "La destinazione del thumbnail risultante"
 
 #: ../src/thumbnailer.py:79
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
 msgstr ""
 
 #: ../src/thumbnailer.py:83
+#, fuzzy
 msgid "The destination size (in pixels)"
-msgstr ""
+msgstr "La dimensione finale (in pixel)"
 
 #: ../src/thumbnailer.py:93
 msgid "Sorry, an input and output file are required to be passed."
 msgstr ""
 
 #: ../src/thumbnailer.py:94
-#, python-format
+#, fuzzy, python-format
 msgid "See '%s --help' for details"
-msgstr ""
+msgstr "Guarda '%s --help' per dettagli"
 
 #: ../src/thumbnailer.py:101
 msgid "The requested position must be between 0 and 1, using 0.3."
@@ -56,7 +58,7 @@ msgstr ""
 
 #: ../src/thumbnailer.py:185
 msgid "An error occurred"
-msgstr "Une erreur s'est produite"
+msgstr "Si è verificato un errore"
 
 #: ../src/thumbnailer.py:201
 msgid "There are no video tracks in this stream, exiting."
@@ -73,7 +75,6 @@ msgstr ""
 #: ../src/whaawmp.py:32
 msgid "Cannot continue, python version must be at least 2.5."
 msgstr ""
-"Impossible de continuer, la version de python doit être au moins 2.5."
 
 #: ../src/whaawmp.py:37
 msgid "Old timer method used, since glib version is pre-2.14"
@@ -85,39 +86,39 @@ msgstr ""
 
 #: ../src/gui/dialogues.py:58
 msgid "Choose a file to Open"
-msgstr "Choississez un fichier à ouvrir"
+msgstr "Scegli un file da aprire"
 
 #: ../src/gui/dialogues.py:67
 msgid "Supported Media"
-msgstr ""
+msgstr "Media supportati"
 
 #: ../src/gui/dialogues.py:73
 msgid "All Files"
-msgstr "Tous les fichiers"
+msgstr "Tutti i FIle"
 
 #: ../src/gui/dialogues.py:93 ../glade/whaawmp.glade.h:28
 msgid "Play DVD"
-msgstr "Lire un DVD"
+msgstr "Riproduci DVD"
 
 #: ../src/gui/dialogues.py:98
 msgid "Select options:"
-msgstr ""
+msgstr "Scegli le opzioni:"
 
 #: ../src/gui/dialogues.py:100
 msgid "Title: "
-msgstr "Titre: "
+msgstr "Titolo: "
 
 #: ../src/gui/dialogues.py:145
 msgid "Open a URI"
-msgstr "Ouvrir une URI"
+msgstr "Apri un URI"
 
 #: ../src/gui/dialogues.py:150
 msgid "Enter the URI:"
-msgstr "Entrer une URI:"
+msgstr "Inserisci l' URI:"
 
 #: ../src/gui/dialogues.py:182
 msgid "Select Tracks"
-msgstr ""
+msgstr "Seleziona Traccie"
 
 #: ../src/gui/dialogues.py:186
 msgid "Audio:"
@@ -125,46 +126,46 @@ msgstr "Audio:"
 
 #: ../src/gui/dialogues.py:220 ../src/gui/main.py:265
 msgid "Error!"
-msgstr "Erreur !"
+msgstr "Errore!"
 
 #: ../src/gui/dialogues.py:228
 msgid "Message"
-msgstr "Message"
+msgstr "Messaggio"
 
 #: ../src/gui/dialogues.py:250 ../glade/whaawmp.glade.h:45
 msgid "Supported Features"
-msgstr ""
+msgstr "Caratteristiche Supportate"
 
 #: ../src/gui/dialogues.py:257
 msgid "Dbus Message Bus"
-msgstr ""
+msgstr "Dbus Bus Messaggi"
 
 #: ../src/gui/dialogues.py:270
 msgid "Available"
-msgstr ""
+msgstr "Disponibile"
 
 #: ../src/gui/dialogues.py:270
 msgid "Unavailable"
-msgstr ""
+msgstr "Non disponibile"
 
 #: ../src/gui/dialogues.py:274
 msgid "Library Versions:"
-msgstr ""
+msgstr "Versioni librerie:"
 
 #: ../src/gui/__init__.py:27
 msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
 msgstr ""
-"Impossible de continuer, pygtk n'est pas installé (version 2.10 requise)"
+"Impossibile continuare, pygtk non è installato (versione 2.10 richiesta)"
 
 #: ../src/gui/__init__.py:30
 msgid "Cannot continue, X server not found!"
-msgstr "Impossible de continuer, le serveur X n'a pas été trouvé!"
+msgstr "Impossibile continuare, X server non trovato!"
 
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
 msgstr ""
-"Impossible de continuer, ce programme exige au moins GTK+ 2.10 pour "
-"fonctionner."
+"Impossibile continuare, questo programma richiede almeno GTK+ 2.10 per "
+"funzionare."
 
 #: ../src/gui/main.py:394
 #, python-format
@@ -173,16 +174,18 @@ msgstr ""
 
 #: ../src/gui/main.py:606
 msgid "Pause"
-msgstr "Pause"
+msgstr "Pausa"
 
 #: ../src/gui/main.py:606
 msgid "Play"
-msgstr ""
+msgstr "Riproduci"
 
 #: ../src/gui/main.py:728
-#, python-format
+#, fuzzy, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
+"%s Non trovato, collegamento & e-mail indirizzabili non saranno "
+"selezionabili."
 
 #: ../src/gui/main.py:740
 #, python-format
@@ -197,49 +200,51 @@ msgstr ""
 
 #: ../src/gui/queue.py:168
 msgid "Queued Tracks:"
-msgstr ""
+msgstr "Coda Tracce:"
 
 #: ../src/gui/queue.py:196
 msgid "Clear Queue"
-msgstr "Vider la File"
+msgstr "Pulisci coda"
 
 #: ../src/gui/queue.py:197
 msgid "Remove item from Queue"
-msgstr "Supprimer l'élément de la file"
+msgstr "Rimuovi oggetto dalla coda"
 
 #: ../src/common/config.py:39
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
 msgstr ""
+"Aghh!  Non ci sono stati '/' nelle opzioni!  questo è un bug! Riportalo!\n"
+"Defaulting to 'unknown' group."
 
 #: ../src/common/config.py:111
 msgid "Print the version and exit"
-msgstr ""
+msgstr "Stampa la versione e esci"
 
 #: ../src/common/config.py:115
 msgid "Play the file in fullscreen mode"
-msgstr ""
+msgstr "Esegui il file a pieno scermo"
 
 #: ../src/common/config.py:119
 msgid "Sets the player's volume to VOL (0-100)"
-msgstr ""
+msgstr "Imposta il volume del player a VOL (0-100)"
 
 #: ../src/common/config.py:123
 msgid "Mute the player"
-msgstr ""
+msgstr "Mute"
 
 #: ../src/common/config.py:127
 msgid "Sets the player's audio ouput to SINK"
-msgstr ""
+msgstr "Imposta l'uscita audio del player a SINK"
 
 #: ../src/common/config.py:131
 msgid "Sets the player's video ouput to SINK"
-msgstr ""
+msgstr "Imposta l'uscita audio del player to SINK"
 
 #: ../src/common/config.py:135 ../glade/whaawmp.glade.h:34
 msgid "Quits the player when the playing stream stops"
-msgstr ""
+msgstr "Chiude il player quando la traccia si interrompe"
 
 #: ../src/common/config.py:139
 #, python-format
@@ -321,11 +326,11 @@ msgstr ""
 
 #: ../src/common/gstTools.py:77
 msgid "Unknown"
-msgstr "Inconnu"
+msgstr ""
 
 #: ../src/common/useful.py:24
 msgid "Whaaw! Media Player"
-msgstr "Whaaw! Media Player"
+msgstr ""
 
 #: ../src/common/useful.py:102
 msgid "No tags available"
@@ -337,7 +342,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:2
 msgid "About Whaaw! Media Player"
-msgstr "A propos de Whaaw! Media Player"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:3
 msgid "Add current file's tags/name to Title"
@@ -375,11 +380,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:11
 msgid "Brightness:"
-msgstr "Luminosité :"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:12
 msgid "Contrast:"
-msgstr "Contraste :"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:13
 msgid "Current player volume"
@@ -387,11 +392,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:14
 msgid "Disable Screensaver"
-msgstr "Désactiver l'écran de veille"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:15
 msgid "Disable Screensaver whilst playing a video."
-msgstr "Désactiver l'écran de veille pendant la lecture d'une vidéo."
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:16
 msgid "Enable Visualisations (Requires stream restart)"
@@ -423,7 +428,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:23
 msgid "Leave Fullscreen"
-msgstr "Quitter le plein écran"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:24
 msgid "Main"
@@ -435,11 +440,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:26
 msgid "Next"
-msgstr "Suivant"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:27
 msgid "Open URI"
-msgstr "Ouvrir l'URI"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:29
 msgid ""
@@ -450,7 +455,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:32
 msgid "Preferences"
-msgstr "Préférences"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:33
 msgid "Quit on Stop"
@@ -470,11 +475,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:38
 msgid "Restore Defaults"
-msgstr "Rétablir les paramètres par défaut"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:39
 msgid "Saturation:"
-msgstr "Saturation :"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:40
 msgid ""
@@ -484,13 +489,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:41
 msgid "Show Time Remaining"
-msgstr "Afficher le temps restant"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:42
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
-"Afficher le temps restant au lieu du temps total dans la barre de "
-"progression."
 
 #: ../glade/whaawmp.glade.h:43
 msgid ""
@@ -500,7 +503,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:44
 msgid "Stop"
-msgstr "Arrêter"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:46
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
@@ -530,7 +533,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:51
 msgid "Toggle Fullscreen"
-msgstr "Basculer en mode plein écran"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:52
 msgid "Upon opening new file:"
@@ -538,7 +541,7 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:53
 msgid "Video"
-msgstr "Vidéo"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:54
 msgid "View and edit the current queue"
@@ -566,11 +569,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:61
 msgid "_Help"
-msgstr "_Aide"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:62
 msgid "_Preferences"
-msgstr "_Préférences"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:63
 msgid "_Queue"
@@ -578,11 +581,11 @@ msgstr ""
 
 #: ../glade/whaawmp.glade.h:64
 msgid "_Report a Bug"
-msgstr "_Rapporter un Bug"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:65
 msgid "_Stream"
-msgstr "_Flux"
+msgstr ""
 
 #: ../glade/whaawmp.glade.h:66
 msgid "_View"
@@ -592,4 +595,4 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  royto https://launchpad.net/~royto"
+"  texxxxxx https://launchpad.net/~asdfghjkl01"
