@@ -113,18 +113,14 @@ class Player:
         # Changes the playing speed of the player.
         # Set the default speed.
         self.speed = speed
-        # Get the current position, then seek there with the new speed.
-        loc = self.getPlayed()
-        self.player.seek(speed, gst.FORMAT_TIME,
-            gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-            gst.SEEK_TYPE_SET, loc,
-            gst.SEEK_TYPE_NONE, 0)
+        # Seek to the current position (this will initiate the new speed).
+        self.seek(self.getPlayed())
     
     def seekFrac(self, frac):
         # Seek from a fraction.
         dur = self.getDuration()
-        # getDuration returns 0 on error.
-        if (dur != 0):
+        # getDuration returns 0 on error, shouldn't seek on -1 either.
+        if (dur > 0):
             self.seek(int(self.getDuration() * frac))
     
     def seek(self, loc):
