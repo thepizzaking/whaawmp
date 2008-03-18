@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.1 on Sun Mar  9 12:09:02 2008 -->
+<!--Generated with glade3 3.4.1 on Tue Mar 18 17:59:42 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -97,6 +97,7 @@
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
                             <signal name="activate" handler="on_mnuiQuit_activate"/>
+                            <accelerator key="w" modifiers="GDK_CONTROL_MASK" signal="activate"/>
                           </widget>
                         </child>
                       </widget>
