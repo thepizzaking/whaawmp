@@ -16,6 +16,11 @@ I think that's about it (well, the ones I know about), the package names may
 differ depending on your distribution, you will also need other gstreamer
 packages depending on the type of media you wish to play.
 
+NOTE: Installation is not needed to use/test whaawmp.  It can be run fine by
+just running './whaawmp.sh'.  Though if you really want to install it there
+is an easy way to install it, but there's no easy way to uninstall.  See the
+end of this file for a list of locations which files are installed to.
+
 Now, onto the building etc etc.
 -To compile & install the files use ./make.py install
 --There are --prefix and --root options (see ./make.py --help for more
@@ -26,6 +31,17 @@ eg. To install to /usr:
 ./make.py install --prefix=/usr
 
 To run it afterwards, use whaawmp to start Whaaw! Media Player.
+
+A list of files installed, and should be removed if uninstall is required:
+(prefix=/usr by default)
+${prefix}/bin/{whaawmp, whaaw-thumbnailer}
+${prefix}/lib/python-${pyver}/site-packages/whaawmp-${whaaw-ver}-py${pyver}.egg-info
+${prefix}/lib/python-${pyver}/site-packages/whaawmp (entire directory)
+${prefix}/share/whaawmp.desktop
+${prefix}/share/local/*/LC_MESSAGES/whaawmp.mo (list of languages in po dir)
+${prefix}/share/pixmaps/whaawmp.svg
+${prefix}/share/thumbnailers/whaaw-thumbnailer.desktop
+${prefix}/share/whaawmp (entire directory)
 
 Any queries see the FAQ: http://home.gna.org/whaawmp/faq.html
 Otherwise, see me on irc: #whaawmp on irc://irc.oftc.net
