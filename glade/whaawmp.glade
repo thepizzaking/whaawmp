@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
-<!--Generated with glade3 3.4.1 on Fri Mar 28 12:22:34 2008 -->
+<!--Generated with glade3 3.4.1 on Fri Mar 28 12:40:18 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -146,6 +146,30 @@
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
+                          <widget class="GtkImageMenuItem" id="mnuiFS">
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                            <property name="label" translatable="yes">Toggle Fullscreen</property>
+                            <property name="use_underline">True</property>
+                            <signal name="activate" handler="on_mnuiFS_activate"/>
+                            <child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image1">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-fullscreen</property>
+                                <property name="icon_size">1</property>
+                              </widget>
+                            </child>
+                          </widget>
+                        </child>
+                        <child>
+                          <widget class="GtkSeparatorMenuItem" id="separatormenuitem3">
+                            <property name="visible">True</property>
+                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                          </widget>
+                        </child>
+                        <child>
                           <widget class="GtkCheckMenuItem" id="mnuiAdvCtrls">
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
@@ -179,24 +203,6 @@
                       <widget class="GtkMenu" id="menu2">
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                        <child>
-                          <widget class="GtkImageMenuItem" id="mnuiFS">
-                            <property name="visible">True</property>
-                            <property name="sensitive">False</property>
-                            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">Toggle Fullscreen</property>
-                            <property name="use_underline">True</property>
-                            <signal name="activate" handler="on_mnuiFS_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image1">
-                                <property name="visible">True</property>
-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                <property name="stock">gtk-fullscreen</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
-                          </widget>
-                        </child>
                         <child>
                           <widget class="GtkMenuItem" id="mnuiAudioTrack">
                             <property name="visible">True</property>
