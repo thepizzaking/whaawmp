@@ -146,28 +146,41 @@ class Dialogue:
 		# Get the widgets and available alsa devices.
 		audioCmbBox = self.wTree.get_widget('cmbAudioDevice')
 		self.audioDevDic = msgBus.getAlsaDevices()
+		# Append the non-alsa devices.
+		for x in (_('Default/Auto'), _('Other (Set from config.ini)')):
+			audioCmbBox.append_text(x)
 		# For all the alsa devices, add them to the combo box.
 		for x in self.audioDevDic:
 			audioCmbBox.append_text('Alsa: %s (%s)' % (self.audioDevDic[x], x))
 		# Set the preference according to the current device.
-		device = cfg.getStr('audio/audiodevice') 
-		if (cfg.getStr('audio/audiosink') == 'alsasink' and device in self.audioDevDic):
+		cfgSink = cfg.getStr('audio/audiosink')
+		cfgDevice = cfg.getStr('audio/audiodevice')
+		if (cfgSink == 'alsasink' and cfgDevice in self.audioDevDic):
 			# If we're set to use the alsa sink and the device has been detected.
 			# Set that device as the one set (+1 is to account for the 'Other'
 			# option at the top of the list.
-			audioCmbBox.set_active(self.audioDevDic.keys().index(device) + 1)
+			audioCmbBox.set_active(self.audioDevDic.keys().index(cfgDevice) + 2)
+		elif (cfgSink in ('default', '')):
+			# The 'default' option is set, corresponds to sink=default.
+			audioCmbBox.set_active(0)
 		else:
 			# Otherwise set the 'Other' option.
-			audioCmbBox.set_active(0)
+			audioCmbBox.set_active(1)
 	
 	def changeAudioDevice(self, widget):
 		## Changes the output audio device.
 		# Get the active index.
 		index = widget.get_active()
-		if (index != 0):
-			# We don't want to change the settings if the index is 0 (manually set)
+		if (index == 0):
+			# This is the default/auto option.
+			cfg.set('audio/audiosink', '')
+			cfg.set('audio/audiodevice', '')
+		elif (index >= 2):
+			# We don't want to change the settings if the index is 1 (manually set)
+			# or 0 (default/auto).
 			# Set the sink, and the device (-1 to account for the 'other' option)
 			cfg.set('audio/audiosink', 'alsasink')
-			cfg.set('audio/audiodevice', self.audioDevDic.keys()[index - 1])
-			# Set the audio sink.
-			player.setAudioSink()
+			cfg.set('audio/audiodevice', self.audioDevDic.keys()[index - 2])
+		
+		# Set the audio sink.
+		if (index != 1): player.setAudioSink()
