@@ -33,7 +33,7 @@ if (sys.version_info < (2, 5)):
 	sys.exit(1)
 
 # If gobject version < 2.14 we need to define timeout_add_seconds.
-if (gobject.glib_version < (2,14) and gobject.pygobject_version < (2,14)):
+if (gobject.glib_version < (2,14) or gobject.pygobject_version < (2,14)):
 	print _("Old timer method used, since glib version is pre-2.14")
 	# Define our own timeout_add wrapper.
 	gobject.timeout_add_seconds = lambda time, *args: gobject.timeout_add(useful.sToms(time), *args)
