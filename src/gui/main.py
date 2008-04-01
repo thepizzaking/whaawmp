@@ -381,16 +381,6 @@ class mainWindow:
 			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
-			
-			# HACK: Force embedding the video into our video window because
-			# onPlayerSyncMessage is never called in Windows.
-			if (sys.platform == 'win32'):
-				class C: pass
-				message = C()
-				message.src = player.player.props.video_sink
-				message.structure = C()
-				message.structure.get_name = lambda: 'prepare-xwindow-id'
-				self.onPlayerSyncMessage(None, message)
 
 			# Start the player.
 			player.play()
@@ -652,7 +642,6 @@ class mainWindow:
 	
 	def drawvideoWindowImage(self):
 		## Draws the background image.
-		if (sys.platform == 'win32'): return
 		# Get the width & height of the videoWindow.
 		alloc = self.videoWindow.get_allocation()
 		w = alloc.width
