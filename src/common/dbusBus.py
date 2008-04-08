@@ -59,7 +59,6 @@ class IntObject(dbus.service.Object):
 	
 	@dbus.service.method("org.gna.whaawmp", "si", "b")
 	def playFile(self, file, cfgOption):
-		print file
 		# Plays a file depending on the configured action,
 		# (returns False if the other process should not quit).
 		
