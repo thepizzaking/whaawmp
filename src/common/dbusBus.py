@@ -59,6 +59,7 @@ class IntObject(dbus.service.Object):
 	
 	@dbus.service.method("org.gna.whaawmp", "si", "b")
 	def playFile(self, file, cfgOption):
+		print file
 		# Plays a file depending on the configured action,
 		# (returns False if the other process should not quit).
 		
@@ -142,8 +143,9 @@ class initBus:
 			if (options.forceNewWin): playBehaviour = 2
 		
 			for x in args:
-				# Play all the files passed.
-				if (self.iface.playFile(os.path.abspath(x), playBehaviour)):
+				# Play all the files passed (first make x absolute if not a uri).
+				if ("://" not in x): x = os.path.abspath(x)
+				if (self.iface.playFile(x, playBehaviour)):
 					# Return of True = I've handled it, you can now quit.
 					self.quitAfter = True
 				else:
