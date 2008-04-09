@@ -373,7 +373,7 @@ class mainWindow:
 			file = ""
 			player.setURI(file)
 		# Set the now playing label to the file to be played.
-		self.nowPlyLbl.set_label("" + file)
+		self.nowPlyLbl.set_label(urllib.url2pathname(file))
 		if (os.path.exists(file) or '://' in file):
 			# If it's not already a uri, make it one.
 			if ('://' not in file): file = 'file://' + file
