@@ -18,6 +18,7 @@
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import os, gobject, sys
+import urllib
 
 # Nice variables.
 sName = 'whaawmp'
@@ -120,7 +121,7 @@ def tagsToStr(tags):
 # Converts a URI/File into just the files name (no preceeding directories)
 def uriToFilename(file, ext=True):
 	# Get rid of preceeding directories.
-	name = file.split(os.sep)[-1]
+	name = urllib.url2pathname(file).split(os.sep)[-1]
 	# Get rid of the extension (if requested).
 	if ((not ext) and ('.' in name)):
 		name = name[:-(len(name.split('.')[-1]) + 1)]

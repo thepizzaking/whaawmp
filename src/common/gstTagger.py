@@ -114,7 +114,9 @@ class FileTag:
 				self.player.set_state(gst.STATE_READY)
 			
 			# Clear the current data, then read the next track.
-			self.current = None
+			# FIXME: Uncommented, this causes tracebacks on some files.
+			# Some files appear to emit multiple TAG messages.
+			#self.current = None
 			self.nextTrack()
 	
 	
