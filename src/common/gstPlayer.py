@@ -81,8 +81,8 @@ class Player:
 	getBus = lambda self: self.player.get_bus()
 	# Gets the current audio track.
 	getAudioTrack = lambda self: self.player.get_property('current-audio')
-	# Returns the state of the player.
-	getState = lambda self: self.player.get_state()[1]
+	# Returns the state of the player (add timeout so we don't wait forever).
+	getState = lambda self: self.player.get_state(timeout=200*gst.MSECOND)[1]
 	# Returns the current URI.
 	getURI = lambda self: self.player.get_property('uri')
 	# Returns an array of stream information.
