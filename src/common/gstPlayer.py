@@ -231,6 +231,7 @@ class Player:
 		self.colourBalance = colourBalance
 	
 	def setVisualisation(self, enable):
+		# A call to enable or disable the visualisations from a passed boolean.
 		if enable:
 			self.enableVisualisation()
 		else:
@@ -245,8 +246,10 @@ class Player:
 		# FIXME: Make it so it doesn't restart the stream on disabling visualisations.
 		wasPlaying = False
 		if (self.isPlaying()):
+			# If we're playing, stop.
 			self.stop()
 			wasPlaying = True
+		# Disable the plugin, then start the player again (if it was playing).
 		self.player.set_property('vis-plugin', None)
 		if (wasPlaying): self.play()
 	
