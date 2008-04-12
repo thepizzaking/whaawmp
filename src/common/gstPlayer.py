@@ -28,6 +28,7 @@ from common.config import cfg
 class Player:
 	version = gst.gst_version
 	speed = 1
+	imagesink = None
 	
 	def play(self):
 		# Starts the player playing, only if the player has a URI.
@@ -159,7 +160,7 @@ class Player:
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.
 		try:
-			self.imagesink.set_property('force-aspect-ratio', val)
+			if (self.imagesink): self.imagesink.set_property('force-aspect-ratio', val)
 		except TypeError:
 			pass
 	
@@ -242,9 +243,12 @@ class Player:
 	def disableVisualisation(self):
 		# Diable the visualisaion.
 		# FIXME: Make it so it doesn't restart the stream on disabling visualisations.
-		self.stop()
+		wasPlaying = False
+		if (self.isPlaying()):
+			self.stop()
+			wasPlaying = True
 		self.player.set_property('vis-plugin', None)
-		self.play()
+		if (wasPlaying): self.play()
 	
 	
 	def setVolume(self, vol):
