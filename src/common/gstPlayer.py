@@ -31,14 +31,14 @@ class Player:
 	
 	def play(self):
 		# Starts the player playing, only if the player has a URI.
-		if (player.getURI()):
+		if (self.getURI()):
 			self.player.set_state(gst.STATE_PLAYING)
 			return True
 		return False
 	
 	def pause(self):
 		# Pauses the player, only if the player has a URI.
-		if (player.getURI()):
+		if (self.getURI()):
 			self.player.set_state(gst.STATE_PAUSED)
 			return True
 		return False
@@ -241,7 +241,10 @@ class Player:
 	
 	def disableVisualisation(self):
 		# Diable the visualisaion.
+		# FIXME: Make it so it doesn't restart the stream on disabling visualisations.
+		self.stop()
 		self.player.set_property('vis-plugin', None)
+		self.play()
 	
 	
 	def setVolume(self, vol):
@@ -270,6 +273,6 @@ class Player:
 		bus.enable_sync_message_emission()
 		
 		# Enable the visualisation if requested.
-		if (cfg.getBool("gui/enablevisualisation")): self.enableVisualisation()
+		self.setVisualisation(cfg.getBool("gui/enablevisualisation"))
 
 player = Player()

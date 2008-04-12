@@ -44,6 +44,7 @@ class Dialogue:
 		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
 		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
+		        "on_chkEnableVis_toggled" : self.toggleEnableVis,
 		        "on_cmbAudioDevice_changed" : self.changeAudioDevice,
 		        "on_btnClose_clicked" : self.closeWindow }
 		self.wTree.signal_autoconnect(dic)
@@ -136,6 +137,10 @@ class Dialogue:
 		if (player.playingVideo()):
 			player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
 			self.main.videoWindowConfigure(self.main.videoWindow)
+	
+	def toggleEnableVis(self, widget):
+		## Toggle enable visualisations.
+		player.setVisualisation(widget.get_active())
 	
 	def extNewFileChanged(self, widget):
 		## Changes the saved option for the external file action.
