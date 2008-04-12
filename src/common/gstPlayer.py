@@ -229,14 +229,15 @@ class Player:
 		# Need to change colour settings externally.
 		self.colourBalance = colourBalance
 	
+	def setVisualisation(self, enable):
+		if enable:
+			self.enableVisualisation()
+		else:
+			self.disableVisualisation()
 	
 	def enableVisualisation(self):
 		# Enable the visualisaion.
-		try:
-			self.player.set_property('vis-plugin', self.visPlugin)
-		except:
-			self.visPlugin = gst.element_factory_make('goom')
-			self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+		self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
 	
 	def disableVisualisation(self):
 		# Diable the visualisaion.
@@ -267,5 +268,8 @@ class Player:
 		bus = self.getBus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
+		
+		# Enable the visualisation if requested.
+		if (cfg.getBool("gui/enablevisualisation")): self.enableVisualisation()
 
 player = Player()

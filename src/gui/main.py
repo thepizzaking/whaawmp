@@ -276,24 +276,13 @@ class mainWindow:
 	def onPlayerStateChange(self, message):
 		# On a state change.
 		msg = message.parse_state_changed()
-		if (playerTools.isNull2ReadyMsg(msg)):
-			# Enable the visualisation if requested.
-			if (cfg.getBool('gui/enablevisualisation')):
-				player.enableVisualisation()
-			else:
-				player.disableVisualisation()
 		
-		elif (playerTools.isStop2PauseMsg(msg)):
+		if (playerTools.isStop2PauseMsg(msg)):
 			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
-			# Enable the visualisation if requested.
-			if (cfg.getBool('gui/enablevisualisation')):
-				player.enableVisualisation()
-			else:
-				player.disableVisualisation()
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -865,7 +854,7 @@ class mainWindow:
 			# Append all tracks to the queue.
 			queue.appendMany(cfg.args)
 			# Then play the next track.
-			self.playNext()
+			gobject.idle_add(self.playNext)
 		else:
 			self.videoWindowOnStop(True)
 		
