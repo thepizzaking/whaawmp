@@ -41,32 +41,36 @@ class Dialogue:
 		        "on_spinbutton_changed" : self.adjustmentChanged,
 		        "on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
 		        "on_entry_changed" : self.entryChanged,
-		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
-		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
-		        "on_chkEnableVis_toggled" : self.toggleEnableVis,
 		        "on_cmbAudioDevice_changed" : self.changeAudioDevice,
 		        "on_btnClose_clicked" : self.closeWindow }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Create a dictionary for checkboxes and their associated settings.
-		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
-		                self.wTree.get_widget('chkDisableScreensaver') : "misc/disablescreensaver",
-		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
-		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
-		                self.wTree.get_widget('chkHideVideoWindow') : "gui/hidevideowindow",
-		                self.wTree.get_widget('chkFileAsTitle') : "gui/fileastitle",
-		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
+		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : {'cfg' : "gui/instantseek"},
+		                self.wTree.get_widget('chkDisableScreensaver') : {'cfg' : "misc/disablescreensaver"},
+		                self.wTree.get_widget('chkShowTimeRemaining') : {'cfg' : "gui/showtimeremaining"},
+		                self.wTree.get_widget('chkEnableVisualisation') : {'cfg' : "gui/enablevisualisation",
+		                                                                   'callBk' : self.toggleEnableVis},
+		                self.wTree.get_widget('chkHideVideoWindow') : {'cfg' : "gui/hidevideowindow"},
+		                self.wTree.get_widget('chkFileAsTitle') : {'cfg' : "gui/fileastitle"},
+		                self.wTree.get_widget('chkForceAspect') : {'cfg' : "video/force-aspect-ratio",
+		                                                           'callBk' : self.toggleForceAspect} }
 		# And one for the scrollbars.
-		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
-		                self.wTree.get_widget('spnVolumeScrollChange') : "gui/volumescrollchange",
-		                self.wTree.get_widget('hscBrightness') : "video/brightness",
-		                self.wTree.get_widget('hscContrast') : "video/contrast",
-		                self.wTree.get_widget('hscHue') : "video/hue",
-		                self.wTree.get_widget('hscSaturation') : "video/saturation" }
+		clrCbk = self.scrollbarColourScroll
+		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : {'cfg' : "gui/mousehidetimeout"},
+		                self.wTree.get_widget('spnVolumeScrollChange') : {'cfg' : "gui/volumescrollchange"},
+		                self.wTree.get_widget('hscBrightness') : {'cfg' : "video/brightness",
+		                                                          'callBk' : clrCbk},
+		                self.wTree.get_widget('hscContrast') : {'cfg' : "video/contrast",
+		                                                        'callBk' : clrCbk},
+		                self.wTree.get_widget('hscHue') : {'cfg' : "video/hue",
+		                                                   'callBk' : clrCbk},
+		                self.wTree.get_widget('hscSaturation') : {'cfg' : "video/saturation",
+		                                                          'callBk' : clrCbk} }
 		
 		# And entries.
-		self.entDic = {self.wTree.get_widget('entTagSyntax') : "gui/tagsyntax"}
+		self.entDic = {self.wTree.get_widget('entTagSyntax') : {'cfg' : "gui/tagsyntax"}}
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -89,28 +93,41 @@ class Dialogue:
 		## Reads the preferences from the config and displays them.
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
-			x.set_active(cfg.getBool(self.chkDic[x]))
+			x.set_active(cfg.getBool(self.chkDic[x]['cfg']))
 		
 		for x in self.adjDic:
-			x.set_value(cfg.getFloat(self.adjDic[x]))
+			x.set_value(cfg.getFloat(self.adjDic[x]['cfg']))
 		
 		for x in self.entDic:
-			x.set_text(cfg.getStr(self.entDic[x]))
+			x.set_text(cfg.getStr(self.entDic[x]['cfg']))
 		
 		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
-		cfg.set(self.chkDic[widget], widget.get_active())
+		dicEntry = self.chkDic[widget]
+		# First we change the config option apporpriately.
+		cfg.set(dicEntry['cfg'], widget.get_active())
+		# Then if there's a callback present, call it.
+		if ('callBk' in dicEntry):
+			dicEntry['callBk'](widget)
 	
 	def adjustmentChanged(self, widget):
 		## A generic function called when scrolling a scrollbar.
-		cfg.set(self.adjDic[widget], widget.get_value())
+		# See above for description.
+		dicEntry = self.adjDic[widget]
+		cfg.set(dicEntry['cfg'], widget.get_value())
+		if ('callBk' in dicEntry):
+			dicEntry['callBk'](widget)
 	
 	def entryChanged(self, widget):
 		## A generic function called when text in an entry is changed.
-		cfg.set(self.entDic[widget], widget.get_text())
+		# See above for description.
+		dicEntry = self.entDic[widget]
+		cfg.set(dicEntry['cfg'], widget.get_text())
+		if ('callBk' in dicEntry):
+			dicEntry['callBk'](widget)
 	
 	
 	def scrollbarColourScroll(self, widget):
