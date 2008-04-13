@@ -6,7 +6,7 @@ have all the required dependencies, these include:
 python >= 2.5
 pygtk >= 2.10
 gstreamer-python >= 0.10
-gstreamer-good >= 0.10
+gstreamer-good >= 0.10 (for the videobalance and goom plugins)
 pyxdg
 
 Optional dependencies include:

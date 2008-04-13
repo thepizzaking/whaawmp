@@ -28,10 +28,11 @@ from common.config import cfg
 class Player:
     version = gst.gst_version
     speed = 1
+    imagesink = None
     
     def play(self):
         # Starts the player playing, only if the player has a URI.
-        if (player.getURI()):
+        if (self.getURI()):
             self.player.set_state(gst.STATE_PLAYING)
             return True
         return False
@@ -159,7 +160,7 @@ class Player:
     def setForceAspectRatio(self, val):
         ## Toggles force aspect ratio on or off.
         try:
-            self.imagesink.set_property('force-aspect-ratio', val)
+            if (self.imagesink): self.imagesink.set_property('force-aspect-ratio', val)
         except TypeError:
             pass
     
@@ -230,19 +231,29 @@ class Player:
         self.player.set_property('video-sink', bin)
         # Need to change colour settings externally.
         self.colourBalance = colourBalance
-    
+
+    def setVisualisation(self, enable):
+        # A call to enable or disable the visualisations from a passed boolean.
+        if enable:
+            self.enableVisualisation()
+        else:
+            self.disableVisualisation()
     
     def enableVisualisation(self):
         # Enable the visualisaion.
-        try:
-            self.player.set_property('vis-plugin', self.visPlugin)
-        except:
-            self.visPlugin = gst.element_factory_make('goom')
-            self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+        self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
     
     def disableVisualisation(self):
         # Diable the visualisaion.
+        # FIXME: Make it so it doesn't restart the stream on disabling visualisations.
+        wasPlaying = False
+        if (self.isPlaying()):
+            # If we're playing, stop.
+            self.stop()
+            wasPlaying = True
+        # Disable the plugin, then start the player again (if it was playing).
         self.player.set_property('vis-plugin', None)
+        if (wasPlaying): self.play()
     
     
     def setVolume(self, vol):
@@ -269,5 +280,8 @@ class Player:
         bus = self.getBus()
         bus.add_signal_watch()
         bus.enable_sync_message_emission()
+        
+        # Enable the visualisation if requested.
+        self.setVisualisation(cfg.getBool("gui/enablevisualisation"))
 
 player = Player()

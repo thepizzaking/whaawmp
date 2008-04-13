@@ -23,7 +23,10 @@ import gtk, gtk.glade, gobject
 from common import useful, lists
 from common.config import cfg
 from common.gstPlayer import player
-from common import dbusBus as msgBus 
+from common import dbusBus as msgBus
+
+CFGS = 'cfg'
+CLBKS = 'callback'
 
 class Dialogue:
 	def __init__(self, main, parent):
@@ -41,31 +44,36 @@ class Dialogue:
 		        "on_spinbutton_changed" : self.adjustmentChanged,
 		        "on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
 		        "on_entry_changed" : self.entryChanged,
-		        "on_scrollbar_colour_changed": self.scrollbarColourScroll,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
-		        "on_chkForceAspect_toggled" : self.toggleForceAspect,
 		        "on_cmbAudioDevice_changed" : self.changeAudioDevice,
 		        "on_btnClose_clicked" : self.closeWindow }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Create a dictionary for checkboxes and their associated settings.
-		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : "gui/instantseek",
-		                self.wTree.get_widget('chkDisableScreensaver') : "misc/disablescreensaver",
-		                self.wTree.get_widget('chkShowTimeRemaining') : "gui/showtimeremaining",
-		                self.wTree.get_widget('chkEnableVisualisation') : "gui/enablevisualisation",
-		                self.wTree.get_widget('chkHideVideoWindow') : "gui/hidevideowindow",
-		                self.wTree.get_widget('chkFileAsTitle') : "gui/fileastitle",
-		                self.wTree.get_widget('chkForceAspect') : "video/force-aspect-ratio" }
+		self.chkDic = { self.wTree.get_widget('chkInstantSeek')         : {CFGS : "gui/instantseek"},
+		                self.wTree.get_widget('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
+		                self.wTree.get_widget('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
+		                self.wTree.get_widget('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
+		                                                                  CLBKS : self.toggleEnableVis},
+		                self.wTree.get_widget('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
+		                self.wTree.get_widget('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
+		                self.wTree.get_widget('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
+		                                                                  CLBKS : self.toggleForceAspect} }
 		# And one for the scrollbars.
-		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : "gui/mousehidetimeout",
-		                self.wTree.get_widget('spnVolumeScrollChange') : "gui/volumescrollchange",
-		                self.wTree.get_widget('hscBrightness') : "video/brightness",
-		                self.wTree.get_widget('hscContrast') : "video/contrast",
-		                self.wTree.get_widget('hscHue') : "video/hue",
-		                self.wTree.get_widget('hscSaturation') : "video/saturation" }
+		clrCbk = self.scrollbarColourScroll
+		self.adjDic = { self.wTree.get_widget('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
+		                self.wTree.get_widget('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
+		                self.wTree.get_widget('hscBrightness')         : {CFGS : "video/brightness",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscContrast')           : {CFGS : "video/contrast",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscHue')                : {CFGS : "video/hue",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscSaturation')         : {CFGS : "video/saturation",
+		                                                                 CLBKS : clrCbk} }
 		
 		# And entries.
-		self.entDic = {self.wTree.get_widget('entTagSyntax') : "gui/tagsyntax"}
+		self.entDic = {self.wTree.get_widget('entTagSyntax') : {CFGS : "gui/tagsyntax"}}
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -88,28 +96,41 @@ class Dialogue:
 		## Reads the preferences from the config and displays them.
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
-			x.set_active(cfg.getBool(self.chkDic[x]))
+			x.set_active(cfg.getBool(self.chkDic[x][CFGS]))
 		
 		for x in self.adjDic:
-			x.set_value(cfg.getFloat(self.adjDic[x]))
+			x.set_value(cfg.getFloat(self.adjDic[x][CFGS]))
 		
 		for x in self.entDic:
-			x.set_text(cfg.getStr(self.entDic[x]))
+			x.set_text(cfg.getStr(self.entDic[x][CFGS]))
 		
 		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
-		cfg.set(self.chkDic[widget], widget.get_active())
+		dicEntry = self.chkDic[widget]
+		# First we change the config option apporpriately.
+		cfg.set(dicEntry[CFGS], widget.get_active())
+		# Then if there's a callback present, call it.
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	def adjustmentChanged(self, widget):
 		## A generic function called when scrolling a scrollbar.
-		cfg.set(self.adjDic[widget], widget.get_value())
+		# See above for description.
+		dicEntry = self.adjDic[widget]
+		cfg.set(dicEntry[CFGS], widget.get_value())
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	def entryChanged(self, widget):
 		## A generic function called when text in an entry is changed.
-		cfg.set(self.entDic[widget], widget.get_text())
+		# See above for description.
+		dicEntry = self.entDic[widget]
+		cfg.set(dicEntry[CFGS], widget.get_text())
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	
 	def scrollbarColourScroll(self, widget):
@@ -136,6 +157,10 @@ class Dialogue:
 		if (player.playingVideo()):
 			player.setForceAspectRatio(cfg.getBool("video/force-aspect-ratio"))
 			self.main.videoWindowConfigure(self.main.videoWindow)
+	
+	def toggleEnableVis(self, widget):
+		## Toggle enable visualisations.
+		player.setVisualisation(widget.get_active())
 	
 	def extNewFileChanged(self, widget):
 		## Changes the saved option for the external file action.
