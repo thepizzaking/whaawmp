@@ -23,7 +23,10 @@ import gtk, gtk.glade, gobject
 from common import useful, lists
 from common.config import cfg
 from common.gstPlayer import player
-from common import dbusBus as msgBus 
+from common import dbusBus as msgBus
+
+CFGS = 'cfg'
+CLBKS = 'callback'
 
 class Dialogue:
 	def __init__(self, main, parent):
@@ -47,30 +50,30 @@ class Dialogue:
 		self.wTree.signal_autoconnect(dic)
 		
 		# Create a dictionary for checkboxes and their associated settings.
-		self.chkDic = { self.wTree.get_widget('chkInstantSeek') : {'cfg' : "gui/instantseek"},
-		                self.wTree.get_widget('chkDisableScreensaver') : {'cfg' : "misc/disablescreensaver"},
-		                self.wTree.get_widget('chkShowTimeRemaining') : {'cfg' : "gui/showtimeremaining"},
-		                self.wTree.get_widget('chkEnableVisualisation') : {'cfg' : "gui/enablevisualisation",
-		                                                                   'callBk' : self.toggleEnableVis},
-		                self.wTree.get_widget('chkHideVideoWindow') : {'cfg' : "gui/hidevideowindow"},
-		                self.wTree.get_widget('chkFileAsTitle') : {'cfg' : "gui/fileastitle"},
-		                self.wTree.get_widget('chkForceAspect') : {'cfg' : "video/force-aspect-ratio",
-		                                                           'callBk' : self.toggleForceAspect} }
+		self.chkDic = { self.wTree.get_widget('chkInstantSeek')         : {CFGS : "gui/instantseek"},
+		                self.wTree.get_widget('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
+		                self.wTree.get_widget('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
+		                self.wTree.get_widget('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
+		                                                                  CLBKS : self.toggleEnableVis},
+		                self.wTree.get_widget('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
+		                self.wTree.get_widget('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
+		                self.wTree.get_widget('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
+		                                                                  CLBKS : self.toggleForceAspect} }
 		# And one for the scrollbars.
 		clrCbk = self.scrollbarColourScroll
-		self.adjDic = { self.wTree.get_widget('spnMouseTimeout') : {'cfg' : "gui/mousehidetimeout"},
-		                self.wTree.get_widget('spnVolumeScrollChange') : {'cfg' : "gui/volumescrollchange"},
-		                self.wTree.get_widget('hscBrightness') : {'cfg' : "video/brightness",
-		                                                          'callBk' : clrCbk},
-		                self.wTree.get_widget('hscContrast') : {'cfg' : "video/contrast",
-		                                                        'callBk' : clrCbk},
-		                self.wTree.get_widget('hscHue') : {'cfg' : "video/hue",
-		                                                   'callBk' : clrCbk},
-		                self.wTree.get_widget('hscSaturation') : {'cfg' : "video/saturation",
-		                                                          'callBk' : clrCbk} }
+		self.adjDic = { self.wTree.get_widget('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
+		                self.wTree.get_widget('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
+		                self.wTree.get_widget('hscBrightness')         : {CFGS : "video/brightness",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscContrast')           : {CFGS : "video/contrast",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscHue')                : {CFGS : "video/hue",
+		                                                                 CLBKS : clrCbk},
+		                self.wTree.get_widget('hscSaturation')         : {CFGS : "video/saturation",
+		                                                                 CLBKS : clrCbk} }
 		
 		# And entries.
-		self.entDic = {self.wTree.get_widget('entTagSyntax') : {'cfg' : "gui/tagsyntax"}}
+		self.entDic = {self.wTree.get_widget('entTagSyntax') : {CFGS : "gui/tagsyntax"}}
 		
 		# More easy access.
 		self.window = self.wTree.get_widget(windowname)
@@ -93,13 +96,13 @@ class Dialogue:
 		## Reads the preferences from the config and displays them.
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
-			x.set_active(cfg.getBool(self.chkDic[x]['cfg']))
+			x.set_active(cfg.getBool(self.chkDic[x][CFGS]))
 		
 		for x in self.adjDic:
-			x.set_value(cfg.getFloat(self.adjDic[x]['cfg']))
+			x.set_value(cfg.getFloat(self.adjDic[x][CFGS]))
 		
 		for x in self.entDic:
-			x.set_text(cfg.getStr(self.entDic[x]['cfg']))
+			x.set_text(cfg.getStr(self.entDic[x][CFGS]))
 		
 		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
 	
@@ -108,26 +111,26 @@ class Dialogue:
 		## A generic function called when toggling a checkbox.
 		dicEntry = self.chkDic[widget]
 		# First we change the config option apporpriately.
-		cfg.set(dicEntry['cfg'], widget.get_active())
+		cfg.set(dicEntry[CFGS], widget.get_active())
 		# Then if there's a callback present, call it.
-		if ('callBk' in dicEntry):
-			dicEntry['callBk'](widget)
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	def adjustmentChanged(self, widget):
 		## A generic function called when scrolling a scrollbar.
 		# See above for description.
 		dicEntry = self.adjDic[widget]
-		cfg.set(dicEntry['cfg'], widget.get_value())
-		if ('callBk' in dicEntry):
-			dicEntry['callBk'](widget)
+		cfg.set(dicEntry[CFGS], widget.get_value())
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	def entryChanged(self, widget):
 		## A generic function called when text in an entry is changed.
 		# See above for description.
 		dicEntry = self.entDic[widget]
-		cfg.set(dicEntry['cfg'], widget.get_text())
-		if ('callBk' in dicEntry):
-			dicEntry['callBk'](widget)
+		cfg.set(dicEntry[CFGS], widget.get_text())
+		if (CLBKS in dicEntry):
+			dicEntry[CLBKS](widget)
 	
 	
 	def scrollbarColourScroll(self, widget):
