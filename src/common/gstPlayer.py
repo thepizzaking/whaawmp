@@ -210,6 +210,9 @@ class Player:
 		# Create a filter for colour balancing & add it to the bin.
 		colourBalance = gst.element_factory_make('videobalance')
 		bin.add(colourBalance)
+		# Convert to ffmpeg colourspace to allow more video sinks.
+		colourSpace = gst.element_factory_make('ffmpegcolorspace')
+		bin.add(colourSpace)
 		# Create a ghostpad so I can connect to it from the playbin.
 		pad = colourBalance.get_pad('sink')
 		ghostPad = gst.GhostPad('sink', pad)
@@ -218,7 +221,7 @@ class Player:
 		sink = gst.element_factory_make(sinkName if sinkName else 'autovideosink')
 		bin.add(sink)
 		# Link the elements.
-		gst.element_link_many(colourBalance, sink)
+		gst.element_link_many(colourBalance, colourSpace,  sink)
 		
 		# HACK: In Windows, scrap the bin and always use directdrawsink without
 		# videobalance.
