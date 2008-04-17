@@ -242,6 +242,7 @@ class MsgBox:
 			# If an icon was specified, pack it first.
 			hbox.pack_start(icon)
 		label = gtk.Label(message)
+		label.set_selectable(True)
 		hbox.pack_start(label)
 		dlg.vbox.pack_start(hbox)
 		# Show then destroy the dialogue.
