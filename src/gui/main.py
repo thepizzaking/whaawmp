@@ -257,9 +257,14 @@ class mainWindow:
 	def onPlayerMessage(self, bus, message):
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
-			# At the end of a stream, play next item from queue.
-			# Or stop if the queue is empty.
-			self.playNext() if (queue.length() > 0) else player.stop()
+			if (self.wTree.get_widget("mnuiRepeatOne").get_active()):
+				player.seek(0)
+			else:
+				if (self.wTree.get_widget("mnuiRepeatAll").get_active()):
+					queue.append(player.getURI())
+				# At the end of a stream, play next item from queue.
+				# Or stop if the queue is empty.
+				self.playNext() if (queue.length() > 0) else player.stop()
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
