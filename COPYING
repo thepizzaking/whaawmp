@@ -1,3 +1,6 @@
+# This GPL license has an exception clause added, see the bottom of the
+# file for details.
+
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
@@ -672,3 +675,15 @@ may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
 <http://www.gnu.org/philosophy/why-not-lgpl.html>.
+
+
+The Whaaw! Media Player project hereby grants permission for non-GPL
+compatible GStreamer plugins to be used and distributed together with
+GStreamer and Whaaw! Media Player. This permission is above and beyond the
+permissions granted by the GPL licence by which Whaaw! Media Player is
+covered. If you modify this code, you may extend this exception to your
+version of the code, but you are not obligated to do so. If you do not wish to
+do so, delete this exception statement from your version.
+
+(For reasons for this clause, see:
+ http://gstreamer.freedesktop.org/documentation/licensing.html)

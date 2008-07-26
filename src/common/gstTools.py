@@ -16,6 +16,12 @@
 #       
 #       You should have received a copy of the GNU General Public License
 #       along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+#		The Whaaw! Media Player project hereby grants permission for non-GPL
+#		compatible GStreamer plugins to be used and distributed together with
+#       GStreamer and Whaaw! Media Player. This permission is above and beyond
+#		the permissions granted by the GPL licence by which Whaaw! Media Player
+#		is covered. (See COPYING file for more details)
 
 import pygst
 pygst.require('0.10')
