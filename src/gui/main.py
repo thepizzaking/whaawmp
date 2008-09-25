@@ -775,7 +775,7 @@ class mainWindow:
         # Set the application's name (for about dialogue etc).
         ## TODO, remove this if when glib 2.14 is more widespread.
         if (gobject.glib_version >= (2,14) and gobject.pygobject_version >= (2,14)):
-            gobject.set_application_name(useful.lName)
+            gobject.set_application_name(str(useful.lName))
         
         # Create & prepare the player for playing.
         self.preparePlayer()
