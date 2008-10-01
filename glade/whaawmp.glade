@@ -1,4 +1,6 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE glade-interface SYSTEM "glade-2.0.dtd">
+<!--Generated with glade3 3.4.4 on Wed Oct  1 14:02:27 2008 -->
 <glade-interface>
   <widget class="GtkWindow" id="main">
     <property name="width_request">480</property>
@@ -95,7 +97,7 @@
                             <property name="use_underline">True</property>
                             <property name="use_stock">True</property>
                             <signal name="activate" handler="on_mnuiQuit_activate"/>
-                            <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                            <accelerator key="w" modifiers="GDK_CONTROL_MASK" signal="activate"/>
                           </widget>
                         </child>
                       </widget>
@@ -226,8 +228,8 @@
                                     <property name="tooltip" translatable="yes">Repeat a single track</property>
                                     <property name="label" translatable="yes">One</property>
                                     <property name="use_underline">True</property>
-				    <property name="draw_as_radio">True</property>
-				    <property name="group">mnuiRepeatNone</property>
+                                    <property name="draw_as_radio">True</property>
+                                    <property name="group">mnuiRepeatNone</property>
                                   </widget>
                                 </child>
                                 <child>
@@ -236,8 +238,8 @@
                                     <property name="tooltip" translatable="yes">Repeat all tracks in the queue.</property>
                                     <property name="label" translatable="yes">All</property>
                                     <property name="use_underline">True</property>
-				    <property name="draw_as_radio">True</property>
-				    <property name="group">mnuiRepeatNone</property>
+                                    <property name="draw_as_radio">True</property>
+                                    <property name="group">mnuiRepeatNone</property>
                                   </widget>
                                 </child>
                               </widget>
@@ -443,7 +445,7 @@
                 <property name="can_focus">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip" translatable="yes">Change the player's speed.  WARNING: Negative numbers can cause weirdness (even lockups).</property>
-                <property name="adjustment">1 -100 100 0.10000000000000001 0.5 0.5</property>
+                <property name="adjustment">1 -100 100 0.10000000000000001 0.5 0</property>
                 <property name="digits">2</property>
                 <signal name="value_changed" handler="on_spnPlaySpeed_value_changed"/>
               </widget>
@@ -610,7 +612,7 @@
     <property name="has_separator">False</property>
     <property name="copyright">Copyright 2008, Jeff Bailes</property>
     <property name="website">http://home.gna.org/whaawmp/</property>
-    <property name="license">Copyright &#xA9; Jeff Bailes, 2007-2008.
+    <property name="license">Copyright © Jeff Bailes, 2007-2008.
 
 Whaaw! Media Player (whaawmp)
 
@@ -824,7 +826,7 @@ Play in separate process</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="tooltip" translatable="yes">The time (in milliseconds) after which the mouse will disappear after not being moved over the video window.</property>
-                        <property name="adjustment">0 0 100000 100 10 10</property>
+                        <property name="adjustment">0 0 100000 100 10 0</property>
                         <signal name="value_changed" handler="on_spinbutton_changed"/>
                       </widget>
                       <packing>
@@ -847,8 +849,8 @@ Play in separate process</property>
                 <property name="label" translatable="yes">Main</property>
               </widget>
               <packing>
-                <property name="tab_fill">False</property>
                 <property name="type">tab</property>
+                <property name="tab_fill">False</property>
               </packing>
             </child>
             <child>
@@ -875,7 +877,7 @@ Play in separate process</property>
                         <property name="can_focus">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="tooltip" translatable="yes">The amount to change the volume by when scrolling on the video area/volume control</property>
-                        <property name="adjustment">0 -100 100 2.5 10 10</property>
+                        <property name="adjustment">0 -100 100 2.5 10 0</property>
                         <property name="digits">1</property>
                         <signal name="value_changed" handler="on_spinbutton_changed"/>
                       </widget>
@@ -936,9 +938,9 @@ Play in separate process</property>
                 <property name="label" translatable="yes">Audio</property>
               </widget>
               <packing>
+                <property name="type">tab</property>
                 <property name="position">1</property>
                 <property name="tab_fill">False</property>
-                <property name="type">tab</property>
               </packing>
             </child>
             <child>
@@ -1173,9 +1175,9 @@ Play in separate process</property>
                 <property name="label" translatable="yes">Video</property>
               </widget>
               <packing>
+                <property name="type">tab</property>
                 <property name="position">2</property>
                 <property name="tab_fill">False</property>
-                <property name="type">tab</property>
               </packing>
             </child>
           </widget>
