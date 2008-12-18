@@ -67,20 +67,20 @@ class main:
 		# Add parser options:
 		# Input file (can be an absolute or relative path).
 		parser.add_option("-i", "--input", dest="input",
-		                  default=None, metavar="FILE",
-		                  help=_("The file to create the thumbnail of"))
+							default=None, metavar="FILE",
+							help=_("The file to create the thumbnail of"))
 		# The output file of the thumbnail.
 		parser.add_option("-o", "--output", dest="output",
-		                  default=None, metavar="FILE",
-		                  help=_("The destination of the resulting thumbnail"))
+							default=None, metavar="FILE",
+							help=_("The destination of the resulting thumbnail"))
 		# The position in the video to get the thumbnail from.
 		parser.add_option("-p", "--position", dest="pos",
-		                  default=0.3, metavar="FRAC",
-		                  help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
+							default=0.3, metavar="FRAC",
+							help=_("The position (Fraction) to take the thumbnail from (default 0.3)"))
 		# The output size.
 		parser.add_option("-s", "--size", dest="size",
-		                  default=None, metavar="SIZE",
-		                  help=_("The destination size (in pixels)"))
+							default=None, metavar="SIZE",
+							help=_("The destination size (in pixels)"))
 		if (HELP):
 			# If help is requested print it, then exit.
 			parser.print_help()
@@ -212,9 +212,9 @@ class main:
 					self.getThumb = True
 					# Seek to the new position.
 					res = self.player.seek(1.0, gst.FORMAT_TIME,
-					                       gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-					                       gst.SEEK_TYPE_SET, pos,
-					                       gst.SEEK_TYPE_NONE, 0)
+											gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
+											gst.SEEK_TYPE_SET, pos,
+											gst.SEEK_TYPE_NONE, 0)
 					if (not res):
 						# If the seek failed, quit with an error.
 						print _("Unable to seek to requested position, exiting.")

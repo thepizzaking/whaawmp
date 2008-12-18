@@ -45,8 +45,8 @@ sToms = lambda s: 1000 * s
 def strPartition(str, separator):
 	## Replacement for str.partition (not available in py 2.4)
 	try:
-	    first, last = str.split(separator,1)
-	    return first, separator, last
+		first, last = str.split(separator,1)
+		return first, separator, last
 	except ValueError:
 		return (str, "", "")
 
@@ -97,10 +97,10 @@ def tagsToTuple(str):
 
 # Pix data for hidden cursors.
 hiddenCursorPix = """/* XPM */
-    		         static char * invisible_xpm[] = {
-    		         "1 1 1 1",
-    		         "       c None",
-    				 " "};"""
+					 static char * invisible_xpm[] = {
+					 "1 1 1 1",
+					 "       c None",
+					 " "};"""
 
 # Modify a window's height by a set amount.
 def modifyWinHeight(window, change):

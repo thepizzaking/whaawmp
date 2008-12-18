@@ -39,38 +39,38 @@ class Dialogue:
 		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
-		        "on_checkbox_toggled" : self.checkboxToggle,
-		        "on_scrollbar_changed" : self.adjustmentChanged,
-		        "on_spinbutton_changed" : self.adjustmentChanged,
-		        "on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
-		        "on_entry_changed" : self.entryChanged,
-		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
-		        "on_cmbAudioDevice_changed" : self.changeAudioDevice,
-		        "on_btnClose_clicked" : self.closeWindow }
+				"on_checkbox_toggled" : self.checkboxToggle,
+				"on_scrollbar_changed" : self.adjustmentChanged,
+				"on_spinbutton_changed" : self.adjustmentChanged,
+				"on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
+				"on_entry_changed" : self.entryChanged,
+				"on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
+				"on_cmbAudioDevice_changed" : self.changeAudioDevice,
+				"on_btnClose_clicked" : self.closeWindow }
 		self.wTree.signal_autoconnect(dic)
 		
 		# Create a dictionary for checkboxes and their associated settings.
 		self.chkDic = { self.wTree.get_widget('chkInstantSeek')         : {CFGS : "gui/instantseek"},
-		                self.wTree.get_widget('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
-		                self.wTree.get_widget('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
-		                self.wTree.get_widget('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
-		                                                                  CLBKS : self.toggleEnableVis},
-		                self.wTree.get_widget('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
-		                self.wTree.get_widget('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
-		                self.wTree.get_widget('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
-		                                                                  CLBKS : self.toggleForceAspect} }
+						self.wTree.get_widget('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
+						self.wTree.get_widget('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
+						self.wTree.get_widget('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
+														                              CLBKS : self.toggleEnableVis},
+						self.wTree.get_widget('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
+						self.wTree.get_widget('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
+						self.wTree.get_widget('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
+														                              CLBKS : self.toggleForceAspect} }
 		# And one for the scrollbars.
 		clrCbk = self.scrollbarColourScroll
 		self.adjDic = { self.wTree.get_widget('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
-		                self.wTree.get_widget('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
-		                self.wTree.get_widget('hscBrightness')         : {CFGS : "video/brightness",
-		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscContrast')           : {CFGS : "video/contrast",
-		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscHue')                : {CFGS : "video/hue",
-		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscSaturation')         : {CFGS : "video/saturation",
-		                                                                 CLBKS : clrCbk} }
+						self.wTree.get_widget('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
+						self.wTree.get_widget('hscBrightness')         : {CFGS : "video/brightness",
+														                             CLBKS : clrCbk},
+						self.wTree.get_widget('hscContrast')           : {CFGS : "video/contrast",
+														                             CLBKS : clrCbk},
+						self.wTree.get_widget('hscHue')                : {CFGS : "video/hue",
+														                             CLBKS : clrCbk},
+						self.wTree.get_widget('hscSaturation')         : {CFGS : "video/saturation",
+														                             CLBKS : clrCbk} }
 		
 		# And entries.
 		self.entDic = {self.wTree.get_widget('entTagSyntax') : {CFGS : "gui/tagsyntax"}}

@@ -58,8 +58,8 @@ class OpenFile:
 		## in to file.
 		# Create the dialogue.
 		dlg = gtk.FileChooserDialog(_("Choose a file to Open"), parent,
-		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+							buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+										 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
 		# Set the current folder to the one passed.
 		dlg.set_current_folder(loc)
@@ -96,8 +96,8 @@ class PlayDVD:
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
 		dlg = gtk.Dialog(_("Play DVD"), parent,
-		                    buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-		                               gtk.STOCK_OK, gtk.RESPONSE_OK))
+							 buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+											 gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
 		# Create the Labels, checkboxes and spin buttons.
 		label = gtk.Label(_("Select options:"))
@@ -150,8 +150,8 @@ class OpenURI:
 		self.res = None
 		# Create the dialogue.
 		dlg = gtk.Dialog(_("Open a URI"), parent,
-		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
-		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+							buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+										 gtk.STOCK_OPEN, gtk.RESPONSE_OK))
 		
 		# Create the label and entry, then pack them.
 		label = gtk.Label(_("Enter the URI:"))
@@ -189,7 +189,7 @@ class SelectAudioTrack:
 		cur = player.getAudioTrack()
 		# Creates an audio track selector dialogue.
 		dlg = gtk.Dialog(_("Select Tracks"), parent,
-		                  buttons = (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+							buttons = (gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
 		
 		# Create the label.
 		label = gtk.Label(_("Audio:"))
@@ -239,7 +239,7 @@ class MsgBox:
 		if (not parent): parent = useful.mainWin
 		# Create the dialogue.
 		dlg = gtk.Dialog(title, parent,
-		                 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
+						 buttons=(gtk.STOCK_OK, gtk.RESPONSE_OK))
 		
 		# Create the label containing the message & pack it in.
 		hbox = gtk.HBox()
@@ -259,7 +259,7 @@ class SupportedFeatures:
 	def __init__(self, parent):
 		# Shows a list of supported features.
 		dlg = gtk.Dialog(_("Supported Features"), parent,
-		                 buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+						 buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
 		
 		# Import the librarys needed to check availability.
 		import common.dbusBus as bus
