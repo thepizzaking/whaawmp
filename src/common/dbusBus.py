@@ -61,21 +61,26 @@ class IntObject(dbus.service.Object):
 	def playFile(self, file, cfgOption):
 		# Plays a file depending on the configured action,
 		# (returns False if the other process should not quit).
+		print _("File received via dbus:\n\t%s" % file)
 		
 		if (cfgOption not in range(3)): cfgOption = self.cfg.getInt('misc/onextnewfile')
 		if (cfgOption == 0):
 			# 0 - Force play even if it's already playing.
+			print _("Playing file...")
 			self.main.playFile(file)
 		elif (cfgOption == 2):
 			# 2 - Play in new process, so return False.
+			print _("Telling %s to start a new process..." % useful.lName)
 			return False
 		else:
 			# 1 - Add to the end of the queue. (Put at end so this is used as
 			# the default action if the configuration is screwed.
 			# If the player is stopped, play the file immediately.
 			if (self.player.isStopped()):
+				print _("Playing file...")
 				self.main.playFile(file)
 			else:
+				print _("File queued...")
 				self.queue.append(file)
 				if (not self.player.getURI()): self.main.playNext()
 		return True
@@ -147,8 +152,10 @@ class initBus:
 				if (self.iface.playFile(x, playBehaviour)):
 					# Return of True = I've handled it, you can now quit.
 					self.quitAfter = True
+					print _("Passed the following file to previously running process:\n\t%s" % x)
 				else:
 					# Return of False = You handle it!
+					print _("Starting new process...")
 					return
 		
 		if options.togglePlayPause:
