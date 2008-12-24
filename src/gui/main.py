@@ -313,7 +313,7 @@ class mainWindow:
 		elif (playerTools.isStopMsg(msg)):
 			if ((not player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()):
 				#If the queue still has items, we don't want to quit.
-				if (not queue.length): self.quit()
+				if (not queue.length()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
 			# Reset the progress bar.
