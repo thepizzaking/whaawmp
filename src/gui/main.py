@@ -227,8 +227,10 @@ class mainWindow:
 	
 	def windowKeyPressed(self, widget, event):
 		## Emits signals defined in lists.keypressDict.
-		for x in lists.keypressDict[gtk.gdk.keyval_name(event.keyval)]:
-			signals.emit(x)
+		keyname = gtk.gdk.keyval_name(event.keyval)
+		if keyname in lists.keypressDict:
+			for x in lists.keypressDict[keyname]:
+				signals.emit(x)
 	
 	
 	def toggleAdvancedControls(self):
