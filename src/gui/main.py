@@ -226,27 +226,15 @@ class mainWindow:
 	
 	
 	def windowKeyPressed(self, widget, event):
-		## I should probably make the bindings customisable (event.keyval
-		# for that probably).
-		if (event.string == ' '):
-			# Toggle Play/Pause on Spacebar.
-			self.togglePlayPause()
-		elif (event.string == 'F' or event.keyval == gtk.gdk.keyval_from_name('F11')):
-			# Toggle fullscreen on 'f'.
-			self.toggleFullscreen()
-		elif (event.string == 'n'):
-			# Skip to the next track on 'n'.
-			self.playNext()
-		elif (event.string in ['p', 'r']):
-			# On 'p' or 'r' restart the track (almost previous).
-			self.restartTrack()
-		elif (event.string == 'q'):
-			# On 'q' show/hide the queue.
-			queue.toggle()
-		elif (event.string == 'a'):
-			# On 'a' show/hide the advanced controls by reversing the menu item's status.
-			menuItm = self.wTree.get_widget("mnuiAdvCtrls")
-			menuItm.set_active(not menuItm.get_active())
+		## Emits signals defined in lists.keypressDict.
+		for x in lists.keypressDict[gtk.gdk.keyval_name(event.keyval)]:
+			signals.emit(x)
+	
+	
+	def toggleAdvancedControls(self):
+		# Toggle the advanced controls.
+		menuItm = self.wTree.get_widget("mnuiAdvCtrls")
+		menuItm.set_active(not menuItm.get_active())
 
 	
 	def preparePlayer(self):
@@ -858,6 +846,13 @@ class mainWindow:
 		# Show the next button & restart track button if enabled.
 		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
 		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_widget("btnRestart").show()
+		# Setup the signals.
+		signals.connect('toggle_play_pause', self.togglePlayPause)
+		signals.connect('toggle_fullscreen', self.toggleFullscreen)
+		signals.connect('play_next', self.playNext)
+		signals.connect('restart_track', self.restartTrack)
+		signals.connect('toggle_queue', queue.toggle)
+		signals.connect('toggle_advanced_controls', self.toggleAdvancedControls)
 		# Show the window.
 		self.mainWindow.show()
 		# Set the queue play command, so it can play tracks.

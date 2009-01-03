@@ -29,7 +29,7 @@ class Signals:
 		## Connects a message.
 		info = {'function' : func,
 		        'connArgs' : args}
-		# If and entry doesn't exist, we need to create it.
+		# If an entry doesn't exist, we need to create it.
 		if (message not in self.signals): self.signals[message] = []
 		# And append the function to the selected message.
 		self.signals[message].append(info)
