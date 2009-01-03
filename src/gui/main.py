@@ -231,7 +231,7 @@ class mainWindow:
 		if (event.string == ' '):
 			# Toggle Play/Pause on Spacebar.
 			self.togglePlayPause()
-		elif (event.string == 'f'):
+		elif (event.string == 'F' or event.keyval == gtk.gdk.keyval_from_name('F11')):
 			# Toggle fullscreen on 'f'.
 			self.toggleFullscreen()
 		elif (event.string == 'n'):
