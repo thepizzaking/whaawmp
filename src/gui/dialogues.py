@@ -128,6 +128,8 @@ class PlayDVD:
 		
 		# Set the default response.
 		dlg.set_default_response(gtk.RESPONSE_OK)
+		# Enter on the text input is also OK.
+		spnTitle.connect('activate', self.onResponse, dlg, gtk.RESPONSE_OK)
 		# Show all the widgets, then run it.
 		dlg.show_all()
 		self.res = True if (dlg.run() == gtk.RESPONSE_OK) else False
@@ -143,6 +145,10 @@ class PlayDVD:
 	def chkToggled(self, widget):
 		# Enables and disables the spin buttons when the checkboxes are checked.
 		self.spnDic[widget].set_sensitive(widget.get_active())
+	
+	def onResponse(self, entry, dlg, response):
+		# A call to pass the dialogues response.
+		dlg.response(response)
 	
 
 
