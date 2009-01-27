@@ -108,7 +108,7 @@ class PlayDVD:
 		label = gtk.Label(_("Select options:"))
 		label.set_alignment(0, 0.5)
 		chkTitle = gtk.CheckButton(_("Title: "))
-		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 1))
+		spnTitle = gtk.SpinButton(gtk.Adjustment(1, 1, 500, 1, 1, 0))
 		# Add them to a dictionary so I can handle all the checkboxes with
 		# a single function.
 		self.spnDic = { chkTitle : spnTitle }
