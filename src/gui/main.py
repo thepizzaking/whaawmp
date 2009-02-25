@@ -700,10 +700,14 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
-	def toggleQueueWindow(self, widget):
-		toShow = widget.get_active()
-		# Toggle the queue window according to what the menu item is set to.
-		queue.toggle(toShow)
+	def toggleQueueWindow(self, widget=None, event=None):
+		if (widget is self.wTree.get_widget('mnuiQueue')):
+			# If the call is from the menu item use its tick box value.
+			toShow = widget.get_active()
+			queue.toggle(toShow)
+		else:
+			# Otherwise just toggle it.
+			toShow = queue.toggle()
 		if (not toShow):
 			# Shrink the window if we're closing the queue.
 			qwinHeight = queue.qwin.get_allocation().height
@@ -713,7 +717,7 @@ class mainWindow:
 		## Toggles the advanced controls.
 		# Get the menu item's state so we know to show or hide.
 		toShow = widget.get_active()
-		# Get the hbix, then show or hide it accordingly.
+		# Get the hbox, then show or hide it accordingly.
 		ctrls = self.wTree.get_widget("hboxAdvCtrls")
 		if (toShow):
 			ctrls.show()
@@ -824,6 +828,7 @@ class mainWindow:
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
+				"on_eventNumQueued_button_release_event" : self.toggleQueueWindow,
 		        "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
 		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
 		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }

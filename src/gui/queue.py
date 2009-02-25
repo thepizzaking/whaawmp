@@ -61,6 +61,7 @@ class queues():
 		else:
 			# Otherwise, hide it.
 			self.hide()
+		return toShow
 	
 	def show(self, force=False):
 		## Shows the window.

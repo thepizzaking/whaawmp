@@ -1207,7 +1207,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="lblNumQueued"/>
+              <widget class="GtkEventBox" id="eventNumQueued">
+                <property name="visible">True</property>
+                <property name="events">GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                <signal name="button_release_event" handler="on_eventNumQueued_button_release_event"/>
+                <child>
+                  <widget class="GtkLabel" id="lblNumQueued"/>
+                </child>
+              </widget>
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
