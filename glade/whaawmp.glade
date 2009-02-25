@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
 <glade-interface>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
   <widget class="GtkDialog" id="PreferencesDlg">
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Preferences</property>
-    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <signal name="delete_event" handler="on_PreferencesDlg_delete_event"/>
     <child internal-child="vbox">
@@ -24,27 +26,28 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
                   <widget class="GtkCheckButton" id="chkInstantSeek">
+                    <property name="label" translatable="yes">Instantaneous Seek</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Seek instantaneously on draging over the progress bar, instead of waiting until the end.</property>
-                    <property name="label" translatable="yes">Instantaneous Seek</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="chkDisableScreensaver">
+                    <property name="label" translatable="yes">Disable Screensaver</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Disable Screensaver whilst playing a video.</property>
-                    <property name="label" translatable="yes">Disable Screensaver</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
@@ -55,12 +58,12 @@
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="chkShowTimeRemaining">
+                    <property name="label" translatable="yes">Show Time Remaining</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Show the time remaining instead of total time in the progress bar.</property>
-                    <property name="label" translatable="yes">Show Time Remaining</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
@@ -71,12 +74,12 @@
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="chkFileAsTitle">
+                    <property name="label" translatable="yes">Add current file's tags/name to Title</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Add the currently playing file's tags (or name if unavailable) to the window's title.</property>
-                    <property name="label" translatable="yes">Add current file's tags/name to Title</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
@@ -97,6 +100,7 @@
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -131,6 +135,7 @@ Play in separate process</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -164,6 +169,7 @@ Play in separate process</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -215,6 +221,7 @@ Play in separate process</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -235,6 +242,7 @@ Play in separate process</property>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -249,6 +257,7 @@ Play in separate process</property>
                       </widget>
                       <packing>
                         <property name="expand">False</property>
+                        <property name="position">0</property>
                       </packing>
                     </child>
                     <child>
@@ -295,27 +304,28 @@ Play in separate process</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
                   <widget class="GtkCheckButton" id="chkForceAspect">
+                    <property name="label" translatable="yes">Force Aspect Ratio</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Force the video to keep its original aspect ratio</property>
-                    <property name="label" translatable="yes">Force Aspect Ratio</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
                   <packing>
                     <property name="expand">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="chkEnableVisualisation">
+                    <property name="label" translatable="yes">Enable Visualisations (Requires stream restart)</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Show visualisations when no video track is available (Current stream must be restarted, disabling does this automatically).</property>
-                    <property name="label" translatable="yes">Enable Visualisations (Requires stream restart)</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
@@ -326,12 +336,12 @@ Play in separate process</property>
                 </child>
                 <child>
                   <widget class="GtkCheckButton" id="chkHideVideoWindow">
+                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
                     <property name="visible">True</property>
                     <property name="can_focus">True</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                     <property name="tooltip" translatable="yes">Hide the video window when there is no video stream.</property>
-                    <property name="label" translatable="yes">Hide Video Window when Stopped</property>
-                    <property name="response_id">0</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_checkbox_toggled"/>
                   </widget>
@@ -361,6 +371,9 @@ Play in separate process</property>
                                 <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Brightness:</property>
                               </widget>
+                              <packing>
+                                <property name="position">0</property>
+                              </packing>
                             </child>
                             <child>
                               <widget class="GtkHScale" id="hscBrightness">
@@ -371,7 +384,7 @@ Play in separate process</property>
                                 <property name="tooltip" translatable="yes">Adjust video brightness</property>
                                 <property name="adjustment">0 -1 1.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
                                 <property name="digits">2</property>
-                                <property name="value_pos">GTK_POS_BOTTOM</property>
+                                <property name="value_pos">bottom</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                               </widget>
                               <packing>
@@ -398,7 +411,7 @@ Play in separate process</property>
                                 <property name="tooltip" translatable="yes">Adjust video contrast</property>
                                 <property name="adjustment">1 0 2.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
                                 <property name="digits">2</property>
-                                <property name="value_pos">GTK_POS_BOTTOM</property>
+                                <property name="value_pos">bottom</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                               </widget>
                               <packing>
@@ -425,7 +438,7 @@ Play in separate process</property>
                                 <property name="tooltip" translatable="yes">Adjust video hue</property>
                                 <property name="adjustment">0 -1 1.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
                                 <property name="digits">2</property>
-                                <property name="value_pos">GTK_POS_BOTTOM</property>
+                                <property name="value_pos">bottom</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                               </widget>
                               <packing>
@@ -452,7 +465,7 @@ Play in separate process</property>
                                 <property name="tooltip" translatable="yes">Adjust video saturation</property>
                                 <property name="adjustment">1 0 2.1000000000000001 0.01 0.10000000000000001 0.10000000000000001</property>
                                 <property name="digits">2</property>
-                                <property name="value_pos">GTK_POS_BOTTOM</property>
+                                <property name="value_pos">bottom</property>
                                 <signal name="value_changed" handler="on_scrollbar_changed"/>
                               </widget>
                               <packing>
@@ -468,19 +481,18 @@ Play in separate process</property>
                                 </child>
                                 <child>
                                   <widget class="GtkButton" id="btnVideoDefaults">
+                                    <property name="label" translatable="yes">Restore Defaults</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">True</property>
                                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                                     <property name="tooltip" translatable="yes">Reset all adjustments to 0</property>
-                                    <property name="label" translatable="yes">Restore Defaults</property>
-                                    <property name="response_id">0</property>
                                     <signal name="clicked" handler="on_btnVideoDefaults_clicked"/>
                                   </widget>
                                   <packing>
                                     <property name="expand">False</property>
                                     <property name="fill">False</property>
-                                    <property name="pack_type">GTK_PACK_END</property>
+                                    <property name="pack_type">end</property>
                                     <property name="position">1</property>
                                   </packing>
                                 </child>
@@ -535,19 +547,18 @@ Play in separate process</property>
           <widget class="GtkHButtonBox" id="dialog-action_area2">
             <property name="visible">True</property>
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <property name="layout_style">end</property>
             <child>
               <placeholder/>
             </child>
             <child>
               <widget class="GtkButton" id="btnClose">
+                <property name="label">gtk-close</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="label">gtk-close</property>
                 <property name="use_stock">True</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnClose_clicked"/>
               </widget>
               <packing>
@@ -557,7 +568,8 @@ Play in separate process</property>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </widget>
@@ -569,8 +581,8 @@ Play in separate process</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">About Whaaw! Media Player</property>
     <property name="resizable">False</property>
-    <property name="window_position">GTK_WIN_POS_CENTER_ON_PARENT</property>
-    <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
+    <property name="window_position">center-on-parent</property>
+    <property name="type_hint">dialog</property>
     <property name="has_separator">False</property>
     <property name="copyright">Copyright 2008, Jeff Bailes</property>
     <property name="website">http://home.gna.org/whaawmp/</property>
@@ -605,12 +617,13 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
         <child internal-child="action_area">
           <widget class="GtkHButtonBox" id="dialog-action_area1">
             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-            <property name="layout_style">GTK_BUTTONBOX_END</property>
+            <property name="layout_style">end</property>
             <signal name="button_release_event" handler="destroy"/>
           </widget>
           <packing>
             <property name="expand">False</property>
-            <property name="pack_type">GTK_PACK_END</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </widget>
@@ -655,46 +668,29 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiOpen">
+                            <property name="label">gtk-open</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label">gtk-open</property>
                             <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
                             <signal name="activate" handler="on_mnuiOpen_activate"/>
                           </widget>
                         </child>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiPlayDVD">
+                            <property name="label">Play DVD</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">Play DVD</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image2">
-                                <property name="visible">True</property>
-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                <property name="stock">gtk-cdrom</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
                           </widget>
                         </child>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiOpenURI">
+                            <property name="label">Open URI</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">Open URI</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiOpenURI_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image4">
-                                <property name="visible">True</property>
-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                <property name="stock">gtk-network</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
                           </widget>
                         </child>
                         <child>
@@ -705,13 +701,12 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         </child>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiQuit">
+                            <property name="label">gtk-quit</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label">gtk-quit</property>
                             <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
-                            <signal name="activate" handler="on_mnuiQuit_activate"/>
                             <accelerator key="w" signal="activate" modifiers="GDK_CONTROL_MASK"/>
+                            <signal name="activate" handler="on_mnuiQuit_activate"/>
                           </widget>
                         </child>
                       </widget>
@@ -730,19 +725,11 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiPreferences">
+                            <property name="label">_Preferences</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">_Preferences</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPreferences_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image3">
-                                <property name="visible">True</property>
-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                <property name="stock">gtk-preferences</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
                           </widget>
                         </child>
                       </widget>
@@ -761,20 +748,12 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiFS">
+                            <property name="label">Toggle Fullscreen</property>
                             <property name="visible">True</property>
                             <property name="sensitive">False</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label" translatable="yes">Toggle Fullscreen</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiFS_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image1">
-                                <property name="visible">True</property>
-                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                                <property name="stock">gtk-fullscreen</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
                           </widget>
                         </child>
                         <child>
@@ -895,18 +874,12 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiReportBug">
+                            <property name="label">_Report a Bug</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="tooltip" translatable="yes">Report a bug to the Bugtracker</property>
-                            <property name="label" translatable="yes">_Report a Bug</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiReportBug_activate"/>
-                            <child internal-child="image">
-                              <widget class="GtkImage" id="menu-item-image5">
-                                <property name="stock">gtk-dialog-warning</property>
-                                <property name="icon_size">1</property>
-                              </widget>
-                            </child>
                           </widget>
                         </child>
                         <child>
@@ -926,11 +899,10 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         </child>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiAbout">
+                            <property name="label">gtk-about</property>
                             <property name="visible">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                            <property name="label">gtk-about</property>
                             <property name="use_underline">True</property>
-                            <property name="use_stock">True</property>
                             <signal name="activate" handler="on_mnuiAbout_activate"/>
                           </widget>
                         </child>
@@ -939,6 +911,9 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   </widget>
                 </child>
               </widget>
+              <packing>
+                <property name="position">0</property>
+              </packing>
             </child>
             <child>
               <widget class="GtkVSeparator" id="vseparator1">
@@ -957,13 +932,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
                   <widget class="GtkCheckButton" id="chkVol">
+                    <property name="label" translatable="yes" comments="Short for Volume">Vol:</property>
                     <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
                     <property name="tooltip" translatable="yes">Volume (Mute/Unmute)</property>
-                    <property name="label" translatable="yes" comments="Short for Volume">Vol:</property>
                     <property name="focus_on_click">False</property>
-                    <property name="image_position">GTK_POS_BOTTOM</property>
-                    <property name="response_id">0</property>
+                    <property name="image_position">bottom</property>
                     <property name="active">True</property>
                     <property name="draw_indicator">True</property>
                     <signal name="toggled" handler="on_chkVol_toggled"/>
@@ -972,6 +948,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
+                    <property name="position">0</property>
                   </packing>
                 </child>
                 <child>
@@ -982,7 +959,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                     <property name="tooltip" translatable="yes">Current player volume</property>
                     <property name="adjustment">75 0 110 0 10 10</property>
                     <property name="digits">0</property>
-                    <property name="value_pos">GTK_POS_RIGHT</property>
+                    <property name="value_pos">right</property>
                     <signal name="value_changed" handler="on_hscVolume_value_changed"/>
                     <signal name="scroll_event" handler="on_hscVolume_scroll_event"/>
                   </widget>
@@ -994,13 +971,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
               </widget>
               <packing>
                 <property name="expand">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">1</property>
               </packing>
             </child>
           </widget>
           <packing>
             <property name="expand">False</property>
+            <property name="position">0</property>
           </packing>
         </child>
         <child>
@@ -1020,6 +998,9 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <signal name="enter_notify_event" handler="on_videoWindow_enter_notify_event"/>
                 <signal name="scroll_event" handler="on_videoWindow_scroll_event"/>
               </widget>
+              <packing>
+                <property name="position">0</property>
+              </packing>
             </child>
           </widget>
           <packing>
@@ -1051,6 +1032,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
@@ -1084,7 +1066,6 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip" translatable="yes">Restart Track</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnRestart_clicked"/>
                 <child>
                   <placeholder/>
@@ -1092,14 +1073,16 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
               </widget>
               <packing>
                 <property name="expand">False</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
               <widget class="GtkButton" id="btnPlayToggle">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="focus_on_click">False</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnPlayToggle_clicked"/>
                 <child>
                   <placeholder/>
@@ -1113,10 +1096,11 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
             <child>
               <widget class="GtkButton" id="btnStop">
                 <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip" translatable="yes">Stop</property>
                 <property name="focus_on_click">False</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnStop_clicked"/>
                 <child>
                   <placeholder/>
@@ -1133,7 +1117,6 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip" translatable="yes">Next</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnNext_clicked"/>
                 <child>
                   <placeholder/>
@@ -1162,7 +1145,6 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-                <property name="response_id">0</property>
                 <signal name="clicked" handler="on_btnLeaveFullscreen_clicked"/>
                 <child>
                   <widget class="GtkHBox" id="hbox2">
@@ -1173,8 +1155,11 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="visible">True</property>
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <property name="stock">gtk-leave-fullscreen</property>
-                        <property name="icon_size">1</property>
+                        <property name="icon-size">1</property>
                       </widget>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
                     </child>
                     <child>
                       <widget class="GtkLabel" id="label1">
@@ -1191,7 +1176,7 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
               </widget>
               <packing>
                 <property name="expand">False</property>
-                <property name="pack_type">GTK_PACK_END</property>
+                <property name="pack_type">end</property>
                 <property name="position">5</property>
               </packing>
             </child>
@@ -1202,10 +1187,33 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
           </packing>
         </child>
         <child>
-          <widget class="GtkLabel" id="lblNowPlaying">
+          <widget class="GtkHBox" id="hboxBottom">
             <property name="visible">True</property>
-            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
-            <property name="ellipsize">PANGO_ELLIPSIZE_MIDDLE</property>
+            <child>
+              <widget class="GtkLabel" id="lblNowPlaying">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="ellipsize">middle</property>
+              </widget>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkVSeparator" id="vsepQueued"/>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="GtkLabel" id="lblNumQueued"/>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
           </widget>
           <packing>
             <property name="expand">False</property>

@@ -30,6 +30,7 @@ import os, urllib, urlparse
 from gui import dialogues
 from common import gstTagger as tagger
 from common import useful
+from common.signals import signals
 
 
 class queues():
@@ -90,6 +91,8 @@ class queues():
 		# Initiate the tag reading process, but show the filename in case it fails.
 		self.list.set_value(row, 1, useful.uriToFilename(item))
 		tagger.fileTag.file(item, self.setItmTags)
+		# The queue has changed.
+		self.queueChanged()
 	
 	def setItmTags(self, uri, tags):
 		## Sets the items tags and displays them (maybe not very efficient).
@@ -110,6 +113,8 @@ class queues():
 	def clear(self, widget=None):
 		## Clears the queue.
 		self.list.clear()
+		# The queue has changed.
+		self.queueChanged()
 	
 	def getTrackRemove(self, no):
 		## Gets the track with the index 'no' & removes it.
@@ -133,8 +138,11 @@ class queues():
 		## (Double click an item)
 		self.playCommand(self.getTrackRemove(path[0]))
 	
-	# Removes a selected index from the queue.
-	remove = lambda self, index: self.list.remove(self.list.get_iter(index))
+	def remove(self, index):
+		# Removes a selected index from the queue.
+		self.list.remove(self.list.get_iter(index))
+		# The queue has changed.
+		self.queueChanged()
 	
 	def removeSelected(self, widget):
 		## Removes the selected item from the queue.
@@ -145,6 +153,8 @@ class queues():
 			# Get the items index (for later).
 			itmNo = self.tree.get_model().get_path(item)[0]
 			tree.remove(item)
+			# The queue has changed.
+			self.queueChanged()
 			# Now to select a new item in the queue.
 			# Get the new length of the queue.
 			newLen = self.length()
@@ -160,6 +170,10 @@ class queues():
 			else:
 				# Don't do anything if the queue is now empty.
 				pass
+	
+	def queueChanged(self):
+		# The queue has changed.
+		signals.emit('queue_changed', self.length())
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
 		## Adds dropped files to the end of the queue.

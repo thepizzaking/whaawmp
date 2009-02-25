@@ -760,6 +760,19 @@ class mainWindow:
 		# Changes the players current speed.
 		player.changeSpeed(widget.get_value())
 	
+	def numQueuedChanged(self, queued):
+		# Called when the number of files queued changes.
+		label = self.wTree.get_widget('lblNumQueued')
+		sep = self.wTree.get_widget('vsepQueued') # (The seperator)
+		# Only show the queued label if the queue is non empty.
+		for x in [label, sep]:
+			if (queued > 0):
+				x.show()
+			else:
+				x.hide()
+		# Set the label according to the queue length.
+		label.set_label(_("Queued: %d") % queued)
+	
 	
 	def __init__(self):
 		# Set the last folder to the directory from which the program was called.
@@ -855,6 +868,7 @@ class mainWindow:
 		signals.connect('restart_track', self.restartTrack)
 		signals.connect('toggle_queue', queue.toggle)
 		signals.connect('toggle_advanced_controls', self.toggleAdvancedControls)
+		signals.connect('queue_changed', self.numQueuedChanged)
 		# Show the window.
 		self.mainWindow.show()
 		# Set the queue play command, so it can play tracks.
