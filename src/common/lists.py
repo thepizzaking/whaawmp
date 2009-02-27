@@ -59,7 +59,7 @@ hiddenNormalWidgets = ['btnLeaveFullscreen']
 hiddenFSWidgets = ['menubar', 'hboxTop', 'hboxControl', 'hboxBottom', 'btnLeaveFullscreen']
 
 ## The list of widgets to reshow when the mouse is moved (fullscreen).
-fsShowWMouse = ['hboxControl', 'lblNowPlaying', 'btnLeaveFullscreen']
+fsShowWMouse = ['hboxControl', 'hboxBottom', 'btnLeaveFullscreen']
 
 
 ## A dicrtionary with all the default options.
