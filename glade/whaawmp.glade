@@ -683,6 +683,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPlayDVD_activate"/>
+							<child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image2">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-cdrom</property>
+                                <property name="icon_size">1</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
@@ -692,6 +700,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiOpenURI_activate"/>
+							<child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image4">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-network</property>
+                                <property name="icon_size">1</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
@@ -726,8 +742,9 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                         <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                         <child>
                           <widget class="GtkImageMenuItem" id="mnuiPreferences">
-                            <property name="label">_Preferences</property>
+                            <property name="label">gtk-preferences</property>
                             <property name="visible">True</property>
+							<property name="use_stock">True</property>
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiPreferences_activate"/>
@@ -755,6 +772,14 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                             <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiFS_activate"/>
+							<child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image1">
+                                <property name="visible">True</property>
+                                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                                <property name="stock">gtk-fullscreen</property>
+                                <property name="icon_size">1</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
@@ -881,6 +906,12 @@ this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;.
                             <property name="tooltip" translatable="yes">Report a bug to the Bugtracker</property>
                             <property name="use_underline">True</property>
                             <signal name="activate" handler="on_mnuiReportBug_activate"/>
+							<child internal-child="image">
+                              <widget class="GtkImage" id="menu-item-image5">
+                                <property name="stock">gtk-dialog-warning</property>
+                                <property name="icon_size">1</property>
+                              </widget>
+                            </child>
                           </widget>
                         </child>
                         <child>
