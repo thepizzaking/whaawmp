@@ -91,7 +91,7 @@ class dataInstall(install_data):
 		return install_data.run(self)
 
 # A list of tuples containing all the data files & their destinations.
-data = [('share/whaawmp/glade', glob.glob('glade/*.glade')),
+data = [('share/whaawmp/ui', glob.glob('ui/*.ui')),
         ('share/whaawmp/images', (glob.glob('images/*.png') + glob.glob('images/*.svg'))),
         ('share/pixmaps', ['images/whaawmp.svg']),
         ('share/applications', ['whaawmp.desktop']),
