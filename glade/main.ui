@@ -1,0 +1,565 @@
+<?xml version="1.0"?>
+<interface>
+  <requires lib="gtk+" version="2.12"/>
+  <object class="GtkAdjustment" id="adjustment1">
+    <property name="upper">110</property>
+    <property name="lower">0</property>
+    <property name="page_increment">10</property>
+    <property name="step_increment">0</property>
+    <property name="page_size">10</property>
+    <property name="value">75</property>
+  </object>
+  <object class="GtkAdjustment" id="adjustment2">
+    <property name="upper">100</property>
+    <property name="lower">-100</property>
+    <property name="page_increment">0.5</property>
+    <property name="step_increment">0.10000000000000001</property>
+    <property name="page_size">0</property>
+    <property name="value">1</property>
+  </object>
+  <object class="GtkUIManager" id="uimanager1">
+    <child>
+      <object class="GtkActionGroup" id="actiongroup1">
+        <child>
+          <object class="GtkAction" id="mnuFile">
+            <property name="name">mnuFile</property>
+            <property name="label" translatable="yes">_File</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiOpen">
+            <property name="name">mnuiOpen</property>
+            <property name="label">gtk-open</property>
+            <signal handler="on_mnuiOpen_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiPlayDVD">
+            <property name="name">mnuiPlayDVD</property>
+            <property name="label">Play DVD</property>
+            <signal handler="on_mnuiPlayDVD_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiOpenURI">
+            <property name="name">mnuiOpenURI</property>
+            <property name="label">Open URI</property>
+            <signal handler="on_mnuiOpenURI_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiQuit">
+            <property name="name">mnuiQuit</property>
+            <property name="label">gtk-quit</property>
+            <signal handler="on_mnuiQuit_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuEdit">
+            <property name="name">mnuEdit</property>
+            <property name="label" translatable="yes">_Edit</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiPreferences">
+            <property name="name">mnuiPreferences</property>
+            <property name="label">gtk-preferences</property>
+            <signal handler="on_mnuiPreferences_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiView">
+            <property name="name">mnuiView</property>
+            <property name="label" translatable="yes">_View</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiFS">
+            <property name="name">mnuiFS</property>
+            <property name="label">Toggle Fullscreen</property>
+            <signal handler="on_mnuiFS_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleAction" id="mnuiAdvCtrls">
+            <property name="name">mnuiAdvCtrls</property>
+            <property name="tooltip" translatable="yes">Show advanced player controls.</property>
+            <property name="label" translatable="yes">_Advanced Controls</property>
+            <signal handler="on_mnuiAdvCtrls_toggled" name="toggled"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleAction" id="mnuiQueue">
+            <property name="name">mnuiQueue</property>
+            <property name="tooltip" translatable="yes">View and edit the current queue</property>
+            <property name="label" translatable="yes">_Queue</property>
+            <signal handler="on_mnuiQueue_toggled" name="toggled"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuStream">
+            <property name="name">mnuStream</property>
+            <property name="label" translatable="yes">_Stream</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuRepeat">
+            <property name="name">mnuRepeat</property>
+            <property name="tooltip" translatable="yes">Stream repeat settings</property>
+            <property name="label" translatable="yes">Repeat</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioAction" id="mnuiRepeatNone">
+            <property name="active">True</property>
+            <property name="name">mnuiRepeatNone</property>
+            <property name="tooltip" translatable="yes">Disable repeat</property>
+            <property name="label" translatable="yes">None</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioAction" id="mnuiRepeatOne">
+            <property name="group">mnuiRepeatNone</property>
+            <property name="name">mnuiRepeatOne</property>
+            <property name="tooltip" translatable="yes">Repeat a single track</property>
+            <property name="label" translatable="yes">One</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkRadioAction" id="mnuiRepeatAll">
+            <property name="group">mnuiRepeatNone</property>
+            <property name="name">mnuiRepeatAll</property>
+            <property name="tooltip" translatable="yes">Repeat all tracks in the queue.</property>
+            <property name="label" translatable="yes">All</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiAudioTrack">
+            <property name="name">mnuiAudioTrack</property>
+            <property name="label" translatable="yes">Audio Tracks</property>
+            <signal handler="on_mnuiAudioTrack_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkToggleAction" id="mnuiQuitOnStop">
+            <property name="name">mnuiQuitOnStop</property>
+            <property name="tooltip" translatable="yes">Quits the player when the playing stream stops</property>
+            <property name="label" translatable="yes">Quit on Stop</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuHelp">
+            <property name="name">mnuHelp</property>
+            <property name="label" translatable="yes">_Help</property>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiReportBug">
+            <property name="name">mnuiReportBug</property>
+            <property name="tooltip" translatable="yes">Report a bug to the Bugtracker</property>
+            <property name="label">_Report a Bug</property>
+            <signal handler="on_mnuiReportBug_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiSupFeatures">
+            <property name="name">mnuiSupFeatures</property>
+            <property name="label" translatable="yes">Supported Features</property>
+            <signal handler="on_mnuiSupFeatures_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
+          <object class="GtkAction" id="mnuiAbout">
+            <property name="name">mnuiAbout</property>
+            <property name="label">gtk-about</property>
+            <signal handler="on_mnuiAbout_activate" name="activate"/>
+          </object>
+        </child>
+      </object>
+    </child>
+    <ui>
+      <menubar name="menubar">
+        <menu action="mnuFile">
+          <menuitem action="mnuiOpen"/>
+          <menuitem action="mnuiPlayDVD"/>
+          <menuitem action="mnuiOpenURI"/>
+          <separator/>
+          <menuitem action="mnuiQuit"/>
+        </menu>
+        <menu action="mnuEdit">
+          <menuitem action="mnuiPreferences"/>
+        </menu>
+        <menu action="mnuiView">
+          <menuitem action="mnuiFS"/>
+          <separator/>
+          <menuitem action="mnuiAdvCtrls"/>
+          <menuitem action="mnuiQueue"/>
+        </menu>
+        <menu action="mnuStream">
+          <menu action="mnuRepeat">
+            <menuitem action="mnuiRepeatNone"/>
+            <menuitem action="mnuiRepeatOne"/>
+            <menuitem action="mnuiRepeatAll"/>
+          </menu>
+          <menuitem action="mnuiAudioTrack"/>
+          <menuitem action="mnuiQuitOnStop"/>
+        </menu>
+        <menu action="mnuHelp">
+          <menuitem action="mnuiReportBug"/>
+          <menuitem action="mnuiSupFeatures"/>
+          <separator/>
+          <menuitem action="mnuiAbout"/>
+        </menu>
+      </menubar>
+    </ui>
+  </object>
+  <!-- interface-requires gtk+ 2.16 -->
+  <!-- interface-naming-policy toplevel-contextual -->
+  <object class="GtkWindow" id="main">
+    <property name="width_request">480</property>
+    <property name="can_focus">True</property>
+    <property name="has_focus">True</property>
+    <property name="is_focus">True</property>
+    <property name="can_default">True</property>
+    <property name="has_default">True</property>
+    <property name="receives_default">True</property>
+    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK</property>
+    <property name="default_width">480</property>
+    <signal handler="on_main_key_press_event" name="key_press_event"/>
+    <signal handler="on_main_drag_data_received" name="drag_data_received"/>
+    <signal handler="on_main_delete_event" name="delete_event"/>
+    <signal handler="on_main_window_state_event" name="window_state_event"/>
+    <child>
+      <object class="GtkVBox" id="vboxMain">
+        <property name="visible">True</property>
+        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+        <child>
+          <object class="GtkHBox" id="hboxTop">
+            <property name="visible">True</property>
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <object class="GtkMenuBar" constructor="uimanager1" id="menubar">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVSeparator" id="vseparator1">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkHBox" id="hboxVolume">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <child>
+                  <object class="GtkCheckButton" id="chkVol">
+                    <property comments="Short for Volume" name="label" translatable="yes">Vol:</property>
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="receives_default">False</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                    <property name="tooltip-text" translatable="yes">Volume (Mute/Unmute)</property>
+                    <property name="focus_on_click">False</property>
+                    <property name="image_position">bottom</property>
+                    <property name="active">True</property>
+                    <property name="draw_indicator">True</property>
+                    <signal handler="on_chkVol_toggled" name="toggled"/>
+                    <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="fill">False</property>
+                    <property name="position">0</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkHScale" id="hscVolume">
+                    <property name="width_request">175</property>
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                    <property name="tooltip-text" translatable="yes">Current player volume</property>
+                    <property name="adjustment">adjustment1</property>
+                    <property name="digits">0</property>
+                    <property name="value_pos">right</property>
+                    <signal handler="on_hscVolume_value_changed" name="value_changed"/>
+                    <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="position">1</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hboxVideo">
+            <property name="visible">True</property>
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <object class="GtkDrawingArea" id="videoWindow">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_SCROLL_MASK</property>
+                <signal handler="on_videoWindow_leave_notify_event" name="leave_notify_event"/>
+                <signal handler="on_videoWindow_expose_event" name="expose_event"/>
+                <signal handler="on_videoWindow_button_press_event" name="button_press_event"/>
+                <signal handler="on_videoWindow_configure_event" name="configure_event"/>
+                <signal handler="on_videoWindow_motion_notify_event" name="motion_notify_event"/>
+                <signal handler="on_main_key_press_event" name="key_press_event"/>
+                <signal handler="on_videoWindow_enter_notify_event" name="enter_notify_event"/>
+                <signal handler="on_videoWindow_scroll_event" name="scroll_event"/>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="queueBox">
+            <property name="visible">True</property>
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <placeholder/>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hboxAdvCtrls">
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <object class="GtkLabel" id="label15">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="label" translatable="yes">Speed:</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSpinButton" id="spnPlaySpeed">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="tooltip-text" translatable="yes">Change the player's speed.  WARNING: Negative numbers can cause weirdness (even lockups).</property>
+                <property name="adjustment">adjustment2</property>
+                <property name="digits">2</property>
+                <signal handler="on_spnPlaySpeed_value_changed" name="value_changed"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">3</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hboxControl">
+            <property name="visible">True</property>
+            <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+            <child>
+              <object class="GtkButton" id="btnRestart">
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="tooltip-text" translatable="yes">Restart Track</property>
+                <signal handler="on_btnRestart_clicked" name="clicked"/>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnPlayToggle">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="focus_on_click">False</property>
+                <signal handler="on_btnPlayToggle_clicked" name="clicked"/>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnStop">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="receives_default">False</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="tooltip-text" translatable="yes">Stop</property>
+                <property name="focus_on_click">False</property>
+                <signal handler="on_btnStop_clicked" name="clicked"/>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnNext">
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="tooltip-text" translatable="yes">Next</property>
+                <signal handler="on_btnNext_clicked" name="clicked"/>
+                <child>
+                  <placeholder/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">3</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkProgressBar" id="pbarProgress">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="text">0:00 / 0:00</property>
+                <signal handler="on_pbarProgress_button_press_event" name="button_press_event"/>
+                <signal handler="on_pbarProgress_motion_notify_event" name="motion_notify_event"/>
+                <signal handler="on_pbarProgress_button_release_event" name="button_release_event"/>
+              </object>
+              <packing>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btnLeaveFullscreen">
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <signal handler="on_btnLeaveFullscreen_clicked" name="clicked"/>
+                <child>
+                  <object class="GtkHBox" id="hbox2">
+                    <property name="visible">True</property>
+                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                    <child>
+                      <object class="GtkImage" id="image1">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="stock">gtk-leave-fullscreen</property>
+                        <property name="icon-size">1</property>
+                      </object>
+                      <packing>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <object class="GtkLabel" id="label1">
+                        <property name="visible">True</property>
+                        <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                        <property name="label" translatable="yes">Leave Fullscreen</property>
+                      </object>
+                      <packing>
+                        <property name="position">1</property>
+                      </packing>
+                    </child>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">5</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">4</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkHBox" id="hboxBottom">
+            <property name="visible">True</property>
+            <child>
+              <object class="GtkLabel" id="lblNowPlaying">
+                <property name="visible">True</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+                <property name="ellipsize">middle</property>
+              </object>
+              <packing>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVSeparator" id="vsepQueued"/>
+              <packing>
+                <property name="expand">False</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEventBox" id="eventNumQueued">
+                <property name="visible">True</property>
+                <property name="events">GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK</property>
+                <signal handler="on_eventNumQueued_button_release_event" name="button_release_event"/>
+                <child>
+                  <object class="GtkLabel" id="lblNumQueued"/>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="position">5</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

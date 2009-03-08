@@ -35,17 +35,22 @@ from common.signals import signals
 class AboutDialogue:
 	def __init__(self, parent):
 		## Shows the about dialogue.
-		windowname = 'AboutDlg'
-		tree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
+		# Make the Dialogue.
+		dlg = gtk.AboutDialog()
 		
-		dlg = tree.get_widget(windowname)
 		# Set the name.
 		## TODO!!: Remove this when glib 2.14 is more widespread (or GTK 2.12
 		# it's one of them), because it defaults to application name set.
 		if (gobject.glib_version < (2,14) or gobject.pygobject_version < (2,14)):
 			dlg.set_name(useful.lName)
-		# Sets the correct version.
+		# Sets the correct version, etc, etc.
 		dlg.set_version(useful.version)
+		dlg.set_title("About Whaaw! Media Player")
+		dlg.set_copyright("Copyright 2008, Jeff Bailes")
+		dlg.set_website("http://home.gna.org/whaawmp/")
+		dlg.set_license(useful.licenceText)
+		dlg.set_authors("Jeff Bailes <thepizzaking@gmail.com>, 2007-2008.")
+		dlg.set_translator_credits(_("translator-credits"))
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)
 		# Set the logo.

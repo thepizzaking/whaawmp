@@ -42,7 +42,9 @@ class Dialogue:
 		
 		# Then create the dialogue and connect the signals.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
+		self.wTree = gtk.Builder()
+		self.wTree.add_from_file(useful.getBuilderFile('preferences'))
+		
 		
 		dic = { "on_PreferencesDlg_delete_event" : self.closeWindow,
 		        "on_checkbox_toggled" : self.checkboxToggle,
@@ -51,38 +53,37 @@ class Dialogue:
 		        "on_cmbOnExtNewFile_changed" : self.extNewFileChanged,
 		        "on_entry_changed" : self.entryChanged,
 		        "on_btnVideoDefaults_clicked" : self.resetVideoDefaults,
-		        "on_cmbAudioDevice_changed" : self.changeAudioDevice,
 		        "on_btnClose_clicked" : self.closeWindow }
-		self.wTree.signal_autoconnect(dic)
+		self.wTree.connect_signals(dic)
 		
 		# Create a dictionary for checkboxes and their associated settings.
-		self.chkDic = { self.wTree.get_widget('chkInstantSeek')         : {CFGS : "gui/instantseek"},
-		                self.wTree.get_widget('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
-		                self.wTree.get_widget('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
-		                self.wTree.get_widget('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
+		self.chkDic = { self.wTree.get_object('chkInstantSeek')         : {CFGS : "gui/instantseek"},
+		                self.wTree.get_object('chkDisableScreensaver')  : {CFGS : "misc/disablescreensaver"},
+		                self.wTree.get_object('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
+		                self.wTree.get_object('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
 		                                                                  CLBKS : self.toggleEnableVis},
-		                self.wTree.get_widget('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
-		                self.wTree.get_widget('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
-		                self.wTree.get_widget('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
+		                self.wTree.get_object('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
+		                self.wTree.get_object('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
+		                self.wTree.get_object('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
 		                                                                  CLBKS : self.toggleForceAspect} }
 		# And one for the scrollbars.
 		clrCbk = self.scrollbarColourScroll
-		self.adjDic = { self.wTree.get_widget('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
-		                self.wTree.get_widget('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
-		                self.wTree.get_widget('hscBrightness')         : {CFGS : "video/brightness",
+		self.adjDic = { self.wTree.get_object('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
+		                self.wTree.get_object('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
+		                self.wTree.get_object('hscBrightness')         : {CFGS : "video/brightness",
 		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscContrast')           : {CFGS : "video/contrast",
+		                self.wTree.get_object('hscContrast')           : {CFGS : "video/contrast",
 		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscHue')                : {CFGS : "video/hue",
+		                self.wTree.get_object('hscHue')                : {CFGS : "video/hue",
 		                                                                 CLBKS : clrCbk},
-		                self.wTree.get_widget('hscSaturation')         : {CFGS : "video/saturation",
+		                self.wTree.get_object('hscSaturation')         : {CFGS : "video/saturation",
 		                                                                 CLBKS : clrCbk} }
 		
 		# And entries.
-		self.entDic = {self.wTree.get_widget('entTagSyntax') : {CFGS : "gui/tagsyntax"}}
+		self.entDic = {self.wTree.get_object('entTagSyntax') : {CFGS : "gui/tagsyntax"}}
 		
 		# More easy access.
-		self.window = self.wTree.get_widget(windowname)
+		self.window = self.wTree.get_object(windowname)
 		# Set the parent window to the widget passed (hopefully the main window.)
 		self.window.set_transient_for(parent)
 		
@@ -110,7 +111,7 @@ class Dialogue:
 		for x in self.entDic:
 			x.set_text(cfg.getStr(self.entDic[x][CFGS]))
 		
-		self.wTree.get_widget('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
+		self.wTree.get_object('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
 	
 	
 	def checkboxToggle(self, widget):
@@ -152,7 +153,7 @@ class Dialogue:
 	def resetVideoDefaults(self, widget):
 		## Resets all the settings to their defaults (according to the list).
 		for x in lists.colourSettings:
-			self.wTree.get_widget('hsc' + x).set_value(lists.defaultOptions['video/' + x.lower()])
+			self.wTree.get_object('hsc' + x).set_value(lists.defaultOptions['video/' + x.lower()])
 			
 		# Call the colour changed settings so they are changed in the video.
 		self.scrollbarColourScroll(widget)
@@ -174,8 +175,12 @@ class Dialogue:
 	
 	def prepareAudioDevCmb(self):
 		## Prepares the audio device combo box.
-		# Get the widgets and available alsa devices.
-		audioCmbBox = self.wTree.get_widget('cmbAudioDevice')
+		# Create the combo box for the selection.
+		audioCmbBox = gtk.combo_box_new_text()
+		self.wTree.get_object('hboxAudioDevice').pack_end(audioCmbBox)
+		audioCmbBox.connect('changed', self.changeAudioDevice)
+		audioCmbBox.show()
+		# Get the available alsa devices.
 		self.audioDevDic = msgBus.getAlsaDevices()
 		# Append the non-alsa devices.
 		for x in (_('Default/Auto'), _('Other (Set from config.ini)')):

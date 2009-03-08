@@ -118,7 +118,7 @@ class mainWindow:
 		if (not self.controlsShown):
 			# If the controls aren't shown, show them.
 			for x in lists.fsShowWMouse:
-				self.wTree.get_widget(x).show()
+				self.wTree.get_object(x).show()
 			# Flag the controls as being shown.
 			self.controlsShown = True
 	
@@ -133,7 +133,7 @@ class mainWindow:
 			# Only hide the controls if we're in fullscreen.
 			# Hides all the widgets that should be hidden.
 			for x in lists.fsShowWMouse:
-				self.wTree.get_widget(x).hide()
+				self.wTree.get_object(x).hide()
 			# Flag the controls as being hidden.
 			self.controlsShown = False
 	
@@ -170,7 +170,7 @@ class mainWindow:
 		## Deactivates the fullscreen.
 		# Hide all the widgets, before we unfullscreen.
 		for x in lists.hiddenFSWidgets:
-			self.wTree.get_widget(x).hide()
+			self.wTree.get_object(x).hide()
 		# Unfullscreen the window when we're idle (stops weird dimensions).
 		gobject.idle_add(self.mainWindow.unfullscreen)
 	
@@ -235,7 +235,7 @@ class mainWindow:
 	
 	def toggleAdvancedControls(self):
 		# Toggle the advanced controls.
-		menuItm = self.wTree.get_widget("mnuiAdvCtrls")
+		menuItm = self.wTree.get_object("mnuiAdvCtrls")
 		menuItm.set_active(not menuItm.get_active())
 
 	
@@ -253,10 +253,10 @@ class mainWindow:
 	def onPlayerMessage(self, bus, message):
 		t = playerTools.messageType(message)
 		if (t == 'eos'):
-			if (self.wTree.get_widget("mnuiRepeatOne").get_active()):
+			if (self.wTree.get_object("mnuiRepeatOne").get_active()):
 				player.seek(0)
 			else:
-				if (self.wTree.get_widget("mnuiRepeatAll").get_active()):
+				if (self.wTree.get_object("mnuiRepeatAll").get_active()):
 					queue.append(player.getURI())
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
@@ -283,7 +283,7 @@ class mainWindow:
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
-			self.wTree.get_widget('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
+			self.wTree.get_object('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 		
 		elif (playerTools.isPlayMsg(msg)):
 			# The player has just started.
@@ -301,7 +301,7 @@ class mainWindow:
 			self.progressUpdate()
 			
 		elif (playerTools.isStopMsg(msg)):
-			if ((not player.isPlaying()) and self.wTree.get_widget("mnuiQuitOnStop").get_active()):
+			if ((not player.isPlaying()) and self.wTree.get_object("mnuiQuitOnStop").get_active()):
 				#If the queue still has items, we don't want to quit.
 				if (not queue.length()): self.quit()
 			# Draw the background image.
@@ -358,7 +358,7 @@ class mainWindow:
 		# Set the audio track to 0.
 		player.setAudioTrack(0)
 		# Reset the player's speed to 1.
-		self.wTree.get_widget("spnPlaySpeed").set_value(1)
+		self.wTree.get_object("spnPlaySpeed").set_value(1)
 		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
@@ -472,14 +472,14 @@ class mainWindow:
 		if (fs):
 			# Hide all the widgets other than the video window.
 			for x in lists.hiddenFSWidgets:
-				self.wTree.get_widget(x).hide()
+				self.wTree.get_object(x).hide()
 			
 			# Flag the the controls as not being shown.
 			self.controlsShown = False
 		else:
 			# Re-show all the widgets that aren't meant to be hidden.
 			for x in lists.hiddenFSWidgets:
-				if (x not in lists.hiddenNormalWidgets): self.wTree.get_widget(x).show()
+				if (x not in lists.hiddenNormalWidgets): self.wTree.get_object(x).show()
 			# Flag the controls as being shown.
 			self.controlsShown = True
 		
@@ -487,7 +487,7 @@ class mainWindow:
 	def showVideoWindow(self):
 		## Shows the video window.
 		# Allow fullscreen.
-		self.wTree.get_widget('mnuiFS').set_sensitive(True)
+		self.wTree.get_object('mnuiFS').set_sensitive(True)
 		# Show the video window.
 		self.videoWindow.set_size_request(480, 320)
 	
@@ -495,7 +495,7 @@ class mainWindow:
 		## Hides the video window.
 		if (not self.fsActive() or force):
 			# Disable fullscreen activation.
-			self.wTree.get_widget('mnuiFS').set_sensitive(False)
+			self.wTree.get_object('mnuiFS').set_sensitive(False)
 			# Hide the video window.
 			self.videoWindow.set_size_request(1,1)
 			# Make the height of the window as small as possible.
@@ -588,17 +588,17 @@ class mainWindow:
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
 		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
-		btn = self.wTree.get_widget("btnPlayToggle")
+		btn = self.wTree.get_object("btnPlayToggle")
 		# Actually set the icon.
 		btn.set_image(img)
 		# Also set the tooltip.
 		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
 		# Set the stop button image too.
-		self.wTree.get_widget("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
+		self.wTree.get_object("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
 		# And the next one.
-		self.wTree.get_widget("btnNext").set_image(gtk.image_new_from_stock('gtk-media-next', size))
+		self.wTree.get_object("btnNext").set_image(gtk.image_new_from_stock('gtk-media-next', size))
 		# Restart one too.
-		self.wTree.get_widget("btnRestart").set_image(gtk.image_new_from_stock('gtk-media-previous', size))
+		self.wTree.get_object("btnRestart").set_image(gtk.image_new_from_stock('gtk-media-previous', size))
 		
 	
 	
@@ -701,7 +701,7 @@ class mainWindow:
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
 	def toggleQueueWindow(self, widget=None, event=None):
-		if (widget is self.wTree.get_widget('mnuiQueue')):
+		if (widget is self.wTree.get_object('mnuiQueue')):
 			# If the call is from the menu item use its tick box value.
 			toShow = widget.get_active()
 			queue.toggle(toShow)
@@ -718,7 +718,7 @@ class mainWindow:
 		# Get the menu item's state so we know to show or hide.
 		toShow = widget.get_active()
 		# Get the hbox, then show or hide it accordingly.
-		ctrls = self.wTree.get_widget("hboxAdvCtrls")
+		ctrls = self.wTree.get_object("hboxAdvCtrls")
 		if (toShow):
 			ctrls.show()
 		else:
@@ -766,8 +766,8 @@ class mainWindow:
 	
 	def numQueuedChanged(self, queued):
 		# Called when the number of files queued changes.
-		label = self.wTree.get_widget('lblNumQueued')
-		sep = self.wTree.get_widget('vsepQueued') # (The seperator)
+		label = self.wTree.get_object('lblNumQueued')
+		sep = self.wTree.get_object('vsepQueued') # (The seperator)
 		# Only show the queued label if the queue is non empty.
 		for x in [label, sep]:
 			if (queued > 0):
@@ -793,8 +793,10 @@ class mainWindow:
 		
 		if msgBus.avail: self.dbus = msgBus.IntObject(self)
 		
+		self.wTree = gtk.Builder()
+		
 		windowname = "main"
-		self.wTree = gtk.glade.XML(useful.gladefile, windowname, useful.sName)
+		self.wTree.add_from_file(useful.getBuilderFile('main'))
 		
 		dic = { "on_main_delete_event" : self.quit,
 		        "on_mnuiQuit_activate" : self.quit,
@@ -832,19 +834,19 @@ class mainWindow:
 		        "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
 		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
 		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
-		self.wTree.signal_autoconnect(dic)
+		self.wTree.connect_signals(dic)
 		
 		# Add the queue to the queue box.
-		self.wTree.get_widget("queueBox").pack_start(queue.qwin)
+		self.wTree.get_object("queueBox").pack_start(queue.qwin)
 		
 		# Get several items for access later.
-		useful.mainWin = self.mainWindow = self.wTree.get_widget(windowname)
-		self.progressBar = self.wTree.get_widget("pbarProgress")
-		self.videoWindow = self.wTree.get_widget("videoWindow")
-		self.nowPlyLbl = self.wTree.get_widget("lblNowPlaying")
-		self.volAdj = self.wTree.get_widget("hscVolume").get_adjustment()
-		self.hboxVideo = self.wTree.get_widget("hboxVideo")
-		queue.mnuiWidget = self.wTree.get_widget("mnuiQueue")
+		useful.mainWin = self.mainWindow = self.wTree.get_object(windowname)
+		self.progressBar = self.wTree.get_object("pbarProgress")
+		self.videoWindow = self.wTree.get_object("videoWindow")
+		self.nowPlyLbl = self.wTree.get_object("lblNowPlaying")
+		self.volAdj = self.wTree.get_object("hscVolume").get_adjustment()
+		self.hboxVideo = self.wTree.get_object("hboxVideo")
+		queue.mnuiWidget = self.wTree.get_object("mnuiQueue")
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
 		# Create a tooltips instance for use in the code.
@@ -854,18 +856,18 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_widget("chkVol").set_active(not (cfg.getBool("audio/mute") or (cfg.cl.mute)))
+		self.wTree.get_object("chkVol").set_active(not (cfg.getBool("audio/mute") or (cfg.cl.mute)))
 		self.volAdj.value = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
 		# Set the quit on stop checkbox.
-		self.wTree.get_widget("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
+		self.wTree.get_object("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
 		# Set up the default flags.
 		self.controlsShown = True
 		self.seeking = False
 		# Call the function to change the play/pause image.
 		self.playPauseChange(False)
 		# Show the next button & restart track button if enabled.
-		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_widget("btnNext").show()
-		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_widget("btnRestart").show()
+		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_object("btnNext").show()
+		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_object("btnRestart").show()
 		# Setup the signals.
 		signals.connect('toggle_play_pause', self.togglePlayPause)
 		signals.connect('toggle_fullscreen', self.toggleFullscreen)

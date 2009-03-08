@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  A few useful functions for Whaaw! Media Player.
+#  A few useful things for Whaaw! Media Player.
 #  Copyright © 2007-2008, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
@@ -33,7 +33,7 @@ version = '0.2.11'
 origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
-gladefile = os.path.join(dataDir, 'glade', sName + '.glade')
+getBuilderFile = lambda window: os.path.join(dataDir, 'glade', window + '.ui')
 # Other things stored here are:
 #mainWin (the main window)
 #lastDir (the last directory used in the open file dialogue etc)
@@ -130,3 +130,20 @@ def uriToFilename(file, ext=True):
 
 # Convert a version tuple to a sting.
 verTupleToStr = lambda tuple: '.'.join(map(str, tuple))
+
+licenceText = """Copyright © Jeff Bailes, 2007-2008.
+
+Whaaw! Media Player (whaawmp)
+
+whaawmp is free software: you can redistribute it and/or modify it
+under the terms of the GNU General Public License as published by the Free
+Software Foundation, either version 3 of the Licence, or (at your option)
+any later version.
+
+whaawmp is distributed in the hope that it will be useful, but WITHOUT
+ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+more details.
+
+You should have received a copy of the GNU General Public License along with
+this program.  If not, see <http://www.gnu.org/licenses/>."""
