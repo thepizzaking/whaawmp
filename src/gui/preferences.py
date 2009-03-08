@@ -40,7 +40,7 @@ class Dialogue:
 		# Sets some variables for easier access.
 		self.main = main
 		
-		# Then create the dialogue and connect the signals.
+		# Create the dialogue and connect signals using gtk-builder.
 		windowname = 'PreferencesDlg'
 		self.wTree = gtk.Builder()
 		self.wTree.add_from_file(useful.getBuilderFile('preferences'))

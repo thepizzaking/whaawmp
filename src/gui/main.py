@@ -792,8 +792,8 @@ class mainWindow:
 		
 		if msgBus.avail: self.dbus = msgBus.IntObject(self)
 		
+		# Set up the gtk-builder and interface.
 		self.wTree = gtk.Builder()
-		
 		windowname = "main"
 		self.wTree.add_from_file(useful.getBuilderFile('main'))
 		
