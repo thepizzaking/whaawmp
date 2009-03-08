@@ -25,7 +25,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject
+import gtk, gobject
 from common import useful, lists
 from common.config import cfg
 from common.gstPlayer import player

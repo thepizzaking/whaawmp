@@ -27,7 +27,6 @@ import sys, os, signal, urllib, urlparse
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
-import gtk.glade
 
 from gui import dialogues, preferences
 from gui.queue import queue

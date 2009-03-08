@@ -33,7 +33,7 @@ version = '0.2.11'
 origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
-getBuilderFile = lambda window: os.path.join(dataDir, 'glade', window + '.ui')
+getBuilderFile = lambda window: os.path.join(dataDir, 'ui', window + '.ui')
 # Other things stored here are:
 #mainWin (the main window)
 #lastDir (the last directory used in the open file dialogue etc)

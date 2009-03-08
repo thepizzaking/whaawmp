@@ -25,7 +25,7 @@
 
 import pygtk
 pygtk.require('2.0')
-import gtk, gtk.glade, gobject
+import gtk, gobject
 import os
 from common import lists, useful
 from common.config import cfg
