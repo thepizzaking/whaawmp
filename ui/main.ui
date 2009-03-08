@@ -29,7 +29,7 @@
         <child>
           <object class="GtkAction" id="mnuiOpen">
             <property name="name">mnuiOpen</property>
-            <property name="label">gtk-open</property>
+            <property name="stock_id">gtk-open</property>
             <signal handler="on_mnuiOpen_activate" name="activate"/>
           </object>
         </child>
@@ -50,7 +50,7 @@
         <child>
           <object class="GtkAction" id="mnuiQuit">
             <property name="name">mnuiQuit</property>
-            <property name="label">gtk-quit</property>
+            <property name="stock_id">gtk-quit</property>
             <signal handler="on_mnuiQuit_activate" name="activate"/>
           </object>
         </child>
@@ -63,7 +63,7 @@
         <child>
           <object class="GtkAction" id="mnuiPreferences">
             <property name="name">mnuiPreferences</property>
-            <property name="label">gtk-preferences</property>
+            <property name="stock_id">gtk-preferences</property>
             <signal handler="on_mnuiPreferences_activate" name="activate"/>
           </object>
         </child>
@@ -171,7 +171,7 @@
         <child>
           <object class="GtkAction" id="mnuiAbout">
             <property name="name">mnuiAbout</property>
-            <property name="label">gtk-about</property>
+            <property name="stock_id">gtk-about</property>
             <signal handler="on_mnuiAbout_activate" name="activate"/>
           </object>
         </child>
