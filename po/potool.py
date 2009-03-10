@@ -42,9 +42,13 @@ os.chdir(sys.path[0])
 
 def updatePOT():
 	## Update the 'messages.pot' file, this happens whenever the script is run.
-	os.system('intltool-extract --type="gettext/glade" ../glade/whaawmp.glade')
-	os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py ../glade/whaawmp.glade.h')
-	os.system('rm ../glade/whaawmp.glade.h')
+	uiHeadersStr = ""
+	for x in ['main', 'preferences']:
+		uiFile = '../ui/%s.ui' % x
+		os.system('intltool-extract --type="gettext/glade" %s' % uiFile)
+		uiHeadersStr = uiHeadersStr + ' %s.h' % uiFile
+	os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py %s' % uiHeadersStr)
+	os.system('rm %s' % uiHeadersStr)
 	print 'messages.pot updated!'
 
 
