@@ -44,10 +44,13 @@ def updatePOT():
 	## Update the 'messages.pot' file, this happens whenever the script is run.
 	uiHeadersStr = ""
 	for x in ['main', 'preferences']:
+		# Extract strings from all gtkBuilder files.
 		uiFile = '../ui/%s.ui' % x
 		os.system('intltool-extract --type="gettext/glade" %s' % uiFile)
 		uiHeadersStr = uiHeadersStr + ' %s.h' % uiFile
+	# Merge it all together into the messages.pot file.
 	os.system('xgettext -k_ -kN_ -o messages.pot ../src/*.py ../src/gui/*.py ../src/common/*.py %s' % uiHeadersStr)
+	# Remove the unneeded *.ui.h files.
 	os.system('rm %s' % uiHeadersStr)
 	print 'messages.pot updated!'
 

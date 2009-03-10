@@ -745,7 +745,7 @@ class mainWindow:
 		if (useful.checkLinkHandler):
 			useful.URLorMailOpen(link)
 		else:
-			dialogues.ErrorMsgBox(self.mainWindow, _("Could not execute browser command (via %s).\nPlease manually visit %s to report the problem" % (useful.linkHandler, link)))
+			dialogues.ErrorMsgBox(self.mainWindow, _("Could not execute browser command (via %(program)s).\nPlease manually visit %(url)s to report the problem" % {'program' : useful.linkHandler, 'url' : link}))
 	
 	# Just a transfer call as player.stop takes only 1 argument.
 	stopPlayer = lambda self, widget: player.stop()

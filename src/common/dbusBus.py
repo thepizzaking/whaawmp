@@ -125,7 +125,7 @@ class IntObject(dbus.service.Object):
 	def query(self):
 		#Querys the current track.
 		tags = useful.tagsToStr(self.tagger.getCurTags())
-		return _("Tags of %s:\n%s" % (self.player.getURI(), tags))
+		return _("Tags of %(filename)s:\n%(tags)s" % {'filename' : self.player.getURI(), 'tags' : tags})
 
 
 class initBus:
