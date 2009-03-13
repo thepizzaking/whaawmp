@@ -264,8 +264,8 @@ class Player:
 	
 	
 	def setVolume(self, vol):
-		## Sets the volume to the requested percentage.
-		self.player.set_property('volume', vol / 100)
+		## Sets the volume to the requested value.
+		self.player.set_property('volume', vol)
 	
 	
 	def setAudioTrack(self, track):

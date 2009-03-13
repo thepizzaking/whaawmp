@@ -127,7 +127,7 @@ class clparser:
 		# Set the volume of the player.
 		self.parser.add_option("-v", "--volume", dest="volume",
 		                       default=None, metavar="VOL",
-		                       help=_("Sets the player's volume to VOL (0-100)"))
+		                       help=_("Sets the player's volume to VOL (0-1)"))
 		# Mute the player.
 		self.parser.add_option("-m", "--mute", dest="mute",
 		                       action="store_true", default=False,

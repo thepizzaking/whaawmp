@@ -218,8 +218,8 @@ class mainWindow:
 	def increaseVolumeBy(self, change):
 		## Increases the volume by the amount given.
 		val = self.volAdj.value + change
-		# Make sure the new value is withing the bounds (0 <= val <= 100)
-		val = useful.toRange(val, 0, 100)
+		# Make sure the new value is withing the bounds (0 <= val <= 1)
+		val = useful.toRange(val, 0, 1)
 		# Adjust the volume.
 		self.volAdj.value = val
 	
@@ -567,7 +567,8 @@ class mainWindow:
 		
 	
 	def changeVolume(self, widget, value):
-		# Set the new volume on the configuration.
+		# Set the new volume on player and configuration.
+		player.setVolume(value)
 		cfg.set("audio/volume", value)
 	
 	
