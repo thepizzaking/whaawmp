@@ -845,7 +845,8 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.volAdj.value = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
+		volVal = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
+		self.volAdj.value = useful.toRange(volVal, 0, 1)
 		# Set the quit on stop checkbox.
 		self.wTree.get_object("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
 		# Set up the default flags.
