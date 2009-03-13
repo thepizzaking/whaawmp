@@ -566,18 +566,9 @@ class mainWindow:
 		player.play()
 		
 	
-	def volumeButtonToggled(self, widget):
-		## Toggles Mute
-		player.setVolume(self.volAdj.value if (widget.get_active()) else 0)
-		# Save the mutedness in the config.
-		cfg.set("audio/mute", not widget.get_active())
-		
-	def changeVolume(self, widget):
-		## Change the volume to that indicated by the volume bar.
-		vol = widget.get_value()
-		player.setVolume(vol if (not cfg.getBool("audio/mute")) else 0)
+	def changeVolume(self, widget, value):
 		# Set the new volume on the configuration.
-		cfg.set("audio/volume", vol)
+		cfg.set("audio/volume", value)
 	
 	
 	def playPauseChange(self, playing):
@@ -808,8 +799,7 @@ class mainWindow:
 		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
-		        "on_chkVol_toggled" : self.volumeButtonToggled,
-		        "on_hscVolume_value_changed" : self.changeVolume,
+		        "on_btnVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullscreen,
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
 		        "on_videoWindow_expose_event" : self.videoWindowExpose,
@@ -817,7 +807,6 @@ class mainWindow:
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
-		        "on_hscVolume_scroll_event" : self.videoWindowScroll,
 		        "on_mnuiAbout_activate" : self.showAboutDialogue,
 		        "on_main_drag_data_received" : self.openDroppedFiles,
 		        "on_videoWindow_motion_notify_event" : self.videoWindowMotion,
@@ -829,7 +818,7 @@ class mainWindow:
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
-				"on_eventNumQueued_button_release_event" : self.toggleQueueWindow,
+			"on_eventNumQueued_button_release_event" : self.toggleQueueWindow,
 		        "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
 		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
 		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
@@ -843,7 +832,7 @@ class mainWindow:
 		self.progressBar = self.wTree.get_object("pbarProgress")
 		self.videoWindow = self.wTree.get_object("videoWindow")
 		self.nowPlyLbl = self.wTree.get_object("lblNowPlaying")
-		self.volAdj = self.wTree.get_object("hscVolume").get_adjustment()
+		self.volAdj = self.wTree.get_object("btnVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_object("hboxVideo")
 		queue.mnuiWidget = self.wTree.get_object("mnuiQueue")
 		# Set the icon.
@@ -855,7 +844,6 @@ class mainWindow:
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
-		self.wTree.get_object("chkVol").set_active(not (cfg.getBool("audio/mute") or (cfg.cl.mute)))
 		self.volAdj.value = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
 		# Set the quit on stop checkbox.
 		self.wTree.get_object("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)

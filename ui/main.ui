@@ -243,7 +243,6 @@
               <object class="GtkMenuBar" constructor="uimanager1" id="menubar">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-                <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
               </object>
               <packing>
                 <property name="position">0</property>
@@ -253,7 +252,6 @@
               <object class="GtkVSeparator" id="vseparator1">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-                <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
               </object>
               <packing>
                 <property name="expand">False</property>
@@ -265,41 +263,16 @@
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <child>
-                  <object class="GtkCheckButton" id="chkVol">
-                    <property comments="Short for Volume" name="label" translatable="yes">Vol:</property>
+                  <object class="GtkVolumeButton" id="btnVolume">
                     <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="receives_default">False</property>
                     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-                    <property name="tooltip-text" translatable="yes">Volume (Mute/Unmute)</property>
-                    <property name="focus_on_click">False</property>
-                    <property name="image_position">bottom</property>
-                    <property name="active">True</property>
-                    <property name="draw_indicator">True</property>
-                    <signal handler="on_chkVol_toggled" name="toggled"/>
-                    <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
+                    <property name="tooltip-text" translatable="yes">Current player volume</property>
+                    <signal handler="on_btnVolume_value_changed" name="value_changed"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">False</property>
                     <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkHScale" id="hscVolume">
-                    <property name="width_request">175</property>
-                    <property name="visible">True</property>
-                    <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-                    <property name="tooltip-text" translatable="yes">Current player volume</property>
-                    <property name="adjustment">adjustment1</property>
-                    <property name="digits">0</property>
-                    <property name="value_pos">right</property>
-                    <signal handler="on_hscVolume_value_changed" name="value_changed"/>
-                    <signal handler="on_hscVolume_scroll_event" name="scroll_event"/>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="position">1</property>
                   </packing>
                 </child>
               </object>
