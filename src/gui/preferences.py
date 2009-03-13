@@ -69,7 +69,6 @@ class Dialogue:
 		# And one for the scrollbars.
 		clrCbk = self.scrollbarColourScroll
 		self.adjDic = { self.wTree.get_object('spnMouseTimeout')       : {CFGS : "gui/mousehidetimeout"},
-		                self.wTree.get_object('spnVolumeScrollChange') : {CFGS : "gui/volumescrollchange"},
 		                self.wTree.get_object('hscBrightness')         : {CFGS : "video/brightness",
 		                                                                 CLBKS : clrCbk},
 		                self.wTree.get_object('hscContrast')           : {CFGS : "video/contrast",
