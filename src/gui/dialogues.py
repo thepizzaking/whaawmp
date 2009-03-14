@@ -38,12 +38,8 @@ class AboutDialogue:
 		# Make the Dialogue.
 		dlg = gtk.AboutDialog()
 		
-		# Set the name.
-		## TODO!!: Remove this when glib 2.14 is more widespread (or GTK 2.12
-		# it's one of them), because it defaults to application name set.
-		if (gobject.glib_version < (2,14) or gobject.pygobject_version < (2,14)):
-			dlg.set_name(useful.lName)
 		# Sets the correct version, etc, etc.
+		# (Name already set in main.py (gobject.set_application_name)
 		dlg.set_version(useful.version)
 		dlg.set_title("About Whaaw! Media Player")
 		dlg.set_copyright("Copyright 2008, Jeff Bailes")
