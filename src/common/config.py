@@ -128,10 +128,6 @@ class clparser:
 		self.parser.add_option("-v", "--volume", dest="volume",
 		                       default=None, metavar="VOL",
 		                       help=_("Sets the player's volume to VOL (0-1)"))
-		# Mute the player.
-		self.parser.add_option("-m", "--mute", dest="mute",
-		                       action="store_true", default=False,
-		                       help=_("Mute the player"))
 		# Set the audio sink to that specified.
 		self.parser.add_option("--audiosink", dest="audiosink",
 		                       default=None, metavar="SINK",
