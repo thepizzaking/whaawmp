@@ -27,6 +27,7 @@ import sys, os, signal, urllib, urlparse
 import pygtk
 pygtk.require('2.0')
 import gtk, gobject
+from random import randint
 
 from gui import dialogues, preferences
 from gui.queue import queue
@@ -349,7 +350,14 @@ class mainWindow:
 	
 	def playNext(self, widget=None):
 		## Plays the next file in the queue (if it exists).
-		self.playFile(queue.getNextTrackRemove())
+		if (self.wTree.get_object("mnuiRandom").get_active()):
+			# If random is set, pick a random item from the queue.
+			# -1 because randint includes boundaries.
+			filename = queue.getTrackRemove(randint(0, queue.length()-1))
+		else:
+			# Otherwise just get the next item.
+			filename = queue.getNextTrackRemove()
+		self.playFile(filename)
 	
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
