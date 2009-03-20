@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #  A few useful things for Whaaw! Media Player.
-#  Copyright © 2007-2008, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2007-2009, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify
@@ -131,7 +131,7 @@ def uriToFilename(file, ext=True):
 # Convert a version tuple to a sting.
 verTupleToStr = lambda tuple: '.'.join(map(str, tuple))
 
-licenceText = """Copyright © Jeff Bailes, 2007-2008.
+licenceText = """Copyright © Jeff Bailes, 2007-2009.
 
 Whaaw! Media Player (whaawmp)
 

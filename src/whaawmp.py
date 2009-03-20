@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #  Whaaw! Media Player for playing any type of media.
-#  Copyright © 2007-2008, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2007-2009, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify
