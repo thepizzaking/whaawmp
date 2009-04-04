@@ -826,7 +826,7 @@ class mainWindow:
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
-			"on_eventNumQueued_button_release_event" : self.toggleQueueWindow,
+		        "on_eventNumQueued_button_release_event" : self.toggleQueueWindow,
 		        "on_mnuiAdvCtrls_toggled" : self.toggleAdvControls,
 		        "on_mnuiSupFeatures_activate" : self.openSupFeaturesDlg,
 		        "on_spnPlaySpeed_value_changed" : self.onPlaySpeedChange }
