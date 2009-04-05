@@ -874,6 +874,8 @@ class mainWindow:
 		signals.connect('queue_changed', self.numQueuedChanged)
 		# Show the window.
 		self.mainWindow.show()
+		# Prepare the video window by putting it in its stopped state.
+		self.videoWindowOnStop(True)
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
