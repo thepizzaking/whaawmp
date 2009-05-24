@@ -742,7 +742,7 @@ class mainWindow:
 	
 	def openBugReporter(self, widget):
 		## Opens the bugs webpage.
-		link = "http://gna.org/bugs/?func=additem&group=whaawmp"
+		link = "http://gna.org/bugs/?group=whaawmp"
 		if (useful.checkLinkHandler):
 			useful.URLorMailOpen(link)
 		else:
