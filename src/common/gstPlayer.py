@@ -225,6 +225,9 @@ class Player:
 		bin.add_pad(ghostPad)
 		# If a name was passed, create the element, otherwise pass use autosink.
 		sink = gst.element_factory_make(sinkName if sinkName else 'autovideosink')
+		# Create a pad to send navigation information to the gstreamer backend.
+		navPad = gst.Pad(name="navPad", direction=gst.PAD_SRC)
+		bin.add_pad(navPad)
 		bin.add(sink)
 		# Link the elements.
 		gst.element_link_many(colourBalance, colourSpace,  sink)
@@ -238,6 +241,17 @@ class Player:
 		self.player.set_property('video-sink', bin)
 		# Need to change colour settings externally.
 		self.colourBalance = colourBalance
+	
+	def sendNavigationClick(self, event):
+		structure = gst.Structure("application/x-gst-navigation")
+		structure.set_value("event", "mouse-button-release")
+		structure.set_value("button", event.button)
+		structure.set_value("pointer_x", event.x)
+		structure.set_value("pointer_y", event.y)
+		#("mouse-button-press")
+		#structure = gst.structure_from_string("application/x-gst-navigation,event=mouse-button-press,button=%s,x=%s,y=%s")
+		self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
+
 	
 	def setVisualisation(self, enable):
 		# A call to enable or disable the visualisations from a passed boolean.

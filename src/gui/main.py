@@ -206,6 +206,10 @@ class mainWindow:
 		elif (event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
+		else:
+			# Otherwise send it to gstreamer to process.
+			# (mainly for DVD menus).
+			player.sendNavigationClick(event)
 
 	
 	def videoWindowScroll(self, widget, event):
