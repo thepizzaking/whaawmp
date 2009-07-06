@@ -38,6 +38,9 @@ getBuilderFile = lambda window: os.path.join(dataDir, 'ui', window + '.ui')
 #mainWin (the main window)
 #lastDir (the last directory used in the open file dialogue etc)
 
+# Storage for video window size.
+videoWindowSize = None
+
 # Executions with no output.
 hiddenExec = lambda x: os.system(x +  '>/dev/null 2>/dev/null &')
 

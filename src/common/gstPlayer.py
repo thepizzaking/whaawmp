@@ -144,6 +144,12 @@ class Player:
 		self.player.set_property('uri', uri)
 	
 	
+	def getVideoSrcDimensions(self):
+		# Returns a tuple of the dimensions of the last video frame shown.
+		caps = self.player.get_property('frame').get_caps()
+		return (caps[0]['width'], caps[0]['height'])
+	
+	
 	def prepareImgSink(self, bus, message, far=True, b=0, c=1, h=0, s=1):
 		# Sets the image sink.
 		self.imagesink = message.src
@@ -243,11 +249,17 @@ class Player:
 		self.colourBalance = colourBalance
 	
 	def sendNavigationClick(self, event):
+		#print self.player.get_property('video-sink').get_pad('sink').get_caps()[0]['height'].low
+		vidDim = self.getVideoSrcDimensions()
+		winDim = useful.videoWindowSize
+		modX = event.x * (float(vidDim[0]) / winDim[0])
+		modY = event.y * (float(vidDim[1]) / winDim[1])
+		print modX, modY
 		structure = gst.Structure("application/x-gst-navigation")
 		structure.set_value("event", "mouse-button-release")
 		structure.set_value("button", event.button)
-		structure.set_value("pointer_x", event.x)
-		structure.set_value("pointer_y", event.y)
+		structure.set_value("pointer_x", modX)
+		structure.set_value("pointer_y", modY)
 		#("mouse-button-press")
 		#structure = gst.structure_from_string("application/x-gst-navigation,event=mouse-button-press,button=%s,x=%s,y=%s")
 		self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))

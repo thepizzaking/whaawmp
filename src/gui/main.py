@@ -57,6 +57,8 @@ class mainWindow:
 		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
 		widget.window.draw_drawable(colour,
 		                            self.pixmap, x, y, x, y, w, h)
+		# Save the current video window size.
+		useful.videoWindowSize = self.pixmap.get_size()
 		
 		# If we're not playing, configure the player accordingly.
 		if (self.videoWindowShown()): self.videoWindowOnStop()
