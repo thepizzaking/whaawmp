@@ -264,7 +264,16 @@ class Player:
 		structure.set_value("button", event.button)
 		structure.set_value("pointer_x", modX)
 		structure.set_value("pointer_y", modY)
-		# Actually sent the navigation event to gstreamer.
+		# Actually send the navigation event to gstreamer.
+		return self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
+
+	def sendNavigationKeypress(self, event, keyname):
+		# Reacts to someone pressing a key on the video window.
+		# Create the structure.
+		structure = gst.Structure("application/x-gst-navigation")
+		structure.set_value("event", "key-press")
+		structure.set_value("key", keyname)
+		# Send the event.
 		return self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
 
 	

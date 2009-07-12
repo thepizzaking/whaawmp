@@ -238,6 +238,8 @@ class mainWindow:
 		if keyname in lists.keypressDict:
 			for x in lists.keypressDict[keyname]:
 				signals.emit(x)
+		# Also send the keypress to gstreamer in case it needs to act.
+		player.sendNavigationKeypress(event, keyname)
 	
 	
 	def toggleAdvancedControls(self):
