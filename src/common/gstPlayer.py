@@ -38,6 +38,7 @@ class Player:
 	
 	def play(self):
 		# Starts the player playing, only if the player has a URI.
+		self.player.set_state(gst.STATE_PLAYING)
 		if (self.getURI()):
 			self.player.set_state(gst.STATE_PLAYING)
 			return True
@@ -45,6 +46,7 @@ class Player:
 	
 	def pause(self):
 		# Pauses the player, only if the player has a URI.
+		self.player.set_state(gst.STATE_PAUSED)
 		if (self.getURI()):
 			self.player.set_state(gst.STATE_PAUSED)
 			return True
@@ -60,9 +62,9 @@ class Player:
 	
 	def togglePlayPause(self):
 		# Toggles play/pause.
-		if (not self.getURI()):
+		#if (not self.getURI()):
 			# If no file is currently opened, return an error.
-			return False
+		#	return False
 		
 		if (self.isPlaying()):
 			# If the player is playing, pause the player.
@@ -319,13 +321,12 @@ class Player:
 	def __init__(self):
 		## Creates and prepares a player.
 		# Create the player.
-		self.player = gst.element_factory_make("playbin", "player")
+		self.player = gst.element_factory_make("playbin2", "player")
 		
 		# Make the program emit signals.
 		bus = self.getBus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
-		
 		# Enable the visualisation if requested.
 		self.setVisualisation(cfg.getBool("gui/enablevisualisation"))
 

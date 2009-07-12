@@ -28,6 +28,7 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gobject
 from random import randint
+import time
 
 from gui import dialogues, preferences
 from gui.queue import queue
@@ -271,7 +272,7 @@ class mainWindow:
 				player.seek(0)
 			else:
 				if (self.wTree.get_object("mnuiRepeatAll").get_active()):
-					queue.append(player.getURI())
+					pass #FIXME#queue.append(player.getURI())
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
 				self.playNext() if (queue.length() > 0) else player.stop()
@@ -404,6 +405,7 @@ class mainWindow:
 	
 	
 	def setPlayingTitle(self, tags):
+		return #FIXME geturi reference
 		# If the URI passed isn't 'None'.
 		if (tags):
 			# If we don't want to set it, return.

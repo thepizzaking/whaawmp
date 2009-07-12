@@ -127,7 +127,7 @@ class FileTag:
 	def __init__(self):
 		## Need to use a playbin to read the tags.
 		# Create the playbin.
-		self.player = gst.element_factory_make('playbin')
+		self.player = gst.element_factory_make('playbin2')
 		# Set the audio & video sinks to fakesinks so weird things don't happen.
 		self.player.set_property('video-sink', gst.element_factory_make('fakesink'))
 		self.player.set_property('audio-sink', gst.element_factory_make('fakesink'))
