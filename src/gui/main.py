@@ -365,9 +365,9 @@ class mainWindow:
 	
 	def aboutToFinish(self, player):
 		# Queue the next item when the player is about to finish.
-		self.playNext()
+		self.playNext(stop=False)
 	
-	def playNext(self, widget=None):
+	def playNext(self, widget=None, stop=True):
 		## Plays the next file in the queue (if it exists).
 		if (self.wTree.get_object("mnuiRandom").get_active()):
 			# If random is set, pick a random item from the queue.
@@ -376,10 +376,13 @@ class mainWindow:
 		else:
 			# Otherwise just get the next item.
 			filename = queue.getNextTrackRemove()
-		self.playFile(filename)
+		self.playFile(filename, stop)
 	
-	def playFile(self, file):
+	def playFile(self, file, stop=True):
 		## Plays the file 'file' (Could also be a URI).
+		# Stop the player if requested. (Required for playbin2 and
+		# changing streams midway through another).
+		if stop: player.stop()
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
 			file = ""
@@ -393,7 +396,7 @@ class mainWindow:
 			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
-			# Start the player.
+			# Start the player, if it isn't already running.
 			if (not player.isPlaying()): player.play()
 		
 		elif (file != ""):
