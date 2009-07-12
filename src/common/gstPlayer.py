@@ -267,7 +267,7 @@ class Player:
 		# Actually send the navigation event to gstreamer.
 		return self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
 
-	def sendNavigationKeypress(self, event, keyname):
+	def sendNavigationKeypress(self, keyname):
 		# Reacts to someone pressing a key on the video window.
 		# Create the structure.
 		structure = gst.Structure("application/x-gst-navigation")

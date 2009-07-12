@@ -239,13 +239,18 @@ class mainWindow:
 			for x in lists.keypressDict[keyname]:
 				signals.emit(x)
 		# Also send the keypress to gstreamer in case it needs to act.
-		player.sendNavigationKeypress(event, keyname)
+		player.sendNavigationKeypress(keyname)
 	
 	
 	def toggleAdvancedControls(self):
 		# Toggle the advanced controls.
 		menuItm = self.wTree.get_object("mnuiAdvCtrls")
 		menuItm.set_active(not menuItm.get_active())
+	
+	
+	def gotoDVDMenu(self,widget):
+		# Go to the DVD menu.
+		player.sendNavigationKeypress('m')
 
 	
 	def preparePlayer(self):
@@ -830,6 +835,7 @@ class mainWindow:
 		        "on_videoWindow_enter_notify_event" : self.videoWindowEnter,
 		        "on_mnuiPreferences_activate" : self.showPreferencesDialogue,
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
+				"on_mnuiDVDMenu_activate" : self.gotoDVDMenu,
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,

@@ -142,6 +142,13 @@
           </object>
         </child>
         <child>
+          <object class="GtkAction" id="mnuiDVDMenu">
+            <property name="name">mnuiDVDMenu</property>
+            <property name="label" translatable="yes">DVD Menu</property>
+            <signal handler="on_mnuiDVDMenu_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkAction" id="mnuiAudioTrack">
             <property name="name">mnuiAudioTrack</property>
             <property name="sensitive">False</property>
@@ -166,7 +173,7 @@
           <object class="GtkAction" id="mnuiReportBug">
             <property name="name">mnuiReportBug</property>
             <property name="tooltip" translatable="yes">Report a bug to the Bugtracker</property>
-            <property name="label">_Report a Bug</property>
+            <property name="label" translatable="yes">_Report a Bug</property>
             <signal handler="on_mnuiReportBug_activate" name="activate"/>
           </object>
         </child>
@@ -211,6 +218,7 @@
             <menuitem action="mnuiRepeatAll"/>
           </menu>
           <menuitem action="mnuiRandom"/>
+		  <menuitem action="mnuiDVDMenu"/>
           <menuitem action="mnuiAudioTrack"/>
           <menuitem action="mnuiQuitOnStop"/>
         </menu>
