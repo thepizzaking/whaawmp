@@ -74,23 +74,19 @@ def isStopMsg(msg):
 
 
 def getAudioLangArray(player):
+	# For the moment, just print n unknown languages.
+	n = player.player.get_property('n-audio')
 	tracks = []
-	for x in player.getStreamsInfo():
-		# For all streams in the file.
-		if (streamType(x) == 'audio'):
-			# If it's an audio stream, get the language code (If none, make it unknown)
-			lang = x.get_property('language-code')
-			if (lang == None): lang = _('Unknown')
-			# Add it to the array.
-			tracks.append(lang)
+	for x in range(n):
+		# Add all audio streams to the list.
+		lang = _('Unknown')
+		tracks.append(lang)
 	# Return the tracks.
 	return tracks
 
 def hasVideoTrack(player):
 	## Returns true if the stream has a video track.
-	for x in player.getStreamsInfo():
-		# For all streams in the file, return true if it's a video stream.
-		if (streamType(x) == 'video'): return True
+	if (player.player.get_property('n-video') >= 1): return True
 	# Otherwise return false.
 	return False
 

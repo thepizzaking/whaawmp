@@ -260,6 +260,7 @@ class mainWindow:
 		bus = player.getBus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
+		player.player.connect('about-to-finish', self.aboutToFinish)
 		# Sets the sinks.
 		player.setAudioSink()
 		player.setVideoSink()
@@ -272,7 +273,7 @@ class mainWindow:
 				player.seek(0)
 			else:
 				if (self.wTree.get_object("mnuiRepeatAll").get_active()):
-					pass #FIXME#queue.append(player.getURI())
+					queue.append(player.uri)
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
 				self.playNext() if (queue.length() > 0) else player.stop()
@@ -362,6 +363,10 @@ class mainWindow:
 		# Finish the drag.
 		context.finish(True, False, time)
 	
+	def aboutToFinish(self, player):
+		# Queue the next item when the player is about to finish.
+		self.playNext()
+	
 	def playNext(self, widget=None):
 		## Plays the next file in the queue (if it exists).
 		if (self.wTree.get_object("mnuiRandom").get_active()):
@@ -375,13 +380,6 @@ class mainWindow:
 	
 	def playFile(self, file):
 		## Plays the file 'file' (Could also be a URI).
-		# First, stop the player.
-		player.stop()
-		# Set the audio track to 0.
-		player.setAudioTrack(0)
-		# Reset the player's speed to 1.
-		self.wTree.get_object("spnPlaySpeed").set_value(1)
-		
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
 			file = ""
@@ -395,9 +393,9 @@ class mainWindow:
 			player.setURI(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
-
 			# Start the player.
-			player.play()
+			if (not player.isPlaying()): player.play()
+		
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
 			print _("Something's stuffed up, no such file: %s") % (file)
@@ -405,14 +403,13 @@ class mainWindow:
 	
 	
 	def setPlayingTitle(self, tags):
-		return #FIXME geturi reference
 		# If the URI passed isn't 'None'.
 		if (tags):
 			# If we don't want to set it, return.
 			if (not cfg.getBool('gui/fileastitle')): return
 			# Set the title name.
 			dispTitle = tagger.getDispTitle(tags)
-			if (not dispTitle): dispTitle = useful.uriToFilename(player.getURI(), ext=False)
+			if (not dispTitle): dispTitle = useful.uriToFilename(player.uri, ext=False)
 			titlename = dispTitle + ' - ' + useful.lName
 		else:
 			# Otherwise, the default title.

@@ -35,12 +35,12 @@ curTags = [None, None]
 def getCurTags():
 	## Gets the currently playing file's tags.
 	# If the first item isn't the current playing file, the tags are old, so return None.
-	return curTags[1] if (curTags[0] == player.getURI()) else None
+	return curTags[1] if (curTags[0] == player.uri) else None
 
 def getDispTitle(tags):
 	# Set the tags for the current file.
 	global curTags
-	curTags = [player.getURI(), tags]
+	curTags = [player.uri, tags]
 	# Flag that no tags have been added.
 	noneAdded = True
 	# Initiate the windows title.

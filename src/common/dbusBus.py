@@ -88,7 +88,7 @@ class IntObject(dbus.service.Object):
 			else:
 				print _("File queued...")
 				self.queue.append(file)
-				if (not self.player.getURI()): self.main.playNext()
+				if (not self.player.uri): self.main.playNext()
 		return True
 	
 	@dbus.service.method("org.gna.whaawmp", "", "b")

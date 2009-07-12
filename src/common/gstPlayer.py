@@ -35,19 +35,18 @@ class Player:
 	version = gst.gst_version
 	speed = 1
 	imagesink = None
+	uri = None
 	
 	def play(self):
 		# Starts the player playing, only if the player has a URI.
-		self.player.set_state(gst.STATE_PLAYING)
-		if (self.getURI()):
+		if (self.uri):
 			self.player.set_state(gst.STATE_PLAYING)
 			return True
 		return False
 	
 	def pause(self):
 		# Pauses the player, only if the player has a URI.
-		self.player.set_state(gst.STATE_PAUSED)
-		if (self.getURI()):
+		if (self.uri):
 			self.player.set_state(gst.STATE_PAUSED)
 			return True
 		return False
@@ -62,9 +61,9 @@ class Player:
 	
 	def togglePlayPause(self):
 		# Toggles play/pause.
-		#if (not self.getURI()):
+		if (not self.uri):
 			# If no file is currently opened, return an error.
-		#	return False
+			return False
 		
 		if (self.isPlaying()):
 			# If the player is playing, pause the player.
@@ -92,8 +91,6 @@ class Player:
 	getAudioTrack = lambda self: self.player.get_property('current-audio')
 	# Returns the state of the player (add timeout so we don't wait forever).
 	getState = lambda self: self.player.get_state(timeout=200*gst.MSECOND)[1]
-	# Returns the current URI.
-	getURI = lambda self: self.player.get_property('uri')
 	# Returns an array of stream information.
 	getStreamsInfo = lambda self: self.player.get_property('stream-info-value-array')
 	
@@ -143,6 +140,7 @@ class Player:
 	
 	def setURI(self, uri):
 		# Sets the player's uri to the one specified.
+		self.uri = uri
 		self.player.set_property('uri', uri)
 	
 	
