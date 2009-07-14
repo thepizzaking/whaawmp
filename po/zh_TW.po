@@ -1,4 +1,4 @@
-# Spanish translation for whaawmp
+# Traditional Chinese translation for whaawmp
 # Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the whaawmp package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
@@ -6,11 +6,11 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
-"Report-Msgid-Bugs-To: Miguel Latorre García <kuan@graffiti.net>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2009-02-26 13:02+0000\n"
-"Last-Translator: Feder Sáiz <federsaiz@googlemail.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2008-08-31 01:59+0000\n"
+"Last-Translator: Keanu <keanu.pang@gmail.com>\n"
+"Language-Team: Traditional Chinese <zh_TW@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,584 +19,496 @@ msgstr ""
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
-msgstr " [opciones] -o archivo-salida archivo-entrada"
+msgstr " [options] -o 輸出檔 輸入檔"
 
 #: ../src/thumbnailer.py:77
 msgid "The file to create the thumbnail of"
-msgstr "El archivo para el cual crear miniatura"
+msgstr "要建立縮圖的檔案"
 
 #: ../src/thumbnailer.py:81
 msgid "The destination of the resulting thumbnail"
-msgstr "El destino de la miniatura resultante"
+msgstr "產生縮圖後儲存的位置"
 
 #: ../src/thumbnailer.py:85
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
-msgstr "La posición (Fracción) de donde hacer la miniatura (defecto 0.3)"
+msgstr "建立縮圖的級數 (預設 0.3)"
 
 #: ../src/thumbnailer.py:89
 msgid "The destination size (in pixels)"
-msgstr "El tamaño final (en pixels)"
+msgstr "輸出大小 (像素為單位)"
 
 #: ../src/thumbnailer.py:99
 msgid "Sorry, an input and output file are required to be passed."
-msgstr "Disculpe, los archivos de entrada y salida son necesarios."
+msgstr "抱歉，必須指定輸入檔與輸出檔"
 
 #: ../src/thumbnailer.py:100
 #, python-format
 msgid "See '%s --help' for details"
-msgstr "Ver '%s --help' para los detalles"
+msgstr "'%s --help' 檢視詳細說明"
 
 #: ../src/thumbnailer.py:107
 msgid "The requested position must be between 0 and 1, using 0.3."
-msgstr "La posición solicitada debe estar entre 0 y 1, se usa 0.3."
-
-#: ../src/thumbnailer.py:164
-msgid "Stream returned no caps, exiting"
-msgstr "La secuencia no devolvió capturas, saliendo"
+msgstr "縮圖級數必須介於 0 至 1 之間，將使用 0.3。"
 
 #: ../src/thumbnailer.py:191
 msgid "An error occurred"
-msgstr "Se produjo un error"
+msgstr "出現錯誤"
 
 #: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
-msgstr "No hay pistas de video en esta secuencia, saliendo."
-
-#: ../src/thumbnailer.py:213
-msgid "Duration unable to be read, exiting."
-msgstr "No se pudo leer la duración, saliendo."
-
-#: ../src/thumbnailer.py:226
-msgid "Unable to seek to requested position, exiting."
-msgstr "No se pudo ir a la posición solicitada, saliendo."
+msgstr "串流中沒有視訊軌，將離開。"
 
 #: ../src/whaawmp.py:38
 msgid "Cannot continue, python version must be at least 2.5."
-msgstr "No se puede continuar, la versión de python ha de ser 2.5 ó sup."
+msgstr "程式無法繼續執行，需要 Python 2.5 以上的版本"
 
 #: ../src/whaawmp.py:73
 msgid " [options] filename"
-msgstr " [opciones] nombre del archivo"
+msgstr " [optons] 檔案名稱"
 
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, X server not found!"
-msgstr "No se puede continuar, ¡no se encontró el servidor X!"
+msgstr "程式無法繼續執行，找不到 X server！"
 
 #: ../src/gui/dialogues.py:67
 msgid "Choose a file to Open"
-msgstr "Elegir un archivo a Abrir"
+msgstr "選擇要開啟的檔案"
 
 #: ../src/gui/dialogues.py:78
 msgid "Supported Media"
-msgstr "Formatos Soportados"
+msgstr "支援的媒體格式"
 
 #: ../src/gui/dialogues.py:84
 msgid "All Files"
-msgstr "Todos los Archivos"
+msgstr "所有檔案"
 
 #: ../src/gui/dialogues.py:104
 msgid "Play DVD"
-msgstr "Reproducir DVD"
+msgstr "播放 DVD"
 
 #: ../src/gui/dialogues.py:109
 msgid "Select options:"
-msgstr "Elegir opciones:"
+msgstr "選擇選項︰"
 
 #: ../src/gui/dialogues.py:111
 msgid "Title: "
-msgstr "Título: "
+msgstr "標題： "
 
 #: ../src/gui/dialogues.py:162
 msgid "Open a URI"
-msgstr "Abrir una URI"
+msgstr "從 URI 位置開啟"
 
 #: ../src/gui/dialogues.py:167
 msgid "Enter the URI:"
-msgstr "Introducir la URI:"
+msgstr "輸入 URI 位置︰"
 
 #: ../src/gui/dialogues.py:199
 msgid "Select Tracks"
-msgstr "Elegir Pistas"
+msgstr "選擇播放軌"
 
 #: ../src/gui/dialogues.py:203
 msgid "Audio:"
-msgstr "Sonido:"
+msgstr "音訊："
 
 #: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
 msgid "Error!"
-msgstr "¡Error!"
+msgstr "錯誤！"
 
 #: ../src/gui/dialogues.py:245
 msgid "Message"
-msgstr "Mensaje"
+msgstr "訊息"
 
 #: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
 msgid "Supported Features"
-msgstr "Características Soportadas"
+msgstr "支援特色"
 
 #: ../src/gui/dialogues.py:276
 msgid "Dbus Message Bus"
-msgstr "Bus de Mensajes Dbus"
+msgstr "Dbus Message Bus"
 
 #: ../src/gui/dialogues.py:289
 msgid "Available"
-msgstr "Disponible"
+msgstr "可用"
 
 #: ../src/gui/dialogues.py:289
 msgid "Unavailable"
-msgstr "No disponible"
+msgstr "不可用"
 
 #: ../src/gui/dialogues.py:293
 msgid "Library Versions:"
-msgstr "Versiones de Bibliotecas:"
+msgstr "函式庫版本︰"
 
 #: ../src/gui/main.py:404
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
-msgstr "Algo no es correcto, no existe el archivo: %s"
+msgstr "發生錯誤，找不到檔案︰%s"
 
 #: ../src/gui/main.py:610
 msgid "Pause"
-msgstr "Detener"
+msgstr "暫停"
 
 #: ../src/gui/main.py:610
 msgid "Play"
-msgstr "Reproducir"
+msgstr "播放"
 
 #: ../src/gui/main.py:752
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
-msgstr ""
-"no se encontró %s, los enlaces y direcciones e-mail no podrán pulsarse"
+msgstr "找不到 %s，連結與電子郵件位置將無法點按。"
 
 #: ../src/gui/main.py:771
 msgid "TERM signal caught, exiting."
-msgstr "Se recibió la señal TERM, saliendo"
+msgstr "收到 TERM 系統訊號，將離開。"
 
 #: ../src/gui/preferences.py:185
 msgid "Default/Auto"
-msgstr "Por defecto / Automático"
+msgstr "預設/自動"
 
 #: ../src/gui/preferences.py:185
 msgid "Other (Set from config.ini)"
-msgstr "Otro (Puesto en config.ini)"
+msgstr "其它 (config.ini 檔的設定)"
 
 #: ../src/gui/queue.py:215
 msgid "Queued Tracks:"
-msgstr "Pistas en Cola:"
+msgstr "己佇列的播放軌︰"
 
 #: ../src/gui/queue.py:248
 msgid "Clear Queue"
-msgstr "Limpiar Cola"
+msgstr "清除佇列"
 
 #: ../src/gui/queue.py:249
 msgid "Remove item from Queue"
-msgstr "Eliminar elemento de la Cola"
+msgstr "移除佇列中的項目"
 
 #: ../src/gui/queue.py:250
 msgid "(Add items to queue"
-msgstr "Agregar objetos a lista de espera"
+msgstr "(加入項目至佇列"
 
 #: ../src/common/config.py:50
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
-msgstr ""
-"¡Aghh!  ¡No hay una '/' en la opción!  ¡Esto es un fallo! ¡Notifíquelo!\n"
-"Pasando al grupo 'unknown' por defecto."
+msgstr "啊！選項裡沒有 '/'！這是 bug！回報此錯誤！"
 
 #: ../src/common/config.py:122
 msgid "Print the version and exit"
-msgstr "Imprimir la versión y salir"
+msgstr "顯示版本並離開"
 
 #: ../src/common/config.py:126
 msgid "Play the file in fullscreen mode"
-msgstr "Reproducir el archivo a pantall completa"
+msgstr "以全螢幕模式播放檔案"
 
 #: ../src/common/config.py:134
 msgid "Sets the player's audio ouput to SINK"
-msgstr "Ajusta la salida de sonido del reproductor a SINK"
+msgstr "設定播放音訊輸出至 SINK"
 
 #: ../src/common/config.py:138
 msgid "Sets the player's video ouput to SINK"
-msgstr "Ajusta la salida de vídeo del reproductor a SINK"
+msgstr "設定播放視訊輸出至 SINK"
 
 #: ../src/common/config.py:142 ../ui/main.ui.h:13
 msgid "Quits the player when the playing stream stops"
-msgstr "Cierra el reproductor cuando la secuencia se pare"
+msgstr "當播放結束時關閉程式"
 
 #: ../src/common/config.py:146
 #, python-format
 msgid "Forces a new window if %s is already running"
-msgstr "Obliga a abrir una ventana nueva si %s ya está ejecutándose"
+msgstr "若 %s 己在執行中仍強制開新視窗"
 
 #: ../src/common/config.py:150
 #, python-format
 msgid "Forces the file passed to be queued if %s is already running"
-msgstr ""
-"Obliga a poner el archivo indicado en cola si %s ya está ejecutándose"
+msgstr "若 %s 己在執行中仍強制將檔案排入佇列"
 
 #: ../src/common/config.py:154
 #, python-format
 msgid "Forces the file to be played now in a previous %s process"
-msgstr ""
-"Obliga a reproducir el archivo en este momento en un proceso %s anterior"
-
-#: ../src/common/config.py:158
-#, python-format
-msgid "Toggles play/pause on an already running %s process"
-msgstr "Cambia reproducir/detener en un proceso %s que está ya ejecutándose"
+msgstr "強制播放先前 %s 的檔案"
 
 #: ../src/common/config.py:162
 #, python-format
 msgid "Starts the player in an already running %s process"
-msgstr "Inicia el reproductor en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中開始播放"
 
 #: ../src/common/config.py:166
 #, python-format
 msgid "Pauses the player in an already running %s process"
-msgstr "Detiene el reproductor en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中暫停播放"
 
 #: ../src/common/config.py:170
 #, python-format
 msgid "Stops the player in an already running %s process"
-msgstr "Para el reproductor en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中停止播放"
 
 #: ../src/common/config.py:174
 #, python-format
 msgid "Skips to the next track in an already running %s process"
-msgstr "Salta a la pista siguiente en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中略過並選擇下一個播放軌"
 
 #: ../src/common/config.py:178
 #, python-format
 msgid "Restarts the current track in an already running %s process"
-msgstr "Reinicia la pista actual en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中重新播放目前的播放軌"
 
 #: ../src/common/config.py:182
 #, python-format
 msgid "Querys the current track in an already running %s process"
-msgstr "Solicita la pista actual en un proceso %s que está ya ejecutándose"
+msgstr "在目前己在執行的 %s 中將目前的播放軌排入佇列中"
 
 #: ../src/common/dbusBus.py:37
 msgid "Dbus import failed, dbus features will be unavailable"
-msgstr "Dbus no se pudo importar, sus caracteríticas no estarán disponibles"
-
-#: ../src/common/dbusBus.py:70
-#, python-format
-msgid ""
-"File received via dbus:\n"
-"\t%s"
-msgstr ""
-"Archivo recibido vía dbus:\n"
-"\t%s"
-
-#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
-msgid "Playing file..."
-msgstr "Reproduciendo archivo..."
-
-#: ../src/common/dbusBus.py:89
-msgid "File queued..."
-msgstr "Archivo puesto en cola..."
+msgstr "Dbus 匯入失敗，dbus 功能將無法支援"
 
 #: ../src/common/dbusBus.py:146
 #, python-format
 msgid "%s is already running."
-msgstr "%s ya está ejecutándose."
-
-#: ../src/common/dbusBus.py:164
-msgid "Starting new process..."
-msgstr "Comenzando nuevo proceso..."
+msgstr "%s 正在執行。"
 
 #: ../src/common/dbusBus.py:170
 msgid "Toggle of Play/Pause failed, no file is currently open."
-msgstr "No se pudo cambiar de Reproducir/Detener, no hay un archivo abierto."
+msgstr "無法播放/暫停，目前沒有開啟任何檔案"
 
 #: ../src/common/dbusBus.py:176
 msgid "Play failed, no file is currently open."
-msgstr "No se pudo reproducir, no hay un archivo abierto."
+msgstr "無法播放，目前沒有開啟任何檔案"
 
 #: ../src/common/dbusBus.py:182
 msgid "Pause failed, not file is currently open."
-msgstr "No se pudo detener, no hay un archivo abierto."
-
-#: ../src/common/gstTagger.py:112
-msgid ""
-"Something bad happened which shouldn't\n"
-"Tell me: current data did not match player URI"
-msgstr ""
-"Algo malo ha ocurrido , que no debería\n"
-"\n"
-"Dime: los datos no concuerdan con el URI del reproductor"
+msgstr "無法暫停，目前沒有開啟任何檔案"
 
 #: ../src/common/gstTools.py:82
 msgid "Unknown"
-msgstr "Desconocido"
+msgstr "未知"
 
 #: ../src/common/useful.py:31
 msgid "Whaaw! Media Player"
-msgstr "Reproductor Multimedia Whaaw!"
+msgstr "Whaaw! 多媒體播放器"
 
 #: ../src/common/useful.py:115
 msgid "No tags available"
-msgstr "No hay etiquetas disponibles"
+msgstr "無可用的標籤"
 
 #: ../ui/main.ui.h:2
 msgid "Audio Tracks"
-msgstr "Pistas de Sonido"
+msgstr "音軌"
 
 #: ../ui/main.ui.h:3
 msgid ""
 "Change the player's speed.  WARNING: Negative numbers can cause weirdness "
 "(even lockups)."
-msgstr ""
-"Cambia la velocidad del reproductor. CUIDADO: Números negativos pueden "
-"causar cosas raras (incluso bloqueos)"
+msgstr "變更播放速度。注意︰負值的數值造成不正常的動作。"
 
 #: ../ui/main.ui.h:4
 msgid "Current player volume"
-msgstr "Volumen actual del reproductor"
+msgstr "目前播放音量"
 
 #: ../ui/main.ui.h:7
 msgid "Leave Fullscreen"
-msgstr "Salir de Pantalla Completa"
+msgstr "離開全螢幕"
 
 #: ../ui/main.ui.h:8
 msgid "Next"
-msgstr "Siguiente"
+msgstr "下一個"
 
 #: ../ui/main.ui.h:12
 msgid "Quit on Stop"
-msgstr "Salir al Parar"
-
-#: ../ui/main.ui.h:15
-msgid "Repeat"
-msgstr "Repetir"
-
-#: ../ui/main.ui.h:16
-msgid "Repeat a single track"
-msgstr "Repetir una sola pista"
-
-#: ../ui/main.ui.h:17
-msgid "Repeat all tracks in the queue."
-msgstr "Repetir todas las pistas en la cola."
+msgstr "停止播放並關閉程式"
 
 #: ../ui/main.ui.h:18
 msgid "Report a bug to the Bugtracker"
-msgstr "Notificar un fallo en el Bugtracker"
+msgstr "回報錯誤至 Bugtracker"
 
 #: ../ui/main.ui.h:19
 msgid "Restart Track"
-msgstr "Reiniciar Pista"
+msgstr "重新播放"
 
 #: ../ui/main.ui.h:20
 msgid "Show advanced player controls."
-msgstr "Mostrar controles de reproducción avanzados."
+msgstr "顯示進階播放控制項。"
 
 #: ../ui/main.ui.h:21
 msgid "Speed:"
-msgstr "Velocidad:"
+msgstr "播放速度︰"
 
 #: ../ui/main.ui.h:22
 msgid "Stop"
-msgstr "Parar"
+msgstr "停止"
 
 #: ../ui/main.ui.h:25
 msgid "View and edit the current queue"
-msgstr "Ver y editar la cola actual"
+msgstr "檢視與修改目前的佇列"
 
 #: ../ui/main.ui.h:26
 msgid "_Advanced Controls"
-msgstr "Controles Avanzados"
+msgstr "進階控制(_A)"
 
 #: ../ui/main.ui.h:27
 msgid "_Edit"
-msgstr "_Editar"
+msgstr "編輯(_E)"
 
 #: ../ui/main.ui.h:28
 msgid "_File"
-msgstr "_Archivo"
+msgstr "檔案(_F)"
 
 #: ../ui/main.ui.h:29
 msgid "_Help"
-msgstr "A_yuda"
+msgstr "說明(_H)"
 
 #: ../ui/main.ui.h:30
 msgid "_Queue"
-msgstr "_Cola"
+msgstr "佇列(_Q)"
 
 #: ../ui/main.ui.h:31
 msgid "_Report a Bug"
-msgstr "_Informar de Fallo"
+msgstr "回報錯誤(_R)"
 
 #: ../ui/main.ui.h:32
 msgid "_Stream"
-msgstr "_Secuencia"
+msgstr "串流(_S)"
 
 #: ../ui/main.ui.h:33
 msgid "_View"
-msgstr "_Ver"
+msgstr "檢視(_V)"
 
 #: ../ui/preferences.ui.h:1
 msgid "<b>Colour Settings</b>"
-msgstr "<b>Configuraciones de Color</b>"
+msgstr "<b>顏色設定</b>"
 
 #: ../ui/preferences.ui.h:2
 msgid "Add current file's tags/name to Title"
-msgstr "Añadir las etiquetas/nombre del archivo actual al Título"
+msgstr "將目前檔案的標籤/名稱加入至標題"
 
 #: ../ui/preferences.ui.h:3
 msgid ""
 "Add the currently playing file's tags (or name if unavailable) to the "
 "window's title."
-msgstr ""
-"Añadir las etiquetas (o el nombre si no están disponibles) del archivo que "
-"está en reproducción al título de la ventana."
+msgstr "將播放中的檔案的標籤(如果沒有標籤就用檔案名稱)加入至視窗標題。"
 
 #: ../ui/preferences.ui.h:4
 msgid "Adjust video brightness"
-msgstr "Ajustar brillo del vídeo"
+msgstr "調整視訊對比"
 
 #: ../ui/preferences.ui.h:5
 msgid "Adjust video contrast"
-msgstr "Ajustar contraste del vídeo"
+msgstr "調整視訊對比"
 
 #: ../ui/preferences.ui.h:6
 msgid "Adjust video hue"
-msgstr "Ajustar tono del vídeo"
+msgstr "調整視訊色調"
 
 #: ../ui/preferences.ui.h:7
 msgid "Adjust video saturation"
-msgstr "Ajustar saturación del vídeo"
+msgstr "調整視訊飽和度"
 
 #: ../ui/preferences.ui.h:8
 msgid "Audio"
-msgstr "Audio"
+msgstr "音訊"
 
 #: ../ui/preferences.ui.h:9
 msgid "Brightness:"
-msgstr "Brillo:"
+msgstr "亮度："
 
 #: ../ui/preferences.ui.h:10
 msgid "Contrast:"
-msgstr "Contraste:"
+msgstr "對比："
 
 #: ../ui/preferences.ui.h:11
 msgid "Disable Screensaver"
-msgstr "Desactivar Salvapantallas"
+msgstr "關閉螢幕保護程式"
 
 #: ../ui/preferences.ui.h:12
 msgid "Disable Screensaver whilst playing a video."
-msgstr "Desactivar Salvapantallas mientras se visualiza un vídeo."
+msgstr "播放的時候關閉螢幕保護程式"
 
 #: ../ui/preferences.ui.h:13
 msgid "Enable Visualisations (Requires stream restart)"
-msgstr "Activar Visualizaciones (Requiere reiniciar la secuencia)"
+msgstr "開啟視覺化特效(需要重新載入串流)"
 
 #: ../ui/preferences.ui.h:14
 msgid "Force Aspect Ratio"
-msgstr "Obligar la Relación de Tamaño"
+msgstr "強制設定長寬比"
 
 #: ../ui/preferences.ui.h:15
 msgid "Force the video to keep its original aspect ratio"
-msgstr "Obligar al vídeo a mantener su relación de tamaño original"
+msgstr "強制維持視訊原來的長寬比"
 
 #: ../ui/preferences.ui.h:16
 msgid "Hide Video Window when Stopped"
-msgstr "Ocultar la Ventana de Vídeo cuando está Parado"
+msgstr "停止播放時隱藏視訊視窗。"
 
 #: ../ui/preferences.ui.h:17
 msgid "Hide the video window when there is no video stream."
-msgstr "Ocultar la Ventana de Vídeo cuando no hay secuencia de vídeo."
+msgstr "當沒有視訊串流時隱藏視訊視窗。"
 
 #: ../ui/preferences.ui.h:18
 msgid "Hue:"
-msgstr "Tono:"
-
-#: ../ui/preferences.ui.h:19
-msgid "Instantaneous Seek"
-msgstr "Búsqueda Instantánea"
+msgstr "色調："
 
 #: ../ui/preferences.ui.h:20
 msgid "Main"
-msgstr "Principal"
+msgstr "主要設定"
 
 #: ../ui/preferences.ui.h:21
 msgid "Mouse hide timeout (ms): "
-msgstr "Retardo para ocultar ratón (ms): "
+msgstr "多久隱藏滑鼠指標 (毫秒)︰ "
 
 #: ../ui/preferences.ui.h:22
 msgid "Output Device:"
-msgstr "Dispositivo de Salida:"
+msgstr "輸出裝置︰"
 
 #: ../ui/preferences.ui.h:23
 msgid "Preferences"
-msgstr "Configuración"
+msgstr "偏好設定"
 
 #: ../ui/preferences.ui.h:24
 msgid "Reset all adjustments to 0"
-msgstr "Poner todos los ajustes a 0"
+msgstr "重設所有調整值為零"
 
 #: ../ui/preferences.ui.h:25
 msgid "Restore Defaults"
-msgstr "Restaurar valores por defecto"
+msgstr "還原預設值"
 
 #: ../ui/preferences.ui.h:26
 msgid "Saturation:"
-msgstr "Saturación:"
-
-#: ../ui/preferences.ui.h:27
-msgid ""
-"Seek instantaneously on draging over the progress bar, instead of waiting "
-"until the end."
-msgstr ""
-"Buscar instantáneamente al arrastrar la barra de progreso, en lugar de "
-"esperar hasta el final."
+msgstr "飽和度："
 
 #: ../ui/preferences.ui.h:28
 msgid "Show Time Remaining"
-msgstr "Mostrar Tiempo Restante"
+msgstr "顯示剩餘時間"
 
 #: ../ui/preferences.ui.h:29
 msgid "Show the time remaining instead of total time in the progress bar."
-msgstr ""
-"Mostrar el tiempo restante en lugar del total en la barra de progreso."
+msgstr "在進度列上顯示剩餘時間而非播放時間"
+
+#: ../ui/preferences.ui.h:30
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted, disabling does this automatically)."
+msgstr "當沒有視訊輸出時顯示視覺特效(目前的串流必需重新載入)。"
 
 #: ../ui/preferences.ui.h:31
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
-msgstr ""
-"Sintaxis para mostrar las etiquetas. Encerrar un título de etiqueta entre {}."
+msgstr "標籤顯示的語法，用 {} 將標籤名稱包住。"
 
 #: ../ui/preferences.ui.h:32
 msgid "Tag Display Syntax: "
-msgstr "Sintaxis para Mostrar Etiquetas: "
-
-#: ../ui/preferences.ui.h:33
-msgid ""
-"The action to take when another Whaaw! Media Player process is requested to "
-"open a file."
-msgstr ""
-"La acción a realizar cuando otro proceso del Reproductor Multimedia Whaaw! "
-"solicite abrir un archivo."
-
-#: ../ui/preferences.ui.h:34
-msgid ""
-"The time (in milliseconds) after which the mouse will disappear after not "
-"being moved over the video window."
-msgstr ""
-"El tiempo (en milisegundos) que debe transcurrir sin moverse el ratón sobre "
-"la ventana de vídeo para que desaparezca el cursor."
-
-#: ../ui/preferences.ui.h:35
-msgid "Upon opening new file:"
-msgstr "Una vez abierto archivo nuevo:"
+msgstr "標籤顯示語法︰ "
 
 #: ../ui/preferences.ui.h:36
 msgid "Video"
-msgstr "Vídeo"
+msgstr "視訊"
 
-#: ../ui/preferences.ui.h:37
-msgid "Volume Change on Scroll: "
-msgstr "Cambiar Volumen con Scroll: "
+#: ../src/thumbnailer.py:164
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:213
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:226
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
 
 #: ../src/gui/__init__.py:33
 msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
@@ -610,11 +522,7 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Dante Díaz https://launchpad.net/~dante\n"
-"  Eduardo Ruiz https://launchpad.net/~eduardo-ruizcarrillo\n"
-"  Feder Sáiz https://launchpad.net/~federsaiz\n"
-"  Miguel Latorre García https://launchpad.net/~kuan-graffiti\n"
-"  Miguel Latorre García https://launchpad.net/~mlatorre"
+"  Keanu https://launchpad.net/~keanu-pang"
 
 #: ../src/gui/main.py:764
 #, python-format
@@ -632,9 +540,29 @@ msgstr ""
 msgid "Sets the player's volume to VOL (0-1)"
 msgstr ""
 
+#: ../src/common/config.py:158
+#, python-format
+msgid "Toggles play/pause on an already running %s process"
+msgstr ""
+
+#: ../src/common/dbusBus.py:70
+#, python-format
+msgid ""
+"File received via dbus:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
+msgid "Playing file..."
+msgstr ""
+
 #: ../src/common/dbusBus.py:79
 #, python-format
 msgid "Telling %s to start a new process..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:89
+msgid "File queued..."
 msgstr ""
 
 #: ../src/common/dbusBus.py:128
@@ -649,6 +577,16 @@ msgstr ""
 msgid ""
 "Passed the following file to previously running process:\n"
 "\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:164
+msgid "Starting new process..."
+msgstr ""
+
+#: ../src/common/gstTagger.py:112
+msgid ""
+"Something bad happened which shouldn't\n"
+"Tell me: current data did not match player URI"
 msgstr ""
 
 #: ../src/common/signals.py:44
@@ -684,12 +622,48 @@ msgstr ""
 msgid "Random"
 msgstr ""
 
+#: ../ui/main.ui.h:15
+msgid "Repeat"
+msgstr ""
+
+#: ../ui/main.ui.h:16
+msgid "Repeat a single track"
+msgstr ""
+
+#: ../ui/main.ui.h:17
+msgid "Repeat all tracks in the queue."
+msgstr ""
+
 #: ../ui/main.ui.h:23
 msgid "Stream repeat settings"
 msgstr ""
 
-#: ../ui/preferences.ui.h:30
+#: ../ui/preferences.ui.h:19
+msgid "Instantaneous Seek"
+msgstr ""
+
+#: ../ui/preferences.ui.h:27
 msgid ""
-"Show visualisations when no video track is available (Current stream must be "
-"restarted, disabling does this automatically)."
+"Seek instantaneously on draging over the progress bar, instead of waiting "
+"until the end."
+msgstr ""
+
+#: ../ui/preferences.ui.h:33
+msgid ""
+"The action to take when another Whaaw! Media Player process is requested to "
+"open a file."
+msgstr ""
+
+#: ../ui/preferences.ui.h:34
+msgid ""
+"The time (in milliseconds) after which the mouse will disappear after not "
+"being moved over the video window."
+msgstr ""
+
+#: ../ui/preferences.ui.h:35
+msgid "Upon opening new file:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:37
+msgid "Volume Change on Scroll: "
 msgstr ""

@@ -1,77 +1,150 @@
-# Turkish translation for whaawmp
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# Danish translation for whaawmp
+# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
 # This file is distributed under the same license as the whaawmp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2007-11-19 18:51+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2008-10-14 20:43+0000\n"
+"Last-Translator: Peter Skov <Unknown>\n"
+"Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
-#: ../src/whaawmp.py:38
-msgid "Cannot continue, python version must be at least 2.5."
-msgstr "Devam edememe, piton uyarlaması en azından 2.5 olmalıdır."
+#: ../src/thumbnailer.py:191
+msgid "An error occurred"
+msgstr "Der opstod en fejl"
 
-#: ../src/gui/dialogues.py:67
-msgid "Choose a file to Open"
-msgstr "Açması için bir dosyayı seç"
+#: ../src/gui/dialogues.py:84
+msgid "All Files"
+msgstr "Alle Filer"
+
+#: ../src/gui/dialogues.py:104
+msgid "Play DVD"
+msgstr "Afspil DVD"
 
 #: ../src/gui/dialogues.py:111
 msgid "Title: "
-msgstr "Başlık: "
+msgstr "Titel: "
+
+#: ../src/gui/dialogues.py:199
+msgid "Select Tracks"
+msgstr "Vælg Spor"
 
 #: ../src/gui/dialogues.py:203
 msgid "Audio:"
-msgstr "Ses:"
+msgstr "Audio:"
 
 #: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
 msgid "Error!"
-msgstr "hata!"
+msgstr "Fejl!"
 
 #: ../src/gui/dialogues.py:245
 msgid "Message"
-msgstr "Mesaj"
+msgstr "Meddelelse"
+
+#: ../src/gui/dialogues.py:289
+msgid "Available"
+msgstr "Tilgængelig"
+
+#: ../src/gui/dialogues.py:289
+msgid "Unavailable"
+msgstr "Utilgængelig"
 
 #: ../src/gui/main.py:610
 msgid "Pause"
-msgstr "Beklet"
+msgstr "Pause"
 
 #: ../src/gui/main.py:610
 msgid "Play"
-msgstr "Başlat"
+msgstr "Afspil"
+
+#: ../src/common/dbusBus.py:146
+#, python-format
+msgid "%s is already running."
+msgstr "%s kører allerede."
 
 #: ../src/common/gstTools.py:82
 msgid "Unknown"
-msgstr "(bilinmeyen)"
+msgstr "Ukendt"
+
+#: ../ui/main.ui.h:2
+msgid "Audio Tracks"
+msgstr "Lydspor"
+
+#: ../ui/main.ui.h:7
+msgid "Leave Fullscreen"
+msgstr "Forlad fuldskærm"
+
+#: ../ui/main.ui.h:8
+msgid "Next"
+msgstr "Næste"
+
+#: ../ui/main.ui.h:21
+msgid "Speed:"
+msgstr "Hastighed:"
 
 #: ../ui/main.ui.h:22
 msgid "Stop"
-msgstr "Dur"
+msgstr "Stop"
 
-#: ../ui/preferences.ui.h:2
-msgid "Add current file's tags/name to Title"
-msgstr "Başlığa güncel dosyanın etiket ismini ekle"
+#: ../ui/main.ui.h:27
+msgid "_Edit"
+msgstr "R_edigér"
+
+#: ../ui/main.ui.h:28
+msgid "_File"
+msgstr "_Fil"
+
+#: ../ui/main.ui.h:29
+msgid "_Help"
+msgstr "_Hjælp"
+
+#: ../ui/main.ui.h:30
+msgid "_Queue"
+msgstr "_Kø"
+
+#: ../ui/main.ui.h:33
+msgid "_View"
+msgstr "_Vis"
+
+#: ../ui/preferences.ui.h:8
+msgid "Audio"
+msgstr "Lyd"
 
 #: ../ui/preferences.ui.h:9
 msgid "Brightness:"
-msgstr "Parlaklık"
+msgstr "Lysstyrke:"
 
 #: ../ui/preferences.ui.h:10
 msgid "Contrast:"
-msgstr "Kontrast"
+msgstr "Kontrast:"
+
+#: ../ui/preferences.ui.h:18
+msgid "Hue:"
+msgstr "Farvetone:"
 
 #: ../ui/preferences.ui.h:20
 msgid "Main"
-msgstr "Main (Ana)"
+msgstr "Hoved"
+
+#: ../ui/preferences.ui.h:23
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../ui/preferences.ui.h:25
+msgid "Restore Defaults"
+msgstr "Gendan standardværdier"
+
+#: ../ui/preferences.ui.h:26
+msgid "Saturation:"
+msgstr "Mætningsgrad:"
 
 #: ../ui/preferences.ui.h:36
 msgid "Video"
@@ -114,10 +187,6 @@ msgstr ""
 msgid "Stream returned no caps, exiting"
 msgstr ""
 
-#: ../src/thumbnailer.py:191
-msgid "An error occurred"
-msgstr ""
-
 #: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
 msgstr ""
@@ -128,6 +197,10 @@ msgstr ""
 
 #: ../src/thumbnailer.py:226
 msgid "Unable to seek to requested position, exiting."
+msgstr ""
+
+#: ../src/whaawmp.py:38
+msgid "Cannot continue, python version must be at least 2.5."
 msgstr ""
 
 #: ../src/whaawmp.py:73
@@ -150,18 +223,14 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  zeugma https://launchpad.net/~sunder67"
+"  Peter Skov https://launchpad.net/~a0peter"
+
+#: ../src/gui/dialogues.py:67
+msgid "Choose a file to Open"
+msgstr ""
 
 #: ../src/gui/dialogues.py:78
 msgid "Supported Media"
-msgstr ""
-
-#: ../src/gui/dialogues.py:84
-msgid "All Files"
-msgstr ""
-
-#: ../src/gui/dialogues.py:104
-msgid "Play DVD"
 msgstr ""
 
 #: ../src/gui/dialogues.py:109
@@ -176,24 +245,12 @@ msgstr ""
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:199
-msgid "Select Tracks"
-msgstr ""
-
 #: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
 msgid "Supported Features"
 msgstr ""
 
 #: ../src/gui/dialogues.py:276
 msgid "Dbus Message Bus"
-msgstr ""
-
-#: ../src/gui/dialogues.py:289
-msgid "Available"
-msgstr ""
-
-#: ../src/gui/dialogues.py:289
-msgid "Unavailable"
 msgstr ""
 
 #: ../src/gui/dialogues.py:293
@@ -361,11 +418,6 @@ msgid ""
 "%(tags)s"
 msgstr ""
 
-#: ../src/common/dbusBus.py:146
-#, python-format
-msgid "%s is already running."
-msgstr ""
-
 #: ../src/common/dbusBus.py:161
 #, python-format
 msgid ""
@@ -412,10 +464,6 @@ msgstr ""
 msgid "All"
 msgstr ""
 
-#: ../ui/main.ui.h:2
-msgid "Audio Tracks"
-msgstr ""
-
 #: ../ui/main.ui.h:3
 msgid ""
 "Change the player's speed.  WARNING: Negative numbers can cause weirdness "
@@ -432,14 +480,6 @@ msgstr ""
 
 #: ../ui/main.ui.h:6
 msgid "Disable repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:7
-msgid "Leave Fullscreen"
-msgstr ""
-
-#: ../ui/main.ui.h:8
-msgid "Next"
 msgstr ""
 
 #: ../ui/main.ui.h:9
@@ -486,10 +526,6 @@ msgstr ""
 msgid "Show advanced player controls."
 msgstr ""
 
-#: ../ui/main.ui.h:21
-msgid "Speed:"
-msgstr ""
-
 #: ../ui/main.ui.h:23
 msgid "Stream repeat settings"
 msgstr ""
@@ -502,22 +538,6 @@ msgstr ""
 msgid "_Advanced Controls"
 msgstr ""
 
-#: ../ui/main.ui.h:27
-msgid "_Edit"
-msgstr ""
-
-#: ../ui/main.ui.h:28
-msgid "_File"
-msgstr ""
-
-#: ../ui/main.ui.h:29
-msgid "_Help"
-msgstr ""
-
-#: ../ui/main.ui.h:30
-msgid "_Queue"
-msgstr ""
-
 #: ../ui/main.ui.h:31
 msgid "_Report a Bug"
 msgstr ""
@@ -526,12 +546,12 @@ msgstr ""
 msgid "_Stream"
 msgstr ""
 
-#: ../ui/main.ui.h:33
-msgid "_View"
-msgstr ""
-
 #: ../ui/preferences.ui.h:1
 msgid "<b>Colour Settings</b>"
+msgstr ""
+
+#: ../ui/preferences.ui.h:2
+msgid "Add current file's tags/name to Title"
 msgstr ""
 
 #: ../ui/preferences.ui.h:3
@@ -554,10 +574,6 @@ msgstr ""
 
 #: ../ui/preferences.ui.h:7
 msgid "Adjust video saturation"
-msgstr ""
-
-#: ../ui/preferences.ui.h:8
-msgid "Audio"
 msgstr ""
 
 #: ../ui/preferences.ui.h:11
@@ -588,10 +604,6 @@ msgstr ""
 msgid "Hide the video window when there is no video stream."
 msgstr ""
 
-#: ../ui/preferences.ui.h:18
-msgid "Hue:"
-msgstr ""
-
 #: ../ui/preferences.ui.h:19
 msgid "Instantaneous Seek"
 msgstr ""
@@ -604,20 +616,8 @@ msgstr ""
 msgid "Output Device:"
 msgstr ""
 
-#: ../ui/preferences.ui.h:23
-msgid "Preferences"
-msgstr ""
-
 #: ../ui/preferences.ui.h:24
 msgid "Reset all adjustments to 0"
-msgstr ""
-
-#: ../ui/preferences.ui.h:25
-msgid "Restore Defaults"
-msgstr ""
-
-#: ../ui/preferences.ui.h:26
-msgid "Saturation:"
 msgstr ""
 
 #: ../ui/preferences.ui.h:27

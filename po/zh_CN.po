@@ -1,81 +1,369 @@
-# Turkish translation for whaawmp
-# Copyright (c) 2007 Rosetta Contributors and Canonical Ltd 2007
+# Simplified Chinese translation for whaawmp
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the whaawmp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2007.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2007-11-19 18:51+0000\n"
-"Last-Translator: zeugma <Unknown>\n"
-"Language-Team: Turkish <tr@li.org>\n"
+"PO-Revision-Date: 2009-04-29 02:59+0000\n"
+"Last-Translator: yuanyelele <yuanyelele@gmail.com>\n"
+"Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
+#: ../src/thumbnailer.py:226
+msgid "Unable to seek to requested position, exiting."
+msgstr "无法转到指定位置，退出。"
+
 #: ../src/whaawmp.py:38
 msgid "Cannot continue, python version must be at least 2.5."
-msgstr "Devam edememe, piton uyarlaması en azından 2.5 olmalıdır."
+msgstr "无法继续，python版本至少应为2.5。"
+
+#: ../src/gui/__init__.py:36
+msgid "Cannot continue, X server not found!"
+msgstr "无法继续，未发现X服务器！"
 
 #: ../src/gui/dialogues.py:67
 msgid "Choose a file to Open"
-msgstr "Açması için bir dosyayı seç"
+msgstr "打开文件"
+
+#: ../src/gui/dialogues.py:78
+msgid "Supported Media"
+msgstr "支持的媒体文件"
+
+#: ../src/gui/dialogues.py:84
+msgid "All Files"
+msgstr "全部文件"
+
+#: ../src/gui/dialogues.py:104
+msgid "Play DVD"
+msgstr "播放 DVD"
+
+#: ../src/gui/dialogues.py:109
+msgid "Select options:"
+msgstr "选项："
 
 #: ../src/gui/dialogues.py:111
 msgid "Title: "
-msgstr "Başlık: "
+msgstr "章节： "
+
+#: ../src/gui/dialogues.py:162
+msgid "Open a URI"
+msgstr "打开URI："
+
+#: ../src/gui/dialogues.py:167
+msgid "Enter the URI:"
+msgstr "输入URI："
+
+#: ../src/gui/dialogues.py:199
+msgid "Select Tracks"
+msgstr "选择轨道："
 
 #: ../src/gui/dialogues.py:203
 msgid "Audio:"
-msgstr "Ses:"
+msgstr "音频："
 
 #: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
 msgid "Error!"
-msgstr "hata!"
+msgstr "错误！"
 
 #: ../src/gui/dialogues.py:245
 msgid "Message"
-msgstr "Mesaj"
+msgstr "消息"
+
+#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
+msgid "Supported Features"
+msgstr "支持的功能"
+
+#: ../src/gui/dialogues.py:289
+msgid "Available"
+msgstr "可用"
+
+#: ../src/gui/dialogues.py:289
+msgid "Unavailable"
+msgstr "不可用"
+
+#: ../src/gui/dialogues.py:293
+msgid "Library Versions:"
+msgstr "库版本："
+
+#: ../src/gui/main.py:404
+#, python-format
+msgid "Something's stuffed up, no such file: %s"
+msgstr "文件不存在：%s"
 
 #: ../src/gui/main.py:610
 msgid "Pause"
-msgstr "Beklet"
+msgstr "暂停"
 
 #: ../src/gui/main.py:610
 msgid "Play"
-msgstr "Başlat"
+msgstr "播放"
+
+#: ../src/gui/preferences.py:185
+msgid "Other (Set from config.ini)"
+msgstr "其他（通过config.ini设置）"
+
+#: ../src/gui/queue.py:215
+msgid "Queued Tracks:"
+msgstr "排队的轨道："
+
+#: ../src/gui/queue.py:248
+msgid "Clear Queue"
+msgstr "清除队列"
+
+#: ../src/gui/queue.py:249
+msgid "Remove item from Queue"
+msgstr "从队列中删除"
+
+#: ../src/gui/queue.py:250
+msgid "(Add items to queue"
+msgstr "添加项目到轨道"
+
+#: ../src/common/config.py:122
+msgid "Print the version and exit"
+msgstr "打印版本号并退出"
+
+#: ../src/common/config.py:126
+msgid "Play the file in fullscreen mode"
+msgstr "以全屏方式播放该文件"
+
+#: ../src/common/dbusBus.py:146
+#, python-format
+msgid "%s is already running."
+msgstr "%s 已在运行中。"
 
 #: ../src/common/gstTools.py:82
 msgid "Unknown"
-msgstr "(bilinmeyen)"
+msgstr "未知"
+
+#: ../src/common/useful.py:31
+msgid "Whaaw! Media Player"
+msgstr "Whaaw! 媒体播放器"
+
+#: ../ui/main.ui.h:1
+msgid "All"
+msgstr "全部"
+
+#: ../ui/main.ui.h:2
+msgid "Audio Tracks"
+msgstr "音轨"
+
+#: ../ui/main.ui.h:4
+msgid "Current player volume"
+msgstr "当前音量"
+
+#: ../ui/main.ui.h:6
+msgid "Disable repeat"
+msgstr "禁用重播"
+
+#: ../ui/main.ui.h:7
+msgid "Leave Fullscreen"
+msgstr "退出全屏"
+
+#: ../ui/main.ui.h:8
+msgid "Next"
+msgstr "下一个"
+
+#: ../ui/main.ui.h:9
+msgid "None"
+msgstr "无"
+
+#: ../ui/main.ui.h:10
+msgid "One"
+msgstr "单个"
+
+#: ../ui/main.ui.h:12
+msgid "Quit on Stop"
+msgstr "停止时退出"
+
+#: ../ui/main.ui.h:15
+msgid "Repeat"
+msgstr "重播"
+
+#: ../ui/main.ui.h:16
+msgid "Repeat a single track"
+msgstr "重播单个轨道"
+
+#: ../ui/main.ui.h:17
+msgid "Repeat all tracks in the queue."
+msgstr "重播队列中所有轨道"
+
+#: ../ui/main.ui.h:18
+msgid "Report a bug to the Bugtracker"
+msgstr "向Bugtracker报告bug"
+
+#: ../ui/main.ui.h:20
+msgid "Show advanced player controls."
+msgstr "显示高级播放控制"
+
+#: ../ui/main.ui.h:21
+msgid "Speed:"
+msgstr "速度："
 
 #: ../ui/main.ui.h:22
 msgid "Stop"
-msgstr "Dur"
+msgstr "停止"
+
+#: ../ui/main.ui.h:26
+msgid "_Advanced Controls"
+msgstr "高级控制(_A)"
+
+#: ../ui/main.ui.h:27
+msgid "_Edit"
+msgstr "编辑(_E)"
+
+#: ../ui/main.ui.h:28
+msgid "_File"
+msgstr "文件(_F)"
+
+#: ../ui/main.ui.h:29
+msgid "_Help"
+msgstr "帮助(_H)"
+
+#: ../ui/main.ui.h:30
+msgid "_Queue"
+msgstr "队列(_Q)"
+
+#: ../ui/main.ui.h:31
+msgid "_Report a Bug"
+msgstr "报告bug(_R)"
+
+#: ../ui/main.ui.h:32
+msgid "_Stream"
+msgstr "流(_S)"
+
+#: ../ui/main.ui.h:33
+msgid "_View"
+msgstr "查看(_V)"
+
+#: ../ui/preferences.ui.h:1
+msgid "<b>Colour Settings</b>"
+msgstr "<b>颜色设置</b>"
 
 #: ../ui/preferences.ui.h:2
 msgid "Add current file's tags/name to Title"
-msgstr "Başlığa güncel dosyanın etiket ismini ekle"
+msgstr "在标题中添加当前文件的标签/文件名"
+
+#: ../ui/preferences.ui.h:3
+msgid ""
+"Add the currently playing file's tags (or name if unavailable) to the "
+"window's title."
+msgstr "将当前播放文件的标签（如不可用则用文件名代替）添加到窗口的标题栏"
+
+#: ../ui/preferences.ui.h:4
+msgid "Adjust video brightness"
+msgstr "调节视频亮度"
+
+#: ../ui/preferences.ui.h:5
+msgid "Adjust video contrast"
+msgstr "调节视频对比度"
+
+#: ../ui/preferences.ui.h:6
+msgid "Adjust video hue"
+msgstr "调节视频色相"
+
+#: ../ui/preferences.ui.h:7
+msgid "Adjust video saturation"
+msgstr "调节视频饱和度"
+
+#: ../ui/preferences.ui.h:8
+msgid "Audio"
+msgstr "音频"
 
 #: ../ui/preferences.ui.h:9
 msgid "Brightness:"
-msgstr "Parlaklık"
+msgstr "亮度："
 
 #: ../ui/preferences.ui.h:10
 msgid "Contrast:"
-msgstr "Kontrast"
+msgstr "对比度："
+
+#: ../ui/preferences.ui.h:11
+msgid "Disable Screensaver"
+msgstr "禁用屏幕保护"
+
+#: ../ui/preferences.ui.h:12
+msgid "Disable Screensaver whilst playing a video."
+msgstr "当播放视频时禁用屏幕保护"
+
+#: ../ui/preferences.ui.h:13
+msgid "Enable Visualisations (Requires stream restart)"
+msgstr "启用视觉效果（需要重播当前媒体）"
+
+#: ../ui/preferences.ui.h:14
+msgid "Force Aspect Ratio"
+msgstr "锁定纵横比"
+
+#: ../ui/preferences.ui.h:15
+msgid "Force the video to keep its original aspect ratio"
+msgstr "保持视频原始的纵横比"
+
+#: ../ui/preferences.ui.h:16
+msgid "Hide Video Window when Stopped"
+msgstr "结束时隐藏视频窗口"
+
+#: ../ui/preferences.ui.h:17
+msgid "Hide the video window when there is no video stream."
+msgstr "当没有视频流时隐藏视频窗口"
+
+#: ../ui/preferences.ui.h:18
+msgid "Hue:"
+msgstr "色度："
 
 #: ../ui/preferences.ui.h:20
 msgid "Main"
-msgstr "Main (Ana)"
+msgstr "主要设置"
+
+#: ../ui/preferences.ui.h:21
+msgid "Mouse hide timeout (ms): "
+msgstr "隐藏鼠标延迟（毫秒）： "
+
+#: ../ui/preferences.ui.h:22
+msgid "Output Device:"
+msgstr "输出设备："
+
+#: ../ui/preferences.ui.h:23
+msgid "Preferences"
+msgstr "首选项"
+
+#: ../ui/preferences.ui.h:24
+msgid "Reset all adjustments to 0"
+msgstr "重置所有值为初始值"
+
+#: ../ui/preferences.ui.h:25
+msgid "Restore Defaults"
+msgstr "恢复默认值"
+
+#: ../ui/preferences.ui.h:26
+msgid "Saturation:"
+msgstr "饱和度："
+
+#: ../ui/preferences.ui.h:28
+msgid "Show Time Remaining"
+msgstr "显示剩余时间"
+
+#: ../ui/preferences.ui.h:29
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr "在进度条中显示剩余时间而非总时间"
+
+#: ../ui/preferences.ui.h:35
+msgid "Upon opening new file:"
+msgstr "打开新文件时："
 
 #: ../ui/preferences.ui.h:36
 msgid "Video"
-msgstr "Video"
+msgstr "视频"
+
+#: ../ui/preferences.ui.h:37
+msgid "Volume Change on Scroll: "
+msgstr "滚动时音量增量： "
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
@@ -126,20 +414,12 @@ msgstr ""
 msgid "Duration unable to be read, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:226
-msgid "Unable to seek to requested position, exiting."
-msgstr ""
-
 #: ../src/whaawmp.py:73
 msgid " [options] filename"
 msgstr ""
 
 #: ../src/gui/__init__.py:33
 msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
-msgstr ""
-
-#: ../src/gui/__init__.py:36
-msgid "Cannot continue, X server not found!"
 msgstr ""
 
 #: ../src/gui/__init__.py:42
@@ -150,59 +430,10 @@ msgstr ""
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  zeugma https://launchpad.net/~sunder67"
-
-#: ../src/gui/dialogues.py:78
-msgid "Supported Media"
-msgstr ""
-
-#: ../src/gui/dialogues.py:84
-msgid "All Files"
-msgstr ""
-
-#: ../src/gui/dialogues.py:104
-msgid "Play DVD"
-msgstr ""
-
-#: ../src/gui/dialogues.py:109
-msgid "Select options:"
-msgstr ""
-
-#: ../src/gui/dialogues.py:162
-msgid "Open a URI"
-msgstr ""
-
-#: ../src/gui/dialogues.py:167
-msgid "Enter the URI:"
-msgstr ""
-
-#: ../src/gui/dialogues.py:199
-msgid "Select Tracks"
-msgstr ""
-
-#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
-msgid "Supported Features"
-msgstr ""
+"  yuanyelele https://launchpad.net/~yuanyelele"
 
 #: ../src/gui/dialogues.py:276
 msgid "Dbus Message Bus"
-msgstr ""
-
-#: ../src/gui/dialogues.py:289
-msgid "Available"
-msgstr ""
-
-#: ../src/gui/dialogues.py:289
-msgid "Unavailable"
-msgstr ""
-
-#: ../src/gui/dialogues.py:293
-msgid "Library Versions:"
-msgstr ""
-
-#: ../src/gui/main.py:404
-#, python-format
-msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
 #: ../src/gui/main.py:752
@@ -230,38 +461,10 @@ msgstr ""
 msgid "Default/Auto"
 msgstr ""
 
-#: ../src/gui/preferences.py:185
-msgid "Other (Set from config.ini)"
-msgstr ""
-
-#: ../src/gui/queue.py:215
-msgid "Queued Tracks:"
-msgstr ""
-
-#: ../src/gui/queue.py:248
-msgid "Clear Queue"
-msgstr ""
-
-#: ../src/gui/queue.py:249
-msgid "Remove item from Queue"
-msgstr ""
-
-#: ../src/gui/queue.py:250
-msgid "(Add items to queue"
-msgstr ""
-
 #: ../src/common/config.py:50
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
-msgstr ""
-
-#: ../src/common/config.py:122
-msgid "Print the version and exit"
-msgstr ""
-
-#: ../src/common/config.py:126
-msgid "Play the file in fullscreen mode"
 msgstr ""
 
 #: ../src/common/config.py:130
@@ -361,11 +564,6 @@ msgid ""
 "%(tags)s"
 msgstr ""
 
-#: ../src/common/dbusBus.py:146
-#, python-format
-msgid "%s is already running."
-msgstr ""
-
 #: ../src/common/dbusBus.py:161
 #, python-format
 msgid ""
@@ -400,20 +598,8 @@ msgid ""
 "Something went wrong, can't act on signal which hasn't been connected."
 msgstr ""
 
-#: ../src/common/useful.py:31
-msgid "Whaaw! Media Player"
-msgstr ""
-
 #: ../src/common/useful.py:115
 msgid "No tags available"
-msgstr ""
-
-#: ../ui/main.ui.h:1
-msgid "All"
-msgstr ""
-
-#: ../ui/main.ui.h:2
-msgid "Audio Tracks"
 msgstr ""
 
 #: ../ui/main.ui.h:3
@@ -422,72 +608,20 @@ msgid ""
 "(even lockups)."
 msgstr ""
 
-#: ../ui/main.ui.h:4
-msgid "Current player volume"
-msgstr ""
-
 #: ../ui/main.ui.h:5
 msgid "DVD Menu"
-msgstr ""
-
-#: ../ui/main.ui.h:6
-msgid "Disable repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:7
-msgid "Leave Fullscreen"
-msgstr ""
-
-#: ../ui/main.ui.h:8
-msgid "Next"
-msgstr ""
-
-#: ../ui/main.ui.h:9
-msgid "None"
-msgstr ""
-
-#: ../ui/main.ui.h:10
-msgid "One"
 msgstr ""
 
 #: ../ui/main.ui.h:11
 msgid "Plays random items from the queue"
 msgstr ""
 
-#: ../ui/main.ui.h:12
-msgid "Quit on Stop"
-msgstr ""
-
 #: ../ui/main.ui.h:14
 msgid "Random"
 msgstr ""
 
-#: ../ui/main.ui.h:15
-msgid "Repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:16
-msgid "Repeat a single track"
-msgstr ""
-
-#: ../ui/main.ui.h:17
-msgid "Repeat all tracks in the queue."
-msgstr ""
-
-#: ../ui/main.ui.h:18
-msgid "Report a bug to the Bugtracker"
-msgstr ""
-
 #: ../ui/main.ui.h:19
 msgid "Restart Track"
-msgstr ""
-
-#: ../ui/main.ui.h:20
-msgid "Show advanced player controls."
-msgstr ""
-
-#: ../ui/main.ui.h:21
-msgid "Speed:"
 msgstr ""
 
 #: ../ui/main.ui.h:23
@@ -498,140 +632,14 @@ msgstr ""
 msgid "View and edit the current queue"
 msgstr ""
 
-#: ../ui/main.ui.h:26
-msgid "_Advanced Controls"
-msgstr ""
-
-#: ../ui/main.ui.h:27
-msgid "_Edit"
-msgstr ""
-
-#: ../ui/main.ui.h:28
-msgid "_File"
-msgstr ""
-
-#: ../ui/main.ui.h:29
-msgid "_Help"
-msgstr ""
-
-#: ../ui/main.ui.h:30
-msgid "_Queue"
-msgstr ""
-
-#: ../ui/main.ui.h:31
-msgid "_Report a Bug"
-msgstr ""
-
-#: ../ui/main.ui.h:32
-msgid "_Stream"
-msgstr ""
-
-#: ../ui/main.ui.h:33
-msgid "_View"
-msgstr ""
-
-#: ../ui/preferences.ui.h:1
-msgid "<b>Colour Settings</b>"
-msgstr ""
-
-#: ../ui/preferences.ui.h:3
-msgid ""
-"Add the currently playing file's tags (or name if unavailable) to the "
-"window's title."
-msgstr ""
-
-#: ../ui/preferences.ui.h:4
-msgid "Adjust video brightness"
-msgstr ""
-
-#: ../ui/preferences.ui.h:5
-msgid "Adjust video contrast"
-msgstr ""
-
-#: ../ui/preferences.ui.h:6
-msgid "Adjust video hue"
-msgstr ""
-
-#: ../ui/preferences.ui.h:7
-msgid "Adjust video saturation"
-msgstr ""
-
-#: ../ui/preferences.ui.h:8
-msgid "Audio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:11
-msgid "Disable Screensaver"
-msgstr ""
-
-#: ../ui/preferences.ui.h:12
-msgid "Disable Screensaver whilst playing a video."
-msgstr ""
-
-#: ../ui/preferences.ui.h:13
-msgid "Enable Visualisations (Requires stream restart)"
-msgstr ""
-
-#: ../ui/preferences.ui.h:14
-msgid "Force Aspect Ratio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:15
-msgid "Force the video to keep its original aspect ratio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:16
-msgid "Hide Video Window when Stopped"
-msgstr ""
-
-#: ../ui/preferences.ui.h:17
-msgid "Hide the video window when there is no video stream."
-msgstr ""
-
-#: ../ui/preferences.ui.h:18
-msgid "Hue:"
-msgstr ""
-
 #: ../ui/preferences.ui.h:19
 msgid "Instantaneous Seek"
-msgstr ""
-
-#: ../ui/preferences.ui.h:21
-msgid "Mouse hide timeout (ms): "
-msgstr ""
-
-#: ../ui/preferences.ui.h:22
-msgid "Output Device:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:23
-msgid "Preferences"
-msgstr ""
-
-#: ../ui/preferences.ui.h:24
-msgid "Reset all adjustments to 0"
-msgstr ""
-
-#: ../ui/preferences.ui.h:25
-msgid "Restore Defaults"
-msgstr ""
-
-#: ../ui/preferences.ui.h:26
-msgid "Saturation:"
 msgstr ""
 
 #: ../ui/preferences.ui.h:27
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
-msgstr ""
-
-#: ../ui/preferences.ui.h:28
-msgid "Show Time Remaining"
-msgstr ""
-
-#: ../ui/preferences.ui.h:29
-msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
 
 #: ../ui/preferences.ui.h:30
@@ -658,12 +666,4 @@ msgstr ""
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
-msgstr ""
-
-#: ../ui/preferences.ui.h:35
-msgid "Upon opening new file:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:37
-msgid "Volume Change on Scroll: "
 msgstr ""
