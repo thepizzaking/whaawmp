@@ -29,7 +29,7 @@ import urllib
 # Nice variables.
 sName = 'whaawmp'
 lName = _('Whaaw! Media Player')
-version = '0.2.12'
+version = '0.2.13'
 origDir = os.getcwd()
 dataDir = '@datadir@'
 if (dataDir == '@' + 'datadir@'): dataDir = os.path.join(sys.path[0], '..')
