@@ -100,7 +100,7 @@ data = [('share/whaawmp/ui', glob.glob('ui/*.ui')),
 
 # The actual setup thing, mostly self explanatory.
 setup(name="whaawmp", fullname="Whaaw! Media Player",
-      version='0.2.11',
+      version='0.2.12',
       description='Whaaw! Media Player',
       author='Jeff Bailes',
       author_email='thepizzaking@gmail.com',
