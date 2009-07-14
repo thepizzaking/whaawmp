@@ -5,8 +5,6 @@ Uninstall (maybe?)
 
 Clean up __init__ and others
 
-Move to playbin2 when gstreamer-base? 0.10.17 (~ 1/02/08) becomes more widespread (still alpha, wait for a later version than 0.10.17?)
-
-Look into dvdsubdec for possible DVD subtitles, dvdspu, dvdreadsrc? Menus, dvdnavsrc
+Look into dvdsubdec for possible DVD subtitles, dvdspu, dvdreadsrc?
 
 Add playlist reading functionality
