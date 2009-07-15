@@ -385,7 +385,6 @@ class mainWindow:
 		if (file == None):
 			# If no file is to be played, set the URI to None, and the file to ""
 			file = ""
-			player.setURI(file)
 		# Set the now playing label to the file to be played.
 		self.nowPlyLbl.set_label(urllib.url2pathname(file))
 		if (os.path.exists(file) or '://' in file):
