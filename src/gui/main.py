@@ -362,7 +362,7 @@ class mainWindow:
 		# Finish the drag.
 		context.finish(True, False, time)
 	
-	def aboutToFinish(self, player):
+	def aboutToFinish(self, gstPlayer):
 		# Queue the next item when the player is about to finish.
 		self.playNext(stop=False)
 	
