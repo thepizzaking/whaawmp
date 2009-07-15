@@ -28,7 +28,6 @@ import pygtk
 pygtk.require('2.0')
 import gtk, gobject
 from random import randint
-import time
 
 from gui import dialogues, preferences
 from gui.queue import queue

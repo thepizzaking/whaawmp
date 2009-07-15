@@ -28,6 +28,7 @@ import gst
 from common import useful
 from common.config import cfg
 from common.gstPlayer import player
+import gobject
 
 # A global current tags list for reading.
 curTags = [None, None]
@@ -75,6 +76,9 @@ class FileTag:
 	queue = []
 	# A variable to hold the current file data.
 	current = None
+	trys = 0
+	maxTrys = 5
+	timer = None
 	
 	def file(self, uri, function, *args):
 		## Adds the file to be read.
@@ -90,6 +94,9 @@ class FileTag:
 	
 	def nextTrack(self):
 		## Read the next files tags.
+		# Stop the player before anything else, and timer.
+		if self.timer: gobject.source_remove(self.timer)
+		self.player.set_state(gst.STATE_READY)
 		if (not len(self.queue)):
 			# If the queue is empty, unlock and return.
 			self.lock = False
@@ -101,27 +108,41 @@ class FileTag:
 		del self.queue[0]
 		self.player.set_property('uri', self.current['uri'])
 		self.player.set_state(gst.STATE_PAUSED)
+		# Reset number of trys and start a timer to attempt to read the
+		# tags. (every second).
+		self.trys = 0
+		self.timer = gobject.timeout_add_seconds(1, self.tryTags)
 	
 	def onMessage(self, bus, message):
 		## Called when a message is emitted, from the playbin.
-		if (message.type in [gst.MESSAGE_ERROR, gst.MESSAGE_TAG]):
-			# Only continue if the message was an error or a tag.
-			# Read the URI, and check it matches the current URI.
-			uri = self.player.get_property('uri')
-			if (uri != self.current['uri']):
-				print _("Something bad happened which shouldn't\nTell me: current data did not match player URI")
-			elif (message.type == gst.MESSAGE_TAG):
-				# If it's a tag, run the function passed in with the file.
-				func, args = self.current['func'], self.current['args']
-				func(uri, message.parse_tag(), *args)
-				# Stop the player
-				self.player.set_state(gst.STATE_READY)
-			
-			# Clear the current data, then read the next track.
-			# FIXME: Uncommented, this causes tracebacks on some files.
-			# Some files appear to emit multiple TAG messages.
-			#self.current = None
+		if (message.type == gst.MESSAGE_ERROR):
+			# If we get an error, BAIL! (to next track)
 			self.nextTrack()
+		return
+	
+	def tryTags(self):
+		## Trys to extract the tags from the current track.
+		# Try and get the tags.
+		tags = self.player.emit('get-audio-tags',0)
+		# If we got tags, act on them.
+		if tags: self.actOnTags(self.player.get_property('uri'), tags)
+		# The return value should be true (try again) if we didn't get
+		# any tags and we haven't reached maxTrys yet.
+		res = (tags == None) and (self.trys < self.maxTrys)
+		if not res:
+			# If we're not going to try again, go to the next track.
+			self.nextTrack()
+		return res
+	
+	def actOnTags(self, uri, tags):
+		## Acts accordingly when we successfully extract tags.
+		if (uri == self.current['uri']):
+			# Get the function and arguments associated with the current
+			# track, but only if the URIs match.
+			func, args = self.current['func'], self.current['args']
+			func(uri, tags, *args)
+		else:
+			print _("Something bad happened which shouldn't\nTell me: current data did not match player URI")
 	
 	
 	def __init__(self):
