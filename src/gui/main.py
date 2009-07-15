@@ -40,6 +40,11 @@ from common.gstPlayer import player
 from common.signals import signals
 
 class mainWindow:
+	# Set up some variables for the timers.
+	tmrMin = None
+	tmrSec = None
+	
+	
 	def quit(self, widget=None, event=None):
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
@@ -624,11 +629,8 @@ class mainWindow:
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.
-		try:
-			gobject.source_remove(self.tmrMin)
-			gobject.source_remove(self.tmrSec)
-		except:
-			pass
+		if self.tmrMin: gobject.source_remove(self.tmrMin)
+		if self.tmrSec: gobject.source_remove(self.tmrSec)
 	
 	
 	def videoWindowOnStop(self, force=False):
