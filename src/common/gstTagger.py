@@ -30,18 +30,15 @@ from common.config import cfg
 from common.gstPlayer import player
 import gobject
 
-# A global current tags list for reading.
-curTags = [None, None]
 
 def getCurTags():
 	## Gets the currently playing file's tags.
-	# If the first item isn't the current playing file, the tags are old, so return None.
+	# Read the current tags from the player (audio stream 0 only, might
+	# FIXME this later).
 	return player.player.emit('get-audio-tags',0)
 
 def getDispTitle(tags):
-	# Set the tags for the current file.
-	global curTags
-	curTags = [player.uri, tags]
+	## Gets the display title according to configuration.
 	# Flag that no tags have been added.
 	noneAdded = True
 	# Initiate the windows title.
