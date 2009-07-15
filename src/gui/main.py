@@ -376,7 +376,7 @@ class mainWindow:
 		else:
 			# Otherwise just get the next item.
 			filename = queue.getNextTrackRemove()
-		self.playFile(filename, stop)
+		if filename: self.playFile(filename, stop)
 	
 	def playFile(self, file, stop=True):
 		## Plays the file 'file' (Could also be a URI).
