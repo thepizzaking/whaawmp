@@ -22,13 +22,13 @@ is an easy way to install it, but there's no easy way to uninstall.  See the
 end of this file for a list of locations which files are installed to.
 
 Now, onto the building etc etc.
--To compile & install the files use ./make.py install
---There are --prefix and --root options (see ./make.py --help for more
+-To compile & install the files use ./setup.py install
+--There are --prefix and --root options (see ./setup.py --help for more
 information)
--For checkinstall run: 'checkinstall ./make.py install'
+-For checkinstall run: 'checkinstall ./setup.py install'
 
 eg. To install to /usr:
-./make.py install --prefix=/usr
+./setup.py install --prefix=/usr
 
 To run it afterwards, use whaawmp to start Whaaw! Media Player.
 
