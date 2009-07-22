@@ -808,7 +808,6 @@ class mainWindow:
 		
 		# Set up the gtk-builder and interface.
 		self.wTree = gtk.Builder()
-                self.wTree.set_translation_domain('whaawmp')
 		windowname = "main"
 		self.wTree.add_from_file(useful.getBuilderFile('main'))
 		
