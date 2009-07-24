@@ -60,30 +60,39 @@ class AboutDialogue:
 
 
 class OpenFile:
-	def __init__(self, parent, loc, multiple=True):
+	def __init__(self, parent, loc, multiple=True, allowSub=False, useFilter=True, title=_("Choose a file to Open")):
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = gtk.FileChooserDialog(_("Choose a file to Open"), parent,
+		dlg = gtk.FileChooserDialog(title, parent,
 		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
 		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		
+		# Add a subtitle checkbox (if allowed).
+		if allowSub:
+			chkSubs = gtk.CheckButton(_("Also Choose Subtitle Stream"))
+			chkSubs.set_has_tooltip(True)
+			chkSubs.set_tooltip_text(_("After choosing the file to open, also choose a subtitle stream."))
+			self.chkSubs = chkSubs
+			dlg.set_extra_widget(chkSubs)
 		
 		# Set the current folder to the one passed.
 		dlg.set_current_folder(loc)
 		# Let the dialogue support multiple files (if requested).
 		dlg.set_select_multiple(multiple)
 		
-		# Add the file filter.
-		filter = gtk.FileFilter()
-		filter.set_name(_("Supported Media"))
-		for x in lists.compatFiles:
-			filter.add_mime_type(x)
-		dlg.add_filter(filter)
-		# How about an all files one too.
-		filter = gtk.FileFilter()
-		filter.set_name(_("All Files"))
-		filter.add_pattern('*')
-		dlg.add_filter(filter)
+		# Add the file filter (if requested).
+		if useFilter:
+			filter = gtk.FileFilter()
+			filter.set_name(_("Supported Media"))
+			for x in lists.compatFiles:
+				filter.add_mime_type(x)
+			dlg.add_filter(filter)
+			# How about an all files one too.
+			filter = gtk.FileFilter()
+			filter.set_name(_("All Files"))
+			filter.add_pattern('*')
+			dlg.add_filter(filter)
 		
 		# Run the dialogue, then hide it.
 		res = dlg.run()

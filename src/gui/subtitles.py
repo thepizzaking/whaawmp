@@ -57,8 +57,8 @@ class subMan():
 		dlg.set_current_folder(useful.lastFolder)
 		res = dlg.run()
 		
-		if (res == gtk.RESPONSE_OK):
-			# If the response was 'OK' get the filename.
+		if (res == gtk.RESPONSE_OK) and (player.player.get_property('n-video') >= 1):
+			# If the response was 'OK' and there is a video track get the filename.
 			file = dlg.get_filename()
 			# We need to restart the player so the subtitles work.
 			#played = player.getPlayed()
@@ -71,10 +71,12 @@ class subMan():
 		
 		dlg.destroy()
 	
-	def __init__(self):
+	def __init__(self, parent):
 		# The subtitle manager window.
 		window = gtk.Window()
 		window.set_title(_("Subtitle Manager"))
+		window.set_transient_for(parent)
+		window.set_destroy_with_parent(True)
 		window.connect('delete-event', self.destroy)
 		self.window = window
 		vBox = gtk.VBox()

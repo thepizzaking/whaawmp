@@ -682,16 +682,23 @@ class mainWindow:
 	def showOpenDialogue(self, widget=None):
 		## Shows the open file dialogue.
 		# Prepare the dialogue.
-		dlg = dialogues.OpenFile(self.mainWindow, useful.lastFolder)
+		dlg = dialogues.OpenFile(self.mainWindow, useful.lastFolder, allowSub=True)
 
 		if (dlg.files):
 			# If the response is OK, play the first file, then queue the others.
 			# Clear the queue first though, since it is now obsolete.
 			queue.clear()
+			# Set the last folder, (if it exists).
+			if (dlg.dir): useful.lastFolder = dlg.dir
+			
+			if dlg.chkSubs.get_active():
+				# If the user want's subtitles, let them choose the stream.
+				dlg2 = dialogues.OpenFile(self.mainWindow, useful.lastFolder, multiple=False, useFilter=False, title=_("Choose a Subtitle Stream"))
+				if dlg2.files: player.player.set_property('suburi', useful.filenameToUri(dlg2.files[0]))
+			# Play the first file and append the rest to the queue.
 			self.playFile(dlg.files[0])
 			queue.appendMany(dlg.files[1:])
-			# Also set the last folder, (if it exists).
-			if (dlg.dir): useful.lastFolder = dlg.dir
+
 	
 	
 	def showAboutDialogue(self, widget):
@@ -720,7 +727,7 @@ class mainWindow:
 	
 	def openSubtitleManager(self, widget):
 		# Shows the subtitle manager.
-		manager = subtitles.subMan()
+		manager = subtitles.subMan(self.mainWindow)
 	
 	def toggleQueueWindow(self, widget=None, event=None):
 		if (widget is self.wTree.get_object('mnuiQueue')):
