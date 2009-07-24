@@ -157,6 +157,13 @@
           </object>
         </child>
         <child>
+          <object class="GtkAction" id="mnuiSubtitleManager">
+            <property name="name">mnuiSubtitleManager</property>
+            <property name="label" translatable="yes">Subtitle Manager</property>
+            <signal handler="on_mnuiSubtitleManager_activate" name="activate"/>
+          </object>
+        </child>
+        <child>
           <object class="GtkToggleAction" id="mnuiQuitOnStop">
             <property name="name">mnuiQuitOnStop</property>
             <property name="tooltip" translatable="yes">Quits the player when the playing stream stops</property>
@@ -220,6 +227,7 @@
           <menuitem action="mnuiRandom"/>
 		  <menuitem action="mnuiDVDMenu"/>
           <menuitem action="mnuiAudioTrack"/>
+		  <menuitem action="mnuiSubtitleManager"/>
           <menuitem action="mnuiQuitOnStop"/>
         </menu>
         <menu action="mnuHelp">

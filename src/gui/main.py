@@ -31,6 +31,7 @@ from random import randint
 
 from gui import dialogues, preferences
 from gui.queue import queue
+from gui import subtitles
 from common import lists, useful
 from common import gstTools as playerTools
 from common import gstTagger as tagger
@@ -715,6 +716,11 @@ class mainWindow:
 		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
+	def openSubtitleManager(self, widget):
+		# Shows the subtitle manager.
+		manager = subtitles.subMan()
+		manager.show()
+	
 	def toggleQueueWindow(self, widget=None, event=None):
 		if (widget is self.wTree.get_object('mnuiQueue')):
 			# If the call is from the menu item use its tick box value.
@@ -839,6 +845,7 @@ class mainWindow:
 		        "on_mnuiPlayDVD_activate" : self.showPlayDVDDialogue,
 				"on_mnuiDVDMenu_activate" : self.gotoDVDMenu,
 		        "on_mnuiAudioTrack_activate" : self.showAudioTracksDialogue,
+				"on_mnuiSubtitleManager_activate" : self.openSubtitleManager,
 		        "on_mnuiReportBug_activate" : self.openBugReporter,
 		        "on_main_window_state_event" : self.onMainStateEvent,
 		        "on_mnuiQueue_toggled" : self.toggleQueueWindow,
