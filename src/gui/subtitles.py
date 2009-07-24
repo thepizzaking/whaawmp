@@ -25,6 +25,7 @@
 
 from common.gstPlayer import player
 from common.config import cfg
+from common import useful
 import gtk
 
 class subMan():
@@ -41,6 +42,23 @@ class subMan():
 	def getCfg(self):
 		self.chkAutoSubs.set_active(cfg.getBool('video/autosub'))
 		self.txtSubsExt.set_text(cfg.getStr('video/autosubexts'))
+	
+	def addSubs(self, widget):
+		dlg = gtk.FileChooserDialog(_("Choose a subtitle stream."), self.window,
+		                  buttons = (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+		                             gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+		dlg.set_current_folder(useful.lastFolder)
+		res = dlg.run()
+		if (res == gtk.RESPONSE_OK):
+			file = dlg.get_filename()
+			played = player.getPlayed()
+			player.stop()
+			player.player.set_property('uri', player.uri)
+			player.player.set_property('suburi', useful.filenameToUri(file))
+			player.play()
+			#player.seek(played)
+		
+		dlg.destroy()
 	
 	def __init__(self):
 		window = gtk.Window()
@@ -69,6 +87,7 @@ class subMan():
 		img = gtk.Image()
 		img.set_from_stock(gtk.STOCK_ADD, gtk.ICON_SIZE_BUTTON)
 		btnAddSub.set_image(img)
+		btnAddSub.connect('clicked', self.addSubs)
 		vBox.pack_start(btnAddSub)
 		btnClose = gtk.Button('gtk-close')
 		btnClose.set_use_stock(True)

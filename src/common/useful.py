@@ -129,6 +129,16 @@ def uriToFilename(file, ext=True):
 		name = name[:-(len(name.split('.')[-1]) + 1)]
 	
 	return name
+
+# Converts a filename to a uri.
+def filenameToUri(file):
+	if ('://' not in file):
+		# Make sure we have an absolute path.
+		file = os.path.abspath(file)
+		# Make it a URI.
+		file = 'file://' + file
+	
+	return file
 	
 
 # Convert a version tuple to a sting.

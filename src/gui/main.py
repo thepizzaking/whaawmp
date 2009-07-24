@@ -395,7 +395,7 @@ class mainWindow:
 		self.nowPlyLbl.set_label(urllib.url2pathname(file))
 		if (os.path.exists(file) or '://' in file):
 			# If it's not already a uri, make it one.
-			if ('://' not in file): file = 'file://' + file
+			file = useful.filenameToUri(file)
 			# Set the URI to the file's one.
 			player.setURI(file)
 			# Add the file to recently opened files.
