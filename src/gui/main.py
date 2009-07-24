@@ -719,7 +719,6 @@ class mainWindow:
 	def openSubtitleManager(self, widget):
 		# Shows the subtitle manager.
 		manager = subtitles.subMan()
-		manager.show()
 	
 	def toggleQueueWindow(self, widget=None, event=None):
 		if (widget is self.wTree.get_object('mnuiQueue')):

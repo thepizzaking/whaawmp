@@ -29,16 +29,20 @@ import gtk
 
 class subMan():
 	# A subtitle manager window.
-	def __init__(self):
-		pass
-	
 	def destroy(self, widget=None, event=None):
 		self.window.destroy()
 	
 	def autoSubsToggled(self, widget):
-		pass
+		cfg.set('video/autosub', widget.get_active())
 	
-	def show(self):
+	def subsExtsChanged(self, widget):
+		cfg.set('video/autosubexts', widget.get_text())
+	
+	def getCfg(self):
+		self.chkAutoSubs.set_active(cfg.getBool('video/autosub'))
+		self.txtSubsExt.set_text(cfg.getStr('video/autosubexts'))
+	
+	def __init__(self):
 		window = gtk.Window()
 		window.set_title(_("Subtitle Manager"))
 		window.connect('delete-event', self.destroy)
@@ -57,7 +61,8 @@ class subMan():
 		hBox.pack_start(lblSubsExt)
 		txtSubsExt = gtk.Entry()
 		txtSubsExt.set_has_tooltip(True)
-		txtSubsExt.set_tooltip_text(_("Extensions to use when automatically detecting subtitles."))
+		txtSubsExt.set_tooltip_text(_("Extensions to use when automatically detecting subtitles.\nSepatare with commas."))
+		txtSubsExt.connect('changed', self.subsExtsChanged)
 		self.txtSubsExt = txtSubsExt
 		hBox.pack_start(txtSubsExt)
 		btnAddSub = gtk.Button(_("Add subtitles to current stream"))
@@ -69,4 +74,5 @@ class subMan():
 		btnClose.set_use_stock(True)
 		btnClose.connect('clicked', self.destroy)
 		vBox.pack_start(btnClose)
+		self.getCfg()
 		window.show_all()
