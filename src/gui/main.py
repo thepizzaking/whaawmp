@@ -398,6 +398,8 @@ class mainWindow:
 			file = useful.filenameToUri(file)
 			# Set the URI to the file's one.
 			player.setURI(file)
+			# Try to set the subtitle track if requested.
+			if cfg.getBool('video/autosub'): subtitles.trySubs(file)
 			# Add the file to recently opened files.
 			self.addToRecent(file)
 			# Start the player, if it isn't already running.

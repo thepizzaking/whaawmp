@@ -23,6 +23,8 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
+import os
+
 from common.gstPlayer import player
 from common.config import cfg
 from common import useful
@@ -95,3 +97,17 @@ class subMan():
 		vBox.pack_start(btnClose)
 		self.getCfg()
 		window.show_all()
+
+
+def trySubs(file):
+	# Trys to automatically set the subtitle track for a file.
+	if ('file://' in file): file = file[7:]
+	(root, x) = os.path.splitext(file)
+	for ext in cfg.getStr('video/autosubexts').split(','):
+		subPath = '%s.%s' % (root, ext)
+		if os.path.exists(subPath):
+			player.player.set_property('suburi', useful.filenameToUri(subPath))
+			print _("Found subtitles stream %s" % subPath)
+			return True
+	
+	return False
