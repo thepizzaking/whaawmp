@@ -218,9 +218,12 @@ def getAlsaDevices(type="playback"):
 	if (not avail): return deviceDic
 	
 	# Get the hal manager object and the manager.
-	sysBus = dbus.SystemBus()
-	object = sysBus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
-	manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
+	try:
+		sysBus = dbus.SystemBus()
+		object = sysBus.get_object("org.freedesktop.Hal", "/org/freedesktop/Hal/Manager")
+		manager = dbus.Interface(object, "org.freedesktop.Hal.Manager")
+	except dbus.exceptions.DBusException:
+		return deviceDic
 	
 	# Get all the devices of the requested type.
 	devices = manager.FindDeviceStringMatch("alsa.type", type)
