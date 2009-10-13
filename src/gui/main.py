@@ -466,7 +466,9 @@ class mainWindow:
 	def secondTimer(self):
 		# A function that's called once a second while playing.
 		if (not self.seeking): self.progressUpdate()
-		
+		#TODO: fonts with subtitles.
+		#print player.player.emit('get-text-pad', 0).get_property('active-pad') #.set_property('font-desc', 'Sans 30')
+				
 		# Causes it to go again if it's playing, but stop if it's not.
 		return player.isPlaying()
 		
