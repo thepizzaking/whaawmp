@@ -696,7 +696,12 @@ class mainWindow:
 			if dlg.chkSubs.get_active():
 				# If the user want's subtitles, let them choose the stream.
 				dlg2 = dialogues.OpenFile(self.mainWindow, useful.lastFolder, multiple=False, useFilter=False, title=_("Choose a Subtitle Stream"))
-				if dlg2.files: player.player.set_property('suburi', useful.filenameToUri(dlg2.files[0]))
+				if dlg2.files:
+					player.player.set_property('suburi', useful.filenameToUri(dlg2.files[0]))
+				else:
+					# Bail if they chose add subtitles but then clicked cancel.
+					return
+			
 			# Play the first file and append the rest to the queue.
 			self.playFile(dlg.files[0])
 			queue.appendMany(dlg.files[1:])
