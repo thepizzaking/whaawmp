@@ -615,7 +615,7 @@ class mainWindow:
 		# Actually set the icon.
 		btn.set_image(img)
 		# Also set the tooltip.
-		self.tooltips.set_tip(btn, _('Pause') if (playing) else _('Play'))
+		btn.set_tooltip_text(_('Pause') if (playing) else _('Play'))
 		# Set the stop button image too.
 		self.wTree.get_object("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
 		# And the next one.
@@ -883,8 +883,6 @@ class mainWindow:
 		queue.mnuiWidget = self.wTree.get_object("mnuiQueue")
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
-		# Create a tooltips instance for use in the code.
-		self.tooltips = gtk.Tooltips()
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		# Update the progress bar.

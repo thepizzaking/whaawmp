@@ -243,11 +243,10 @@ class queues():
 		# the horizontal box with the buttons to it.
 		self.qwin.pack_start(scrolly)
 		self.qwin.pack_start(hBox, False, False)
-		# Create a tooltip instance and add tooltips to the buttons.
-		tooltips = gtk.Tooltips()
-		tooltips.set_tip(btnClear, _('Clear Queue'))
-		tooltips.set_tip(btnRemove, _('Remove item from Queue'))
-		tooltips.set_tip(btnAdd, _('(Add items to queue'))
+		# Add tooltips to the buttons.
+		btnClear.set_tooltip_text(_('Clear Queue'))
+		btnRemove.set_tooltip_text(_('Remove item from Queue'))
+		btnAdd.set_tooltip_text(_('Add items to queue'))
 	
 	def __init__(self):
 		# Flag the window as closed.
