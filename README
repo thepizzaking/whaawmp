@@ -4,8 +4,9 @@ Written by Jeff Bailes.
 Before you try to install or run Whaaw! Media Player you should check that you
 have all the required dependencies, these include:
 python >= 2.5
-pygtk >= 2.10
+pygtk >= 2.12
 gstreamer-python >= 0.10
+gstreamer-base >= 0.10.17
 gstreamer-good >= 0.10 (for the videobalance and goom plugins)
 pyxdg
 
