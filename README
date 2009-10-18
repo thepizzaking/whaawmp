@@ -12,6 +12,7 @@ pyxdg
 
 Optional dependencies include:
 dbus-python >= 0.80 ? (Not too sure about the version)
+gstreamer-bad >= 0.10.8 (compiled with resindvd support) for DVD menu support
 
 I think that's about it (well, the ones I know about), the package names may
 differ depending on your distribution, you will also need other gstreamer
