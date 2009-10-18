@@ -1,7 +1,6 @@
 Why isn't the thumbnailer picking up on .ogv files?
 
 Make make.py platform independent (the chmod bit!)
-Uninstall (maybe?)
 
 Clean up __init__ and others
 
