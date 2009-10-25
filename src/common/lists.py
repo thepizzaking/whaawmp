@@ -97,11 +97,11 @@ gstStreamType = [ 'unknown', 'audio', 'video', 'text', 'element' ]
 colourSettings = [ 'Brightness', 'Contrast', 'Hue', 'Saturation' ]
 
 ## A dictionary for keystrokes and the signals each should emit.
-keypressDict = { 'space' : ['toggle_play_pause'],
-                 'f' : ['toggle_fullscreen'],
-                 'F11' : ['toggle_fullscreen'],
-                 'n' : ['play_next'],
-                 'p' : ['restart_track'],
-                 'r' : ['restart_track'],
-                 'q' : ['toggle_queue'],
-                 'a' : ['toggle_advanced_controls']}
+keypressDict = { 'space' : ['toggle-play-pause'],
+                 'f' : ['toggle-fullscreen'],
+                 'F11' : ['toggle-fullscreen'],
+                 'n' : ['play-next'],
+                 'p' : ['restart-track'],
+                 'r' : ['restart-track'],
+                 'q' : ['toggle-queue'],
+                 'a' : ['toggle-advanced-controls']}

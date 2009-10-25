@@ -901,13 +901,13 @@ class mainWindow:
 		if (cfg.getBool("gui/shownextbutton")): self.wTree.get_object("btnNext").show()
 		if (cfg.getBool("gui/showrestartbutton")): self.wTree.get_object("btnRestart").show()
 		# Setup the signals.
-		signals.connect('toggle_play_pause', self.togglePlayPause)
-		signals.connect('toggle_fullscreen', self.toggleFullscreen)
-		signals.connect('play_next', self.playNext)
-		signals.connect('restart_track', self.restartTrack)
-		signals.connect('toggle_queue', queue.toggle)
-		signals.connect('toggle_advanced_controls', self.toggleAdvancedControls)
-		signals.connect('queue_changed', self.numQueuedChanged)
+		signals.connect('toggle-play-pause', self.togglePlayPause)
+		signals.connect('toggle-fullscreen', self.toggleFullscreen)
+		signals.connect('play-next', self.playNext)
+		signals.connect('restart-track', self.restartTrack)
+		signals.connect('toggle-queue', queue.toggle)
+		signals.connect('toggle-advanced-controls', self.toggleAdvancedControls)
+		signals.connect('queue-changed', self.numQueuedChanged)
 		# Show the window.
 		self.mainWindow.show()
 		# Prepare the video window by putting it in its stopped state.

@@ -174,7 +174,7 @@ class queues():
 	
 	def queueChanged(self):
 		# The queue has changed.
-		signals.emit('queue_changed', self.length())
+		signals.emit('queue-changed', self.length())
 	
 	def enqueueDropped(self, widget, context, x, y, selection_data, info, time):
 		## Adds dropped files to the end of the queue.
