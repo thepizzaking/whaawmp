@@ -37,7 +37,7 @@ except Warning:
 	sys.exit(1)
 warnings.resetwarnings()
 
-# Check that GTK+ 2.10 or greater is being used.
+# Check that GTK+ 2.12 or greater is being used.
 if (gtk.gtk_version < (2, 12)):
 	print _("Cannot continue, this program requires at least GTK+ 2.12 to run.")
 	sys.exit(1)
