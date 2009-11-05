@@ -519,6 +519,8 @@ class mainWindow:
 		## Shows the video window.
 		# Allow fullscreen.
 		self.wTree.get_object('mnuiFS').set_sensitive(True)
+		# TODO: Maybe try to restrict this to only when a DVD is playing.
+		self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
 		# Show the video window.
 		self.videoWindow.set_size_request(480, 320)
 	
@@ -527,6 +529,8 @@ class mainWindow:
 		if (not self.fsActive() or force):
 			# Disable fullscreen activation.
 			self.wTree.get_object('mnuiFS').set_sensitive(False)
+			# And DVD Menu activation.
+			self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
 			# Hide the video window.
 			self.videoWindow.set_size_request(1,1)
 			# Make the height of the window as small as possible.

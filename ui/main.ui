@@ -145,6 +145,7 @@
           <object class="GtkAction" id="mnuiDVDMenu">
             <property name="name">mnuiDVDMenu</property>
             <property name="label" translatable="yes">DVD Menu</property>
+            <property name="sensitive">False</property>
             <signal handler="on_mnuiDVDMenu_activate" name="activate"/>
           </object>
         </child>
