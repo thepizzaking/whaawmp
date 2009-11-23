@@ -71,6 +71,7 @@ defaultOptions = { 'video/brightness' : 0,
                    'video/videosink' : 'default',
 				   'video/autosub' : False,
 				   'video/autosubexts' : 'srt,idx,sub,ssa,ass',
+				   'video/subfont' : 'Sans 20', # TODO: maybe tweak this.
                    'gui/mousehidetimeout' : 2000,
                    'gui/instantseek' : False,
                    'gui/showtimeremaining' : False,

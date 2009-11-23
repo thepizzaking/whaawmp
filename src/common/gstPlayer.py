@@ -316,6 +316,11 @@ class Player:
 		self.player.set_property('current-text', track)
 	
 	
+	def setSubFont(self, font):
+		## Sets the subtitles font.
+		self.player.set_property('subtitle-font-desc', font)
+	
+	
 	def __init__(self):
 		## Creates and prepares a player.
 		# Create the player.
@@ -327,5 +332,7 @@ class Player:
 		bus.enable_sync_message_emission()
 		# Enable the visualisation if requested.
 		self.setVisualisation(cfg.getBool("gui/enablevisualisation"))
+		# Set the font for subtitles.
+		self.setSubFont(cfg.get('video/subfont'))
 
 player = Player()

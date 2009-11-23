@@ -42,6 +42,14 @@ class subMan():
 	def subsExtsChanged(self, widget):
 		# Change the automatically detected subtitles extensions.
 		cfg.set('video/autosubexts', widget.get_text())
+		
+	def changeFont(self, widget):
+		# Callback when the subtitle font is changed.
+		font = widget.get_font_name()
+		# Set the config option and apply the change to the player.
+		cfg.set('video/subfont', font)
+		player.setSubFont(font)
+		
 	
 	def getCfg(self):
 		# Get the config options and give it to the window.
@@ -106,6 +114,10 @@ class subMan():
 		btnAddSub.set_image(img)
 		btnAddSub.connect('clicked', self.addSubs)
 		vBox.pack_start(btnAddSub)
+		# Font selection.
+		btnFont = gtk.FontButton(cfg.get('video/subfont'))
+		btnFont.connect('font-set', self.changeFont)
+		vBox.pack_start(btnFont)
 		# The close button.
 		btnClose = gtk.Button('gtk-close')
 		btnClose.set_use_stock(True)
