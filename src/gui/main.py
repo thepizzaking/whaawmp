@@ -72,7 +72,7 @@ class mainWindow:
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
-		# Get the windows allocation.
+		# Get the window's allocation.
 		x, y, w, h = widget.get_allocation()
 		
 		# Make a new pixmap (does this create a leak?)

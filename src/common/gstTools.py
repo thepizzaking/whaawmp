@@ -49,12 +49,3 @@ def hasVideoTrack(player):
 	if (player.player.get_property('n-video') >= 1): return True
 	# Otherwise return false.
 	return False
-
-
-def vsinkDef():
-	## Returns the default video sink.
-	for x in lists.vsinkTypes:
-		# For all the vsink types, return the first one that exists.
-		if (gst.element_factory_find(x)): return x
-	
-	return None
