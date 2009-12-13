@@ -65,12 +65,9 @@ class Player:
 			# If no file is currently opened, return an error.
 			return False
 		
-		if (self.isPlaying()):
-			# If the player is playing, pause the player.
-			self.pause()
-		else:
-			# If it's already paused (or stopped with a file): play.
-			self.play()
+		#  Toggle the player.
+		self.pause() if (self.isPlaying()) else self.play()
+
 		return True
 	
 
