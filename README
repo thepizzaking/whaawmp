@@ -19,9 +19,10 @@ differ depending on your distribution, you will also need other gstreamer
 packages depending on the type of media you wish to play.
 
 NOTE: Installation is not needed to use/test whaawmp.  It can be run fine by
-just running './whaawmp.sh'.  Though if you really want to install it there
-is an easy way to install it, but there's no easy way to uninstall.  See the
-end of this file for a list of locations which files are installed to.
+just running './whaawmp.sh'.  Though if you really want to install it you can
+use the setup.py script, however there is no uninstall script so a package
+manager is recommended.  See the end of this file for a list of files which
+are installed.
 
 Now, onto the building etc etc.
 -To compile & install the files use ./setup.py install
@@ -39,7 +40,7 @@ A list of files installed, and should be removed if uninstall is required:
 ${prefix}/bin/{whaawmp, whaaw-thumbnailer}
 ${prefix}/lib/python-${pyver}/site-packages/whaawmp-${whaaw-ver}-py${pyver}.egg-info
 ${prefix}/lib/python-${pyver}/site-packages/whaawmp (entire directory)
-${prefix}/share/whaawmp.desktop
+${prefix}/share/applications/whaawmp.desktop
 ${prefix}/share/local/*/LC_MESSAGES/whaawmp.mo (list of languages in po dir)
 ${prefix}/share/pixmaps/whaawmp.svg
 ${prefix}/share/thumbnailers/whaaw-thumbnailer.desktop
