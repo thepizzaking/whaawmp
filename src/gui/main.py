@@ -281,7 +281,15 @@ class mainWindow:
 					queue.append(player.uri)
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
-				self.playNext() if (queue.length() > 0) else player.stop()
+				if (queue.length() > 0):
+					self.playNext()
+				elif (self.wTree.get_object("mnuiQuitOnStop").get_active()):
+					# Quit of the 'quit on stop' option is enabled.
+					self.quit()
+				else:
+					# Otherwise, just stop.
+					player.stop()
+		
 		elif (t == 'error'):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
@@ -322,9 +330,6 @@ class mainWindow:
 			self.progressUpdate()
 			
 		elif (playerTools.isStopMsg(msg)):
-			if ((not player.isPlaying()) and self.wTree.get_object("mnuiQuitOnStop").get_active()):
-				#If the queue still has items, we don't want to quit.
-				if (not queue.length()): self.quit()
 			# Draw the background image.
 			self.videoWindowOnStop()
 			# Reset the progress bar.
