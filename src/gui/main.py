@@ -332,7 +332,7 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		elif (msg[0] == gst.STATE_PLAYING and msg[1] == gst.STATE_PAUSED):
+		elif (old == gst.STATE_PLAYING and new == gst.STATE_PAUSED):
 			# Stop message (goes through paused when stopping).
 			# Draw the background image.
 			self.videoWindowOnStop()
