@@ -82,8 +82,6 @@ class Player:
 	# Returns true if the player is paused, false if not.
 	isPaused = lambda self: self.getState() == gst.STATE_PAUSED
 	
-	# Returns the bus of the player.
-	getBus = lambda self: self.player.get_bus()
 	# Gets the current audio track.
 	getAudioTrack = lambda self: self.player.get_property('current-audio')
 	# Returns the state of the player (add timeout so we don't wait forever).
@@ -298,11 +296,6 @@ class Player:
 		if (wasPlaying): self.play()
 	
 	
-	def setVolume(self, vol):
-		## Sets the volume to the requested value.
-		self.player.set_property('volume', vol)
-	
-	
 	def setAudioTrack(self, track):
 		## Sets the audio track to play.
 		self.player.set_property('current-audio', track)
@@ -324,7 +317,7 @@ class Player:
 		self.player = gst.element_factory_make("playbin2", "player")
 		
 		# Make the program emit signals.
-		bus = self.getBus()
+		bus = self.player.get_bus()
 		bus.add_signal_watch()
 		bus.enable_sync_message_emission()
 		# Enable the visualisation if requested.

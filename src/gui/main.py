@@ -263,7 +263,7 @@ class mainWindow:
 	def preparePlayer(self):
 		## This prepares the player.
 		# Get the bus and connect the signals.
-		bus = player.getBus()
+		bus = player.player.get_bus()
 		bus.connect('message', self.onPlayerMessage)
 		bus.connect('sync-message::element', self.onPlayerSyncMessage)
 		player.player.connect('about-to-finish', self.aboutToFinish)
@@ -613,7 +613,7 @@ class mainWindow:
 	
 	def changeVolume(self, widget, value):
 		# Set the new volume on player and configuration.
-		player.setVolume(value)
+		player.player.set_property('volume',value)
 		cfg.set("audio/volume", value)
 	
 	
