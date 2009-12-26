@@ -410,7 +410,7 @@ class mainWindow:
 			# Try to set the subtitle track if requested.
 			if cfg.getBool('video/autosub'): subtitles.trySubs(file)
 			# Add the file to recently opened files.
-			self.addToRecent(file)
+			gtk.recent_manager_get_default().add_item(file)
 			# Start the player, if it isn't already running.
 			if (not player.isPlaying()): player.play()
 		
@@ -436,11 +436,6 @@ class mainWindow:
 		self.mainWindow.set_title(titlename)
 
 
-	def addToRecent(self, uri):
-		## Adds a certain URI to the recent files list.
-		gtk.recent_manager_get_default().add_item(uri)
-		
-	
 	def playDVD(self, title=None):
 		## Plays a DVD
 		# Start the player playing the DVD.
