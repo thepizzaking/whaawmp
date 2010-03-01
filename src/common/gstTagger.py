@@ -41,7 +41,7 @@ def getDispTitle(tags):
 	## Gets the display title according to configuration.
 	# Flag that no tags have been added.
 	noneAdded = True
-	# Initiate the windows title.
+	# Initialise the window's title.
 	winTitle = ""
 	for x in useful.tagsToTuple(cfg.getStr('gui/tagsyntax')):
 		# For all the items in the list produced by tagsToTuple.
@@ -53,6 +53,14 @@ def getDispTitle(tags):
 			nStr = None
 		if (nStr):
 			# If there was a string.
+			# Make sure we actually have a string (sometimes the tags are spat out as lists,
+			# so if we have a list, just take the first one.
+			if (isinstance(nStr, list) and isinstance(nStr[0], basestring)): #(need basestring, str doesn't work for unicode)
+				nStr = nStr[0]
+			elif not isinstance(nStr, basestring):
+				# Otherwise just use a blank string (FIXME).
+				nStr = ''
+			
 			# Flag that a tag has been added if it's a tag.
 			if (x[0]): noneAdded = False
 			# Add the string to the new window title.
