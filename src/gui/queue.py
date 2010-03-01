@@ -98,7 +98,7 @@ class queues():
 	def setItmTags(self, uri, tags):
 		## Sets the items tags and displays them (maybe not very efficient).
 		dispTitle = tagger.getDispTitle(tags)
-		# If not display title was returned, just pass..
+		# If not display title was returned, just pass.
 		if not dispTitle: return
 		# For all the items in the list, if they have that URI, add the tags.
 		for x in range(len(self.list)):
