@@ -164,10 +164,6 @@ class mainWindow:
 	
 	def activateFullscreen(self, widget=None):
 		## Activates fullscreen.
-		# No use in doing fullscreen if no video is playing.
-		if (not self.videoWindowShown()): return
-		
-		# Set the window to fullscreen.
 		self.mainWindow.fullscreen()
 	
 	# Checks if we should allow Fullscreen functions (It's 1 if it's hidden).
@@ -697,7 +693,7 @@ class mainWindow:
 			self.playFile(dlg.URI)
 	
 	def showAudioTracksDialogue(self, widget):
-		# Show the audio track selection dialogue (hopefully will handle subtitles too soon.
+		# Show the audio track selection dialogue (hopefully will handle subtitles too soon).
 		dialogues.SelectAudioTrack(self.mainWindow, self.audioTracks)
 	
 	def openSubtitleManager(self, widget):
