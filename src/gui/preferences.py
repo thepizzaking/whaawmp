@@ -62,7 +62,6 @@ class Dialogue:
 		                self.wTree.get_object('chkShowTimeRemaining')   : {CFGS : "gui/showtimeremaining"},
 		                self.wTree.get_object('chkEnableVisualisation') : {CFGS : "gui/enablevisualisation",
 		                                                                  CLBKS : self.toggleEnableVis},
-		                self.wTree.get_object('chkHideVideoWindow')     : {CFGS : "gui/hidevideowindow"},
 		                self.wTree.get_object('chkFileAsTitle')         : {CFGS : "gui/fileastitle"},
 		                self.wTree.get_object('chkForceAspect')         : {CFGS : "video/force-aspect-ratio",
 		                                                                  CLBKS : self.toggleForceAspect} }
