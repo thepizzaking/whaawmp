@@ -76,7 +76,6 @@
         <child>
           <object class="GtkAction" id="mnuiFS">
             <property name="name">mnuiFS</property>
-            <property name="sensitive">False</property>
             <property name="label">Toggle Fullscreen</property>
             <signal handler="on_mnuiFS_activate" name="activate"/>
           </object>
@@ -145,7 +144,6 @@
           <object class="GtkAction" id="mnuiDVDMenu">
             <property name="name">mnuiDVDMenu</property>
             <property name="label" translatable="yes">DVD Menu</property>
-            <property name="sensitive">False</property>
             <signal handler="on_mnuiDVDMenu_activate" name="activate"/>
           </object>
         </child>

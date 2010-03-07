@@ -66,9 +66,8 @@ class mainWindow:
 		                            self.pixmap, x, y, x, y, w, h)
 		# Save the current video window size.
 		useful.videoWindowSize = self.pixmap.get_size()
-		
-		# If we're not playing, configure the player accordingly.
-		if (self.videoWindowShown()): self.videoWindowOnStop()
+		# Draw the background Image.
+		if (player.isStopped): self.drawvideoWindowImage()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
@@ -335,7 +334,7 @@ class mainWindow:
 		elif (old == gst.STATE_PAUSED and new == gst.STATE_READY):
 			# Stop message (goes through paused when stopping).
 			# Draw the background image.
-			self.videoWindowOnStop()
+			self.drawvideoWindowImage()
 			# Reset the progress bar.
 			self.progressUpdate()
 			# Clear the title.
@@ -348,8 +347,6 @@ class mainWindow:
 		
 		if (message.structure.get_name() == 'prepare-xwindow-id'):
 			# If it's playing a video, set the video properties.
-			# First, show the video window.
-			self.showVideoWindow()
 			# Get the properties of the video.(Brightness etc)
 			far = cfg.getBool("video/force-aspect-ratio")
 			b = cfg.getInt("video/brightness")
@@ -517,32 +514,8 @@ class mainWindow:
 				if (x not in lists.hiddenNormalWidgets): self.wTree.get_object(x).show()
 			# Flag the controls as being shown.
 			self.controlsShown = True
-		
 
-	def showVideoWindow(self):
-		## Shows the video window.
-		# Allow fullscreen.
-		self.wTree.get_object('mnuiFS').set_sensitive(True)
-		# TODO: Maybe try to restrict this to only when a DVD is playing.
-		self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
-		# Show the video window.
-		#self.videoWindow.(480, 320)
-	
-	def hideVideoWindow(self, force=False):
-		return
-		## Hides the video window.
-		if (not self.fsActive() or force):
-			# Disable fullscreen activation.
-			self.wTree.get_object('mnuiFS').set_sensitive(False)
-			# And DVD Menu activation.
-			self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
-			# Hide the video window.
-			self.videoWindow.hide() #set_size_request(1,1)
-			# Make the height of the window as small as possible.
-			w = self.mainWindow.get_size()[0]
-			self.mainWindow.resize(w, 1)
-		
-	
+
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
 		x, y, state = event.window.get_pointer()
@@ -646,22 +619,7 @@ class mainWindow:
 		if self.tmrMin: gobject.source_remove(self.tmrMin)
 		if self.tmrSec: gobject.source_remove(self.tmrSec)
 	
-	
-	def videoWindowOnStop(self, force=False):
-		return
-		## Called when the player stops, acts on the video window.
-		# If we're still playing a video, we shouldn't act.
-		if (player.playingVideo() and not player.isStopped()): return
-		if (cfg.getBool("gui/hidevideowindow")):
-			# If the video window should be hidden, hide it, otherwise, draw the picture.
-			self.hideVideoWindow(force)
-			# Deactivate fullscreen if it's active.
-			if (self.fsActive()): self.deactivateFullscreen()
-		else:
-			self.showVideoWindow()
-			self.drawvideoWindowImage()
-	
-	
+
 	def drawvideoWindowImage(self):
 		## Draws the background image.
 		# Get the width & height of the videoWindow.
@@ -920,8 +878,6 @@ class mainWindow:
 		signals.connect('queue-changed', self.numQueuedChanged)
 		# Show the window.
 		self.mainWindow.show()
-		# Prepare the video window by putting it in its stopped state.
-		self.showVideoWindow()
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
