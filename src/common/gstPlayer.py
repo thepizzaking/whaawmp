@@ -141,7 +141,10 @@ class Player:
 	
 	def getVideoSrcDimensions(self):
 		# Returns a tuple of the dimensions of the last video frame shown.
-		caps = self.player.get_property('frame').get_caps()
+		try:
+			caps = self.player.get_property('frame').get_caps()
+		except AttributeError:
+			caps = None
 		if (not caps): return None
 		return (caps[0]['width'], caps[0]['height'])
 	
@@ -251,7 +254,7 @@ class Player:
 		# Get the current video src and sink sizes.
 		srcDim = self.getVideoSrcDimensions()
 		sinkDim = useful.videoWindowSize
-		if (not sinkDim): return False
+		if (not sinkDim or not srcDim): return False
 		# Translate the clicked co-ordinates to a point on the video.
 		modX = event.x * (float(srcDim[0]) / sinkDim[0])
 		modY = event.y * (float(srcDim[1]) / sinkDim[1])
