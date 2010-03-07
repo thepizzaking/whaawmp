@@ -332,7 +332,7 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		elif (old == gst.STATE_PLAYING and new == gst.STATE_PAUSED):
+		elif (old == gst.STATE_PAUSED and new == gst.STATE_READY):
 			# Stop message (goes through paused when stopping).
 			# Draw the background image.
 			self.videoWindowOnStop()
@@ -529,6 +529,7 @@ class mainWindow:
 		self.videoWindow.set_size_request(480, 320)
 	
 	def hideVideoWindow(self, force=False):
+		return
 		## Hides the video window.
 		if (not self.fsActive() or force):
 			# Disable fullscreen activation.
@@ -536,7 +537,7 @@ class mainWindow:
 			# And DVD Menu activation.
 			self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
 			# Hide the video window.
-			self.videoWindow.set_size_request(1,1)
+			self.videoWindow.hide() #set_size_request(1,1)
 			# Make the height of the window as small as possible.
 			w = self.mainWindow.get_size()[0]
 			self.mainWindow.resize(w, 1)
@@ -647,9 +648,10 @@ class mainWindow:
 	
 	
 	def videoWindowOnStop(self, force=False):
+		return
 		## Called when the player stops, acts on the video window.
 		# If we're still playing a video, we shouldn't act.
-		if (player.playingVideo()): return
+		if (player.playingVideo() and not player.isStopped()): return
 		if (cfg.getBool("gui/hidevideowindow")):
 			# If the video window should be hidden, hide it, otherwise, draw the picture.
 			self.hideVideoWindow(force)
@@ -919,7 +921,7 @@ class mainWindow:
 		# Show the window.
 		self.mainWindow.show()
 		# Prepare the video window by putting it in its stopped state.
-		self.videoWindowOnStop(True)
+		self.showVideoWindow()
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
@@ -928,8 +930,6 @@ class mainWindow:
 			queue.appendMany(cfg.args)
 			# Then play the next track.
 			gobject.idle_add(self.playNext)
-		else:
-			self.videoWindowOnStop(True)
 		
 		if (cfg.cl.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
