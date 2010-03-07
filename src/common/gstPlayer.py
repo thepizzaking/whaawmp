@@ -245,7 +245,9 @@ class Player:
 		self.colourBalance = colourBalance
 	
 	def sendNavigationClick(self, event):
-		# Reacts to someone clicking on the video window.
+		## Reacts to someone clicking on the video window.
+		# Make sure we actually have a stream running.
+		if (self.isStopped()): return
 		# Get the current video src and sink sizes.
 		srcDim = self.getVideoSrcDimensions()
 		sinkDim = useful.videoWindowSize
