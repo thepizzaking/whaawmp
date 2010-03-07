@@ -43,9 +43,3 @@ def getAudioLangArray(player):
 		tracks.append(lang)
 	# Return the tracks.
 	return tracks
-
-def hasVideoTrack(player):
-	## Returns true if the stream has a video track.
-	if (player.player.get_property('n-video') >= 1): return True
-	# Otherwise return false.
-	return False

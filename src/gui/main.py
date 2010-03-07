@@ -67,7 +67,8 @@ class mainWindow:
 		# Save the current video window size.
 		useful.videoWindowSize = self.pixmap.get_size()
 		# Draw the background Image.
-		if (player.isStopped()): self.drawvideoWindowImage()
+		if (player.isStopped() or player.player.get_property('n-video') == 0):
+			self.drawvideoWindowImage()
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
