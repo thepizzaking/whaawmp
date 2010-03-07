@@ -526,7 +526,7 @@ class mainWindow:
 		# TODO: Maybe try to restrict this to only when a DVD is playing.
 		self.wTree.get_object('mnuiDVDMenu').set_sensitive(True)
 		# Show the video window.
-		self.videoWindow.set_size_request(480, 320)
+		#self.videoWindow.(480, 320)
 	
 	def hideVideoWindow(self, force=False):
 		return

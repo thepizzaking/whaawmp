@@ -252,6 +252,7 @@
     <property name="receives_default">True</property>
     <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK</property>
     <property name="default_width">480</property>
+    <property name="default_height">380</property>
     <signal handler="on_main_key_press_event" name="key_press_event"/>
     <signal handler="on_main_drag_data_received" name="drag_data_received"/>
     <signal handler="on_main_delete_event" name="delete_event"/>
@@ -312,6 +313,8 @@
               <object class="GtkDrawingArea" id="videoWindow">
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_ENTER_NOTIFY_MASK | GDK_LEAVE_NOTIFY_MASK | GDK_PROPERTY_CHANGE_MASK | GDK_SCROLL_MASK</property>
+                <property name="width_request">1</property>
+                <property name="height_request">1</property>
                 <signal handler="on_videoWindow_leave_notify_event" name="leave_notify_event"/>
                 <signal handler="on_videoWindow_expose_event" name="expose_event"/>
                 <signal handler="on_videoWindow_button_press_event" name="button_press_event"/>
