@@ -97,12 +97,6 @@ def tagsToTuple(str):
 		split = split[2].partition('{')
 	return tags
 
-# Pix data for hidden cursors.
-hiddenCursorPix = """/* XPM */
-    		         static char * invisible_xpm[] = {
-    		         "1 1 1 1",
-    		         "       c None",
-    				 " "};"""
 
 # Modify a window's height by a set amount.
 def modifyWinHeight(window, change):

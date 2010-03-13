@@ -146,12 +146,12 @@ class mainWindow:
 	
 	
 	def hideCursor(self, widget):
-		## Hides the cursor (Thanks to mirage for the code).
-		# If there's no video playing, cancel it.
-		pix_data = useful.hiddenCursorPix
+		## Hides the cursor.
+		# The colour of the cursor (defaults to (r, g, b) = (0, 0, 0).
 		colour = gtk.gdk.Color()
-		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, colour, colour)
-		invisible = gtk.gdk.Cursor(pix, pix, colour, colour, 0, 0)
+		# Create the hidden cursor.
+		pixmap = gtk.gdk.Pixmap(None, 1, 1, 1)
+		invisible = gtk.gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
 		self.setCursor(invisible, widget)
 	
