@@ -61,7 +61,7 @@ class mainWindow:
 		x, y, w, h = event.area
 		
 		# Let the whole thing be drawn upon.
-		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		colour = widget.get_style().black_gc
 		widget.window.draw_drawable(colour,
 		                            self.pixmap, x, y, x, y, w, h)
 		# Save the current video window size.
@@ -79,7 +79,7 @@ class mainWindow:
 		self.pixmap = gtk.gdk.Pixmap(widget.window, w, h)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
-		colour = widget.get_style().black_gc if (self.videoWindowShown()) else widget.get_style().bg_gc[0]
+		colour = widget.get_style().black_gc
 		self.pixmap.draw_rectangle(colour, True, 0, 0, w, h)
 		# Queue the drawing area.
 		widget.queue_draw()
@@ -134,8 +134,6 @@ class mainWindow:
 	
 	def hideControls(self):
 		## Hides the fullscreen controls (also the mouse).
-		# We don't want anything hidden if no video is playing.
-		if (not self.videoWindowShown()): return
 		# Hide the cursor.
 		self.hideCursor(self.videoWindow)
 		if (self.fsActive()):
@@ -150,7 +148,6 @@ class mainWindow:
 	def hideCursor(self, widget):
 		## Hides the cursor (Thanks to mirage for the code).
 		# If there's no video playing, cancel it.
-		if (not self.videoWindowShown()): return
 		pix_data = useful.hiddenCursorPix
 		colour = gtk.gdk.Color()
 		pix = gtk.gdk.pixmap_create_from_data(None, pix_data, 1, 1, 1, colour, colour)
@@ -166,9 +163,6 @@ class mainWindow:
 	def activateFullscreen(self, widget=None):
 		## Activates fullscreen.
 		self.mainWindow.fullscreen()
-	
-	# Checks if we should allow Fullscreen functions (It's 1 if it's hidden).
-	videoWindowShown = lambda self: self.videoWindow.get_size_request() > (1,1)
 
 	
 	def deactivateFullscreen(self):
@@ -453,7 +447,7 @@ class mainWindow:
 	def minuteTimer(self):
 		## A timer that runs every minute while playing.
 		# Disable ScreenSaver (if option is enabled).
-		if (cfg.getBool("misc/disablescreensaver") and self.videoWindowShown()):
+		if (cfg.getBool("misc/disablescreensaver") and player.player.get_property('n-video') > 0):
 			# For all the commands in the disable screensaver config option, run them.
 			for x in cfg.getStr("misc/disablescrcmd").split(','):
 				useful.hiddenExec(x)
