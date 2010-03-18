@@ -144,8 +144,12 @@ class FileTag:
 		if (uri == self.current['uri']):
 			# Get the function and arguments associated with the current
 			# track, but only if the URIs match.
+			if self.player.get_property('n-video') == 0:
+				isvideo = False
+			else:
+				isvideo = True
 			func, args = self.current['func'], self.current['args']
-			func(uri, tags, *args)
+			func(uri, tags, isvideo, *args)
 		else:
 			print _("Something bad happened which shouldn't\nTell me: current data did not match player URI")
 	

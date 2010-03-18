@@ -273,7 +273,7 @@ class mainWindow:
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
 				if (queue.length() > 0):
-					self.playNext()
+					self.playNext(atf=False)
 				elif (self.wTree.get_object("mnuiQuitOnStop").get_active()):
 					# Quit of the 'quit on stop' option is enabled.
 					self.quit()
@@ -367,18 +367,41 @@ class mainWindow:
 	
 	def aboutToFinish(self, gstPlayer):
 		# Queue the next item when the player is about to finish.
-		self.playNext(stop=False)
+		self.playNext(True)
 	
-	def playNext(self, widget=None, stop=True):
+	def _cb_on_btnNext_clicked(self, widget=None, data=None):
+		# Called when "Next" button is clicked
+		# This isn't an atf action as we have to stop the current stream and
+		# start a new one
+		self.playNext(False)
+	
+	def playNext(self, atf=None):
+		filename = None
+		stop = None
+		selection = 0
 		## Plays the next file in the queue (if it exists).
-		if (self.wTree.get_object("mnuiRandom").get_active()):
-			# If random is set, pick a random item from the queue.
-			# -1 because randint includes boundaries.
-			filename = queue.getTrackRemove(randint(0, queue.length()-1))
-		else:
-			# Otherwise just get the next item.
-			filename = queue.getNextTrackRemove()
-		if filename: self.playFile(filename, stop)
+		# Are we random?
+		if self.wTree.get_object("mnuiRandom").get_active():
+			selection = randint(0, queue.length()-1)
+		isvideo = queue.isTrackVideo(selection)
+		# If we've just started Whaawmp, self.isvideo is None
+		# in this case, disable gapless until we are sure it'll work
+		if self.isvideo is None:
+			filename = queue.getTrackRemove(selection)
+			stop = True
+		elif atf:
+			# For gapless playback, both the current and next items _must_ be
+			# audio only
+			if not isvideo and not self.isvideo:
+				filename = queue.getTrackRemove(selection)
+				stop = False
+		elif atf is False:
+			# We are a queue of videos, or standalone files
+			filename = queue.getTrackRemove(selection)
+			stop = True
+		if filename is not None and stop is not None:
+			self.isvideo = isvideo
+			self.playFile(filename, stop)
 	
 	def playFile(self, file, stop=True):
 		## Plays the file 'file' (Could also be a URI).
@@ -437,7 +460,7 @@ class mainWindow:
 			# If toggling fails:
 			# Check the queue.
 			if (queue.length()):
-				self.playNext()
+				self.playNext(atf=False)
 			else:
 				# Otherwise show the open file dialogue.
 				self.showOpenDialogue()
@@ -797,7 +820,7 @@ class mainWindow:
 		        "on_mnuiOpenURI_activate" : self.showOpenURIDialogue,
 		        "on_btnPlayToggle_clicked" : self.togglePlayPause,
 		        "on_btnStop_clicked" : self.stopPlayer,
-		        "on_btnNext_clicked" : self.playNext,
+		        "on_btnNext_clicked" : self._cb_on_btnNext_clicked,
 		        "on_btnRestart_clicked" : self.restartTrack,
 		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
@@ -840,6 +863,8 @@ class mainWindow:
 		self.volAdj = self.wTree.get_object("btnVolume").get_adjustment()
 		self.hboxVideo = self.wTree.get_object("hboxVideo")
 		queue.mnuiWidget = self.wTree.get_object("mnuiQueue")
+		# Set gapless flag
+		self.isvideo = None
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
 		# Set the window to allow drops
@@ -862,7 +887,7 @@ class mainWindow:
 		# Setup the signals.
 		signals.connect('toggle-play-pause', self.togglePlayPause)
 		signals.connect('toggle-fullscreen', self.toggleFullscreen)
-		signals.connect('play-next', self.playNext)
+		signals.connect('play-next', self.playNext, False)
 		signals.connect('restart-track', self.restartTrack)
 		signals.connect('toggle-queue', queue.toggle)
 		signals.connect('toggle-advanced-controls', self.toggleAdvancedControls)
@@ -876,7 +901,7 @@ class mainWindow:
 			# Append all tracks to the queue.
 			queue.appendMany(cfg.args)
 			# Then play the next track.
-			gobject.idle_add(self.playNext)
+			gobject.idle_add(self.playNext, False)
 		
 		if (cfg.cl.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.

@@ -91,19 +91,31 @@ class queues():
 		self.list.set_value(row, 0, item)
 		# Initiate the tag reading process, but show the filename in case it fails.
 		self.list.set_value(row, 1, useful.uriToFilename(item))
+		# Flag whether file is a video or not, default True (ie is a video)
+		# This default disables gapless until we are sure it'll work properly
+		self.list.set_value(row, 2, True)
 		tagger.fileTag.file(item, self.setItmTags)
 		# The queue has changed.
 		self.queueChanged()
 	
-	def setItmTags(self, uri, tags):
-		## Sets the items tags and displays them (maybe not very efficient).
-		dispTitle = tagger.getDispTitle(tags)
-		# If not display title was returned, just pass.
-		if not dispTitle: return
-		# For all the items in the list, if they have that URI, add the tags.
+	def setItmTags(self, uri, tags, isvideo, args=None):
+		# file hasn't been set yet, stops errors on startup
+		file = None
+		# Get the current file
 		for x in range(len(self.list)):
 			if (self.list[x][0] == uri):
-				self.list[x][1] = dispTitle
+				file = self.list[x]
+				break
+		# Set the video flag
+		if file:
+			file[2] = isvideo
+		## Sets the items tags and displays them (maybe not very efficient).
+		dispTitle = tagger.getDispTitle(tags)
+		# Add display title if available, else pass
+		if dispTitle and file:
+			file[1] = dispTitle
+		else:
+			return
 	
 	def appendMany(self, items):
 		## Appends many queue items.
@@ -116,6 +128,16 @@ class queues():
 		self.list.clear()
 		# The queue has changed.
 		self.queueChanged()
+	
+	def isTrackVideo(self, no):
+		"""
+		Checks if file is a video
+		"""
+		try:
+			isvideo = self.list[no][2]
+			return isvideo
+		except:
+			return None
 	
 	def getTrackRemove(self, no):
 		## Gets the track with the index 'no' & removes it.
@@ -137,7 +159,7 @@ class queues():
 	def rowActivated(self, tree, path, view_column):
 		## Plays the track that has been activated in the queue.
 		## (Double click an item)
-		self.playCommand(self.getTrackRemove(path[0]))
+		self.playCommand(self.getTrackRemove(path[0]), True)
 	
 	def remove(self, index):
 		# Removes a selected index from the queue.
@@ -199,8 +221,8 @@ class queues():
 	
 	def createWindow(self):
 		## Creates the window of the queue.
-		# First create the list, it contains two strings (1st path, 2nd display).
-		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+		# First create the list, it contains two strings (1st path, 2nd display) and a boolean (is file video).
+		self.list = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
 		# Create the queue window/box
 		self.qwin = gtk.VBox()
 		# Set size.
