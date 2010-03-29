@@ -361,7 +361,7 @@ class mainWindow:
 			queue.append(path)
 		
 		# Play the first file by calling the next function.
-		self.playNext()
+		self.playNext(atf=False)
 		# Finish the drag.
 		context.finish(True, False, time)
 	
