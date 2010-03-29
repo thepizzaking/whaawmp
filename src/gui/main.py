@@ -869,6 +869,9 @@ class mainWindow:
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
 		# Set the window to allow drops
 		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		# If we drop stuff on the queue label we want it queued (bottom right)
+		self.wTree.get_object('lblNumQueued').drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		self.wTree.get_object('lblNumQueued').connect('drag-data-received', queue.enqueueDropped)
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
