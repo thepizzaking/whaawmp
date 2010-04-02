@@ -51,6 +51,8 @@ class mainWindow:
 		## Quits the program.
 		# Stop the player first to avoid tracebacks.
 		player.stopCompletely()
+		# Restore the screensaver.
+		useful.resumeScr()
 		# Save the configuration to the file.
 		cfg.save()
 		gtk.main_quit()
@@ -319,6 +321,8 @@ class mainWindow:
 			self.playPauseChange(False)
 			# Destroy the play timers.
 			self.destroyPlayTimers()
+			# Restore the screensaver (if inhibited)
+			useful.resumeScr()
 			# Update the progress bar.
 			self.progressUpdate()
 			
@@ -471,9 +475,9 @@ class mainWindow:
 		## A timer that runs every minute while playing.
 		# Disable ScreenSaver (if option is enabled).
 		if (cfg.getBool("misc/disablescreensaver") and player.player.get_property('n-video') > 0):
-			# For all the commands in the disable screensaver config option, run them.
-			for x in cfg.getStr("misc/disablescrcmd").split(','):
-				useful.hiddenExec(x)
+			# Inhibit hte screensaver, technically we only have to do this once.
+			## FIXME: Only do this once
+			useful.suspendScr()
 		
 		return player.isPlaying()
 	
@@ -897,6 +901,8 @@ class mainWindow:
 		signals.connect('queue-changed', self.numQueuedChanged)
 		# Show the window.
 		self.mainWindow.show()
+		# Save the windows ID so we can use it to inhibit screensaver.
+		useful.winID = self.mainWindow.get_window().xid
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).

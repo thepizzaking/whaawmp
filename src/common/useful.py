@@ -37,6 +37,7 @@ getBuilderFile = lambda window: os.path.join(dataDir, 'ui', window + '.ui')
 # Other things stored here are:
 #mainWin (the main window)
 #lastDir (the last directory used in the open file dialogue etc)
+winID = None  #(The main window's xid, for use with xdg-screensaver)
 
 # Storage for video window size.
 videoWindowSize = None
@@ -51,6 +52,10 @@ nsTos = lambda ns: float(ns) / 1000000000
 # Seconds to miliseconds.
 sToms = lambda s: 1000 * s
 
+# Suspends the screensaver using xdg-screensaver.
+suspendScr = lambda: os.system('xdg-screensaver suspend %d &' % winID)
+# Resumes an inhibited screensaver.
+resumeScr = lambda: os.system('xdg-screensaver resume %d &' % winID)
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
