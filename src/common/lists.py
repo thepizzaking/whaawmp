@@ -85,8 +85,7 @@ defaultOptions = { 'video/brightness' : 0,
                    'audio/audiosink' : 'default',
                    'audio/audiodevice' : '',
                    'misc/onextnewfile' : 1,
-                   'misc/disablescreensaver' : True,
-                   'misc/disablescrcmd' : 'xscreensaver-command -deactivate,xset s reset' }
+                   'misc/disablescreensaver' : True }
 
 
 ## Some gstreamer lists.
