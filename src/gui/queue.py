@@ -32,7 +32,6 @@ from common import gstTagger as tagger
 from common import useful
 from common.signals import signals
 
-
 class queues():
 	# The menu item widget, which is changed when the window closes.
 	mnuiWidget = None
@@ -43,6 +42,9 @@ class queues():
 	length = lambda self: len(self.list)
 	# The play command to play a file.
 	playCommand = None
+	
+	# Queue window's height.
+	queueHeight = 200
 	
 	def close(self, widget, event):
 		## Called to 'close' the window.
@@ -226,7 +228,7 @@ class queues():
 		# Create the queue window/box
 		self.qwin = gtk.VBox()
 		# Set size.
-		self.qwin.set_size_request(-1, useful.queueDefaultHeight)
+		self.qwin.set_size_request(-1, self.queueHeight)
 		# Set the window up for draq & drop.
 		self.qwin.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		self.qwin.connect('drag-data-received', self.enqueueDropped)
