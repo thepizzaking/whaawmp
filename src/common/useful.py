@@ -46,6 +46,7 @@ videoWindowSize = None
 hiddenExec = lambda x: os.system(x +  '>/dev/null 2>/dev/null &')
 
 linkHandler = 'xdg-open'
+queueDefaultHeight = 200
 
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000

@@ -226,7 +226,7 @@ class queues():
 		# Create the queue window/box
 		self.qwin = gtk.VBox()
 		# Set size.
-		self.qwin.set_size_request(-1,200)
+		self.qwin.set_size_request(-1, useful.queueDefaultHeight)
 		# Set the window up for draq & drop.
 		self.qwin.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
 		self.qwin.connect('drag-data-received', self.enqueueDropped)

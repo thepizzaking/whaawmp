@@ -730,9 +730,16 @@ class mainWindow:
 		else:
 			# Otherwise just toggle it.
 			toShow = queue.toggle()
-		if (not toShow):
-			# Shrink the window if we're closing the queue.
-			qwinHeight = queue.qwin.get_allocation().height
+		
+		# Get the queue window's height so we can change the
+		# main window's size accordingly.
+		qwinHeight = queue.qwin.get_allocation().height
+		# The first time this is called it returns 1.
+		if (qwinHeight == 1): qwinHeight = useful.queueDefaultHeight
+		# Grow/Shrink the window if we're Opening/Closing the queue.
+		if (toShow):
+			useful.modifyWinHeight(self.mainWindow, qwinHeight)
+		else:
 			useful.modifyWinHeight(self.mainWindow, - (qwinHeight))
 	
 	def toggleAdvControls(self, widget=None):
