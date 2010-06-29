@@ -24,6 +24,7 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
+'''http://pygstdocs.berlios.de/pygst-tutorial/pipeline.html for some useful looking code'''
 
 from __future__ import print_function
 from __future__ import division
@@ -93,6 +94,10 @@ class main:
 		self.filesrc.set_property('location', source)
 		
 		self.decoder = gst.element_factory_make('decodebin2', 'decoder')
+		self.decoder.connect('new-decoded-pad', self.on_dynamic_pad)
+		self.pipe.add(self.filesrc, self.decoder)
+		self.filesrc.link(self.decoder)
+		
 		self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
 		self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
 		self.mux = gst.element_factory_make(muxer, 'mux')
@@ -100,8 +105,16 @@ class main:
 		self.filesink = gst.element_factory_make('filesink', 'sink')
 		self.filesink.set_property('location', '%s.%s' % (source, muxers[muxer_name]['extension']))
 		
-		self.pipe.add(self.filesrc, self.decoder, self.audioconvert, self.audioencode, self.mux, self.filesink)
-		gst.element_link_many(self.filesrc, self.decoder, self.audioconvert, self.audioencode, self.mux, self.filesink)
+		self.pipe.add(self.audioconvert, self.audioencode, self.mux, self.filesink)
+		gst.element_link_many(self.audioconvert, self.audioencode, self.mux, self.filesink)
+		
+		self.pipe.set_state(gst.STATE_PLAYING)
+	
+	def on_dynamic_pad(self, dbin, pad, islast):
+		# See if it's an audio stream.
+		audio_pad = self.audioconvert.get_compatible_pad(pad)
+		if audio_pad:
+			pad.link(audio_pad)
 	
 	def __init__(self):
 		self.create_window()
