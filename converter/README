@@ -1,0 +1,4 @@
+Whaaw! Media Converter.
+This is just a test program at the moment used to transcode media
+using the gstreamer backend.  So far it doesn't work, but hopefully
+it will be working soon.

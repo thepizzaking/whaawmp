@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#  Whaaw! Media Converter plugin list.
+#  Whaaw! Media Converter transcoding backend.
 #  Copyright © 2007-2010, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
@@ -22,31 +22,3 @@
 #       GStreamer and Whaaw! Media Player. This permission is above and beyond
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
-
-audio_encoders = {
-                  'Vorbis' :
-                   {
-                    'plugin' : 'vorbisenc'
-                   }
-                 }
-video_encoders = {
-                  'VP8' :
-                   {
-                    'plugin' : 'vp8enc'
-                   },
-                  'Theora' :
-                   {
-                    'plugin' : 'theoraenc'
-                   },
-                  'Dirac' :
-                   {
-                    'plugin' : 'schroenc'
-                   }
-                  }
-muxers = {
-          'Matroska' :
-           {
-            'plugin' : 'matroskamux',
-            'extension' : 'mkv'
-           }
-          }
