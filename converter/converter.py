@@ -42,6 +42,7 @@ class main:
 		for x in encoders.keys():
 			combobox.append_text(x)
 		box.pack_start(combobox)
+		return combobox
 	
 	def create_window(self):
 		window = gtk.Window()
@@ -49,8 +50,8 @@ class main:
 		window.connect('destroy', self.quit)
 		main_box = gtk.VBox()
 		window.add(main_box)
-		file_select = gtk.FileChooserButton("Source File")
-		main_box.pack_start(file_select)
+		self.file_select = gtk.FileChooserButton("Source File")
+		main_box.pack_start(self.file_select)
 		encoder_box = gtk.HBox()
 		main_box.pack_start(encoder_box)
 		video_box = gtk.VBox()
@@ -60,19 +61,47 @@ class main:
 		encoder_box.pack_start(audio_box)
 		video_box.pack_start(gtk.Label("Video Encoder"))
 		audio_box.pack_start(gtk.Label("Audio Encoder"))
-		self.fill_encoders(video_box, video_encoders)
-		self.fill_encoders(audio_box, audio_encoders)
+		self.vid_enc_cmb = self.fill_encoders(video_box, video_encoders)
+		self.aud_enc_cmb = self.fill_encoders(audio_box, audio_encoders)
 		main_box.pack_start(gtk.HSeparator())
 		muxer_box = gtk.VBox()
 		main_box.pack_start(muxer_box)
 		muxer_box.pack_start(gtk.Label("Container Format"))
-		self.fill_encoders(muxer_box, muxers)
+		self.mux_cmb = self.fill_encoders(muxer_box, muxers)
 		start_button = gtk.Button('Start')
-		start_button.set_sensitive(False)
+		#start_button.set_sensitive(False)
+		start_button.connect('clicked', self.transcode)
 		main_box.pack_start(start_button)
 		progress = gtk.ProgressBar()
 		main_box.pack_start(progress)
 		window.show_all()
+	
+	def transcode(self, widget=None):
+		source = self.file_select.get_filename()
+		
+		video_encoder_name = self.vid_enc_cmb.get_active_text()
+		audio_encoder_name = self.aud_enc_cmb.get_active_text()
+		muxer_name = self.mux_cmb.get_active_text()
+		
+		video_encoder = video_encoders[video_encoder_name]['plugin']
+		audio_encoder = audio_encoders[audio_encoder_name]['plugin']
+		muxer = muxers[muxer_name]['plugin']
+		
+		self.pipe = gst.Pipeline('pipeline')
+		
+		self.filesrc = gst.element_factory_make('filesrc', 'source')
+		self.filesrc.set_property('location', source)
+		
+		self.decoder = gst.element_factory_make('decodebin2', 'decoder')
+		self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
+		self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
+		self.mux = gst.element_factory_make(muxer, 'mux')
+		
+		self.filesink = gst.element_factory_make('filesink', 'sink')
+		self.filesink.set_property('location', '%s.%s' % (source, muxers[muxer_name]['extension']))
+		
+		self.pipe.add(self.filesrc, self.decoder, self.audioconvert, self.audioencode, self.mux, self.filesink)
+		gst.element_link_many(self.filesrc, self.decoder, self.audioconvert, self.audioencode, self.mux, self.filesink)
 	
 	def __init__(self):
 		self.create_window()
