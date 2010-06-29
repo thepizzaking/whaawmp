@@ -98,22 +98,39 @@ class main:
 		self.pipe.add(self.filesrc, self.decoder)
 		self.filesrc.link(self.decoder)
 		
+		self.audio_queue = gst.element_factory_make('queue', 'audio_queue')
 		self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
 		self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
+		
+		self.video_queue = gst.element_factory_make('queue', 'video_queue')
+		self.colourspace = gst.element_factory_make('ffmpegcolorspace', 'colourspace')
+		self.videoencode = gst.element_factory_make(video_encoder, 'videoencode')
+		
 		self.mux = gst.element_factory_make(muxer, 'mux')
 		
 		self.filesink = gst.element_factory_make('filesink', 'sink')
 		self.filesink.set_property('location', '%s.%s' % (source, muxers[muxer_name]['extension']))
 		
-		self.pipe.add(self.audioconvert, self.audioencode, self.mux, self.filesink)
-		gst.element_link_many(self.audioconvert, self.audioencode, self.mux, self.filesink)
+		self.pipe.add(self.mux)
+		self.pipe.add(self.audio_queue, self.audioconvert, self.audioencode)
+		gst.element_link_many(self.audio_queue, self.audioconvert, self.audioencode, self.mux)
+		self.pipe.add(self.video_queue, self.colourspace, self.videoencode)
+		gst.element_link_many(self.video_queue, self.colourspace, self.videoencode, self.mux)
+		
+		self.pipe.add(self.filesink)
+		self.mux.link(self.filesink)
 		
 		self.pipe.set_state(gst.STATE_PLAYING)
 	
 	def on_dynamic_pad(self, dbin, pad, islast):
-		# See if it's an audio stream.
-		audio_pad = self.audioconvert.get_compatible_pad(pad)
-		if audio_pad:
+		# Check if it's an audio or video stream (or neither).
+		video_pad = self.video_queue.get_compatible_pad(pad)
+		audio_pad = self.audio_queue.get_compatible_pad(pad)
+		# For some reason it's picking up video streams as being
+		# compatible with the audio queue???
+		if video_pad:
+			pad.link(video_pad)
+		elif audio_pad:
 			pad.link(audio_pad)
 	
 	def __init__(self):
