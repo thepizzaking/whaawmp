@@ -69,12 +69,16 @@ class main:
 		main_box.pack_start(muxer_box)
 		muxer_box.pack_start(gtk.Label("Container Format"))
 		self.mux_cmb = self.fill_encoders(muxer_box, muxers)
-		start_button = gtk.Button('Start')
+		button_box = gtk.HBox()
+		main_box.pack_start(button_box)
+		start_button = gtk.ToggleButton('Start')
 		#start_button.set_sensitive(False)
 		start_button.connect('clicked', self.transcode)
-		main_box.pack_start(start_button)
-		progress = gtk.ProgressBar()
-		main_box.pack_start(progress)
+		button_box.pack_start(start_button)
+		cancel_button = gtk.Button('Cancel')
+		button_box.pack_start(cancel_button)
+		self.progress_bar = gtk.ProgressBar()
+		main_box.pack_start(self.progress_bar)
 		window.show_all()
 	
 	def transcode(self, widget=None):
@@ -121,6 +125,25 @@ class main:
 		self.mux.link(self.filesink)
 		
 		self.pipe.set_state(gst.STATE_PLAYING)
+		self.progressTimer = gobject.timeout_add_seconds(1, self.progress_update)
+	
+	def progress_update(self):
+		try:
+			duration = self.pipe.query_duration(gst.FORMAT_TIME)[0]
+		except:
+			duration = 0
+		try:
+			position = self.pipe.query_position(gst.FORMAT_TIME)[0]
+		except:
+			position = 0
+		
+		if (duration > 0):
+			fraction = (position / duration)
+			self.progress_bar.set_fraction(fraction)
+			self.progress_bar.set_text(str(fraction))
+		
+		return True
+			
 	
 	def on_dynamic_pad(self, dbin, pad, islast):
 		# Check if it's an audio or video stream (or neither).
