@@ -98,7 +98,7 @@ class main:
 		self.filesrc.set_property('location', source)
 		
 		self.decoder = gst.element_factory_make('decodebin2', 'decoder')
-		self.decoder.connect('new-decoded-pad', self.on_dynamic_pad)
+		self.decoder.connect('pad-added', self.on_dynamic_pad)
 		self.pipe.add(self.filesrc, self.decoder)
 		self.filesrc.link(self.decoder)
 		
@@ -145,15 +145,16 @@ class main:
 		return True
 			
 	
-	def on_dynamic_pad(self, dbin, pad, islast):
+	def on_dynamic_pad(self, source, pad):
 		# Check if it's an audio or video stream (or neither).
+		pad_type = 'video' if str(pad.get_caps()[0].get_name()).startswith('video') else 'audio'
 		video_pad = self.video_queue.get_compatible_pad(pad)
 		audio_pad = self.audio_queue.get_compatible_pad(pad)
-		# For some reason it's picking up video streams as being
-		# compatible with the audio queue???
-		if video_pad:
+		# I originally didn't use the pad_type check, but gstreamer
+		# believes it can link a video pad to an audio pad.
+		if (pad_type == 'video' and video_pad):
 			pad.link(video_pad)
-		elif audio_pad:
+		elif (pad_type == 'audio' and audio_pad):
 			pad.link(audio_pad)
 	
 	def __init__(self):
