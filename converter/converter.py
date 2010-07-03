@@ -76,10 +76,13 @@ class main:
 		start_button.connect('toggled', self.on_start_toggle)
 		button_box.pack_start(start_button)
 		cancel_button = gtk.Button('Cancel')
+		cancel_button.connect('clicked', self.cancel_button_pressed)
 		button_box.pack_start(cancel_button)
 		self.progress_bar = gtk.ProgressBar()
 		main_box.pack_start(self.progress_bar)
 		window.show_all()
+		self.window = window
+		self.start_button = start_button
 	
 	def on_start_toggle(self, widget):
 		if (widget.get_active()):
@@ -97,7 +100,20 @@ class main:
 		else:
 			self.pipe.set_state(gst.STATE_PAUSED)
 			widget.set_label('Resume')
-			
+	
+	def cancel_button_pressed(self, widget):
+		dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_QUESTION,
+		                        gtk.BUTTONS_YES_NO,
+		                        "Are you sure you want to cancel the current transcode?")
+		res = dlg.run()
+		dlg.destroy()
+		if (res == gtk.RESPONSE_YES):
+			try:
+				self.pipe.set_state(gst.STATE_READY)
+				self.start_button.set_active(False)
+				self.start_button.set_label('Start')
+			except AttributeError:
+				pass
 	
 	def transcode(self):
 		source = self.file_select.get_filename()
