@@ -73,7 +73,7 @@ class main:
 		main_box.pack_start(button_box)
 		start_button = gtk.ToggleButton('Start')
 		#start_button.set_sensitive(False)
-		start_button.connect('clicked', self.transcode)
+		start_button.connect('toggled', self.on_start_toggle)
 		button_box.pack_start(start_button)
 		cancel_button = gtk.Button('Cancel')
 		button_box.pack_start(cancel_button)
@@ -81,7 +81,25 @@ class main:
 		main_box.pack_start(self.progress_bar)
 		window.show_all()
 	
-	def transcode(self, widget=None):
+	def on_start_toggle(self, widget):
+		if (widget.get_active()):
+			try:
+				state = self.pipe.get_state(timeout=200*gst.MSECOND)[1]
+			except AttributeError:
+				state = gst.STATE_READY
+			
+			if (state in (gst.STATE_NULL, gst.STATE_READY)):
+				self.transcode()
+				widget.set_label('Pause')
+			elif (state == gst.STATE_PAUSED):
+				self.pipe.set_state(gst.STATE_PLAYING)
+				widget.set_label('Pause')
+		else:
+			self.pipe.set_state(gst.STATE_PAUSED)
+			widget.set_label('Resume')
+			
+	
+	def transcode(self):
 		source = self.file_select.get_filename()
 		
 		video_encoder_name = self.vid_enc_cmb.get_active_text()
