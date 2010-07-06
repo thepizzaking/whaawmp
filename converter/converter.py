@@ -110,16 +110,19 @@ class main:
 		res = dlg.run()
 		dlg.destroy()
 		if (res == gtk.RESPONSE_YES):
-			try:
-				self.pipe.set_state(gst.STATE_READY)
-				self.start_button.set_active(False)
-				self.start_button.set_label('Start')
-				del(self.pipe)
-				gobject.source_remove(self.progress_timer)
-				self.progress_update(0)
-				self.cancel_button.set_sensitive(False)
-			except AttributeError:
-				pass
+			self.stop_transcode()
+	
+	def stop_transcode(self):
+		try:
+			self.pipe.set_state(gst.STATE_READY)
+			self.start_button.set_active(False)
+			self.start_button.set_label('Start')
+			del(self.pipe)
+			gobject.source_remove(self.progress_timer)
+			self.progress_update(0)
+			self.cancel_button.set_sensitive(False)
+		except AttributeError:
+			pass
 	
 	def transcode(self):
 		source = self.file_select.get_filename()
@@ -164,8 +167,16 @@ class main:
 		self.pipe.add(self.filesink)
 		self.mux.link(self.filesink)
 		
+		self.pipe.get_bus().connect('message', self.on_pipe_message)
 		self.pipe.set_state(gst.STATE_PLAYING)
 		self.progress_timer = gobject.timeout_add_seconds(1, self.progress_update)
+	
+	def on_pipe_message(self, bus, message):
+		print(message.type)
+		if (message.type == gst.MESSAGE_EOS):
+			self.stop_transcode()
+			gtk.MessageDialog(self.window, 0, gtk.MESSAGE_WINDOW,
+			                  gtk.BUTTONS_OK, "Transcode complete")
 	
 	def progress_update(self, frac=None):
 		if (frac is None):
