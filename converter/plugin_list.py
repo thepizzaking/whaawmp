@@ -41,6 +41,10 @@ video_encoders = {
                   'Dirac' :
                    {
                     'plugin' : 'schroenc'
+                   },
+                  'x264' :
+                   {
+                    'plugin' : 'x264enc'
                    }
                   }
 muxers = {
