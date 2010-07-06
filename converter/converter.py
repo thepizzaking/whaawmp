@@ -75,9 +75,10 @@ class main:
 		#start_button.set_sensitive(False)
 		start_button.connect('toggled', self.on_start_toggle)
 		button_box.pack_start(start_button)
-		cancel_button = gtk.Button('Cancel')
-		cancel_button.connect('clicked', self.cancel_button_pressed)
-		button_box.pack_start(cancel_button)
+		self.cancel_button = gtk.Button('Cancel')
+		self.cancel_button.connect('clicked', self.cancel_button_pressed)
+		self.cancel_button.set_sensitive(False)
+		button_box.pack_start(self.cancel_button)
 		self.progress_bar = gtk.ProgressBar()
 		main_box.pack_start(self.progress_bar)
 		window.show_all()
@@ -94,6 +95,7 @@ class main:
 			if (state in (gst.STATE_NULL, gst.STATE_READY)):
 				self.transcode()
 				widget.set_label('Pause')
+				self.cancel_button.set_sensitive(True)
 			elif (state == gst.STATE_PAUSED):
 				self.pipe.set_state(gst.STATE_PLAYING)
 				widget.set_label('Pause')
@@ -112,6 +114,10 @@ class main:
 				self.pipe.set_state(gst.STATE_READY)
 				self.start_button.set_active(False)
 				self.start_button.set_label('Start')
+				del(self.pipe)
+				gobject.source_remove(self.progress_timer)
+				self.progress_update(0)
+				self.cancel_button.set_sensitive(False)
 			except AttributeError:
 				pass
 	
@@ -159,20 +165,21 @@ class main:
 		self.mux.link(self.filesink)
 		
 		self.pipe.set_state(gst.STATE_PLAYING)
-		self.progressTimer = gobject.timeout_add_seconds(1, self.progress_update)
+		self.progress_timer = gobject.timeout_add_seconds(1, self.progress_update)
 	
-	def progress_update(self):
-		try:
-			duration = self.pipe.query_duration(gst.FORMAT_TIME)[0]
-		except:
-			duration = 0
-		try:
-			position = self.pipe.query_position(gst.FORMAT_TIME)[0]
-		except:
-			position = 0
+	def progress_update(self, frac=None):
+		if (frac is None):
+			try:
+				duration = self.pipe.query_duration(gst.FORMAT_TIME)[0]
+			except:
+				duration = 0
+			try:
+				position = self.pipe.query_position(gst.FORMAT_TIME)[0]
+			except:
+				position = 0
 		
-		if (duration > 0):
-			fraction = (position / duration)
+		if (frac is not None or duration > 0):
+			fraction = frac if (frac is not None) else (position / duration)
 			self.progress_bar.set_fraction(fraction)
 			self.progress_bar.set_text(str(fraction))
 		
