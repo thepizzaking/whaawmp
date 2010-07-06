@@ -48,5 +48,10 @@ muxers = {
            {
             'plugin' : 'matroskamux',
             'extension' : 'mkv'
+           },
+          'OGG' :
+           {
+            'plugin' : 'oggmux',
+            'extension' : 'ogv'
            }
           }

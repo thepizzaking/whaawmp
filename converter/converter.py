@@ -117,10 +117,10 @@ class main:
 			self.pipe.set_state(gst.STATE_READY)
 			self.start_button.set_active(False)
 			self.start_button.set_label('Start')
-			del(self.pipe)
 			gobject.source_remove(self.progress_timer)
 			self.progress_update(0)
 			self.cancel_button.set_sensitive(False)
+			self.pipe.set_state(gst.STATE_NULL)
 		except AttributeError:
 			pass
 	
@@ -167,16 +167,19 @@ class main:
 		self.pipe.add(self.filesink)
 		self.mux.link(self.filesink)
 		
-		self.pipe.get_bus().connect('message', self.on_pipe_message)
+		bus = self.pipe.get_bus()
+		bus.add_signal_watch()
+		bus.connect('message', self.on_pipe_message)
 		self.pipe.set_state(gst.STATE_PLAYING)
 		self.progress_timer = gobject.timeout_add_seconds(1, self.progress_update)
 	
 	def on_pipe_message(self, bus, message):
-		print(message.type)
 		if (message.type == gst.MESSAGE_EOS):
 			self.stop_transcode()
-			gtk.MessageDialog(self.window, 0, gtk.MESSAGE_WINDOW,
-			                  gtk.BUTTONS_OK, "Transcode complete")
+			dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_INFO,
+			                        gtk.BUTTONS_OK, "Transcode complete")
+			dlg.run()
+			dlg.destroy()
 	
 	def progress_update(self, frac=None):
 		if (frac is None):
