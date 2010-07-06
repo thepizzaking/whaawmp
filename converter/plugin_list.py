@@ -27,8 +27,13 @@ audio_encoders = {
                   'Vorbis' :
                    {
                     'plugin' : 'vorbisenc'
+                   },
+                  'Lame (mp3)' :
+                   {
+                    'plugin' : 'lame'
                    }
                  }
+
 video_encoders = {
                   'VP8' :
                    {
@@ -45,8 +50,13 @@ video_encoders = {
                   'x264' :
                    {
                     'plugin' : 'x264enc'
+                   },
+                  'xvid' :
+                   {
+                    'plugin' : 'xvidenc'
                    }
                   }
+
 muxers = {
           'Matroska' :
            {
@@ -57,5 +67,20 @@ muxers = {
            {
             'plugin' : 'oggmux',
             'extension' : 'ogv'
+           },
+          'AVI' :
+           {
+            'plugin' : 'avimux',
+            'extension' : 'avi'
+           },
+          'MPEG TS' :
+           {
+            'plugin' : 'mpegtsmux',
+            'extension' : 'mpeg'
+           },
+          'MPEG PS' :
+           {
+            'plugin' : 'mpegpsmux',
+            'extension' : 'mpeg'
            }
           }
