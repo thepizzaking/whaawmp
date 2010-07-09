@@ -61,12 +61,14 @@ muxers = {
           'Matroska' :
            {
             'plugin' : 'matroskamux',
-            'extension' : 'mkv'
+            'extension' : 'mkv',
+            'audio_extension' : 'mka'
            },
           'OGG' :
            {
             'plugin' : 'oggmux',
-            'extension' : 'ogv'
+            'extension' : 'ogv',
+            'audio_extension' : 'oga'
            },
           'AVI' :
            {

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #  Whaaw! Media Converter for transcoding media files.
-#  Copyright © 2007-2010, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2010, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify
@@ -40,6 +40,8 @@ class main:
 	
 	def fill_encoders(self, box, encoders):
 		combobox = gtk.combo_box_new_text()
+		combobox.append_text("None")
+		combobox.set_active(0)
 		for x in encoders.keys():
 			combobox.append_text(x)
 		box.pack_start(combobox)
@@ -131,8 +133,22 @@ class main:
 		audio_encoder_name = self.aud_enc_cmb.get_active_text()
 		muxer_name = self.mux_cmb.get_active_text()
 		
-		video_encoder = video_encoders[video_encoder_name]['plugin']
-		audio_encoder = audio_encoders[audio_encoder_name]['plugin']
+		if (muxer_name == "None"):
+			dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_INFO,
+			                        gtk.BUTTONS_OK, "You should probably choose a Container Format")
+			dlg.run()
+			dlg.destroy()
+			return
+		
+		if (video_encoder_name != "None"):
+			video_encoder = video_encoders[video_encoder_name]['plugin']
+		else:
+			video_encoder = None
+		if (audio_encoder_name != "None"):
+			audio_encoder = audio_encoders[audio_encoder_name]['plugin']
+		else:
+			audio_encoder = None
+		# Already checked if muxer_name was "None".
 		muxer = muxers[muxer_name]['plugin']
 		
 		self.pipe = gst.Pipeline('pipeline')
@@ -145,24 +161,38 @@ class main:
 		self.pipe.add(self.filesrc, self.decoder)
 		self.filesrc.link(self.decoder)
 		
-		self.audio_queue = gst.element_factory_make('queue', 'audio_queue')
-		self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
-		self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
+		if audio_encoder:
+			self.audio_queue = gst.element_factory_make('queue', 'audio_queue')
+			self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
+			self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
+		else:
+			self.audio_queue = None
 		
-		self.video_queue = gst.element_factory_make('queue', 'video_queue')
-		self.colourspace = gst.element_factory_make('ffmpegcolorspace', 'colourspace')
-		self.videoencode = gst.element_factory_make(video_encoder, 'videoencode')
+		if video_encoder:
+			self.video_queue = gst.element_factory_make('queue', 'video_queue')
+			self.colourspace = gst.element_factory_make('ffmpegcolorspace', 'colourspace')
+			self.videoencode = gst.element_factory_make(video_encoder, 'videoencode')
+		else:
+			self.video_queue = None
 		
 		self.mux = gst.element_factory_make(muxer, 'mux')
 		
+		if (audio_encoder and not video_encoder and ('audio_extension' in muxers[muxer_name].keys())):
+			# If we're only encoding audio, use the audio only extension.
+			extension = muxers[muxer_name]['audio_extension']
+		else:
+			extension = muxers[muxer_name]['extension']
+		
 		self.filesink = gst.element_factory_make('filesink', 'sink')
-		self.filesink.set_property('location', '%s.%s' % (source, muxers[muxer_name]['extension']))
+		self.filesink.set_property('location', '%s.%s' % (source, extension))
 		
 		self.pipe.add(self.mux)
-		self.pipe.add(self.audio_queue, self.audioconvert, self.audioencode)
-		gst.element_link_many(self.audio_queue, self.audioconvert, self.audioencode, self.mux)
-		self.pipe.add(self.video_queue, self.colourspace, self.videoencode)
-		gst.element_link_many(self.video_queue, self.colourspace, self.videoencode, self.mux)
+		if audio_encoder:
+			self.pipe.add(self.audio_queue, self.audioconvert, self.audioencode)
+			gst.element_link_many(self.audio_queue, self.audioconvert, self.audioencode, self.mux)
+		if video_encoder:
+			self.pipe.add(self.video_queue, self.colourspace, self.videoencode)
+			gst.element_link_many(self.video_queue, self.colourspace, self.videoencode, self.mux)
 		
 		self.pipe.add(self.filesink)
 		self.mux.link(self.filesink)
@@ -203,8 +233,9 @@ class main:
 	def on_dynamic_pad(self, source, pad):
 		# Check if it's an audio or video stream (or neither).
 		pad_type = 'video' if str(pad.get_caps()[0].get_name()).startswith('video') else 'audio'
-		video_pad = self.video_queue.get_compatible_pad(pad)
-		audio_pad = self.audio_queue.get_compatible_pad(pad)
+		audio_pad = video_pad = None
+		if self.video_queue: video_pad = self.video_queue.get_compatible_pad(pad)
+		if self.audio_queue: audio_pad = self.audio_queue.get_compatible_pad(pad)
 		# I originally didn't use the pad_type check, but gstreamer
 		# believes it can link a video pad to an audio pad.
 		if (pad_type == 'video' and video_pad):
