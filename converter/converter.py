@@ -28,10 +28,12 @@
 
 from __future__ import print_function
 from __future__ import division
+import gobject
+gobject.threads_init()
 import pygtk, pygst
 pygtk.require('2.0')
 pygst.require('0.10')
-import gtk, gobject, gst
+import gtk, gst
 from plugin_list import audio_encoders, video_encoders, muxers
 
 class main:
@@ -151,31 +153,31 @@ class main:
 		# Already checked if muxer_name was "None".
 		muxer = muxers[muxer_name]['plugin']
 		
-		self.pipe = gst.Pipeline('pipeline')
+		self.pipe = gst.Pipeline()
 		
-		self.filesrc = gst.element_factory_make('filesrc', 'source')
+		self.filesrc = gst.element_factory_make('filesrc')
 		self.filesrc.set_property('location', source)
 		
-		self.decoder = gst.element_factory_make('decodebin2', 'decoder')
+		self.decoder = gst.element_factory_make('decodebin2')
 		self.decoder.connect('pad-added', self.on_dynamic_pad)
 		self.pipe.add(self.filesrc, self.decoder)
 		self.filesrc.link(self.decoder)
 		
 		if audio_encoder:
-			self.audio_queue = gst.element_factory_make('queue', 'audio_queue')
-			self.audioconvert = gst.element_factory_make('audioconvert', 'audioconvert')
-			self.audioencode = gst.element_factory_make(audio_encoder, 'audioencode')
+			self.audio_queue = gst.element_factory_make('queue')
+			self.audioconvert = gst.element_factory_make('audioconvert')
+			self.audioencode = gst.element_factory_make(audio_encoder)
 		else:
 			self.audio_queue = None
 		
 		if video_encoder:
-			self.video_queue = gst.element_factory_make('queue', 'video_queue')
-			self.colourspace = gst.element_factory_make('ffmpegcolorspace', 'colourspace')
-			self.videoencode = gst.element_factory_make(video_encoder, 'videoencode')
+			self.video_queue = gst.element_factory_make('queue')
+			self.colourspace = gst.element_factory_make('ffmpegcolorspace')
+			self.videoencode = gst.element_factory_make(video_encoder)
 		else:
 			self.video_queue = None
 		
-		self.mux = gst.element_factory_make(muxer, 'mux')
+		self.mux = gst.element_factory_make(muxer)
 		
 		if (audio_encoder and not video_encoder and ('audio_extension' in muxers[muxer_name].keys())):
 			# If we're only encoding audio, use the audio only extension.
@@ -183,7 +185,7 @@ class main:
 		else:
 			extension = muxers[muxer_name]['extension']
 		
-		self.filesink = gst.element_factory_make('filesink', 'sink')
+		self.filesink = gst.element_factory_make('filesink')
 		self.filesink.set_property('location', '%s.%s' % (source, extension))
 		
 		self.pipe.add(self.mux)
