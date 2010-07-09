@@ -1,5 +1,7 @@
 Whaaw! Media Converter.
 This is just a test program at the moment used to transcode media
 using the gstreamer backend.
+I figured I may as well add it to the git repository since others
+may find it useful.
 Currently only works on Videos, audio only not so much.
 Also, can only use default plugin settings.
