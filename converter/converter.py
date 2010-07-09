@@ -155,29 +155,29 @@ class main:
 		
 		self.pipe = gst.Pipeline()
 		
-		self.filesrc = gst.element_factory_make('filesrc')
-		self.filesrc.set_property('location', source)
+		filesrc = gst.element_factory_make('filesrc')
+		filesrc.set_property('location', source)
 		
-		self.decoder = gst.element_factory_make('decodebin2')
-		self.decoder.connect('pad-added', self.on_dynamic_pad)
-		self.pipe.add(self.filesrc, self.decoder)
-		self.filesrc.link(self.decoder)
+		decoder = gst.element_factory_make('decodebin2')
+		decoder.connect('pad-added', self.on_dynamic_pad)
+		self.pipe.add(filesrc, decoder)
+		filesrc.link(decoder)
 		
 		if audio_encoder:
 			self.audio_queue = gst.element_factory_make('queue')
-			self.audioconvert = gst.element_factory_make('audioconvert')
-			self.audioencode = gst.element_factory_make(audio_encoder)
+			audioconvert = gst.element_factory_make('audioconvert')
+			audioencode = gst.element_factory_make(audio_encoder)
 		else:
 			self.audio_queue = None
 		
 		if video_encoder:
 			self.video_queue = gst.element_factory_make('queue')
-			self.colourspace = gst.element_factory_make('ffmpegcolorspace')
-			self.videoencode = gst.element_factory_make(video_encoder)
+			colourspace = gst.element_factory_make('ffmpegcolorspace')
+			videoencode = gst.element_factory_make(video_encoder)
 		else:
 			self.video_queue = None
 		
-		self.mux = gst.element_factory_make(muxer)
+		mux = gst.element_factory_make(muxer)
 		
 		if (audio_encoder and not video_encoder and ('audio_extension' in muxers[muxer_name].keys())):
 			# If we're only encoding audio, use the audio only extension.
@@ -185,19 +185,19 @@ class main:
 		else:
 			extension = muxers[muxer_name]['extension']
 		
-		self.filesink = gst.element_factory_make('filesink')
-		self.filesink.set_property('location', '%s.%s' % (source, extension))
+		filesink = gst.element_factory_make('filesink')
+		filesink.set_property('location', '%s.%s' % (source, extension))
 		
-		self.pipe.add(self.mux)
+		self.pipe.add(mux)
 		if audio_encoder:
-			self.pipe.add(self.audio_queue, self.audioconvert, self.audioencode)
-			gst.element_link_many(self.audio_queue, self.audioconvert, self.audioencode, self.mux)
+			self.pipe.add(self.audio_queue, audioconvert, audioencode)
+			gst.element_link_many(self.audio_queue, audioconvert, audioencode, mux)
 		if video_encoder:
-			self.pipe.add(self.video_queue, self.colourspace, self.videoencode)
-			gst.element_link_many(self.video_queue, self.colourspace, self.videoencode, self.mux)
+			self.pipe.add(self.video_queue, colourspace, videoencode)
+			gst.element_link_many(self.video_queue, colourspace, videoencode, mux)
 		
-		self.pipe.add(self.filesink)
-		self.mux.link(self.filesink)
+		self.pipe.add(filesink)
+		mux.link(filesink)
 		
 		bus = self.pipe.get_bus()
 		bus.add_signal_watch()
