@@ -37,7 +37,8 @@ audio_encoders = {
 video_encoders = {
                   'VP8' :
                    {
-                    'plugin' : 'vp8enc'
+                    'plugin' : 'vp8enc',
+                    'multipass' : ('multipass-mode', 'multipass-cache-file', 1, 2),
                    },
                   'Theora' :
                    {

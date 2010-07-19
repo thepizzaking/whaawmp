@@ -37,6 +37,8 @@ import gtk, gst
 from plugin_list import audio_encoders, video_encoders, muxers
 
 class main:
+	multipass_mode = None
+	
 	def quit(self, widget=None):
 		gtk.main_quit()
 	
@@ -68,6 +70,8 @@ class main:
 		audio_box.pack_start(gtk.Label("Audio Encoder"))
 		self.vid_enc_cmb = self.fill_encoders(video_box, video_encoders)
 		self.aud_enc_cmb = self.fill_encoders(audio_box, audio_encoders)
+		self.multipass_tick = gtk.CheckButton("Multipass")
+		video_box.pack_start(self.multipass_tick)
 		main_box.pack_start(gtk.HSeparator())
 		muxer_box = gtk.VBox()
 		main_box.pack_start(muxer_box)
@@ -97,7 +101,10 @@ class main:
 				state = gst.STATE_READY
 			
 			if (state in (gst.STATE_NULL, gst.STATE_READY)):
-				self.transcode()
+				if self.multipass_tick.get_active():
+					self.first_pass()
+				else:
+					self.transcode()
 				widget.set_label('Pause')
 				self.cancel_button.set_sensitive(True)
 			elif (state == gst.STATE_PAUSED):
@@ -127,6 +134,62 @@ class main:
 			self.pipe.set_state(gst.STATE_NULL)
 		except AttributeError:
 			pass
+	
+	def first_pass(self):
+		self.multipass_mode = 1
+		source = self.file_select.get_filename()
+		
+		video_encoder_name = self.vid_enc_cmb.get_active_text()
+		muxer_name = self.mux_cmb.get_active_text()
+		
+		if (muxer_name == "None"):
+			dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_INFO,
+			                        gtk.BUTTONS_OK, "You should probably choose a Container Format")
+			dlg.run()
+			dlg.destroy()
+			return
+
+		if (video_encoder_name != "None"):
+			video_encoder = video_encoders[video_encoder_name]['plugin']
+		else:
+			video_encoder = None
+
+		self.pipe = gst.Pipeline()
+		
+		filesrc = gst.element_factory_make('filesrc')
+		filesrc.set_property('location', source)
+		
+		decoder = gst.element_factory_make('decodebin2')
+		decoder.connect('pad-added', self.on_dynamic_pad)
+		self.pipe.add(filesrc, decoder)
+		filesrc.link(decoder)
+		multipass_info = video_encoders[video_encoder_name]['multipass']
+		
+		self.audio_queue = None
+		
+		if video_encoder:
+			self.video_queue = gst.element_factory_make('queue')
+			colourspace = gst.element_factory_make('ffmpegcolorspace')
+			videoencode = gst.element_factory_make(video_encoder)
+			videoencode.set_property(multipass_info[0], multipass_info[2])
+		else:
+			## FIXME: probably want to error here.
+			return
+		
+		extension = muxers[muxer_name]['extension']
+		
+		videoencode.set_property(multipass_info[1], '%s.%s.multipass_cache' % (source, extension))
+		sink = gst.element_factory_make('fakesink')
+		
+		if video_encoder:
+			self.pipe.add(self.video_queue, colourspace, videoencode, sink)
+			gst.element_link_many(self.video_queue, colourspace, videoencode, sink)
+		
+		bus = self.pipe.get_bus()
+		bus.add_signal_watch()
+		bus.connect('message', self.on_pipe_message)
+		self.pipe.set_state(gst.STATE_PLAYING)
+		self.progress_timer = gobject.timeout_add_seconds(1, self.progress_update)
 	
 	def transcode(self):
 		source = self.file_select.get_filename()
@@ -184,6 +247,11 @@ class main:
 			extension = muxers[muxer_name]['audio_extension']
 		else:
 			extension = muxers[muxer_name]['extension']
+			
+		if self.multipass_tick.get_active() and self.multipass_mode == 2:
+			multipass_info = video_encoders[video_encoder_name]['multipass']
+			videoencode.set_property(multipass_info[0], multipass_info[3])
+			videoencode.set_property(multipass_info[1], '%s.%s.multipass_cache' % (source, extension))
 		
 		filesink = gst.element_factory_make('filesink')
 		filesink.set_property('location', '%s.%s' % (source, extension))
@@ -208,10 +276,15 @@ class main:
 	def on_pipe_message(self, bus, message):
 		if (message.type == gst.MESSAGE_EOS):
 			self.stop_transcode()
-			dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_INFO,
-			                        gtk.BUTTONS_OK, "Transcode complete")
-			dlg.run()
-			dlg.destroy()
+			if (self.multipass_tick.get_active() and self.multipass_mode == 1):
+				self.multipass_mode = 2
+				self.transcode()
+			else:
+				dlg = gtk.MessageDialog(self.window, 0, gtk.MESSAGE_INFO,
+										gtk.BUTTONS_OK, "Transcode complete")
+				dlg.run()
+				dlg.destroy()
+				self.multipass_mode = None
 	
 	def progress_update(self, frac=None):
 		if (frac is None):
