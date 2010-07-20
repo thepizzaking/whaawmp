@@ -70,7 +70,10 @@ class main:
 		audio_box.pack_start(gtk.Label("Audio Encoder"))
 		self.vid_enc_cmb = self.fill_encoders(video_box, video_encoders)
 		self.aud_enc_cmb = self.fill_encoders(audio_box, audio_encoders)
+		self.vid_enc_cmb.connect("changed", self.video_enc_changed)
+		self.aud_enc_cmb.connect("changed", self.audio_enc_changed)
 		self.multipass_tick = gtk.CheckButton("Multipass")
+		self.multipass_tick.set_sensitive(False)
 		video_box.pack_start(self.multipass_tick)
 		main_box.pack_start(gtk.HSeparator())
 		muxer_box = gtk.VBox()
@@ -92,6 +95,14 @@ class main:
 		window.show_all()
 		self.window = window
 		self.start_button = start_button
+	
+	def video_enc_changed(self, widget):
+		encoder = widget.get_active_text()
+		self.multipass_tick.set_active(False)
+		self.multipass_tick.set_sensitive('multipass' in video_encoders[encoder].keys())
+	
+	def audio_enc_changed(self, widget):
+		pass
 	
 	def on_start_toggle(self, widget):
 		if (widget.get_active()):
