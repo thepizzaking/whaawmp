@@ -75,6 +75,20 @@ class main:
 		self.multipass_tick = gtk.CheckButton("Multipass")
 		self.multipass_tick.set_sensitive(False)
 		video_box.pack_start(self.multipass_tick)
+		video_quality_box = gtk.HBox()
+		video_quality_box.pack_start(gtk.Label("Quality:"))
+		self.video_quality_spin = gtk.SpinButton()
+		self.video_quality_spin.set_sensitive(False)
+		self.video_quality_spin.set_digits(2)
+		video_quality_box.pack_start(self.video_quality_spin)
+		video_box.pack_start(video_quality_box)
+		audio_quality_box = gtk.HBox()
+		audio_quality_box.pack_start(gtk.Label("Quality:"))
+		self.audio_quality_spin = gtk.SpinButton()
+		self.audio_quality_spin.set_sensitive(False)
+		self.audio_quality_spin.set_digits(2)
+		audio_quality_box.pack_start(self.audio_quality_spin)
+		audio_box.pack_start(audio_quality_box)
 		main_box.pack_start(gtk.HSeparator())
 		muxer_box = gtk.VBox()
 		main_box.pack_start(muxer_box)
@@ -98,11 +112,35 @@ class main:
 	
 	def video_enc_changed(self, widget):
 		encoder = widget.get_active_text()
-		self.multipass_tick.set_active(False)
+		properties = gobject.list_properties(gst.element_factory_make(video_encoders[encoder]['plugin']))
 		self.multipass_tick.set_sensitive('multipass' in video_encoders[encoder].keys())
+		self.multipass_tick.set_active(False)
+		
+		if ('quality' in video_encoders[encoder].keys()):
+			self.video_quality_spin.set_sensitive(True)
+			for x in properties:
+				if (x.name == video_encoders[encoder]['quality']):
+					self.video_quality_spin.set_range(x.minimum, x.maximum)
+					self.video_quality_spin.set_value(x.default_value)
+					spread = x.maximum - x.minimum
+					self.video_quality_spin.set_increments(spread / 20, spread / 5)
+		else:
+			self.video_quality_spin.set_sensitive(False)
 	
 	def audio_enc_changed(self, widget):
-		pass
+		encoder = widget.get_active_text()
+		properties = gobject.list_properties(gst.element_factory_make(audio_encoders[encoder]['plugin']))
+		
+		if ('quality' in audio_encoders[encoder].keys()):
+			self.audio_quality_spin.set_sensitive(True)
+			for x in properties:
+				if (x.name == audio_encoders[encoder]['quality']):
+					self.audio_quality_spin.set_range(x.minimum, x.maximum)
+					self.audio_quality_spin.set_value(x.default_value)
+					spread = x.maximum - x.minimum
+					self.audio_quality_spin.set_increments(spread / 20, spread / 5)
+		else:
+			self.audio_quality_spin.set_sensitive(False)
 	
 	def on_start_toggle(self, widget):
 		if (widget.get_active()):

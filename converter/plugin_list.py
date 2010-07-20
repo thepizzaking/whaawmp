@@ -26,7 +26,8 @@
 audio_encoders = {
                   'Vorbis' :
                    {
-                    'plugin' : 'vorbisenc'
+                    'plugin' : 'vorbisenc',
+                    'quality' : 'quality'
                    },
                   'Lame (mp3)' :
                    {
