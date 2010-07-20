@@ -327,6 +327,8 @@ class main:
 			self.audio_queue = gst.element_factory_make('queue')
 			audioconvert = gst.element_factory_make('audioconvert')
 			audioencode = gst.element_factory_make(audio_encoder)
+			for x in self.audio_properties.keys():
+				audioencode.set_property(x, self.audio_properties[x])
 		else:
 			self.audio_queue = None
 		
