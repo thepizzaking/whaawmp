@@ -279,6 +279,8 @@ class main:
 			self.audio_queue = gst.element_factory_make('queue')
 			audioconvert = gst.element_factory_make('audioconvert')
 			audioencode = gst.element_factory_make(audio_encoder)
+			if ('quality' in audio_encoders[audio_encoder_name].keys()):
+				audioencode.set_property(audio_encoders[audio_encoder_name]['quality'], self.audio_quality_spin.get_value())
 		else:
 			self.audio_queue = None
 		
@@ -286,6 +288,8 @@ class main:
 			self.video_queue = gst.element_factory_make('queue')
 			colourspace = gst.element_factory_make('ffmpegcolorspace')
 			videoencode = gst.element_factory_make(video_encoder)
+			if ('quality' in video_encoders[video_encoder_name].keys()):
+				audioencode.set_property(video_encoders[video_encoder_name]['quality'], self.video_quality_spin.get_value())
 		else:
 			self.video_queue = None
 		
