@@ -27,11 +27,12 @@ audio_encoders = {
                   'Vorbis' :
                    {
                     'plugin' : 'vorbisenc',
-                    'quality' : 'quality'
+                    'quality' : {'title' : 'Quality',
+                                 'property' : 'quality'}
                    },
                   'Lame (mp3)' :
                    {
-                    'plugin' : 'lame'
+                    'plugin' : 'lame',
                    }
                  }
 
@@ -39,8 +40,14 @@ video_encoders = {
                   'VP8' :
                    {
                     'plugin' : 'vp8enc',
-                    'multipass' : ('multipass-mode', 'multipass-cache-file', 1, 2),
-                    'quality' : 'quality'
+                    'multipass' : {'title' : 'Multipass',
+                                   'override' : True,
+                                   'mode' : 'multipass-mode',
+                                   'cache' : 'multipass-cache-file',
+                                   'first-pass' : 1,
+                                   'second-pass' : 2},
+                    'quality' : {'title' : 'Quality',
+                                 'property' : 'quality'}
                    },
                   'Theora' :
                    {

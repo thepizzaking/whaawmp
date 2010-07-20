@@ -38,6 +38,8 @@ from plugin_list import audio_encoders, video_encoders, muxers
 
 class main:
 	multipass_mode = None
+	audio_properties_box = video_properties_box = None
+	audio_properties = video_properties = {}
 	
 	def quit(self, widget=None):
 		gtk.main_quit()
@@ -61,18 +63,18 @@ class main:
 		main_box.pack_start(self.file_select)
 		encoder_box = gtk.HBox()
 		main_box.pack_start(encoder_box)
-		video_box = gtk.VBox()
-		audio_box = gtk.VBox()
-		encoder_box.pack_start(video_box)
+		self.video_box = gtk.VBox()
+		self.audio_box = gtk.VBox()
+		encoder_box.pack_start(self.video_box)
 		encoder_box.pack_start(gtk.VSeparator())
-		encoder_box.pack_start(audio_box)
-		video_box.pack_start(gtk.Label("Video Encoder"))
-		audio_box.pack_start(gtk.Label("Audio Encoder"))
-		self.vid_enc_cmb = self.fill_encoders(video_box, video_encoders)
-		self.aud_enc_cmb = self.fill_encoders(audio_box, audio_encoders)
+		encoder_box.pack_start(self.audio_box)
+		self.video_box.pack_start(gtk.Label("Video Encoder"))
+		self.audio_box.pack_start(gtk.Label("Audio Encoder"))
+		self.vid_enc_cmb = self.fill_encoders(self.video_box, video_encoders)
+		self.aud_enc_cmb = self.fill_encoders(self.audio_box, audio_encoders)
 		self.vid_enc_cmb.connect("changed", self.video_enc_changed)
 		self.aud_enc_cmb.connect("changed", self.audio_enc_changed)
-		self.multipass_tick = gtk.CheckButton("Multipass")
+		'''self.multipass_tick = gtk.CheckButton("Multipass")
 		self.multipass_tick.set_sensitive(False)
 		video_box.pack_start(self.multipass_tick)
 		video_quality_box = gtk.HBox()
@@ -88,7 +90,7 @@ class main:
 		self.audio_quality_spin.set_sensitive(False)
 		self.audio_quality_spin.set_digits(2)
 		audio_quality_box.pack_start(self.audio_quality_spin)
-		audio_box.pack_start(audio_quality_box)
+		audio_box.pack_start(audio_quality_box)'''
 		main_box.pack_start(gtk.HSeparator())
 		muxer_box = gtk.VBox()
 		main_box.pack_start(muxer_box)
@@ -111,7 +113,42 @@ class main:
 		self.start_button = start_button
 	
 	def video_enc_changed(self, widget):
-		encoder = widget.get_active_text()
+		if (self.video_properties_box):
+			self.video_box.remove(self.video_properties_box)
+			self.video_properties_box = None
+		self.video_properties = {}
+		self.video_properties_box = self.pack_properties(widget, self.video_box, video_encoders, self.video_properties)
+	
+	def pack_properties(self, widget, box, encoders, prop_storage):
+		name = widget.get_active_text()
+		
+		if not name: return None
+		data = encoders[name]
+		properties_box = gtk.VBox()
+		
+		for prop in data.keys():
+			if prop is not 'plugin':
+				prop_info = data[prop]
+				if ((not ('override' in prop_info.keys())) or (not prop_info['override'])):
+					properties_box.pack_start(self.get_default_prop_widget(prop_info, prop_storage, data))
+		
+		box.pack_start(properties_box)
+		properties_box.show_all()
+		return properties_box
+	
+	def get_default_prop_widget(self, prop_info, prop_storage, data):
+		encoder_prop = gobject.list_properties(gst.element_factory_make(data['plugin']))
+		for x in encoder_prop:
+			if (x.name == prop_info['property']):
+				#if (gobject.type_is_a(x.default_value, gobject.TYPE_FLOAT)):
+				if (type(x.default_value) == float):
+					print('aaa')
+				#	hbox = gtk.HBox()
+				#	hbox.pack_start
+		
+		return gtk.Button('aaaa')
+		
+		'''
 		properties = gobject.list_properties(gst.element_factory_make(video_encoders[encoder]['plugin']))
 		self.multipass_tick.set_sensitive('multipass' in video_encoders[encoder].keys())
 		self.multipass_tick.set_active(False)
@@ -126,7 +163,7 @@ class main:
 					self.video_quality_spin.set_increments(spread / 20, spread / 5)
 		else:
 			self.video_quality_spin.set_sensitive(False)
-	
+	'''
 	def audio_enc_changed(self, widget):
 		encoder = widget.get_active_text()
 		properties = gobject.list_properties(gst.element_factory_make(audio_encoders[encoder]['plugin']))
