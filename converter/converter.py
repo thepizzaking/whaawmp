@@ -142,12 +142,22 @@ class main:
 			if (x.name == prop_info['property']):
 				#if (gobject.type_is_a(x.default_value, gobject.TYPE_FLOAT)):
 				if (type(x.default_value) == float):
-					print('aaa')
-				#	hbox = gtk.HBox()
-				#	hbox.pack_start
+					hbox = gtk.HBox()
+					hbox.pack_start(gtk.Label(prop_info['title']))
+					spin = gtk.SpinButton()
+					spin.set_range(x.minimum, x.maximum)
+					spread = x.maximum - x.minimum
+					spin.set_increments(spread/20, spread/5)
+					spin.set_digits(2)
+					spin.set_value(x.default_value)
+					spin.connect('value-changed', self.spin_change, prop_storage, x.name)
+					return spin
 		
-		return gtk.Button('aaaa')
-		
+		return gtk.Button('aaa')
+	
+	def spin_change(self, widget, prop_storage, prop):
+		prop_storage[prop] = widget.get_value()
+
 		'''
 		properties = gobject.list_properties(gst.element_factory_make(video_encoders[encoder]['plugin']))
 		self.multipass_tick.set_sensitive('multipass' in video_encoders[encoder].keys())
@@ -187,10 +197,11 @@ class main:
 				state = gst.STATE_READY
 			
 			if (state in (gst.STATE_NULL, gst.STATE_READY)):
-				if self.multipass_tick.get_active():
+				'''if self.multipass_tick.get_active():
 					self.first_pass()
 				else:
-					self.transcode()
+					self.transcode()'''
+				self.transcode()
 				widget.set_label('Pause')
 				self.cancel_button.set_sensitive(True)
 			elif (state == gst.STATE_PAUSED):
@@ -316,8 +327,6 @@ class main:
 			self.audio_queue = gst.element_factory_make('queue')
 			audioconvert = gst.element_factory_make('audioconvert')
 			audioencode = gst.element_factory_make(audio_encoder)
-			if ('quality' in audio_encoders[audio_encoder_name].keys()):
-				audioencode.set_property(audio_encoders[audio_encoder_name]['quality'], self.audio_quality_spin.get_value())
 		else:
 			self.audio_queue = None
 		
@@ -325,8 +334,8 @@ class main:
 			self.video_queue = gst.element_factory_make('queue')
 			colourspace = gst.element_factory_make('ffmpegcolorspace')
 			videoencode = gst.element_factory_make(video_encoder)
-			if ('quality' in video_encoders[video_encoder_name].keys()):
-				audioencode.set_property(video_encoders[video_encoder_name]['quality'], self.video_quality_spin.get_value())
+			for x in self.video_properties.keys():
+				videoencode.set_property(x, self.video_properties[x])
 		else:
 			self.video_queue = None
 		
@@ -338,11 +347,11 @@ class main:
 		else:
 			extension = muxers[muxer_name]['extension']
 			
-		if self.multipass_tick.get_active() and self.multipass_mode == 2:
+		'''if self.multipass_tick.get_active() and self.multipass_mode == 2:
 			multipass_info = video_encoders[video_encoder_name]['multipass']
 			videoencode.set_property(multipass_info[0], multipass_info[3])
 			videoencode.set_property(multipass_info[1], '%s.%s.multipass_cache' % (source, extension))
-		
+		'''
 		filesink = gst.element_factory_make('filesink')
 		filesink.set_property('location', '%s.%s' % (source, extension))
 		
