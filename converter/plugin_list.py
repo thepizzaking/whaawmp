@@ -32,7 +32,7 @@ audio_encoders = {
                    },
                   'Lame (mp3)' :
                    {
-                    'plugin' : 'lame',
+                    'plugin' : 'lame'
                    }
                  }
 

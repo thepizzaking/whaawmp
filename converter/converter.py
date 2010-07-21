@@ -131,7 +131,8 @@ class main:
 		for x in encoder_prop:
 			if (x.name == prop_info['property']):
 				#if (gobject.type_is_a(x.default_value, gobject.TYPE_FLOAT)):
-				if (type(x.default_value) == float):
+				prop_type = self.get_type(x)
+				if (prop_type == 'float'):
 					hbox = gtk.HBox()
 					hbox.pack_start(gtk.Label(prop_info['title']))
 					spin = gtk.SpinButton()
@@ -145,6 +146,23 @@ class main:
 					return hbox
 		
 		return gtk.Button('aaa')
+	
+	def get_type(self, x):
+		for t in ('GParamFloat', 'GParamDouble'):
+			if gobject.type_is_a(x, gobject.type_from_name(t)):
+				return 'float'
+		for t in ('GParamInt', 'GParamInt64', 'GParamUInt', 'GParamUInt64', 'GParamLong', 'GParamULong'):
+			if gobject.type_is_a(x, gobject.type_from_name(t)):
+				return 'integer'
+		for t in ('GParamString', 'GParamChar', 'GParamUChar'):
+			if gobject.type_is_a(x, gobject.type_from_name(t)):
+				return 'string'
+		if gobject.type_is_a(x, gobject.type_from_name('GParamEnum')):
+			return 'enum'
+		if gobject.type_is_a(x, gobject.type_from_name('GParamBoolean')):
+			return 'boolean'
+		
+		return 'unknown'
 	
 	def spin_change(self, widget, prop_storage, prop):
 		prop_storage[prop] = widget.get_value()
