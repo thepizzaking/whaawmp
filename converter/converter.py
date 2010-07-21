@@ -141,7 +141,8 @@ class main:
 					spin.set_digits(2)
 					spin.set_value(x.default_value)
 					spin.connect('value-changed', self.spin_change, prop_storage, x.name)
-					return spin
+					hbox.pack_start(spin)
+					return hbox
 		
 		return gtk.Button('aaa')
 	
