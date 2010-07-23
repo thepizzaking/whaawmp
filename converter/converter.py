@@ -24,7 +24,6 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
-'''http://pygstdocs.berlios.de/pygst-tutorial/pipeline.html for some useful looking code'''
 
 from __future__ import print_function
 from __future__ import division
@@ -37,7 +36,7 @@ import gtk, gst
 from plugin_list import audio_encoders, video_encoders, muxers
 
 class main:
-	multipass_mode = None
+	multipass_tick = multipass_mode = None
 	audio_properties_box = video_properties_box = None
 	audio_properties = video_properties = {}
 	
@@ -101,6 +100,15 @@ class main:
 			self.video_properties_box = None
 		self.video_properties = {}
 		self.video_properties_box = self.pack_properties(widget, self.video_box, video_encoders, self.video_properties)
+		
+		name = widget.get_active_text()
+		data = video_encoders[name]
+		if (name != 'None' and 'multipass' in data.keys()):
+			self.multipass_tick = gtk.CheckButton("Multipass")
+			self.video_box.pack_start(self.multipass_tick)
+			self.multipass_tick.show()
+		else:
+			self.multipass_tick = None
 	
 	def audio_enc_changed(self, widget):
 		if (self.audio_properties_box):
@@ -112,7 +120,7 @@ class main:
 	def pack_properties(self, widget, box, encoders, prop_storage):
 		name = widget.get_active_text()
 		
-		if not name: return None
+		if (name == 'None'): return None
 		data = encoders[name]
 		properties_box = gtk.VBox()
 		
@@ -175,11 +183,10 @@ class main:
 				state = gst.STATE_READY
 			
 			if (state in (gst.STATE_NULL, gst.STATE_READY)):
-				'''if self.multipass_tick.get_active():
+				if (self.multipass_tick and self.multipass_tick.get_active()):
 					self.first_pass()
 				else:
-					self.transcode()'''
-				self.transcode()
+					self.transcode()
 				widget.set_label('Pause')
 				self.cancel_button.set_sensitive(True)
 			elif (state == gst.STATE_PAUSED):
@@ -224,10 +231,7 @@ class main:
 			dlg.destroy()
 			return
 
-		if (video_encoder_name != "None"):
-			video_encoder = video_encoders[video_encoder_name]['plugin']
-		else:
-			video_encoder = None
+		video_encoder = video_encoders[video_encoder_name]['plugin']
 
 		self.pipe = gst.Pipeline()
 		
@@ -242,23 +246,18 @@ class main:
 		
 		self.audio_queue = None
 		
-		if video_encoder:
-			self.video_queue = gst.element_factory_make('queue')
-			colourspace = gst.element_factory_make('ffmpegcolorspace')
-			videoencode = gst.element_factory_make(video_encoder)
-			videoencode.set_property(multipass_info[0], multipass_info[2])
-		else:
-			## FIXME: probably want to error here.
-			return
+		self.video_queue = gst.element_factory_make('queue')
+		colourspace = gst.element_factory_make('ffmpegcolorspace')
+		videoencode = gst.element_factory_make(video_encoder)
+		videoencode.set_property(multipass_info['mode'], multipass_info['first-pass'])
 		
 		extension = muxers[muxer_name]['extension']
 		
-		videoencode.set_property(multipass_info[1], '%s.%s.multipass_cache' % (source, extension))
+		videoencode.set_property(multipass_info['cache'], '%s.%s.multipass_cache' % (source, extension))
 		sink = gst.element_factory_make('fakesink')
 		
-		if video_encoder:
-			self.pipe.add(self.video_queue, colourspace, videoencode, sink)
-			gst.element_link_many(self.video_queue, colourspace, videoencode, sink)
+		self.pipe.add(self.video_queue, colourspace, videoencode, sink)
+		gst.element_link_many(self.video_queue, colourspace, videoencode, sink)
 		
 		bus = self.pipe.get_bus()
 		bus.add_signal_watch()
@@ -327,11 +326,11 @@ class main:
 		else:
 			extension = muxers[muxer_name]['extension']
 			
-		'''if self.multipass_tick.get_active() and self.multipass_mode == 2:
+		if (self.multipass_tick and self.multipass_tick.get_active() and self.multipass_mode == 2):
 			multipass_info = video_encoders[video_encoder_name]['multipass']
-			videoencode.set_property(multipass_info[0], multipass_info[3])
-			videoencode.set_property(multipass_info[1], '%s.%s.multipass_cache' % (source, extension))
-		'''
+			videoencode.set_property(multipass_info['mode'], multipass_info['second-pass'])
+			videoencode.set_property(multipass_info['cache'], '%s.%s.multipass_cache' % (source, extension))
+		
 		filesink = gst.element_factory_make('filesink')
 		filesink.set_property('location', '%s.%s' % (source, extension))
 		
@@ -355,7 +354,7 @@ class main:
 	def on_pipe_message(self, bus, message):
 		if (message.type == gst.MESSAGE_EOS):
 			self.stop_transcode()
-			if (self.multipass_tick.get_active() and self.multipass_mode == 1):
+			if (self.multipass_tick and self.multipass_tick.get_active() and self.multipass_mode == 1):
 				self.multipass_mode = 2
 				self.transcode()
 			else:
