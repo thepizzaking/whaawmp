@@ -47,7 +47,9 @@ video_encoders = {
                                    'first-pass' : 1,
                                    'second-pass' : 2},
                     'quality' : {'title' : 'Quality',
-                                 'property' : 'quality'}
+                                 'property' : 'quality'},
+                    'threads' : {'title' : 'Threads',
+                                 'property' : 'threads'}
                    },
                   'Theora' :
                    {

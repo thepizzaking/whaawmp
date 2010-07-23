@@ -152,6 +152,18 @@ class main:
 					spin.connect('value-changed', self.spin_change, prop_storage, x.name)
 					hbox.pack_start(spin)
 					return hbox
+				elif (prop_type == 'integer'):
+					hbox = gtk.HBox()
+					hbox.pack_start(gtk.Label(prop_info['title']))
+					spin = gtk.SpinButton()
+					spin.set_range(x.minimum, x.maximum)
+					spread = x.maximum - x.minimum
+					spin.set_increments(1, spread//5 + 1)
+					spin.set_digits(0)
+					spin.set_value(x.default_value)
+					spin.connect('value-changed', self.spin_change, prop_storage, x.name)
+					hbox.pack_start(spin)
+					return hbox
 		
 		return gtk.Button('aaa')
 	
