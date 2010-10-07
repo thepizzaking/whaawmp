@@ -83,7 +83,7 @@ class dataInstall(install_data):
 			# Open the sh script file.
 			f = open(x, 'w')
 			# Write the appropriate command the the script then close it.
-			f.write('#!/bin/sh\nexec %s %s/%s "$@"' % (basedir, sys.executable, scripts[x]))
+			f.write('#!/bin/sh\nexec %s %s/%s "$@"' % (sys.executable, basedir, scripts[x]))
 			f.close()
 			# Make it executable.
 			os.system('chmod 755 %s' % x)
