@@ -24,7 +24,7 @@ from distutils.command.install_lib import install_lib
 import distutils.dir_util
 from distutils import cmd
 import glob
-import os
+import sys, os
 
 # A dictionary for bash scripts and their destination python files.
 scripts = {'whaawmp' : 'whaawmp.py',
@@ -83,7 +83,7 @@ class dataInstall(install_data):
 			# Open the sh script file.
 			f = open(x, 'w')
 			# Write the appropriate command the the script then close it.
-			f.write('#!/bin/sh\nexec python %s/%s "$@"' % (basedir, scripts[x]))
+			f.write('#!/bin/sh\nexec %s %s/%s "$@"' % (basedir, sys.executable, scripts[x]))
 			f.close()
 			# Make it executable.
 			os.system('chmod 755 %s' % x)
@@ -109,4 +109,6 @@ setup(name="whaawmp", fullname="Whaaw! Media Player",
       package_dir={'whaawmp': 'src'},
       data_files=data,
       cmdclass = {'install_lib' : libInstall,
-                  'install_data' : dataInstall})
+                  'install_data' : dataInstall}
+      classifiers=['Programming Language :: Python',
+                   'Programming Language :: Python :: 2')
