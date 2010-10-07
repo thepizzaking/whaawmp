@@ -109,6 +109,4 @@ setup(name="whaawmp", fullname="Whaaw! Media Player",
       package_dir={'whaawmp': 'src'},
       data_files=data,
       cmdclass = {'install_lib' : libInstall,
-                  'install_data' : dataInstall}
-      classifiers=['Programming Language :: Python',
-                   'Programming Language :: Python :: 2')
+                  'install_data' : dataInstall})
