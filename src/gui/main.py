@@ -45,6 +45,8 @@ class mainWindow:
 	# Set up some variables for the timers.
 	tmrMin = None
 	tmrSec = None
+	# Holds the URI for the currently displayed window's title.
+	titlesURI = None
 	
 	
 	def quit(self, widget=None, event=None):
@@ -436,19 +438,35 @@ class mainWindow:
 	
 	
 	def setPlayingTitle(self, tags):
-		# If the URI passed isn't 'None'.
+		# If the tags passed aren't 'None'.
 		if (tags):
 			# If we don't want to set it, return.
 			if (not cfg.getBool('gui/fileastitle')): return
 			# Set the title name.
 			dispTitle = tagger.getDispTitle(tags)
-			if (not dispTitle): dispTitle = useful.uriToFilename(player.uri, ext=False)
-			titlename = dispTitle + ' - ' + useful.lName
+			if (dispTitle):
+				# Update the currently displayed titles URI.
+				self.titlesURI = player.uri
+			else:
+				# Use the filename if no tags were found.
+				if not (self.titlesURI == player.uri):
+					# Make sure we haven't already used tags for this file.
+					# If we have, we may as well continue using them.
+					# Certain files send 4 or more tag signals, and
+					# only one contains useful information.
+					dispTitle = useful.uriToFilename(player.uri, ext=False)
+				else:
+					dispTitle = None
+				
+			titlename = dispTitle + ' - ' + useful.lName if dispTitle else None
+		
 		else:
 			# Otherwise, the default title.
 			titlename = useful.lName
+			
 		# Set the title.
-		self.mainWindow.set_title(titlename)
+		if titlename: self.mainWindow.set_title(titlename)
+		
 
 
 	def playDVD(self, title=None):
