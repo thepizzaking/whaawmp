@@ -1,0 +1,705 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-26 21:55+1100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/thumbnailer.py:72
+msgid " [options] -o output-file input-file"
+msgstr ""
+
+#: ../src/thumbnailer.py:77
+msgid "The file to create the thumbnail of"
+msgstr ""
+
+#: ../src/thumbnailer.py:81
+msgid "The destination of the resulting thumbnail"
+msgstr ""
+
+#: ../src/thumbnailer.py:85
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr ""
+
+#: ../src/thumbnailer.py:89
+msgid "The destination size (in pixels)"
+msgstr ""
+
+#: ../src/thumbnailer.py:99
+msgid "Sorry, an input and output file are required to be passed."
+msgstr ""
+
+#: ../src/thumbnailer.py:100
+#, python-format
+msgid "See '%s --help' for details"
+msgstr ""
+
+#: ../src/thumbnailer.py:107
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr ""
+
+#: ../src/thumbnailer.py:164
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:191
+msgid "An error occurred"
+msgstr ""
+
+#: ../src/thumbnailer.py:207
+msgid "There are no video tracks in this stream, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:213
+msgid "Duration unable to be read, exiting."
+msgstr ""
+
+#: ../src/thumbnailer.py:226
+msgid "Unable to seek to requested position, exiting."
+msgstr ""
+
+#: ../src/whaawmp.py:38
+msgid "Cannot continue, python version must be at least 2.5."
+msgstr ""
+
+#: ../src/whaawmp.py:73
+msgid " [options] filename"
+msgstr ""
+
+#: ../src/gui/__init__.py:33
+msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
+msgstr ""
+
+#: ../src/gui/__init__.py:36
+msgid "Cannot continue, X server not found!"
+msgstr ""
+
+#: ../src/gui/__init__.py:42
+msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
+msgstr ""
+
+#: ../src/gui/dialogues.py:49
+msgid "translator-credits"
+msgstr ""
+
+#: ../src/gui/dialogues.py:63
+msgid "Choose a file to Open"
+msgstr ""
+
+#: ../src/gui/dialogues.py:73
+msgid "Also Choose Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/dialogues.py:75
+msgid "After choosing the file to open, also choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/dialogues.py:87
+msgid "Supported Media"
+msgstr ""
+
+#: ../src/gui/dialogues.py:93
+msgid "All Files"
+msgstr ""
+
+#: ../src/gui/dialogues.py:113
+msgid "Play DVD"
+msgstr ""
+
+#: ../src/gui/dialogues.py:118
+msgid "Select options:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:120
+msgid "Title: "
+msgstr ""
+
+#: ../src/gui/dialogues.py:171
+msgid "Open a URI"
+msgstr ""
+
+#: ../src/gui/dialogues.py:176
+msgid "Enter the URI:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:208
+msgid "Select Tracks"
+msgstr ""
+
+#: ../src/gui/dialogues.py:212
+msgid "Audio:"
+msgstr ""
+
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:293
+msgid "Error!"
+msgstr ""
+
+#: ../src/gui/dialogues.py:254
+msgid "Message"
+msgstr ""
+
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
+msgid "Supported Features"
+msgstr ""
+
+#: ../src/gui/dialogues.py:285
+msgid "Dbus Message Bus"
+msgstr ""
+
+#: ../src/gui/dialogues.py:298
+msgid "Available"
+msgstr ""
+
+#: ../src/gui/dialogues.py:298
+msgid "Unavailable"
+msgstr ""
+
+#: ../src/gui/dialogues.py:302
+msgid "Library Versions:"
+msgstr ""
+
+#: ../src/gui/main.py:436
+#, python-format
+msgid "Something's stuffed up, no such file: %s"
+msgstr ""
+
+#: ../src/gui/main.py:636
+msgid "Pause"
+msgstr ""
+
+#: ../src/gui/main.py:636
+msgid "Play"
+msgstr ""
+
+#: ../src/gui/main.py:702
+msgid "Choose a Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/main.py:779
+#, python-format
+msgid "%s not found, links & e-mail addresses will not be clickable"
+msgstr ""
+
+#: ../src/gui/main.py:791
+#, python-format
+msgid ""
+"Could not execute browser command (via %(program)s).\n"
+"Please manually visit %(url)s to report the problem"
+msgstr ""
+
+#: ../src/gui/main.py:798
+msgid "TERM signal caught, exiting."
+msgstr ""
+
+#: ../src/gui/main.py:820
+#, python-format
+msgid "Queued: %d"
+msgstr ""
+
+#: ../src/gui/preferences.py:184
+msgid "Default/Auto"
+msgstr ""
+
+#: ../src/gui/preferences.py:184
+msgid "Other (Set from config.ini)"
+msgstr ""
+
+#: ../src/gui/queue.py:239
+msgid "Queued Tracks:"
+msgstr ""
+
+#: ../src/gui/queue.py:271
+msgid "Clear Queue"
+msgstr ""
+
+#: ../src/gui/queue.py:272
+msgid "Remove item from Queue"
+msgstr ""
+
+#: ../src/gui/queue.py:273
+msgid "Add items to queue"
+msgstr ""
+
+#: ../src/gui/subtitles.py:61
+msgid "Choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+msgid "Subtitle Manager"
+msgstr ""
+
+#: ../src/gui/subtitles.py:93
+msgid "Automatic Subtitles"
+msgstr ""
+
+#: ../src/gui/subtitles.py:95
+msgid "Try to automatically find subtitles for each file."
+msgstr ""
+
+#: ../src/gui/subtitles.py:102
+msgid "Subtitle file extensions"
+msgstr ""
+
+#: ../src/gui/subtitles.py:106
+msgid ""
+"Extensions to use when automatically detecting subtitles.\n"
+"Sepatare with commas."
+msgstr ""
+
+#: ../src/gui/subtitles.py:111
+msgid "Add subtitles to current stream"
+msgstr ""
+
+#: ../src/gui/subtitles.py:143
+#, python-format
+msgid "Found subtitles stream %s"
+msgstr ""
+
+#: ../src/common/config.py:50
+msgid ""
+"Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
+"Defaulting to 'unknown' group."
+msgstr ""
+
+#: ../src/common/config.py:122
+msgid "Print the version and exit"
+msgstr ""
+
+#: ../src/common/config.py:126
+msgid "Play the file in fullscreen mode"
+msgstr ""
+
+#: ../src/common/config.py:130
+msgid "Sets the player's volume to VOL (0-1)"
+msgstr ""
+
+#: ../src/common/config.py:134
+msgid "Sets the player's audio ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:138
+msgid "Sets the player's video ouput to SINK"
+msgstr ""
+
+#: ../src/common/config.py:142 ../ui/main.ui.h:13
+msgid "Quits the player when the playing stream stops"
+msgstr ""
+
+#: ../src/common/config.py:146
+#, python-format
+msgid "Forces a new window if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:150
+#, python-format
+msgid "Forces the file passed to be queued if %s is already running"
+msgstr ""
+
+#: ../src/common/config.py:154
+#, python-format
+msgid "Forces the file to be played now in a previous %s process"
+msgstr ""
+
+#: ../src/common/config.py:158
+#, python-format
+msgid "Toggles play/pause on an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:162
+#, python-format
+msgid "Starts the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:166
+#, python-format
+msgid "Pauses the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:170
+#, python-format
+msgid "Stops the player in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:174
+#, python-format
+msgid "Skips to the next track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:178
+#, python-format
+msgid "Restarts the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/config.py:182
+#, python-format
+msgid "Querys the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/dbusBus.py:37
+msgid "Dbus import failed, dbus features will be unavailable"
+msgstr ""
+
+#: ../src/common/dbusBus.py:70
+#, python-format
+msgid ""
+"File received via dbus:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
+msgid "Playing file..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:79
+#, python-format
+msgid "Telling %s to start a new process..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:89
+msgid "File queued..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:128
+#, python-format
+msgid ""
+"Tags of %(filename)s:\n"
+"%(tags)s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:146
+#, python-format
+msgid "%s is already running."
+msgstr ""
+
+#: ../src/common/dbusBus.py:161
+#, python-format
+msgid ""
+"Passed the following file to previously running process:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:164
+msgid "Starting new process..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:170
+msgid "Toggle of Play/Pause failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:176
+msgid "Play failed, no file is currently open."
+msgstr ""
+
+#: ../src/common/dbusBus.py:182
+msgid "Pause failed, not file is currently open."
+msgstr ""
+
+#: ../src/common/gstTagger.py:154
+msgid ""
+"Something bad happened which shouldn't\n"
+"Tell me: current data did not match player URI"
+msgstr ""
+
+#: ../src/common/gstTools.py:42
+msgid "Unknown"
+msgstr ""
+
+#: ../src/common/signals.py:44
+msgid "Something went wrong, can't act on signal which hasn't been connected."
+msgstr ""
+
+#: ../src/common/useful.py:31
+msgid "Whaaw! Media Player"
+msgstr ""
+
+#: ../src/common/useful.py:114
+msgid "No tags available"
+msgstr ""
+
+#: ../ui/main.ui.h:1
+msgid "All"
+msgstr ""
+
+#: ../ui/main.ui.h:2
+msgid "Audio Tracks"
+msgstr ""
+
+#: ../ui/main.ui.h:3
+msgid ""
+"Change the player's speed.  WARNING: Negative numbers can cause weirdness "
+"(even lockups)."
+msgstr ""
+
+#: ../ui/main.ui.h:4
+msgid "Current player volume"
+msgstr ""
+
+#: ../ui/main.ui.h:5
+msgid "DVD Menu"
+msgstr ""
+
+#: ../ui/main.ui.h:6
+msgid "Disable repeat"
+msgstr ""
+
+#: ../ui/main.ui.h:7
+msgid "Leave Fullscreen"
+msgstr ""
+
+#: ../ui/main.ui.h:8
+msgid "Next"
+msgstr ""
+
+#: ../ui/main.ui.h:9
+msgid "None"
+msgstr ""
+
+#: ../ui/main.ui.h:10
+msgid "One"
+msgstr ""
+
+#: ../ui/main.ui.h:11
+msgid "Plays random items from the queue"
+msgstr ""
+
+#: ../ui/main.ui.h:12
+msgid "Quit on Stop"
+msgstr ""
+
+#: ../ui/main.ui.h:14
+msgid "Random"
+msgstr ""
+
+#: ../ui/main.ui.h:15
+msgid "Repeat"
+msgstr ""
+
+#: ../ui/main.ui.h:16
+msgid "Repeat a single track"
+msgstr ""
+
+#: ../ui/main.ui.h:17
+msgid "Repeat all tracks in the queue."
+msgstr ""
+
+#: ../ui/main.ui.h:18
+msgid "Report a bug to the Bugtracker"
+msgstr ""
+
+#: ../ui/main.ui.h:19
+msgid "Restart Track"
+msgstr ""
+
+#: ../ui/main.ui.h:20
+msgid "Show advanced player controls."
+msgstr ""
+
+#: ../ui/main.ui.h:21
+msgid "Speed:"
+msgstr ""
+
+#: ../ui/main.ui.h:22
+msgid "Stop"
+msgstr ""
+
+#: ../ui/main.ui.h:23
+msgid "Stream repeat settings"
+msgstr ""
+
+#: ../ui/main.ui.h:26
+msgid "View and edit the current queue"
+msgstr ""
+
+#: ../ui/main.ui.h:27
+msgid "_Advanced Controls"
+msgstr ""
+
+#: ../ui/main.ui.h:28
+msgid "_Edit"
+msgstr ""
+
+#: ../ui/main.ui.h:29
+msgid "_File"
+msgstr ""
+
+#: ../ui/main.ui.h:30
+msgid "_Help"
+msgstr ""
+
+#: ../ui/main.ui.h:31
+msgid "_Queue"
+msgstr ""
+
+#: ../ui/main.ui.h:32
+msgid "_Report a Bug"
+msgstr ""
+
+#: ../ui/main.ui.h:33
+msgid "_Stream"
+msgstr ""
+
+#: ../ui/main.ui.h:34
+msgid "_View"
+msgstr ""
+
+#: ../ui/preferences.ui.h:1
+msgid "<b>Colour Settings</b>"
+msgstr ""
+
+#: ../ui/preferences.ui.h:2
+msgid "Add current file's tags/name to Title"
+msgstr ""
+
+#: ../ui/preferences.ui.h:3
+msgid ""
+"Add the currently playing file's tags (or name if unavailable) to the "
+"window's title."
+msgstr ""
+
+#: ../ui/preferences.ui.h:4
+msgid "Adjust video brightness"
+msgstr ""
+
+#: ../ui/preferences.ui.h:5
+msgid "Adjust video contrast"
+msgstr ""
+
+#: ../ui/preferences.ui.h:6
+msgid "Adjust video hue"
+msgstr ""
+
+#: ../ui/preferences.ui.h:7
+msgid "Adjust video saturation"
+msgstr ""
+
+#: ../ui/preferences.ui.h:8
+msgid "Audio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:9
+msgid "Brightness:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:10
+msgid "Contrast:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:11
+msgid "Disable Screensaver"
+msgstr ""
+
+#: ../ui/preferences.ui.h:12
+msgid "Disable Screensaver whilst playing a video."
+msgstr ""
+
+#: ../ui/preferences.ui.h:13
+msgid "Enable Visualisations (Requires stream restart)"
+msgstr ""
+
+#: ../ui/preferences.ui.h:14
+msgid "Force Aspect Ratio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:15
+msgid "Force the video to keep its original aspect ratio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:16
+msgid "Hue:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:17
+msgid "Instantaneous Seek"
+msgstr ""
+
+#: ../ui/preferences.ui.h:18
+msgid "Main"
+msgstr ""
+
+#: ../ui/preferences.ui.h:19
+msgid "Mouse hide timeout (ms): "
+msgstr ""
+
+#: ../ui/preferences.ui.h:20
+msgid "Output Device:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:21
+msgid "Preferences"
+msgstr ""
+
+#: ../ui/preferences.ui.h:22
+msgid "Reset all adjustments to 0"
+msgstr ""
+
+#: ../ui/preferences.ui.h:23
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../ui/preferences.ui.h:24
+msgid "Saturation:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:25
+msgid ""
+"Seek instantaneously on draging over the progress bar, instead of waiting "
+"until the end."
+msgstr ""
+
+#: ../ui/preferences.ui.h:26
+msgid "Show Time Remaining"
+msgstr ""
+
+#: ../ui/preferences.ui.h:27
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr ""
+
+#: ../ui/preferences.ui.h:28
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted, disabling does this automatically)."
+msgstr ""
+
+#: ../ui/preferences.ui.h:29
+msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
+msgstr ""
+
+#: ../ui/preferences.ui.h:30
+msgid "Tag Display Syntax: "
+msgstr ""
+
+#: ../ui/preferences.ui.h:31
+msgid ""
+"The action to take when another Whaaw! Media Player process is requested to "
+"open a file."
+msgstr ""
+
+#: ../ui/preferences.ui.h:32
+msgid ""
+"The time (in milliseconds) after which the mouse will disappear after not "
+"being moved over the video window."
+msgstr ""
+
+#: ../ui/preferences.ui.h:33
+msgid "Upon opening new file:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:34
+msgid "Video"
+msgstr ""
+
+#: ../ui/preferences.ui.h:35
+msgid "Volume Change on Scroll: "
+msgstr ""
