@@ -30,7 +30,7 @@ Now, onto the building etc etc.
 information)
 -For checkinstall run: 'checkinstall ./setup.py install'
 -If python3 is the default python on your system, setup.py should
-automatically detect that it's being run my python2 and modify the
+automatically detect that it's being run by python2 and modify the
 executable scripts accordingly.
 
 eg. To install to /usr:
