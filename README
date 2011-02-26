@@ -21,14 +21,17 @@ packages depending on the type of media you wish to play.
 NOTE: Installation is not needed to use/test whaawmp.  It can be run fine by
 just running './whaawmp.sh'.  Though if you really want to install it you can
 use the setup.py script, however there is no uninstall script so a package
-manager is recommended.  See the end of this file for a list of files which
-are installed.
+manager is recommended.  See the below for a list of files which are
+installed.
 
 Now, onto the building etc etc.
 -To compile & install the files use: python2 setup.py install
 --There are --prefix and --root options (see ./setup.py --help for more
 information)
 -For checkinstall run: 'checkinstall ./setup.py install'
+-If python3 is the default python on your system, setup.py should
+automatically detect that it's being run my python2 and modify the
+executable scripts accordingly.
 
 eg. To install to /usr:
 python2 setup.py install --prefix=/usr
