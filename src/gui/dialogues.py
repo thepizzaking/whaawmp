@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #  Other Dialogues
-#  Copyright © 2007-2009, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2007-2011, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify
@@ -42,10 +42,10 @@ class AboutDialogue:
 		# (Name already set in main.py (gobject.set_application_name)
 		dlg.set_version(useful.version)
 		dlg.set_title("About Whaaw! Media Player")
-		dlg.set_copyright("Copyright 2009, Jeff Bailes")
+		dlg.set_copyright("Copyright 2011, Jeff Bailes")
 		dlg.set_website("http://home.gna.org/whaawmp/")
 		dlg.set_license(useful.licenceText)
-		dlg.set_authors(["Jeff Bailes <thepizzaking@gmail.com>, 2007-2009."])
+		dlg.set_authors(["Jeff Bailes <thepizzaking@gmail.com>, 2007-2011."])
 		dlg.set_translator_credits(_("translator-credits"))
 		# Set the parent to the main window.
 		dlg.set_transient_for(parent)

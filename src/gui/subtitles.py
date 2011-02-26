@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #  The subtitle manager.
-#  Copyright © 2007-2009, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2007-2011, Jeff Bailes <thepizzaking@gmail.com>
 #       This file is part of Whaaw! Media Player (whaawmp)
 #
 #       whaawmp is free software: you can redistribute it and/or modify

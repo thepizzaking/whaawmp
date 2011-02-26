@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #  A tool to help localisations.
-#  Copyright © 2007-2009, Jeff Bailes <thepizzaking@gmail.com>
+#  Copyright © 2007-2011, Jeff Bailes <thepizzaking@gmail.com>
 #
 #       This program is free software: you can redistribute it and/or modify
 #       it under the terms of the GNU General Public License as published by
