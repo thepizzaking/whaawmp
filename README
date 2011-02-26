@@ -3,7 +3,7 @@ Written by Jeff Bailes.
 
 Before you try to install or run Whaaw! Media Player you should check that you
 have all the required dependencies, these include:
-python >= 2.5
+python2 >= 2.5
 pygtk >= 2.12
 gstreamer-python >= 0.10
 gstreamer-base >= 0.10.17
@@ -25,13 +25,13 @@ manager is recommended.  See the end of this file for a list of files which
 are installed.
 
 Now, onto the building etc etc.
--To compile & install the files use ./setup.py install
+-To compile & install the files use: python2 setup.py install
 --There are --prefix and --root options (see ./setup.py --help for more
 information)
 -For checkinstall run: 'checkinstall ./setup.py install'
 
 eg. To install to /usr:
-./setup.py install --prefix=/usr
+python2 setup.py install --prefix=/usr
 
 To run it afterwards, use whaawmp to start Whaaw! Media Player.
 
@@ -41,10 +41,15 @@ ${prefix}/bin/{whaawmp, whaaw-thumbnailer}
 ${prefix}/lib/python-${pyver}/site-packages/whaawmp-${whaaw-ver}-py${pyver}.egg-info
 ${prefix}/lib/python-${pyver}/site-packages/whaawmp (entire directory)
 ${prefix}/share/applications/whaawmp.desktop
-${prefix}/share/local/*/LC_MESSAGES/whaawmp.mo (list of languages in po dir)
+${prefix}/share/locale/*/LC_MESSAGES/whaawmp.mo (list of languages in po dir)
 ${prefix}/share/pixmaps/whaawmp.svg
 ${prefix}/share/thumbnailers/whaaw-thumbnailer.desktop
 ${prefix}/share/whaawmp (entire directory)
 
 Any queries see the FAQ: http://home.gna.org/whaawmp/faq.html
-Otherwise, see me on irc: #whaawmp on irc://irc.oftc.net
+Otherwise, use the mailing list: https://mail.gna.org/listinfo/whaawmp-dev/
+
+There is also a video converter packaged with whaawmp, though it is not
+intsalled, as it is in a very buggy alpha phase at the moment.  It was
+more of an experiment in seeing if I could code a vp8 transcoder in
+gstreamer, it has limited codec support and probably fails a lot.
