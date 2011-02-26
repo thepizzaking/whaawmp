@@ -7,148 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2008-10-14 20:43+0000\n"
+"POT-Creation-Date: 2010-03-07 18:54+1100\n"
+"PO-Revision-Date: 2009-11-24 23:24+0000\n"
 "Last-Translator: Peter Skov <Unknown>\n"
 "Language-Team: Danish <da@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
-
-#: ../src/thumbnailer.py:191
-msgid "An error occurred"
-msgstr "Der opstod en fejl"
-
-#: ../src/gui/dialogues.py:84
-msgid "All Files"
-msgstr "Alle Filer"
-
-#: ../src/gui/dialogues.py:104
-msgid "Play DVD"
-msgstr "Afspil DVD"
-
-#: ../src/gui/dialogues.py:111
-msgid "Title: "
-msgstr "Titel: "
-
-#: ../src/gui/dialogues.py:199
-msgid "Select Tracks"
-msgstr "Vælg Spor"
-
-#: ../src/gui/dialogues.py:203
-msgid "Audio:"
-msgstr "Audio:"
-
-#: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
-msgid "Error!"
-msgstr "Fejl!"
-
-#: ../src/gui/dialogues.py:245
-msgid "Message"
-msgstr "Meddelelse"
-
-#: ../src/gui/dialogues.py:289
-msgid "Available"
-msgstr "Tilgængelig"
-
-#: ../src/gui/dialogues.py:289
-msgid "Unavailable"
-msgstr "Utilgængelig"
-
-#: ../src/gui/main.py:610
-msgid "Pause"
-msgstr "Pause"
-
-#: ../src/gui/main.py:610
-msgid "Play"
-msgstr "Afspil"
-
-#: ../src/common/dbusBus.py:146
-#, python-format
-msgid "%s is already running."
-msgstr "%s kører allerede."
-
-#: ../src/common/gstTools.py:82
-msgid "Unknown"
-msgstr "Ukendt"
-
-#: ../ui/main.ui.h:2
-msgid "Audio Tracks"
-msgstr "Lydspor"
-
-#: ../ui/main.ui.h:7
-msgid "Leave Fullscreen"
-msgstr "Forlad fuldskærm"
-
-#: ../ui/main.ui.h:8
-msgid "Next"
-msgstr "Næste"
-
-#: ../ui/main.ui.h:21
-msgid "Speed:"
-msgstr "Hastighed:"
-
-#: ../ui/main.ui.h:22
-msgid "Stop"
-msgstr "Stop"
-
-#: ../ui/main.ui.h:27
-msgid "_Edit"
-msgstr "R_edigér"
-
-#: ../ui/main.ui.h:28
-msgid "_File"
-msgstr "_Fil"
-
-#: ../ui/main.ui.h:29
-msgid "_Help"
-msgstr "_Hjælp"
-
-#: ../ui/main.ui.h:30
-msgid "_Queue"
-msgstr "_Kø"
-
-#: ../ui/main.ui.h:33
-msgid "_View"
-msgstr "_Vis"
-
-#: ../ui/preferences.ui.h:8
-msgid "Audio"
-msgstr "Lyd"
-
-#: ../ui/preferences.ui.h:9
-msgid "Brightness:"
-msgstr "Lysstyrke:"
-
-#: ../ui/preferences.ui.h:10
-msgid "Contrast:"
-msgstr "Kontrast:"
-
-#: ../ui/preferences.ui.h:18
-msgid "Hue:"
-msgstr "Farvetone:"
-
-#: ../ui/preferences.ui.h:20
-msgid "Main"
-msgstr "Hoved"
-
-#: ../ui/preferences.ui.h:23
-msgid "Preferences"
-msgstr "Indstillinger"
-
-#: ../ui/preferences.ui.h:25
-msgid "Restore Defaults"
-msgstr "Gendan standardværdier"
-
-#: ../ui/preferences.ui.h:26
-msgid "Saturation:"
-msgstr "Mætningsgrad:"
-
-#: ../ui/preferences.ui.h:36
-msgid "Video"
-msgstr "Video"
+"X-Launchpad-Export-Date: 2011-02-26 04:28+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
@@ -186,6 +53,10 @@ msgstr ""
 #: ../src/thumbnailer.py:164
 msgid "Stream returned no caps, exiting"
 msgstr ""
+
+#: ../src/thumbnailer.py:191
+msgid "An error occurred"
+msgstr "Der opstod en fejl"
 
 #: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
@@ -225,69 +96,125 @@ msgstr ""
 "Launchpad Contributions:\n"
 "  Peter Skov https://launchpad.net/~a0peter"
 
-#: ../src/gui/dialogues.py:67
+#: ../src/gui/dialogues.py:63
 msgid "Choose a file to Open"
 msgstr ""
 
-#: ../src/gui/dialogues.py:78
+#: ../src/gui/dialogues.py:73
+msgid "Also Choose Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/dialogues.py:75
+msgid "After choosing the file to open, also choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/dialogues.py:87
 msgid "Supported Media"
 msgstr ""
 
-#: ../src/gui/dialogues.py:109
+#: ../src/gui/dialogues.py:93
+msgid "All Files"
+msgstr "Alle Filer"
+
+#: ../src/gui/dialogues.py:113
+msgid "Play DVD"
+msgstr "Afspil DVD"
+
+#: ../src/gui/dialogues.py:118
 msgid "Select options:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:162
+#: ../src/gui/dialogues.py:120
+msgid "Title: "
+msgstr "Titel: "
+
+#: ../src/gui/dialogues.py:171
 msgid "Open a URI"
 msgstr ""
 
-#: ../src/gui/dialogues.py:167
+#: ../src/gui/dialogues.py:176
 msgid "Enter the URI:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
+#: ../src/gui/dialogues.py:208
+msgid "Select Tracks"
+msgstr "Vælg Spor"
+
+#: ../src/gui/dialogues.py:212
+msgid "Audio:"
+msgstr "Audio:"
+
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
+msgid "Error!"
+msgstr "Fejl!"
+
+#: ../src/gui/dialogues.py:254
+msgid "Message"
+msgstr "Meddelelse"
+
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
 msgid "Supported Features"
 msgstr ""
 
-#: ../src/gui/dialogues.py:276
+#: ../src/gui/dialogues.py:285
 msgid "Dbus Message Bus"
 msgstr ""
 
-#: ../src/gui/dialogues.py:293
+#: ../src/gui/dialogues.py:298
+msgid "Available"
+msgstr "Tilgængelig"
+
+#: ../src/gui/dialogues.py:298
+msgid "Unavailable"
+msgstr "Utilgængelig"
+
+#: ../src/gui/dialogues.py:302
 msgid "Library Versions:"
 msgstr ""
 
-#: ../src/gui/main.py:404
+#: ../src/gui/main.py:413
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:752
+#: ../src/gui/main.py:597
+msgid "Pause"
+msgstr "Pause"
+
+#: ../src/gui/main.py:597
+msgid "Play"
+msgstr "Afspil"
+
+#: ../src/gui/main.py:663
+msgid "Choose a Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/main.py:738
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
 
-#: ../src/gui/main.py:764
+#: ../src/gui/main.py:750
 #, python-format
 msgid ""
 "Could not execute browser command (via %(program)s).\n"
 "Please manually visit %(url)s to report the problem"
 msgstr ""
 
-#: ../src/gui/main.py:771
+#: ../src/gui/main.py:757
 msgid "TERM signal caught, exiting."
 msgstr ""
 
-#: ../src/gui/main.py:793
+#: ../src/gui/main.py:779
 #, python-format
 msgid "Queued: %d"
 msgstr ""
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/preferences.py:184
 msgid "Default/Auto"
 msgstr ""
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/preferences.py:184
 msgid "Other (Set from config.ini)"
 msgstr ""
 
@@ -295,16 +222,51 @@ msgstr ""
 msgid "Queued Tracks:"
 msgstr ""
 
-#: ../src/gui/queue.py:248
+#: ../src/gui/queue.py:247
 msgid "Clear Queue"
 msgstr ""
 
-#: ../src/gui/queue.py:249
+#: ../src/gui/queue.py:248
 msgid "Remove item from Queue"
 msgstr ""
 
-#: ../src/gui/queue.py:250
-msgid "(Add items to queue"
+#: ../src/gui/queue.py:249
+msgid "Add items to queue"
+msgstr ""
+
+#: ../src/gui/subtitles.py:61
+msgid "Choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+msgid "Subtitle Manager"
+msgstr ""
+
+#: ../src/gui/subtitles.py:93
+msgid "Automatic Subtitles"
+msgstr ""
+
+#: ../src/gui/subtitles.py:95
+msgid "Try to automatically find subtitles for each file."
+msgstr ""
+
+#: ../src/gui/subtitles.py:102
+msgid "Subtitle file extensions"
+msgstr ""
+
+#: ../src/gui/subtitles.py:106
+msgid ""
+"Extensions to use when automatically detecting subtitles.\n"
+"Sepatare with commas."
+msgstr ""
+
+#: ../src/gui/subtitles.py:111
+msgid "Add subtitles to current stream"
+msgstr ""
+
+#: ../src/gui/subtitles.py:143
+#, python-format
+msgid "Found subtitles stream %s"
 msgstr ""
 
 #: ../src/common/config.py:50
@@ -418,6 +380,11 @@ msgid ""
 "%(tags)s"
 msgstr ""
 
+#: ../src/common/dbusBus.py:146
+#, python-format
+msgid "%s is already running."
+msgstr "%s kører allerede."
+
 #: ../src/common/dbusBus.py:161
 #, python-format
 msgid ""
@@ -441,11 +408,15 @@ msgstr ""
 msgid "Pause failed, not file is currently open."
 msgstr ""
 
-#: ../src/common/gstTagger.py:112
+#: ../src/common/gstTagger.py:150
 msgid ""
 "Something bad happened which shouldn't\n"
 "Tell me: current data did not match player URI"
 msgstr ""
+
+#: ../src/common/gstTools.py:42
+msgid "Unknown"
+msgstr "Ukendt"
 
 #: ../src/common/signals.py:44
 msgid ""
@@ -464,6 +435,10 @@ msgstr ""
 msgid "All"
 msgstr ""
 
+#: ../ui/main.ui.h:2
+msgid "Audio Tracks"
+msgstr "Lydspor"
+
 #: ../ui/main.ui.h:3
 msgid ""
 "Change the player's speed.  WARNING: Negative numbers can cause weirdness "
@@ -481,6 +456,14 @@ msgstr ""
 #: ../ui/main.ui.h:6
 msgid "Disable repeat"
 msgstr ""
+
+#: ../ui/main.ui.h:7
+msgid "Leave Fullscreen"
+msgstr "Forlad fuldskærm"
+
+#: ../ui/main.ui.h:8
+msgid "Next"
+msgstr "Næste"
 
 #: ../ui/main.ui.h:9
 msgid "None"
@@ -526,25 +509,53 @@ msgstr ""
 msgid "Show advanced player controls."
 msgstr ""
 
+#: ../ui/main.ui.h:21
+msgid "Speed:"
+msgstr "Hastighed:"
+
+#: ../ui/main.ui.h:22
+msgid "Stop"
+msgstr "Stop"
+
 #: ../ui/main.ui.h:23
 msgid "Stream repeat settings"
 msgstr ""
 
-#: ../ui/main.ui.h:25
+#: ../ui/main.ui.h:26
 msgid "View and edit the current queue"
 msgstr ""
 
-#: ../ui/main.ui.h:26
+#: ../ui/main.ui.h:27
 msgid "_Advanced Controls"
 msgstr ""
 
+#: ../ui/main.ui.h:28
+msgid "_Edit"
+msgstr "R_edigér"
+
+#: ../ui/main.ui.h:29
+msgid "_File"
+msgstr "_Fil"
+
+#: ../ui/main.ui.h:30
+msgid "_Help"
+msgstr "_Hjælp"
+
 #: ../ui/main.ui.h:31
+msgid "_Queue"
+msgstr "_Kø"
+
+#: ../ui/main.ui.h:32
 msgid "_Report a Bug"
 msgstr ""
 
-#: ../ui/main.ui.h:32
+#: ../ui/main.ui.h:33
 msgid "_Stream"
 msgstr ""
+
+#: ../ui/main.ui.h:34
+msgid "_View"
+msgstr "_Vis"
 
 #: ../ui/preferences.ui.h:1
 msgid "<b>Colour Settings</b>"
@@ -576,6 +587,18 @@ msgstr ""
 msgid "Adjust video saturation"
 msgstr ""
 
+#: ../ui/preferences.ui.h:8
+msgid "Audio"
+msgstr "Lyd"
+
+#: ../ui/preferences.ui.h:9
+msgid "Brightness:"
+msgstr "Lysstyrke:"
+
+#: ../ui/preferences.ui.h:10
+msgid "Contrast:"
+msgstr "Kontrast:"
+
 #: ../ui/preferences.ui.h:11
 msgid "Disable Screensaver"
 msgstr ""
@@ -597,73 +620,101 @@ msgid "Force the video to keep its original aspect ratio"
 msgstr ""
 
 #: ../ui/preferences.ui.h:16
-msgid "Hide Video Window when Stopped"
-msgstr ""
+msgid "Hue:"
+msgstr "Farvetone:"
 
 #: ../ui/preferences.ui.h:17
-msgid "Hide the video window when there is no video stream."
-msgstr ""
-
-#: ../ui/preferences.ui.h:19
 msgid "Instantaneous Seek"
 msgstr ""
 
-#: ../ui/preferences.ui.h:21
+#: ../ui/preferences.ui.h:18
+msgid "Main"
+msgstr "Hoved"
+
+#: ../ui/preferences.ui.h:19
 msgid "Mouse hide timeout (ms): "
 msgstr ""
 
-#: ../ui/preferences.ui.h:22
+#: ../ui/preferences.ui.h:20
 msgid "Output Device:"
 msgstr ""
 
-#: ../ui/preferences.ui.h:24
+#: ../ui/preferences.ui.h:21
+msgid "Preferences"
+msgstr "Indstillinger"
+
+#: ../ui/preferences.ui.h:22
 msgid "Reset all adjustments to 0"
 msgstr ""
 
-#: ../ui/preferences.ui.h:27
+#: ../ui/preferences.ui.h:23
+msgid "Restore Defaults"
+msgstr "Gendan standardværdier"
+
+#: ../ui/preferences.ui.h:24
+msgid "Saturation:"
+msgstr "Mætningsgrad:"
+
+#: ../ui/preferences.ui.h:25
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
 
-#: ../ui/preferences.ui.h:28
+#: ../ui/preferences.ui.h:26
 msgid "Show Time Remaining"
 msgstr ""
 
-#: ../ui/preferences.ui.h:29
+#: ../ui/preferences.ui.h:27
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
 
-#: ../ui/preferences.ui.h:30
+#: ../ui/preferences.ui.h:28
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted, disabling does this automatically)."
 msgstr ""
 
-#: ../ui/preferences.ui.h:31
+#: ../ui/preferences.ui.h:29
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr ""
 
-#: ../ui/preferences.ui.h:32
+#: ../ui/preferences.ui.h:30
 msgid "Tag Display Syntax: "
 msgstr ""
 
-#: ../ui/preferences.ui.h:33
+#: ../ui/preferences.ui.h:31
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr ""
 
-#: ../ui/preferences.ui.h:34
+#: ../ui/preferences.ui.h:32
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 
-#: ../ui/preferences.ui.h:35
+#: ../ui/preferences.ui.h:33
 msgid "Upon opening new file:"
 msgstr ""
 
-#: ../ui/preferences.ui.h:37
+#: ../ui/preferences.ui.h:34
+msgid "Video"
+msgstr "Video"
+
+#: ../ui/preferences.ui.h:35
 msgid "Volume Change on Scroll: "
 msgstr ""
+
+#~ msgid "Open URI"
+#~ msgstr "Åbn adresse"
+
+#~ msgid "Toggle Fullscreen"
+#~ msgstr "Skift fuldskærm"
+
+#~ msgid "Vol:"
+#~ msgstr "Lydstyrke:"
+
+#~ msgid "_Preferences"
+#~ msgstr "_Indstillinger"

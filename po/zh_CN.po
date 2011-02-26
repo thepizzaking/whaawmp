@@ -7,15 +7,64 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2009-04-29 02:59+0000\n"
-"Last-Translator: yuanyelele <yuanyelele@gmail.com>\n"
+"POT-Creation-Date: 2010-03-07 18:54+1100\n"
+"PO-Revision-Date: 2010-01-10 12:43+0000\n"
+"Last-Translator: GrayWaLL <Unknown>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-26 04:28+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
+
+#: ../src/thumbnailer.py:72
+msgid " [options] -o output-file input-file"
+msgstr " [选项] -o 输出文件 输入文件"
+
+#: ../src/thumbnailer.py:77
+msgid "The file to create the thumbnail of"
+msgstr "要生成缩略图的文件"
+
+#: ../src/thumbnailer.py:81
+msgid "The destination of the resulting thumbnail"
+msgstr "最终缩略图的目标路径"
+
+#: ../src/thumbnailer.py:85
+msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
+msgstr "获取缩略图的位置(分数，默认为0.3)"
+
+#: ../src/thumbnailer.py:89
+msgid "The destination size (in pixels)"
+msgstr "目标尺寸(像素)"
+
+#: ../src/thumbnailer.py:99
+msgid "Sorry, an input and output file are required to be passed."
+msgstr "抱歉，必须传入输入输出文件。"
+
+#: ../src/thumbnailer.py:100
+#, python-format
+msgid "See '%s --help' for details"
+msgstr "运行“%s --help”查看详情"
+
+#: ../src/thumbnailer.py:107
+msgid "The requested position must be between 0 and 1, using 0.3."
+msgstr "要求的位置必须在0到1之间，使用0.3。"
+
+#: ../src/thumbnailer.py:164
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:191
+msgid "An error occurred"
+msgstr "发生了错误"
+
+#: ../src/thumbnailer.py:207
+msgid "There are no video tracks in this stream, exiting."
+msgstr "流中无视频轨道，退出。"
+
+#: ../src/thumbnailer.py:213
+msgid "Duration unable to be read, exiting."
+msgstr "片段不可读，退出。"
 
 #: ../src/thumbnailer.py:226
 msgid "Unable to seek to requested position, exiting."
@@ -25,88 +74,150 @@ msgstr "无法转到指定位置，退出。"
 msgid "Cannot continue, python version must be at least 2.5."
 msgstr "无法继续，python版本至少应为2.5。"
 
+#: ../src/whaawmp.py:73
+msgid " [options] filename"
+msgstr " [选项] 文件名"
+
+#: ../src/gui/__init__.py:33
+msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
+msgstr "无法继续，pygtk 未安装 (需要 2.12 版)"
+
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, X server not found!"
 msgstr "无法继续，未发现X服务器！"
 
-#: ../src/gui/dialogues.py:67
+#: ../src/gui/__init__.py:42
+msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
+msgstr "无法继续，程序运行至少需要GTK+2.12 版。"
+
+#: ../src/gui/dialogues.py:49
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  GrayWaLL https://launchpad.net/~graywall\n"
+"  Kyle WANG https://launchpad.net/~osfans-deactivatedaccount-"
+"deactivatedaccount\n"
+"  yuanyelele https://launchpad.net/~yuanyelele"
+
+#: ../src/gui/dialogues.py:63
 msgid "Choose a file to Open"
 msgstr "打开文件"
 
-#: ../src/gui/dialogues.py:78
+#: ../src/gui/dialogues.py:73
+msgid "Also Choose Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/dialogues.py:75
+msgid "After choosing the file to open, also choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/dialogues.py:87
 msgid "Supported Media"
 msgstr "支持的媒体文件"
 
-#: ../src/gui/dialogues.py:84
+#: ../src/gui/dialogues.py:93
 msgid "All Files"
 msgstr "全部文件"
 
-#: ../src/gui/dialogues.py:104
+#: ../src/gui/dialogues.py:113
 msgid "Play DVD"
 msgstr "播放 DVD"
 
-#: ../src/gui/dialogues.py:109
+#: ../src/gui/dialogues.py:118
 msgid "Select options:"
 msgstr "选项："
 
-#: ../src/gui/dialogues.py:111
+#: ../src/gui/dialogues.py:120
 msgid "Title: "
 msgstr "章节： "
 
-#: ../src/gui/dialogues.py:162
+#: ../src/gui/dialogues.py:171
 msgid "Open a URI"
 msgstr "打开URI："
 
-#: ../src/gui/dialogues.py:167
+#: ../src/gui/dialogues.py:176
 msgid "Enter the URI:"
 msgstr "输入URI："
 
-#: ../src/gui/dialogues.py:199
+#: ../src/gui/dialogues.py:208
 msgid "Select Tracks"
 msgstr "选择轨道："
 
-#: ../src/gui/dialogues.py:203
+#: ../src/gui/dialogues.py:212
 msgid "Audio:"
 msgstr "音频："
 
-#: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
 msgid "Error!"
 msgstr "错误！"
 
-#: ../src/gui/dialogues.py:245
+#: ../src/gui/dialogues.py:254
 msgid "Message"
 msgstr "消息"
 
-#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
 msgid "Supported Features"
 msgstr "支持的功能"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:285
+msgid "Dbus Message Bus"
+msgstr ""
+
+#: ../src/gui/dialogues.py:298
 msgid "Available"
 msgstr "可用"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:298
 msgid "Unavailable"
 msgstr "不可用"
 
-#: ../src/gui/dialogues.py:293
+#: ../src/gui/dialogues.py:302
 msgid "Library Versions:"
 msgstr "库版本："
 
-#: ../src/gui/main.py:404
+#: ../src/gui/main.py:413
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr "文件不存在：%s"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Pause"
 msgstr "暂停"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Play"
 msgstr "播放"
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/main.py:663
+msgid "Choose a Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/main.py:738
+#, python-format
+msgid "%s not found, links & e-mail addresses will not be clickable"
+msgstr ""
+
+#: ../src/gui/main.py:750
+#, python-format
+msgid ""
+"Could not execute browser command (via %(program)s).\n"
+"Please manually visit %(url)s to report the problem"
+msgstr ""
+
+#: ../src/gui/main.py:757
+msgid "TERM signal caught, exiting."
+msgstr ""
+
+#: ../src/gui/main.py:779
+#, python-format
+msgid "Queued: %d"
+msgstr "队列：%d"
+
+#: ../src/gui/preferences.py:184
+msgid "Default/Auto"
+msgstr "默认/自动"
+
+#: ../src/gui/preferences.py:184
 msgid "Other (Set from config.ini)"
 msgstr "其他（通过config.ini设置）"
 
@@ -114,17 +225,58 @@ msgstr "其他（通过config.ini设置）"
 msgid "Queued Tracks:"
 msgstr "排队的轨道："
 
-#: ../src/gui/queue.py:248
+#: ../src/gui/queue.py:247
 msgid "Clear Queue"
 msgstr "清除队列"
 
-#: ../src/gui/queue.py:249
+#: ../src/gui/queue.py:248
 msgid "Remove item from Queue"
 msgstr "从队列中删除"
 
-#: ../src/gui/queue.py:250
-msgid "(Add items to queue"
-msgstr "添加项目到轨道"
+#: ../src/gui/queue.py:249
+msgid "Add items to queue"
+msgstr ""
+
+#: ../src/gui/subtitles.py:61
+msgid "Choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+msgid "Subtitle Manager"
+msgstr ""
+
+#: ../src/gui/subtitles.py:93
+msgid "Automatic Subtitles"
+msgstr ""
+
+#: ../src/gui/subtitles.py:95
+msgid "Try to automatically find subtitles for each file."
+msgstr ""
+
+#: ../src/gui/subtitles.py:102
+msgid "Subtitle file extensions"
+msgstr ""
+
+#: ../src/gui/subtitles.py:106
+msgid ""
+"Extensions to use when automatically detecting subtitles.\n"
+"Sepatare with commas."
+msgstr ""
+
+#: ../src/gui/subtitles.py:111
+msgid "Add subtitles to current stream"
+msgstr ""
+
+#: ../src/gui/subtitles.py:143
+#, python-format
+msgid "Found subtitles stream %s"
+msgstr ""
+
+#: ../src/common/config.py:50
+msgid ""
+"Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
+"Defaulting to 'unknown' group."
+msgstr ""
 
 #: ../src/common/config.py:122
 msgid "Print the version and exit"
@@ -134,18 +286,155 @@ msgstr "打印版本号并退出"
 msgid "Play the file in fullscreen mode"
 msgstr "以全屏方式播放该文件"
 
+#: ../src/common/config.py:130
+msgid "Sets the player's volume to VOL (0-1)"
+msgstr "设置播放器音量为 VOL (0-1)"
+
+#: ../src/common/config.py:134
+msgid "Sets the player's audio ouput to SINK"
+msgstr "设置播放器音频输出为 SINK"
+
+#: ../src/common/config.py:138
+msgid "Sets the player's video ouput to SINK"
+msgstr "设置播放器视频输出为 SINK"
+
+#: ../src/common/config.py:142 ../ui/main.ui.h:13
+msgid "Quits the player when the playing stream stops"
+msgstr "当播放停止时退出播放器"
+
+#: ../src/common/config.py:146
+#, python-format
+msgid "Forces a new window if %s is already running"
+msgstr "如果 %s 正在运行，强行打开新窗口"
+
+#: ../src/common/config.py:150
+#, python-format
+msgid "Forces the file passed to be queued if %s is already running"
+msgstr "如果 %s 正在运行，强行将文件添加至队列"
+
+#: ../src/common/config.py:154
+#, python-format
+msgid "Forces the file to be played now in a previous %s process"
+msgstr "在之前的 %s 进程中强行立即播放文件"
+
+#: ../src/common/config.py:158
+#, python-format
+msgid "Toggles play/pause on an already running %s process"
+msgstr "在已经运行的 %s 进程中切换播放/暂停状态"
+
+#: ../src/common/config.py:162
+#, python-format
+msgid "Starts the player in an already running %s process"
+msgstr "在已经运行的 %s 进程中开启播放器"
+
+#: ../src/common/config.py:166
+#, python-format
+msgid "Pauses the player in an already running %s process"
+msgstr "在已经运行的 %s 进程中暂停播放器"
+
+#: ../src/common/config.py:170
+#, python-format
+msgid "Stops the player in an already running %s process"
+msgstr "在已经运行的 %s 进程中停止播放器"
+
+#: ../src/common/config.py:174
+#, python-format
+msgid "Skips to the next track in an already running %s process"
+msgstr "在已经运行的 %s 进程中跳至下一轨道"
+
+#: ../src/common/config.py:178
+#, python-format
+msgid "Restarts the current track in an already running %s process"
+msgstr "在已经运行的 %s 进程中重启当前轨道"
+
+#: ../src/common/config.py:182
+#, python-format
+msgid "Querys the current track in an already running %s process"
+msgstr ""
+
+#: ../src/common/dbusBus.py:37
+msgid "Dbus import failed, dbus features will be unavailable"
+msgstr ""
+
+#: ../src/common/dbusBus.py:70
+#, python-format
+msgid ""
+"File received via dbus:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
+msgid "Playing file..."
+msgstr "播放文件..."
+
+#: ../src/common/dbusBus.py:79
+#, python-format
+msgid "Telling %s to start a new process..."
+msgstr "通知 %s 运行新进程"
+
+#: ../src/common/dbusBus.py:89
+msgid "File queued..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:128
+#, python-format
+msgid ""
+"Tags of %(filename)s:\n"
+"%(tags)s"
+msgstr ""
+"%(filename)s 标签：\n"
+"%(tags)s"
+
 #: ../src/common/dbusBus.py:146
 #, python-format
 msgid "%s is already running."
 msgstr "%s 已在运行中。"
 
-#: ../src/common/gstTools.py:82
+#: ../src/common/dbusBus.py:161
+#, python-format
+msgid ""
+"Passed the following file to previously running process:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:164
+msgid "Starting new process..."
+msgstr "开启新进程..."
+
+#: ../src/common/dbusBus.py:170
+msgid "Toggle of Play/Pause failed, no file is currently open."
+msgstr "切换播放/暂停失败，目前无打开文件。"
+
+#: ../src/common/dbusBus.py:176
+msgid "Play failed, no file is currently open."
+msgstr "播放失败，目前无打开文件。"
+
+#: ../src/common/dbusBus.py:182
+msgid "Pause failed, not file is currently open."
+msgstr "暂停失败，目前无打开文件。"
+
+#: ../src/common/gstTagger.py:150
+msgid ""
+"Something bad happened which shouldn't\n"
+"Tell me: current data did not match player URI"
+msgstr ""
+
+#: ../src/common/gstTools.py:42
 msgid "Unknown"
 msgstr "未知"
+
+#: ../src/common/signals.py:44
+msgid ""
+"Something went wrong, can't act on signal which hasn't been connected."
+msgstr ""
 
 #: ../src/common/useful.py:31
 msgid "Whaaw! Media Player"
 msgstr "Whaaw! 媒体播放器"
+
+#: ../src/common/useful.py:115
+msgid "No tags available"
+msgstr "无可用标签"
 
 #: ../ui/main.ui.h:1
 msgid "All"
@@ -155,9 +444,19 @@ msgstr "全部"
 msgid "Audio Tracks"
 msgstr "音轨"
 
+#: ../ui/main.ui.h:3
+msgid ""
+"Change the player's speed.  WARNING: Negative numbers can cause weirdness "
+"(even lockups)."
+msgstr ""
+
 #: ../ui/main.ui.h:4
 msgid "Current player volume"
 msgstr "当前音量"
+
+#: ../ui/main.ui.h:5
+msgid "DVD Menu"
+msgstr "DVD 菜单"
 
 #: ../ui/main.ui.h:6
 msgid "Disable repeat"
@@ -179,9 +478,17 @@ msgstr "无"
 msgid "One"
 msgstr "单个"
 
+#: ../ui/main.ui.h:11
+msgid "Plays random items from the queue"
+msgstr "从队列中随机播放"
+
 #: ../ui/main.ui.h:12
 msgid "Quit on Stop"
 msgstr "停止时退出"
+
+#: ../ui/main.ui.h:14
+msgid "Random"
+msgstr "随机"
 
 #: ../ui/main.ui.h:15
 msgid "Repeat"
@@ -199,6 +506,10 @@ msgstr "重播队列中所有轨道"
 msgid "Report a bug to the Bugtracker"
 msgstr "向Bugtracker报告bug"
 
+#: ../ui/main.ui.h:19
+msgid "Restart Track"
+msgstr "重启轨道"
+
 #: ../ui/main.ui.h:20
 msgid "Show advanced player controls."
 msgstr "显示高级播放控制"
@@ -211,35 +522,43 @@ msgstr "速度："
 msgid "Stop"
 msgstr "停止"
 
+#: ../ui/main.ui.h:23
+msgid "Stream repeat settings"
+msgstr "流重复设置"
+
 #: ../ui/main.ui.h:26
+msgid "View and edit the current queue"
+msgstr "查看编辑当前队列"
+
+#: ../ui/main.ui.h:27
 msgid "_Advanced Controls"
 msgstr "高级控制(_A)"
 
-#: ../ui/main.ui.h:27
+#: ../ui/main.ui.h:28
 msgid "_Edit"
 msgstr "编辑(_E)"
 
-#: ../ui/main.ui.h:28
+#: ../ui/main.ui.h:29
 msgid "_File"
 msgstr "文件(_F)"
 
-#: ../ui/main.ui.h:29
+#: ../ui/main.ui.h:30
 msgid "_Help"
 msgstr "帮助(_H)"
 
-#: ../ui/main.ui.h:30
+#: ../ui/main.ui.h:31
 msgid "_Queue"
 msgstr "队列(_Q)"
 
-#: ../ui/main.ui.h:31
+#: ../ui/main.ui.h:32
 msgid "_Report a Bug"
 msgstr "报告bug(_R)"
 
-#: ../ui/main.ui.h:32
+#: ../ui/main.ui.h:33
 msgid "_Stream"
 msgstr "流(_S)"
 
-#: ../ui/main.ui.h:33
+#: ../ui/main.ui.h:34
 msgid "_View"
 msgstr "查看(_V)"
 
@@ -306,364 +625,133 @@ msgid "Force the video to keep its original aspect ratio"
 msgstr "保持视频原始的纵横比"
 
 #: ../ui/preferences.ui.h:16
-msgid "Hide Video Window when Stopped"
-msgstr "结束时隐藏视频窗口"
-
-#: ../ui/preferences.ui.h:17
-msgid "Hide the video window when there is no video stream."
-msgstr "当没有视频流时隐藏视频窗口"
-
-#: ../ui/preferences.ui.h:18
 msgid "Hue:"
 msgstr "色度："
 
-#: ../ui/preferences.ui.h:20
+#: ../ui/preferences.ui.h:17
+msgid "Instantaneous Seek"
+msgstr "即时搜索"
+
+#: ../ui/preferences.ui.h:18
 msgid "Main"
 msgstr "主要设置"
 
-#: ../ui/preferences.ui.h:21
+#: ../ui/preferences.ui.h:19
 msgid "Mouse hide timeout (ms): "
 msgstr "隐藏鼠标延迟（毫秒）： "
 
-#: ../ui/preferences.ui.h:22
+#: ../ui/preferences.ui.h:20
 msgid "Output Device:"
 msgstr "输出设备："
 
-#: ../ui/preferences.ui.h:23
+#: ../ui/preferences.ui.h:21
 msgid "Preferences"
 msgstr "首选项"
 
-#: ../ui/preferences.ui.h:24
+#: ../ui/preferences.ui.h:22
 msgid "Reset all adjustments to 0"
 msgstr "重置所有值为初始值"
 
-#: ../ui/preferences.ui.h:25
+#: ../ui/preferences.ui.h:23
 msgid "Restore Defaults"
 msgstr "恢复默认值"
 
-#: ../ui/preferences.ui.h:26
+#: ../ui/preferences.ui.h:24
 msgid "Saturation:"
 msgstr "饱和度："
 
-#: ../ui/preferences.ui.h:28
-msgid "Show Time Remaining"
-msgstr "显示剩余时间"
-
-#: ../ui/preferences.ui.h:29
-msgid "Show the time remaining instead of total time in the progress bar."
-msgstr "在进度条中显示剩余时间而非总时间"
-
-#: ../ui/preferences.ui.h:35
-msgid "Upon opening new file:"
-msgstr "打开新文件时："
-
-#: ../ui/preferences.ui.h:36
-msgid "Video"
-msgstr "视频"
-
-#: ../ui/preferences.ui.h:37
-msgid "Volume Change on Scroll: "
-msgstr "滚动时音量增量： "
-
-#: ../src/thumbnailer.py:72
-msgid " [options] -o output-file input-file"
-msgstr ""
-
-#: ../src/thumbnailer.py:77
-msgid "The file to create the thumbnail of"
-msgstr ""
-
-#: ../src/thumbnailer.py:81
-msgid "The destination of the resulting thumbnail"
-msgstr ""
-
-#: ../src/thumbnailer.py:85
-msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
-msgstr ""
-
-#: ../src/thumbnailer.py:89
-msgid "The destination size (in pixels)"
-msgstr ""
-
-#: ../src/thumbnailer.py:99
-msgid "Sorry, an input and output file are required to be passed."
-msgstr ""
-
-#: ../src/thumbnailer.py:100
-#, python-format
-msgid "See '%s --help' for details"
-msgstr ""
-
-#: ../src/thumbnailer.py:107
-msgid "The requested position must be between 0 and 1, using 0.3."
-msgstr ""
-
-#: ../src/thumbnailer.py:164
-msgid "Stream returned no caps, exiting"
-msgstr ""
-
-#: ../src/thumbnailer.py:191
-msgid "An error occurred"
-msgstr ""
-
-#: ../src/thumbnailer.py:207
-msgid "There are no video tracks in this stream, exiting."
-msgstr ""
-
-#: ../src/thumbnailer.py:213
-msgid "Duration unable to be read, exiting."
-msgstr ""
-
-#: ../src/whaawmp.py:73
-msgid " [options] filename"
-msgstr ""
-
-#: ../src/gui/__init__.py:33
-msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
-msgstr ""
-
-#: ../src/gui/__init__.py:42
-msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
-msgstr ""
-
-#: ../src/gui/dialogues.py:49
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  yuanyelele https://launchpad.net/~yuanyelele"
-
-#: ../src/gui/dialogues.py:276
-msgid "Dbus Message Bus"
-msgstr ""
-
-#: ../src/gui/main.py:752
-#, python-format
-msgid "%s not found, links & e-mail addresses will not be clickable"
-msgstr ""
-
-#: ../src/gui/main.py:764
-#, python-format
-msgid ""
-"Could not execute browser command (via %(program)s).\n"
-"Please manually visit %(url)s to report the problem"
-msgstr ""
-
-#: ../src/gui/main.py:771
-msgid "TERM signal caught, exiting."
-msgstr ""
-
-#: ../src/gui/main.py:793
-#, python-format
-msgid "Queued: %d"
-msgstr ""
-
-#: ../src/gui/preferences.py:185
-msgid "Default/Auto"
-msgstr ""
-
-#: ../src/common/config.py:50
-msgid ""
-"Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
-"Defaulting to 'unknown' group."
-msgstr ""
-
-#: ../src/common/config.py:130
-msgid "Sets the player's volume to VOL (0-1)"
-msgstr ""
-
-#: ../src/common/config.py:134
-msgid "Sets the player's audio ouput to SINK"
-msgstr ""
-
-#: ../src/common/config.py:138
-msgid "Sets the player's video ouput to SINK"
-msgstr ""
-
-#: ../src/common/config.py:142 ../ui/main.ui.h:13
-msgid "Quits the player when the playing stream stops"
-msgstr ""
-
-#: ../src/common/config.py:146
-#, python-format
-msgid "Forces a new window if %s is already running"
-msgstr ""
-
-#: ../src/common/config.py:150
-#, python-format
-msgid "Forces the file passed to be queued if %s is already running"
-msgstr ""
-
-#: ../src/common/config.py:154
-#, python-format
-msgid "Forces the file to be played now in a previous %s process"
-msgstr ""
-
-#: ../src/common/config.py:158
-#, python-format
-msgid "Toggles play/pause on an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:162
-#, python-format
-msgid "Starts the player in an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:166
-#, python-format
-msgid "Pauses the player in an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:170
-#, python-format
-msgid "Stops the player in an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:174
-#, python-format
-msgid "Skips to the next track in an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:178
-#, python-format
-msgid "Restarts the current track in an already running %s process"
-msgstr ""
-
-#: ../src/common/config.py:182
-#, python-format
-msgid "Querys the current track in an already running %s process"
-msgstr ""
-
-#: ../src/common/dbusBus.py:37
-msgid "Dbus import failed, dbus features will be unavailable"
-msgstr ""
-
-#: ../src/common/dbusBus.py:70
-#, python-format
-msgid ""
-"File received via dbus:\n"
-"\t%s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
-msgid "Playing file..."
-msgstr ""
-
-#: ../src/common/dbusBus.py:79
-#, python-format
-msgid "Telling %s to start a new process..."
-msgstr ""
-
-#: ../src/common/dbusBus.py:89
-msgid "File queued..."
-msgstr ""
-
-#: ../src/common/dbusBus.py:128
-#, python-format
-msgid ""
-"Tags of %(filename)s:\n"
-"%(tags)s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:161
-#, python-format
-msgid ""
-"Passed the following file to previously running process:\n"
-"\t%s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:164
-msgid "Starting new process..."
-msgstr ""
-
-#: ../src/common/dbusBus.py:170
-msgid "Toggle of Play/Pause failed, no file is currently open."
-msgstr ""
-
-#: ../src/common/dbusBus.py:176
-msgid "Play failed, no file is currently open."
-msgstr ""
-
-#: ../src/common/dbusBus.py:182
-msgid "Pause failed, not file is currently open."
-msgstr ""
-
-#: ../src/common/gstTagger.py:112
-msgid ""
-"Something bad happened which shouldn't\n"
-"Tell me: current data did not match player URI"
-msgstr ""
-
-#: ../src/common/signals.py:44
-msgid ""
-"Something went wrong, can't act on signal which hasn't been connected."
-msgstr ""
-
-#: ../src/common/useful.py:115
-msgid "No tags available"
-msgstr ""
-
-#: ../ui/main.ui.h:3
-msgid ""
-"Change the player's speed.  WARNING: Negative numbers can cause weirdness "
-"(even lockups)."
-msgstr ""
-
-#: ../ui/main.ui.h:5
-msgid "DVD Menu"
-msgstr ""
-
-#: ../ui/main.ui.h:11
-msgid "Plays random items from the queue"
-msgstr ""
-
-#: ../ui/main.ui.h:14
-msgid "Random"
-msgstr ""
-
-#: ../ui/main.ui.h:19
-msgid "Restart Track"
-msgstr ""
-
-#: ../ui/main.ui.h:23
-msgid "Stream repeat settings"
-msgstr ""
-
-#: ../ui/main.ui.h:25
-msgid "View and edit the current queue"
-msgstr ""
-
-#: ../ui/preferences.ui.h:19
-msgid "Instantaneous Seek"
-msgstr ""
-
-#: ../ui/preferences.ui.h:27
+#: ../ui/preferences.ui.h:25
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
-msgstr ""
+msgstr "拖动进度条时即时搜索，而不等到结束。"
 
-#: ../ui/preferences.ui.h:30
+#: ../ui/preferences.ui.h:26
+msgid "Show Time Remaining"
+msgstr "显示剩余时间"
+
+#: ../ui/preferences.ui.h:27
+msgid "Show the time remaining instead of total time in the progress bar."
+msgstr "在进度条中显示剩余时间而非总时间"
+
+#: ../ui/preferences.ui.h:28
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted, disabling does this automatically)."
 msgstr ""
 
-#: ../ui/preferences.ui.h:31
+#: ../ui/preferences.ui.h:29
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
-msgstr ""
+msgstr "标签显示语法，将标签写入大括号{}中。"
 
-#: ../ui/preferences.ui.h:32
+#: ../ui/preferences.ui.h:30
 msgid "Tag Display Syntax: "
-msgstr ""
+msgstr "标签显示语法： "
 
-#: ../ui/preferences.ui.h:33
+#: ../ui/preferences.ui.h:31
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
-msgstr ""
+msgstr "当另一个Whaaw! Media Player被请求时的行为"
 
-#: ../ui/preferences.ui.h:34
+#: ../ui/preferences.ui.h:32
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
-msgstr ""
+msgstr "当鼠标在视频窗口停留一定时间(毫秒)后自动隐藏"
+
+#: ../ui/preferences.ui.h:33
+msgid "Upon opening new file:"
+msgstr "打开新文件时："
+
+#: ../ui/preferences.ui.h:34
+msgid "Video"
+msgstr "视频"
+
+#: ../ui/preferences.ui.h:35
+msgid "Volume Change on Scroll: "
+msgstr "滚动时音量增量： "
+
+#~ msgid "(Add items to queue"
+#~ msgstr "添加项目到轨道"
+
+#~ msgid "Mute the player"
+#~ msgstr "静音"
+
+#~ msgid "Sets the player's volume to VOL (0-100)"
+#~ msgstr "设置音量（0-100）"
+
+#~ msgid "About Whaaw! Media Player"
+#~ msgstr "关于Whaaw!媒体播放器"
+
+#~ msgid "Hide Video Window when Stopped"
+#~ msgstr "结束时隐藏视频窗口"
+
+#~ msgid "Hide the video window when there is no video stream."
+#~ msgstr "当没有视频流时隐藏视频窗口"
+
+#~ msgid "Open URI"
+#~ msgstr "打开 URI"
+
+#~ msgid ""
+#~ "Play Immediately\n"
+#~ "Add to end of queue\n"
+#~ "Play in separate process"
+#~ msgstr ""
+#~ "立即播放\n"
+#~ "添加到队尾\n"
+#~ "在不同进程中播放"
+
+#~ msgid "Toggle Fullscreen"
+#~ msgstr "切换全屏"
+
+#~ msgid "Vol:"
+#~ msgstr "音量："
+
+#~ msgid "_Preferences"
+#~ msgstr "首选项(_P)"
+
+#~ msgid ""
+#~ "The amount to change the volume by when scrolling on the video area/volume "
+#~ "control"
+#~ msgstr "在视频区或音量条上滚动时音量的增量"

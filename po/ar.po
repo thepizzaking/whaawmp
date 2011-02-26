@@ -1,16 +1,16 @@
-# Spanish translation for whaawmp
-# Copyright (c) 2008 Rosetta Contributors and Canonical Ltd 2008
+# Arabic translation for whaawmp
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
 # This file is distributed under the same license as the whaawmp package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2008.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
-"Report-Msgid-Bugs-To: Miguel Latorre García <kuan@graffiti.net>\n"
+"Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-03-07 18:54+1100\n"
-"PO-Revision-Date: 2011-01-12 04:04+0000\n"
-"Last-Translator: Fitoschido <fitoschido@gmail.com>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2009-07-14 12:06+0000\n"
+"Last-Translator: MaXeR <Unknown>\n"
+"Language-Team: Arabic <ar@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,196 +19,180 @@ msgstr ""
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
-msgstr " [opciones] -o archivo-salida archivo-entrada"
+msgstr ""
 
 #: ../src/thumbnailer.py:77
 msgid "The file to create the thumbnail of"
-msgstr "El archivo para el cual crear miniatura"
+msgstr ""
 
 #: ../src/thumbnailer.py:81
 msgid "The destination of the resulting thumbnail"
-msgstr "El destino de la miniatura resultante"
+msgstr ""
 
 #: ../src/thumbnailer.py:85
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
-msgstr "La posición (Fracción) de donde hacer la miniatura (defecto 0.3)"
+msgstr ""
 
 #: ../src/thumbnailer.py:89
 msgid "The destination size (in pixels)"
-msgstr "El tamaño final (en pixels)"
+msgstr ""
 
 #: ../src/thumbnailer.py:99
 msgid "Sorry, an input and output file are required to be passed."
-msgstr "Disculpe, los archivos de entrada y salida son necesarios."
+msgstr ""
 
 #: ../src/thumbnailer.py:100
 #, python-format
 msgid "See '%s --help' for details"
-msgstr "Ver '%s --help' para los detalles"
+msgstr ""
 
 #: ../src/thumbnailer.py:107
 msgid "The requested position must be between 0 and 1, using 0.3."
-msgstr "La posición solicitada debe estar entre 0 y 1, se usa 0.3."
+msgstr ""
 
 #: ../src/thumbnailer.py:164
 msgid "Stream returned no caps, exiting"
-msgstr "La secuencia no devolvió capturas, saliendo"
+msgstr ""
 
 #: ../src/thumbnailer.py:191
 msgid "An error occurred"
-msgstr "Ha ocurrido un error"
+msgstr "حدث خطأ"
 
 #: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
-msgstr "No hay pistas de video en esta secuencia, saliendo."
+msgstr ""
 
 #: ../src/thumbnailer.py:213
 msgid "Duration unable to be read, exiting."
-msgstr "No se pudo leer la duración, saliendo."
+msgstr ""
 
 #: ../src/thumbnailer.py:226
 msgid "Unable to seek to requested position, exiting."
-msgstr "No se pudo ir a la posición solicitada, saliendo."
+msgstr ""
 
 #: ../src/whaawmp.py:38
 msgid "Cannot continue, python version must be at least 2.5."
-msgstr "No se puede continuar, la versión de python ha de ser 2.5 ó sup."
+msgstr ""
 
 #: ../src/whaawmp.py:73
 msgid " [options] filename"
-msgstr " [opciones] nombre del archivo"
+msgstr ""
 
 #: ../src/gui/__init__.py:33
 msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
 msgstr ""
-"No se puede continuar, pygtk no está instalado (versión 2.12 requerida)"
 
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, X server not found!"
-msgstr "No se puede continuar, ¡no se encontró el servidor X!"
+msgstr ""
 
 #: ../src/gui/__init__.py:42
 msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
 msgstr ""
-"No se puede continuar, este programa requiere para funcionar al menos GTK+ "
-"2.12."
 
 #: ../src/gui/dialogues.py:49
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
-"  Dante Díaz https://launchpad.net/~dante\n"
-"  DiegoJ https://launchpad.net/~diegojromerolopez\n"
-"  Eduardo Ruiz https://launchpad.net/~eduardo-ruizcarrillo\n"
-"  Feder Sáiz https://launchpad.net/~federsaiz-deactivatedaccount\n"
-"  Fido https://launchpad.net/~fedevera\n"
-"  Fitoschido https://launchpad.net/~fitoschido\n"
-"  Jonay https://launchpad.net/~jonay-santana\n"
-"  Miguel Latorre García https://launchpad.net/~kuan-graffiti\n"
-"  Miguel Latorre García https://launchpad.net/~mlatorre\n"
-"  Pedro Valverde https://launchpad.net/~pkdor509\n"
-"  daironmedina https://launchpad.net/~dairon\n"
-"  elega https://launchpad.net/~elega"
+"  MaXeR https://launchpad.net/~themaxer"
 
 #: ../src/gui/dialogues.py:63
 msgid "Choose a file to Open"
-msgstr "Elegir un archivo para abrir"
+msgstr "اختيار ملف لفتحه"
 
 #: ../src/gui/dialogues.py:73
 msgid "Also Choose Subtitle Stream"
-msgstr "Elegir también flujo de subtítulos"
+msgstr ""
 
 #: ../src/gui/dialogues.py:75
 msgid "After choosing the file to open, also choose a subtitle stream."
 msgstr ""
-"Después de elegir el fichero a abrir, elija también un flujo de subtítulos."
 
 #: ../src/gui/dialogues.py:87
 msgid "Supported Media"
-msgstr "Formatos soportados"
+msgstr "الوسائط المدعومة"
 
 #: ../src/gui/dialogues.py:93
 msgid "All Files"
-msgstr "Todos los archivos"
+msgstr "كل الملفّات"
 
 #: ../src/gui/dialogues.py:113
 msgid "Play DVD"
-msgstr "Reproducir DVD"
+msgstr "تشغيل القرص المدمج الرقمي"
 
 #: ../src/gui/dialogues.py:118
 msgid "Select options:"
-msgstr "Elegir opciones:"
+msgstr ""
 
 #: ../src/gui/dialogues.py:120
 msgid "Title: "
-msgstr "Título: "
+msgstr "العنوان: "
 
 #: ../src/gui/dialogues.py:171
 msgid "Open a URI"
-msgstr "Abrir una URI"
+msgstr "فتح رابط"
 
 #: ../src/gui/dialogues.py:176
 msgid "Enter the URI:"
-msgstr "Introducir la URI:"
+msgstr "إدخال الرابط:"
 
 #: ../src/gui/dialogues.py:208
 msgid "Select Tracks"
-msgstr "Elegir pistas"
+msgstr ""
 
 #: ../src/gui/dialogues.py:212
 msgid "Audio:"
-msgstr "Sonido:"
+msgstr "الصوت:"
 
 #: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
 msgid "Error!"
-msgstr "¡Error!"
+msgstr "خطأ!"
 
 #: ../src/gui/dialogues.py:254
 msgid "Message"
-msgstr "Mensaje"
+msgstr "رسالة"
 
 #: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
 msgid "Supported Features"
-msgstr "Características soportadas"
+msgstr "الخصائص المدعومة"
 
 #: ../src/gui/dialogues.py:285
 msgid "Dbus Message Bus"
-msgstr "Bus de mensajes Dbus"
+msgstr ""
 
 #: ../src/gui/dialogues.py:298
 msgid "Available"
-msgstr "Disponible"
+msgstr "متوفّر"
 
 #: ../src/gui/dialogues.py:298
 msgid "Unavailable"
-msgstr "No disponible"
+msgstr "غير متوفّر"
 
 #: ../src/gui/dialogues.py:302
 msgid "Library Versions:"
-msgstr "Versiones de bibliotecas:"
+msgstr "نسخ المكتبة:"
 
 #: ../src/gui/main.py:413
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
-msgstr "Algo no es correcto, no existe el archivo: %s"
+msgstr ""
 
 #: ../src/gui/main.py:597
 msgid "Pause"
-msgstr "Pausar"
+msgstr "إيقاف مؤقّت"
 
 #: ../src/gui/main.py:597
 msgid "Play"
-msgstr "Reproducir"
+msgstr "تشغيل"
 
 #: ../src/gui/main.py:663
 msgid "Choose a Subtitle Stream"
-msgstr "Elija un flujo de subtítulos"
+msgstr ""
 
 #: ../src/gui/main.py:738
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
-"no se encontró %s, los enlaces y direcciones e-mail no podrán pulsarse"
 
 #: ../src/gui/main.py:750
 #, python-format
@@ -216,166 +200,158 @@ msgid ""
 "Could not execute browser command (via %(program)s).\n"
 "Please manually visit %(url)s to report the problem"
 msgstr ""
-"No se puede ejecutar comandos del navegador (via %(program)s).\n"
-"Por favor, visite manualmente %(url)s para informar del problema"
 
 #: ../src/gui/main.py:757
 msgid "TERM signal caught, exiting."
-msgstr "Se recibió la señal TERM, saliendo"
+msgstr ""
 
 #: ../src/gui/main.py:779
 #, python-format
 msgid "Queued: %d"
-msgstr "En cola: %d"
+msgstr ""
 
 #: ../src/gui/preferences.py:184
 msgid "Default/Auto"
-msgstr "Por defecto / Automático"
+msgstr ""
 
 #: ../src/gui/preferences.py:184
 msgid "Other (Set from config.ini)"
-msgstr "Otro (Puesto en config.ini)"
+msgstr ""
 
 #: ../src/gui/queue.py:215
 msgid "Queued Tracks:"
-msgstr "Pistas en cola:"
+msgstr ""
 
 #: ../src/gui/queue.py:247
 msgid "Clear Queue"
-msgstr "Limpiar cola"
+msgstr ""
 
 #: ../src/gui/queue.py:248
 msgid "Remove item from Queue"
-msgstr "Eliminar elemento de la cola"
+msgstr ""
 
 #: ../src/gui/queue.py:249
 msgid "Add items to queue"
-msgstr "Añadir elementos a la cola"
+msgstr ""
 
 #: ../src/gui/subtitles.py:61
 msgid "Choose a subtitle stream."
-msgstr "Elija un flujo de subtítulos."
+msgstr ""
 
 #: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
 msgid "Subtitle Manager"
-msgstr "Gestor de subtítulos"
+msgstr ""
 
 #: ../src/gui/subtitles.py:93
 msgid "Automatic Subtitles"
-msgstr "Subtítulos automáticos"
+msgstr ""
 
 #: ../src/gui/subtitles.py:95
 msgid "Try to automatically find subtitles for each file."
-msgstr "Intentar encontrar automáticamente subtítulos para cada archivo."
+msgstr ""
 
 #: ../src/gui/subtitles.py:102
 msgid "Subtitle file extensions"
-msgstr "Extensiones de archivos de subtítulos"
+msgstr ""
 
 #: ../src/gui/subtitles.py:106
 msgid ""
 "Extensions to use when automatically detecting subtitles.\n"
 "Sepatare with commas."
 msgstr ""
-"Extensiones a usar cuando se detecten subtílos automáticamente.\n"
-"Separar con comas."
 
 #: ../src/gui/subtitles.py:111
 msgid "Add subtitles to current stream"
-msgstr "Añadir subtítulos al flujo actual"
+msgstr ""
 
 #: ../src/gui/subtitles.py:143
 #, python-format
 msgid "Found subtitles stream %s"
-msgstr "Encontrado flujo de subtítulos %s"
+msgstr ""
 
 #: ../src/common/config.py:50
 msgid ""
 "Aghh!  There was no '/' in the option!  This is a bug! Report it!\n"
 "Defaulting to 'unknown' group."
 msgstr ""
-"¡Aghh!  ¡No hay una '/' en la opción!  ¡Esto es un error! ¡Notifíquelo!\n"
-"Pasando al grupo 'unknown' por defecto."
 
 #: ../src/common/config.py:122
 msgid "Print the version and exit"
-msgstr "Imprimir la versión y salir"
+msgstr ""
 
 #: ../src/common/config.py:126
 msgid "Play the file in fullscreen mode"
-msgstr "Reproducir el archivo a pantalla completa"
+msgstr ""
 
 #: ../src/common/config.py:130
 msgid "Sets the player's volume to VOL (0-1)"
-msgstr "Establecer el volumen del reproductor para VOL (0-1)"
+msgstr ""
 
 #: ../src/common/config.py:134
 msgid "Sets the player's audio ouput to SINK"
-msgstr "Ajusta la salida de sonido del reproductor a SINK"
+msgstr ""
 
 #: ../src/common/config.py:138
 msgid "Sets the player's video ouput to SINK"
-msgstr "Ajusta la salida de video del reproductor a SINK"
+msgstr ""
 
 #: ../src/common/config.py:142 ../ui/main.ui.h:13
 msgid "Quits the player when the playing stream stops"
-msgstr "Cierra el reproductor cuando la secuencia se detiene"
+msgstr ""
 
 #: ../src/common/config.py:146
 #, python-format
 msgid "Forces a new window if %s is already running"
-msgstr "Obliga a abrir una ventana nueva si %s ya está ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:150
 #, python-format
 msgid "Forces the file passed to be queued if %s is already running"
 msgstr ""
-"Obliga a poner el archivo indicado en cola si %s ya está ejecutándose"
 
 #: ../src/common/config.py:154
 #, python-format
 msgid "Forces the file to be played now in a previous %s process"
 msgstr ""
-"Obliga a reproducir el archivo en este momento en un proceso %s anterior"
 
 #: ../src/common/config.py:158
 #, python-format
 msgid "Toggles play/pause on an already running %s process"
-msgstr "Cambia reproducir/detener en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:162
 #, python-format
 msgid "Starts the player in an already running %s process"
-msgstr "Inicia el reproductor en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:166
 #, python-format
 msgid "Pauses the player in an already running %s process"
-msgstr "Pausa el reproductor en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:170
 #, python-format
 msgid "Stops the player in an already running %s process"
-msgstr "Detiene reproductor en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:174
 #, python-format
 msgid "Skips to the next track in an already running %s process"
-msgstr "Salta a la pista siguiente en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:178
 #, python-format
 msgid "Restarts the current track in an already running %s process"
-msgstr "Reinicia la pista actual en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/config.py:182
 #, python-format
 msgid "Querys the current track in an already running %s process"
-msgstr "Solicita la pista actual en un proceso %s que está ya ejecutándose"
+msgstr ""
 
 #: ../src/common/dbusBus.py:37
 msgid "Dbus import failed, dbus features will be unavailable"
-msgstr "Dbus no se pudo importar, sus características no estarán disponibles"
+msgstr ""
 
 #: ../src/common/dbusBus.py:70
 #, python-format
@@ -383,21 +359,19 @@ msgid ""
 "File received via dbus:\n"
 "\t%s"
 msgstr ""
-"Archivo recibido vía dbus:\n"
-"\t%s"
 
 #: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
 msgid "Playing file..."
-msgstr "Reproduciendo archivo..."
+msgstr ""
 
 #: ../src/common/dbusBus.py:79
 #, python-format
 msgid "Telling %s to start a new process..."
-msgstr "Informando %s para iniciar un nuevo proceso..."
+msgstr ""
 
 #: ../src/common/dbusBus.py:89
 msgid "File queued..."
-msgstr "Archivo puesto en cola..."
+msgstr ""
 
 #: ../src/common/dbusBus.py:128
 #, python-format
@@ -405,13 +379,11 @@ msgid ""
 "Tags of %(filename)s:\n"
 "%(tags)s"
 msgstr ""
-"Etiquetas de %(filename)s:\n"
-"%(tags)s"
 
 #: ../src/common/dbusBus.py:146
 #, python-format
 msgid "%s is already running."
-msgstr "%s ya está ejecutándose."
+msgstr ""
 
 #: ../src/common/dbusBus.py:161
 #, python-format
@@ -419,411 +391,318 @@ msgid ""
 "Passed the following file to previously running process:\n"
 "\t%s"
 msgstr ""
-"Aprobó el siguiente archivo previamente un proceso en ejecución:\n"
-"\t%s"
 
 #: ../src/common/dbusBus.py:164
 msgid "Starting new process..."
-msgstr "Comenzando nuevo proceso..."
+msgstr ""
 
 #: ../src/common/dbusBus.py:170
 msgid "Toggle of Play/Pause failed, no file is currently open."
-msgstr "No se pudo cambiar de Reproducir/Detener, no hay un archivo abierto."
+msgstr ""
 
 #: ../src/common/dbusBus.py:176
 msgid "Play failed, no file is currently open."
-msgstr "No se pudo reproducir, no hay un archivo abierto."
+msgstr ""
 
 #: ../src/common/dbusBus.py:182
 msgid "Pause failed, not file is currently open."
-msgstr "No se pudo detener, no hay un archivo abierto."
+msgstr ""
 
 #: ../src/common/gstTagger.py:150
 msgid ""
 "Something bad happened which shouldn't\n"
 "Tell me: current data did not match player URI"
 msgstr ""
-"Algo malo que no debería ha ocurrido\n"
-"Dime: los datos no concuerdan con el URI del reproductor"
 
 #: ../src/common/gstTools.py:42
 msgid "Unknown"
-msgstr "Desconocido"
+msgstr ""
 
 #: ../src/common/signals.py:44
 msgid ""
 "Something went wrong, can't act on signal which hasn't been connected."
 msgstr ""
-"Algo salió mal, no se puede actuar en la señal que no ha sido conectada."
 
 #: ../src/common/useful.py:31
 msgid "Whaaw! Media Player"
-msgstr "Reproductor Multimedia Whaaw!"
+msgstr ""
 
 #: ../src/common/useful.py:115
 msgid "No tags available"
-msgstr "No hay etiquetas disponibles"
+msgstr ""
 
 #: ../ui/main.ui.h:1
 msgid "All"
-msgstr "Todo"
+msgstr ""
 
 #: ../ui/main.ui.h:2
 msgid "Audio Tracks"
-msgstr "Pistas de sonido"
+msgstr ""
 
 #: ../ui/main.ui.h:3
 msgid ""
 "Change the player's speed.  WARNING: Negative numbers can cause weirdness "
 "(even lockups)."
 msgstr ""
-"Cambia la velocidad del reproductor. CUIDADO: Números negativos pueden "
-"causar cosas raras (incluso bloqueos)"
 
 #: ../ui/main.ui.h:4
 msgid "Current player volume"
-msgstr "Volumen actual del reproductor"
+msgstr ""
 
 #: ../ui/main.ui.h:5
 msgid "DVD Menu"
-msgstr "Menú del DVD"
+msgstr ""
 
 #: ../ui/main.ui.h:6
 msgid "Disable repeat"
-msgstr "Desactivar repetición"
+msgstr ""
 
 #: ../ui/main.ui.h:7
 msgid "Leave Fullscreen"
-msgstr "Salir de pantalla completa"
+msgstr ""
 
 #: ../ui/main.ui.h:8
 msgid "Next"
-msgstr "Siguiente"
+msgstr ""
 
 #: ../ui/main.ui.h:9
 msgid "None"
-msgstr "Ninguno"
+msgstr ""
 
 #: ../ui/main.ui.h:10
 msgid "One"
-msgstr "Uno"
+msgstr ""
 
 #: ../ui/main.ui.h:11
 msgid "Plays random items from the queue"
-msgstr "Reproducir elementos aleatorios desde la cola"
+msgstr ""
 
 #: ../ui/main.ui.h:12
 msgid "Quit on Stop"
-msgstr "Salir al detener"
+msgstr ""
 
 #: ../ui/main.ui.h:14
 msgid "Random"
-msgstr "Aleatorio"
+msgstr ""
 
 #: ../ui/main.ui.h:15
 msgid "Repeat"
-msgstr "Repetir"
+msgstr ""
 
 #: ../ui/main.ui.h:16
 msgid "Repeat a single track"
-msgstr "Repetir una sola pista"
+msgstr ""
 
 #: ../ui/main.ui.h:17
 msgid "Repeat all tracks in the queue."
-msgstr "Repetir todas las pistas en la cola."
+msgstr ""
 
 #: ../ui/main.ui.h:18
 msgid "Report a bug to the Bugtracker"
-msgstr "Notificar un error en el Bugtracker"
+msgstr ""
 
 #: ../ui/main.ui.h:19
 msgid "Restart Track"
-msgstr "Reiniciar pista"
+msgstr ""
 
 #: ../ui/main.ui.h:20
 msgid "Show advanced player controls."
-msgstr "Mostrar controles de reproducción avanzados."
+msgstr ""
 
 #: ../ui/main.ui.h:21
 msgid "Speed:"
-msgstr "Velocidad:"
+msgstr ""
 
 #: ../ui/main.ui.h:22
 msgid "Stop"
-msgstr "Detener"
+msgstr ""
 
 #: ../ui/main.ui.h:23
 msgid "Stream repeat settings"
-msgstr "Configuración de la secuenciar repetir"
+msgstr ""
 
 #: ../ui/main.ui.h:26
 msgid "View and edit the current queue"
-msgstr "Ver y editar la cola actual"
+msgstr ""
 
 #: ../ui/main.ui.h:27
 msgid "_Advanced Controls"
-msgstr "Controles _avanzados"
+msgstr ""
 
 #: ../ui/main.ui.h:28
 msgid "_Edit"
-msgstr "_Editar"
+msgstr ""
 
 #: ../ui/main.ui.h:29
 msgid "_File"
-msgstr "_Archivo"
+msgstr ""
 
 #: ../ui/main.ui.h:30
 msgid "_Help"
-msgstr "A_yuda"
+msgstr ""
 
 #: ../ui/main.ui.h:31
 msgid "_Queue"
-msgstr "_Cola"
+msgstr ""
 
 #: ../ui/main.ui.h:32
 msgid "_Report a Bug"
-msgstr "_Informar un error"
+msgstr ""
 
 #: ../ui/main.ui.h:33
 msgid "_Stream"
-msgstr "_Secuencia"
+msgstr ""
 
 #: ../ui/main.ui.h:34
 msgid "_View"
-msgstr "_Ver"
+msgstr ""
 
 #: ../ui/preferences.ui.h:1
 msgid "<b>Colour Settings</b>"
-msgstr "<b>Configuraciones de color</b>"
+msgstr ""
 
 #: ../ui/preferences.ui.h:2
 msgid "Add current file's tags/name to Title"
-msgstr "Añadir las etiquetas/nombre del archivo actual al título"
+msgstr ""
 
 #: ../ui/preferences.ui.h:3
 msgid ""
 "Add the currently playing file's tags (or name if unavailable) to the "
 "window's title."
 msgstr ""
-"Añadir las etiquetas (o el nombre si no están disponibles) del archivo que "
-"está en reproducción al título de la ventana."
 
 #: ../ui/preferences.ui.h:4
 msgid "Adjust video brightness"
-msgstr "Ajustar brillo del vídeo"
+msgstr ""
 
 #: ../ui/preferences.ui.h:5
 msgid "Adjust video contrast"
-msgstr "Ajustar contraste del vídeo"
+msgstr ""
 
 #: ../ui/preferences.ui.h:6
 msgid "Adjust video hue"
-msgstr "Ajustar tono del vídeo"
+msgstr ""
 
 #: ../ui/preferences.ui.h:7
 msgid "Adjust video saturation"
-msgstr "Ajustar saturación del vídeo"
+msgstr ""
 
 #: ../ui/preferences.ui.h:8
 msgid "Audio"
-msgstr "Audio"
+msgstr ""
 
 #: ../ui/preferences.ui.h:9
 msgid "Brightness:"
-msgstr "Brillo:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:10
 msgid "Contrast:"
-msgstr "Contraste:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:11
 msgid "Disable Screensaver"
-msgstr "Deshabilitar salvapantallas"
+msgstr ""
 
 #: ../ui/preferences.ui.h:12
 msgid "Disable Screensaver whilst playing a video."
-msgstr "Deshabilitar el salvapantallas mientras se visualiza un vídeo."
+msgstr ""
 
 #: ../ui/preferences.ui.h:13
 msgid "Enable Visualisations (Requires stream restart)"
-msgstr "Habilitar visualizaciones (Requiere reiniciar la secuencia)"
+msgstr ""
 
 #: ../ui/preferences.ui.h:14
 msgid "Force Aspect Ratio"
-msgstr "Forzar relación de aspecto"
+msgstr ""
 
 #: ../ui/preferences.ui.h:15
 msgid "Force the video to keep its original aspect ratio"
-msgstr "Forzar el vídeo a mantener su relación de aspecto original"
+msgstr ""
 
 #: ../ui/preferences.ui.h:16
 msgid "Hue:"
-msgstr "Tono:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:17
 msgid "Instantaneous Seek"
-msgstr "Búsqueda instantánea"
+msgstr ""
 
 #: ../ui/preferences.ui.h:18
 msgid "Main"
-msgstr "Principal"
+msgstr ""
 
 #: ../ui/preferences.ui.h:19
 msgid "Mouse hide timeout (ms): "
-msgstr "Retardo para ocultar ratón (ms): "
+msgstr ""
 
 #: ../ui/preferences.ui.h:20
 msgid "Output Device:"
-msgstr "Dispositivo de salida:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:21
 msgid "Preferences"
-msgstr "Configuración"
+msgstr ""
 
 #: ../ui/preferences.ui.h:22
 msgid "Reset all adjustments to 0"
-msgstr "Poner todos los ajustes a 0"
+msgstr ""
 
 #: ../ui/preferences.ui.h:23
 msgid "Restore Defaults"
-msgstr "Restaurar valores por defecto"
+msgstr ""
 
 #: ../ui/preferences.ui.h:24
 msgid "Saturation:"
-msgstr "Saturación:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:25
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
-"Buscar instantáneamente al arrastrar la barra de progreso, en lugar de "
-"esperar hasta el final."
 
 #: ../ui/preferences.ui.h:26
 msgid "Show Time Remaining"
-msgstr "Mostrar tiempo restante"
+msgstr ""
 
 #: ../ui/preferences.ui.h:27
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
-"Mostrar el tiempo restante en lugar del total en la barra de progreso."
 
 #: ../ui/preferences.ui.h:28
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted, disabling does this automatically)."
 msgstr ""
-"Mostrar visualizaciones cuando está disponible una pista que no es un video "
-"(La secuencia actual debe ser reiniciada, desactivando hace ésto "
-"automáticamente)."
 
 #: ../ui/preferences.ui.h:29
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr ""
-"Sintaxis para mostrar las etiquetas. Encerrar un título de etiqueta entre {}."
 
 #: ../ui/preferences.ui.h:30
 msgid "Tag Display Syntax: "
-msgstr "Sintaxis para mostrar etiquetas: "
+msgstr ""
 
 #: ../ui/preferences.ui.h:31
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr ""
-"La acción a realizar cuando otro proceso del Reproductor Multimedia Whaaw! "
-"solicite abrir un archivo."
 
 #: ../ui/preferences.ui.h:32
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
-"El tiempo (en milisegundos) que debe transcurrir sin moverse el ratón sobre "
-"la ventana de video para que desaparezca el cursor."
 
 #: ../ui/preferences.ui.h:33
 msgid "Upon opening new file:"
-msgstr "Una vez abierto archivo nuevo:"
+msgstr ""
 
 #: ../ui/preferences.ui.h:34
 msgid "Video"
-msgstr "Video"
+msgstr ""
 
 #: ../ui/preferences.ui.h:35
 msgid "Volume Change on Scroll: "
-msgstr "Cambiar volumen con desplazamiento: "
-
-#~ msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
-#~ msgstr ""
-#~ "No se puede continuar, pygtk no está instalado (se requiere la versión 2.10)"
-
-#~ msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
-#~ msgstr ""
-#~ "No se puede continuar, para que funcione este programa se necesita GTK+ 2.10 "
-#~ "ó sup."
-
-#, python-format
-#~ msgid ""
-#~ "Could not execute browser command (via %s).\n"
-#~ "Please manually visit %s to report the problem"
-#~ msgstr ""
-#~ "No se pudo ejecutar la orden del navegador (con %s).\n"
-#~ "Por favor, visite manualmente %s para informar del problema"
-
-#~ msgid "Sets the player's volume to VOL (0-100)"
-#~ msgstr "Ajusta el volumen del reproductor a VOL (0-100)"
-
-#~ msgid "Mute the player"
-#~ msgstr "Silenciar el reproductor"
-
-#, python-format
-#~ msgid ""
-#~ "Tags of %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Etiquetas de %s:\n"
-#~ "%s"
-
-#~ msgid "About Whaaw! Media Player"
-#~ msgstr "Acerca del Reproductor Multimedia Whaaw!"
-
-#~ msgid "Open URI"
-#~ msgstr "Abrir URI"
-
-#~ msgid ""
-#~ "Play Immediately\n"
-#~ "Add to end of queue\n"
-#~ "Play in separate process"
-#~ msgstr ""
-#~ "Reproducir directamente\n"
-#~ "Añadir al final de la cola\n"
-#~ "Reproducir en un proceso separado"
-
-#~ msgid ""
-#~ "The amount to change the volume by when scrolling on the video area/volume "
-#~ "control"
-#~ msgstr ""
-#~ "La variación del volumen con scroll en la zona de video/mandos de volumen"
-
-#~ msgid "Toggle Fullscreen"
-#~ msgstr "Cambiar a Pantalla Completa"
-
-#~ msgid "Vol:"
-#~ msgstr "Vol:"
-
-#~ msgid "Volume (Mute/Unmute)"
-#~ msgstr "Volumen (Poner/Quitar silencio)"
-
-#~ msgid "_Preferences"
-#~ msgstr "Confi_guración"
-
-#~ msgid "(Add items to queue"
-#~ msgstr "Agregar objetos a lista de espera"
-
-#~ msgid "Hide Video Window when Stopped"
-#~ msgstr "Ocultar la ventana de video cuando está detenido"
-
-#~ msgid "Hide the video window when there is no video stream."
-#~ msgstr "Ocultar la ventana de video cuando no hay secuencia de video."
+msgstr ""

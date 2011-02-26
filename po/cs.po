@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2009-06-24 22:26+0000\n"
-"Last-Translator: StralM <Unknown>\n"
+"POT-Creation-Date: 2010-03-07 18:54+1100\n"
+"PO-Revision-Date: 2011-02-20 15:17+0000\n"
+"Last-Translator: Zbyněk Schwarz <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-26 04:28+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
@@ -78,105 +78,150 @@ msgstr "Nemohu pokračovat, vyžaduji python alespoň verze 2.5"
 msgid " [options] filename"
 msgstr " [nastavení] jméno souboru"
 
+#: ../src/gui/__init__.py:33
+msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
+msgstr "Nemohu pokračovat, pygtk není nainstalován (vyžadována verze 2.12)"
+
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, X server not found!"
 msgstr "Nemohu pokračovat, X server nenalezen!"
 
-#: ../src/gui/dialogues.py:67
+#: ../src/gui/__init__.py:42
+msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
+msgstr ""
+"Nemohu pokračovat, tento program vyžaduje ke svému chodu minimálně GTK+ 2.12."
+
+#: ../src/gui/dialogues.py:49
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Jan Dolejš https://launchpad.net/~jackdown3csr\n"
+"  Konki https://launchpad.net/~pavel-konkol\n"
+"  Stary https://launchpad.net/~stary-seznam\n"
+"  StralM https://launchpad.net/~m-stral\n"
+"  Zbyněk Schwarz https://launchpad.net/~tsbook"
+
+#: ../src/gui/dialogues.py:63
 msgid "Choose a file to Open"
 msgstr "Vyberte soubor k otevření"
 
-#: ../src/gui/dialogues.py:78
+#: ../src/gui/dialogues.py:73
+msgid "Also Choose Subtitle Stream"
+msgstr "Také zvolit datový proud titulků"
+
+#: ../src/gui/dialogues.py:75
+msgid "After choosing the file to open, also choose a subtitle stream."
+msgstr "Po zvolení souboru k otevření, zvolte také proud titulků"
+
+#: ../src/gui/dialogues.py:87
 msgid "Supported Media"
 msgstr "Podporovaná média"
 
-#: ../src/gui/dialogues.py:84
+#: ../src/gui/dialogues.py:93
 msgid "All Files"
 msgstr "Všechny soubory"
 
-#: ../src/gui/dialogues.py:104
+#: ../src/gui/dialogues.py:113
 msgid "Play DVD"
 msgstr "Přehrát DVD"
 
-#: ../src/gui/dialogues.py:109
+#: ../src/gui/dialogues.py:118
 msgid "Select options:"
 msgstr "Zvolte nastavení:"
 
-#: ../src/gui/dialogues.py:111
+#: ../src/gui/dialogues.py:120
 msgid "Title: "
 msgstr "Název: "
 
-#: ../src/gui/dialogues.py:162
+#: ../src/gui/dialogues.py:171
 msgid "Open a URI"
 msgstr "Otevřít URI"
 
-#: ../src/gui/dialogues.py:167
+#: ../src/gui/dialogues.py:176
 msgid "Enter the URI:"
 msgstr "Vložit URI:"
 
-#: ../src/gui/dialogues.py:199
+#: ../src/gui/dialogues.py:208
 msgid "Select Tracks"
 msgstr "Vybrat stopy"
 
-#: ../src/gui/dialogues.py:203
+#: ../src/gui/dialogues.py:212
 msgid "Audio:"
 msgstr "Audio:"
 
-#: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
 msgid "Error!"
 msgstr "Chyba!"
 
-#: ../src/gui/dialogues.py:245
+#: ../src/gui/dialogues.py:254
 msgid "Message"
 msgstr "Zpráva"
 
-#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
 msgid "Supported Features"
 msgstr "Podporované vlastnosti"
 
-#: ../src/gui/dialogues.py:276
+#: ../src/gui/dialogues.py:285
 msgid "Dbus Message Bus"
 msgstr "Dbus sběrnice zpráv"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:298
 msgid "Available"
 msgstr "Dostupný"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:298
 msgid "Unavailable"
 msgstr "Nedostupný"
 
-#: ../src/gui/dialogues.py:293
+#: ../src/gui/dialogues.py:302
 msgid "Library Versions:"
 msgstr "Verze knihoven:"
 
-#: ../src/gui/main.py:404
+#: ../src/gui/main.py:413
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr "Něco se pokazilo, není soubor: %s"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Play"
 msgstr "Přehrát"
 
-#: ../src/gui/main.py:752
+#: ../src/gui/main.py:663
+msgid "Choose a Subtitle Stream"
+msgstr "Zvolit datový proud titulků"
+
+#: ../src/gui/main.py:738
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr "%s nenalezen, odkazy & e-mail nebudou klikatelné"
 
-#: ../src/gui/main.py:771
+#: ../src/gui/main.py:750
+#, python-format
+msgid ""
+"Could not execute browser command (via %(program)s).\n"
+"Please manually visit %(url)s to report the problem"
+msgstr ""
+"Nelze spustit příkaz prohlížení (přes %(program)s).\n"
+"Navštivte, prosím, ručně %(url)s pro nahlášení problému"
+
+#: ../src/gui/main.py:757
 msgid "TERM signal caught, exiting."
 msgstr "Obdržen TERM signál, ukončuji."
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/main.py:779
+#, python-format
+msgid "Queued: %d"
+msgstr "Ve frontě: %d"
+
+#: ../src/gui/preferences.py:184
 msgid "Default/Auto"
 msgstr "Výchozí/Auto"
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/preferences.py:184
 msgid "Other (Set from config.ini)"
 msgstr "Ostatní (Položky z config.ini)"
 
@@ -184,17 +229,54 @@ msgstr "Ostatní (Položky z config.ini)"
 msgid "Queued Tracks:"
 msgstr "Stopy ve frontě:"
 
-#: ../src/gui/queue.py:248
+#: ../src/gui/queue.py:247
 msgid "Clear Queue"
 msgstr "Vyprázdnit frontu"
 
-#: ../src/gui/queue.py:249
+#: ../src/gui/queue.py:248
 msgid "Remove item from Queue"
 msgstr "Odebrat položky z fronty"
 
-#: ../src/gui/queue.py:250
-msgid "(Add items to queue"
-msgstr "Přidat položky do fronty"
+#: ../src/gui/queue.py:249
+msgid "Add items to queue"
+msgstr "Přidat položku do fronty"
+
+#: ../src/gui/subtitles.py:61
+msgid "Choose a subtitle stream."
+msgstr "Zvolte proud titulků"
+
+#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+msgid "Subtitle Manager"
+msgstr "Správce titulků"
+
+#: ../src/gui/subtitles.py:93
+msgid "Automatic Subtitles"
+msgstr "Automatické titulky"
+
+#: ../src/gui/subtitles.py:95
+msgid "Try to automatically find subtitles for each file."
+msgstr "Pokusit se automaticky najít titulky ke každému souoru"
+
+#: ../src/gui/subtitles.py:102
+msgid "Subtitle file extensions"
+msgstr "Přípona souborů s titulky"
+
+#: ../src/gui/subtitles.py:106
+msgid ""
+"Extensions to use when automatically detecting subtitles.\n"
+"Sepatare with commas."
+msgstr ""
+"Rozšíření, které použít při automatickém zjišťování titulků.\n"
+"Oddělte čárkami."
+
+#: ../src/gui/subtitles.py:111
+msgid "Add subtitles to current stream"
+msgstr "Přidat titulky do současného proudu"
+
+#: ../src/gui/subtitles.py:143
+#, python-format
+msgid "Found subtitles stream %s"
+msgstr "Nalezen proud titulků %s"
 
 #: ../src/common/config.py:50
 msgid ""
@@ -211,6 +293,10 @@ msgstr "Vytisknout verzi a ukončit"
 #: ../src/common/config.py:126
 msgid "Play the file in fullscreen mode"
 msgstr "Přehrát soubor v celoobrazovkovém režimu"
+
+#: ../src/common/config.py:130
+msgid "Sets the player's volume to VOL (0-1)"
+msgstr "Nastaví hlasitost přehravače na VOL (0-1)"
 
 #: ../src/common/config.py:134
 msgid "Sets the player's audio ouput to SINK"
@@ -278,10 +364,54 @@ msgstr "Přidá do fronty aktuální stopu v již běžícím procesu %s"
 msgid "Dbus import failed, dbus features will be unavailable"
 msgstr "Dbus import selhal, možnosti dbus nebudou dostupné"
 
+#: ../src/common/dbusBus.py:70
+#, python-format
+msgid ""
+"File received via dbus:\n"
+"\t%s"
+msgstr ""
+"Obdržen soubor přes dbus:\n"
+"\t%s"
+
+#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
+msgid "Playing file..."
+msgstr "Přehrávám soubor..."
+
+#: ../src/common/dbusBus.py:79
+#, python-format
+msgid "Telling %s to start a new process..."
+msgstr "Sděluji %s, aby spustil nový proces..."
+
+#: ../src/common/dbusBus.py:89
+msgid "File queued..."
+msgstr "Soubor byl zařazen do fronty..."
+
+#: ../src/common/dbusBus.py:128
+#, python-format
+msgid ""
+"Tags of %(filename)s:\n"
+"%(tags)s"
+msgstr ""
+"Značky %(filename)s:\n"
+"%(tags)s"
+
 #: ../src/common/dbusBus.py:146
 #, python-format
 msgid "%s is already running."
 msgstr "%s je už spuštěn."
+
+#: ../src/common/dbusBus.py:161
+#, python-format
+msgid ""
+"Passed the following file to previously running process:\n"
+"\t%s"
+msgstr ""
+"Předán následující soubor předešlému běžícímu procesu:\n"
+"\t%s"
+
+#: ../src/common/dbusBus.py:164
+msgid "Starting new process..."
+msgstr "Spouštím nový proces..."
 
 #: ../src/common/dbusBus.py:170
 msgid "Toggle of Play/Pause failed, no file is currently open."
@@ -295,7 +425,7 @@ msgstr "Nelze přehrát, žádný soubor není otevřený"
 msgid "Pause failed, not file is currently open."
 msgstr "Nelze použít pauzu, žádný soubor není otevřený"
 
-#: ../src/common/gstTagger.py:112
+#: ../src/common/gstTagger.py:150
 msgid ""
 "Something bad happened which shouldn't\n"
 "Tell me: current data did not match player URI"
@@ -303,7 +433,7 @@ msgstr ""
 "Stala se chyba.\n"
 "Aktuální data nesouhlasí s URI přehrávače"
 
-#: ../src/common/gstTools.py:82
+#: ../src/common/gstTools.py:42
 msgid "Unknown"
 msgstr "Neznámý"
 
@@ -319,6 +449,10 @@ msgstr "Whaaw! Přehrávač médií"
 #: ../src/common/useful.py:115
 msgid "No tags available"
 msgstr "Tagy nejsou dostupné"
+
+#: ../ui/main.ui.h:1
+msgid "All"
+msgstr "Vše"
 
 #: ../ui/main.ui.h:2
 msgid "Audio Tracks"
@@ -336,6 +470,14 @@ msgstr ""
 msgid "Current player volume"
 msgstr "Současná hlasitost"
 
+#: ../ui/main.ui.h:5
+msgid "DVD Menu"
+msgstr "DVD Menu"
+
+#: ../ui/main.ui.h:6
+msgid "Disable repeat"
+msgstr "Vypnout opakování"
+
 #: ../ui/main.ui.h:7
 msgid "Leave Fullscreen"
 msgstr "Opustit celou obrazovku"
@@ -344,9 +486,37 @@ msgstr "Opustit celou obrazovku"
 msgid "Next"
 msgstr "Další"
 
+#: ../ui/main.ui.h:9
+msgid "None"
+msgstr "Nic"
+
+#: ../ui/main.ui.h:10
+msgid "One"
+msgstr "Jeden"
+
+#: ../ui/main.ui.h:11
+msgid "Plays random items from the queue"
+msgstr "Přehraje náhodné položky z fronty"
+
 #: ../ui/main.ui.h:12
 msgid "Quit on Stop"
 msgstr "Skončit po zastavení"
+
+#: ../ui/main.ui.h:14
+msgid "Random"
+msgstr "Náhodně"
+
+#: ../ui/main.ui.h:15
+msgid "Repeat"
+msgstr "Opakovat"
+
+#: ../ui/main.ui.h:16
+msgid "Repeat a single track"
+msgstr "Opakovat jednu skladbu"
+
+#: ../ui/main.ui.h:17
+msgid "Repeat all tracks in the queue."
+msgstr "Opakovat všechny skladby ve frontě."
 
 #: ../ui/main.ui.h:18
 msgid "Report a bug to the Bugtracker"
@@ -368,39 +538,43 @@ msgstr "Rychlost:"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../ui/main.ui.h:25
+#: ../ui/main.ui.h:23
+msgid "Stream repeat settings"
+msgstr "Nastavení opakování proudu"
+
+#: ../ui/main.ui.h:26
 msgid "View and edit the current queue"
 msgstr "Prohlížet a editovat aktuální frontu"
 
-#: ../ui/main.ui.h:26
+#: ../ui/main.ui.h:27
 msgid "_Advanced Controls"
 msgstr "_Rozšířené ovládání"
 
-#: ../ui/main.ui.h:27
+#: ../ui/main.ui.h:28
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../ui/main.ui.h:28
+#: ../ui/main.ui.h:29
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../ui/main.ui.h:29
+#: ../ui/main.ui.h:30
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: ../ui/main.ui.h:30
+#: ../ui/main.ui.h:31
 msgid "_Queue"
 msgstr "_Fronta"
 
-#: ../ui/main.ui.h:31
+#: ../ui/main.ui.h:32
 msgid "_Report a Bug"
 msgstr "_Nahlásit chybu"
 
-#: ../ui/main.ui.h:32
+#: ../ui/main.ui.h:33
 msgid "_Stream"
 msgstr "_Stream"
 
-#: ../ui/main.ui.h:33
+#: ../ui/main.ui.h:34
 msgid "_View"
 msgstr "_Zobrazení"
 
@@ -468,64 +642,56 @@ msgid "Force the video to keep its original aspect ratio"
 msgstr "Změnit video na originální poměr stran"
 
 #: ../ui/preferences.ui.h:16
-msgid "Hide Video Window when Stopped"
-msgstr "Po zastavení skrýt okno videa"
-
-#: ../ui/preferences.ui.h:17
-msgid "Hide the video window when there is no video stream."
-msgstr "Skrýt okno videa, když není stream."
-
-#: ../ui/preferences.ui.h:18
 msgid "Hue:"
 msgstr "Odstín:"
 
-#: ../ui/preferences.ui.h:19
+#: ../ui/preferences.ui.h:17
 msgid "Instantaneous Seek"
 msgstr "Současný posun"
 
-#: ../ui/preferences.ui.h:20
+#: ../ui/preferences.ui.h:18
 msgid "Main"
 msgstr "Hlavní"
 
-#: ../ui/preferences.ui.h:21
+#: ../ui/preferences.ui.h:19
 msgid "Mouse hide timeout (ms): "
 msgstr "Skrýt myš za (ms): "
 
-#: ../ui/preferences.ui.h:22
+#: ../ui/preferences.ui.h:20
 msgid "Output Device:"
 msgstr "Výstupní zařízení:"
 
-#: ../ui/preferences.ui.h:23
+#: ../ui/preferences.ui.h:21
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: ../ui/preferences.ui.h:24
+#: ../ui/preferences.ui.h:22
 msgid "Reset all adjustments to 0"
 msgstr "Resetovat všechny úpravy na 0"
 
-#: ../ui/preferences.ui.h:25
+#: ../ui/preferences.ui.h:23
 msgid "Restore Defaults"
 msgstr "Obnovit výchozí"
 
-#: ../ui/preferences.ui.h:26
+#: ../ui/preferences.ui.h:24
 msgid "Saturation:"
 msgstr "Nasycení:"
 
-#: ../ui/preferences.ui.h:27
+#: ../ui/preferences.ui.h:25
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr "Okamžitý posun pomocí progress baru, místo čekání na konec."
 
-#: ../ui/preferences.ui.h:28
+#: ../ui/preferences.ui.h:26
 msgid "Show Time Remaining"
 msgstr "Ukázat zbývající čas"
 
-#: ../ui/preferences.ui.h:29
+#: ../ui/preferences.ui.h:27
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr "Ukázat zbývající čas místo celkového času v progress baru."
 
-#: ../ui/preferences.ui.h:30
+#: ../ui/preferences.ui.h:28
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted, disabling does this automatically)."
@@ -533,15 +699,15 @@ msgstr ""
 "Ukázat vizualizaci, pokud není dostupná stopa videa (současný stream musí "
 "být restartován, zákaz to udělá automaticky)."
 
-#: ../ui/preferences.ui.h:31
+#: ../ui/preferences.ui.h:29
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr "Syntaxe zobrazení tagů, uzavřete název tagu do {}."
 
-#: ../ui/preferences.ui.h:32
+#: ../ui/preferences.ui.h:30
 msgid "Tag Display Syntax: "
 msgstr "Syntaxe zobrazení tagů: "
 
-#: ../ui/preferences.ui.h:33
+#: ../ui/preferences.ui.h:31
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
@@ -549,7 +715,7 @@ msgstr ""
 "Akce, když je další proces Whaaw! Přehrávače záznamů vyžadován k otevření "
 "souboru."
 
-#: ../ui/preferences.ui.h:34
+#: ../ui/preferences.ui.h:32
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
@@ -557,127 +723,93 @@ msgstr ""
 "Čas v milisekundách, po kterém zmizí kurzor myši, pokud s ní není pohybováno "
 "v okně videa."
 
-#: ../ui/preferences.ui.h:35
+#: ../ui/preferences.ui.h:33
 msgid "Upon opening new file:"
 msgstr "Při otevření nového souboru:"
 
-#: ../ui/preferences.ui.h:36
+#: ../ui/preferences.ui.h:34
 msgid "Video"
 msgstr "Video"
 
-#: ../ui/preferences.ui.h:37
+#: ../ui/preferences.ui.h:35
 msgid "Volume Change on Scroll: "
 msgstr "Změna hlasitosti při posunu: "
 
-#: ../src/gui/__init__.py:33
-msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
-msgstr ""
+#~ msgid "Open URI"
+#~ msgstr "Otevřít URI"
 
-#: ../src/gui/__init__.py:42
-msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
-msgstr ""
+#~ msgid "Toggle Fullscreen"
+#~ msgstr "Celá obrazovka"
 
-#: ../src/gui/dialogues.py:49
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Stary https://launchpad.net/~stary-seznam\n"
-"  StralM https://launchpad.net/~m-stral"
+#~ msgid "_Preferences"
+#~ msgstr "N_astavení"
 
-#: ../src/gui/main.py:764
+#~ msgid "Volume (Mute/Unmute)"
+#~ msgstr "Hlasitost (Ztlumit/Povolit)"
+
+#~ msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
+#~ msgstr "Nemohu pokračovat, pygtk není nainstalován (požadovaná verze 2.10)"
+
+#~ msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
+#~ msgstr "Nemohu pokračovat, tento program požaduje k chodu nejméně GTK+ 2.10."
+
+#~ msgid "(Add items to queue"
+#~ msgstr "Přidat položky do fronty"
+
+#~ msgid "Mute the player"
+#~ msgstr "Ztlumit přehrávač"
+
+#~ msgid "About Whaaw! Media Player"
+#~ msgstr "O Whaaw! Přehrávači médií"
+
+#~ msgid "Hide Video Window when Stopped"
+#~ msgstr "Po zastavení skrýt okno videa"
+
+#~ msgid ""
+#~ "Play Immediately\n"
+#~ "Add to end of queue\n"
+#~ "Play in separate process"
+#~ msgstr ""
+#~ "Přehrát okamžitě\n"
+#~ "Přidat na konec fronty\n"
+#~ "Přehrát v odděleném procesu"
+
+#~ msgid "Hide the video window when there is no video stream."
+#~ msgstr "Skrýt okno videa, když není stream."
+
+#~ msgid "Vol:"
+#~ msgstr "Hlasitost:"
+
+#~ msgid ""
+#~ "The audio output device (alsa only, for others select 'Other' and set in the "
+#~ "whaawmp config.ini file)"
+#~ msgstr ""
+#~ "Výstupní zařízení audia (pouze alsa, pro další vyberte 'Další' a nastavte "
+#~ "změnu v souboru config.ini programu whaawmp)"
+
+#~ msgid "Old timer method used, since glib version is pre-2.14"
+#~ msgstr "Použita starší metoda časování, protože glib je nižší verze než 2.14"
+
 #, python-format
-msgid ""
-"Could not execute browser command (via %(program)s).\n"
-"Please manually visit %(url)s to report the problem"
-msgstr ""
+#~ msgid ""
+#~ "Could not execute browser command (via %s).\n"
+#~ "Please manually visit %s to report the problem"
+#~ msgstr ""
+#~ "Nemohu spustit příkaz prohlížeče (přes %s).\n"
+#~ "Pro nahlášení chyby navštivte prosím %s."
 
-#: ../src/gui/main.py:793
+#~ msgid "Sets the player's volume to VOL (0-100)"
+#~ msgstr "Nastavuje hlasitost přehrávače na VOL (0-100)"
+
 #, python-format
-msgid "Queued: %d"
-msgstr ""
+#~ msgid ""
+#~ "Tags of %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Tagy %s:\n"
+#~ "%s"
 
-#: ../src/common/config.py:130
-msgid "Sets the player's volume to VOL (0-1)"
-msgstr ""
-
-#: ../src/common/dbusBus.py:70
-#, python-format
-msgid ""
-"File received via dbus:\n"
-"\t%s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
-msgid "Playing file..."
-msgstr "Přehrávám soubor..."
-
-#: ../src/common/dbusBus.py:79
-#, python-format
-msgid "Telling %s to start a new process..."
-msgstr ""
-
-#: ../src/common/dbusBus.py:89
-msgid "File queued..."
-msgstr "Soubor byl zařazen do fronty..."
-
-#: ../src/common/dbusBus.py:128
-#, python-format
-msgid ""
-"Tags of %(filename)s:\n"
-"%(tags)s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:161
-#, python-format
-msgid ""
-"Passed the following file to previously running process:\n"
-"\t%s"
-msgstr ""
-
-#: ../src/common/dbusBus.py:164
-msgid "Starting new process..."
-msgstr "Spouštím nový proces..."
-
-#: ../ui/main.ui.h:1
-msgid "All"
-msgstr ""
-
-#: ../ui/main.ui.h:5
-msgid "DVD Menu"
-msgstr ""
-
-#: ../ui/main.ui.h:6
-msgid "Disable repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:9
-msgid "None"
-msgstr ""
-
-#: ../ui/main.ui.h:10
-msgid "One"
-msgstr ""
-
-#: ../ui/main.ui.h:11
-msgid "Plays random items from the queue"
-msgstr ""
-
-#: ../ui/main.ui.h:14
-msgid "Random"
-msgstr ""
-
-#: ../ui/main.ui.h:15
-msgid "Repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:16
-msgid "Repeat a single track"
-msgstr ""
-
-#: ../ui/main.ui.h:17
-msgid "Repeat all tracks in the queue."
-msgstr ""
-
-#: ../ui/main.ui.h:23
-msgid "Stream repeat settings"
-msgstr ""
+#~ msgid ""
+#~ "The amount to change the volume by when scrolling on the video area/volume "
+#~ "control"
+#~ msgstr "Změnit hlasitost skrolováním v oblasti videa/ovládání hlasitosti"

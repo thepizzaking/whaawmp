@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: whaawmp\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-14 17:12+1000\n"
-"PO-Revision-Date: 2008-05-21 21:26+0000\n"
-"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
+"POT-Creation-Date: 2010-03-07 18:54+1100\n"
+"PO-Revision-Date: 2009-11-18 06:08+0000\n"
+"Last-Translator: Ddorda <Ddorda@ubuntu.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-14 08:20+0000\n"
-"X-Generator: Launchpad (build Unknown)\n"
+"X-Launchpad-Export-Date: 2011-02-26 04:28+0000\n"
+"X-Generator: Launchpad (build 12460)\n"
 
 #: ../src/thumbnailer.py:72
 msgid " [options] -o output-file input-file"
@@ -54,6 +54,10 @@ msgstr "על המיקום המבוקש להיות בין 0 ל-1, באמצעות 
 msgid "Stream returned no caps, exiting"
 msgstr "התזרים לא החזיר caps, יוצא"
 
+#: ../src/thumbnailer.py:191
+msgid "An error occurred"
+msgstr "ארעה שגיאה"
+
 #: ../src/thumbnailer.py:207
 msgid "There are no video tracks in this stream, exiting."
 msgstr "אין רצועות וידאו בתזרים זה, יוצא."
@@ -74,105 +78,144 @@ msgstr "לא ניתן להמשיך, גירסת הפייתון צריכה להי�
 msgid " [options] filename"
 msgstr " [options] filename"
 
+#: ../src/gui/__init__.py:33
+msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
+msgstr "לא ניתן להמשיך, pygtk אינו מותקן (דרושה גרסה 2.12)"
+
 #: ../src/gui/__init__.py:36
 msgid "Cannot continue, X server not found!"
 msgstr "לא ניתן להמשיך, לא נמצא שרת X!"
 
-#: ../src/gui/dialogues.py:67
+#: ../src/gui/__init__.py:42
+msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
+msgstr "לא ניתן להמשיך, תוכנית זו דורשת GTK+ 2.12 לפחות בכדי לרוץ."
+
+#: ../src/gui/dialogues.py:49
+msgid "translator-credits"
+msgstr ""
+"Launchpad Contributions:\n"
+"  Ddorda https://launchpad.net/~ddorda\n"
+"  Yaron https://launchpad.net/~sh-yaron"
+
+#: ../src/gui/dialogues.py:63
 msgid "Choose a file to Open"
 msgstr "בחר קובץ לפתיחה"
 
-#: ../src/gui/dialogues.py:78
+#: ../src/gui/dialogues.py:73
+msgid "Also Choose Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/dialogues.py:75
+msgid "After choosing the file to open, also choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/dialogues.py:87
 msgid "Supported Media"
 msgstr "מדיה נתמכת"
 
-#: ../src/gui/dialogues.py:84
+#: ../src/gui/dialogues.py:93
 msgid "All Files"
 msgstr "כל הקבצים"
 
-#: ../src/gui/dialogues.py:104
+#: ../src/gui/dialogues.py:113
 msgid "Play DVD"
 msgstr "נגן DVD"
 
-#: ../src/gui/dialogues.py:109
+#: ../src/gui/dialogues.py:118
 msgid "Select options:"
 msgstr "בחר אפשרויות:"
 
-#: ../src/gui/dialogues.py:111
+#: ../src/gui/dialogues.py:120
 msgid "Title: "
 msgstr "כותרת: "
 
-#: ../src/gui/dialogues.py:162
+#: ../src/gui/dialogues.py:171
 msgid "Open a URI"
 msgstr "פתח כתובת"
 
-#: ../src/gui/dialogues.py:167
+#: ../src/gui/dialogues.py:176
 msgid "Enter the URI:"
 msgstr "הזן כתובת:"
 
-#: ../src/gui/dialogues.py:199
+#: ../src/gui/dialogues.py:208
 msgid "Select Tracks"
 msgstr "בחר רצועות"
 
-#: ../src/gui/dialogues.py:203
+#: ../src/gui/dialogues.py:212
 msgid "Audio:"
 msgstr "שמע:"
 
-#: ../src/gui/dialogues.py:237 ../src/gui/main.py:285
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
 msgid "Error!"
 msgstr "שגיאה!"
 
-#: ../src/gui/dialogues.py:245
+#: ../src/gui/dialogues.py:254
 msgid "Message"
 msgstr "הודעה"
 
-#: ../src/gui/dialogues.py:269 ../ui/main.ui.h:24
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
 msgid "Supported Features"
 msgstr "תכונות נתמכות"
 
-#: ../src/gui/dialogues.py:276
+#: ../src/gui/dialogues.py:285
 msgid "Dbus Message Bus"
 msgstr "אפיק הודעות Dbus"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:298
 msgid "Available"
 msgstr "זמין"
 
-#: ../src/gui/dialogues.py:289
+#: ../src/gui/dialogues.py:298
 msgid "Unavailable"
 msgstr "לא זמין"
 
-#: ../src/gui/dialogues.py:293
+#: ../src/gui/dialogues.py:302
 msgid "Library Versions:"
 msgstr "גירסאות הספריה:"
 
-#: ../src/gui/main.py:404
+#: ../src/gui/main.py:413
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr "משהו פה בעייתי, אין כזה קובץ: %s"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Pause"
 msgstr "השהה"
 
-#: ../src/gui/main.py:610
+#: ../src/gui/main.py:597
 msgid "Play"
 msgstr "נגן"
 
-#: ../src/gui/main.py:752
+#: ../src/gui/main.py:663
+msgid "Choose a Subtitle Stream"
+msgstr ""
+
+#: ../src/gui/main.py:738
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr "%s לא נמצא, לא ניתן ללחוץ על הקישורים וכל כתובות הדואל"
 
-#: ../src/gui/main.py:771
+#: ../src/gui/main.py:750
+#, python-format
+msgid ""
+"Could not execute browser command (via %(program)s).\n"
+"Please manually visit %(url)s to report the problem"
+msgstr ""
+
+#: ../src/gui/main.py:757
 msgid "TERM signal caught, exiting."
 msgstr "נתפס אות TERM, יוצא."
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/main.py:779
+#, python-format
+msgid "Queued: %d"
+msgstr ""
+
+#: ../src/gui/preferences.py:184
 msgid "Default/Auto"
 msgstr "ברירת מחדל/אוטומטי"
 
-#: ../src/gui/preferences.py:185
+#: ../src/gui/preferences.py:184
 msgid "Other (Set from config.ini)"
 msgstr "אחר (מוגדר מ- config.ini)"
 
@@ -180,17 +223,52 @@ msgstr "אחר (מוגדר מ- config.ini)"
 msgid "Queued Tracks:"
 msgstr "רצועות בתור:"
 
-#: ../src/gui/queue.py:248
+#: ../src/gui/queue.py:247
 msgid "Clear Queue"
 msgstr "נקה תור"
 
-#: ../src/gui/queue.py:249
+#: ../src/gui/queue.py:248
 msgid "Remove item from Queue"
 msgstr "הסר פריט מהתור"
 
-#: ../src/gui/queue.py:250
-msgid "(Add items to queue"
-msgstr "(הוסף פריטים לתורא"
+#: ../src/gui/queue.py:249
+msgid "Add items to queue"
+msgstr ""
+
+#: ../src/gui/subtitles.py:61
+msgid "Choose a subtitle stream."
+msgstr ""
+
+#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+msgid "Subtitle Manager"
+msgstr ""
+
+#: ../src/gui/subtitles.py:93
+msgid "Automatic Subtitles"
+msgstr ""
+
+#: ../src/gui/subtitles.py:95
+msgid "Try to automatically find subtitles for each file."
+msgstr ""
+
+#: ../src/gui/subtitles.py:102
+msgid "Subtitle file extensions"
+msgstr ""
+
+#: ../src/gui/subtitles.py:106
+msgid ""
+"Extensions to use when automatically detecting subtitles.\n"
+"Sepatare with commas."
+msgstr ""
+
+#: ../src/gui/subtitles.py:111
+msgid "Add subtitles to current stream"
+msgstr ""
+
+#: ../src/gui/subtitles.py:143
+#, python-format
+msgid "Found subtitles stream %s"
+msgstr ""
 
 #: ../src/common/config.py:50
 msgid ""
@@ -207,6 +285,10 @@ msgstr "הצג את הגירסה וצא"
 #: ../src/common/config.py:126
 msgid "Play the file in fullscreen mode"
 msgstr "נגן את הקובץ במצב מסך מלא"
+
+#: ../src/common/config.py:130
+msgid "Sets the player's volume to VOL (0-1)"
+msgstr ""
 
 #: ../src/common/config.py:134
 msgid "Sets the player's audio ouput to SINK"
@@ -274,10 +356,48 @@ msgstr "מתשאל מהי הרצועה הנוכחית בתהליך %s הפעיל
 msgid "Dbus import failed, dbus features will be unavailable"
 msgstr "ייבוא Dbus נכשל, תכונות dbus לא יהיו זמינות"
 
+#: ../src/common/dbusBus.py:70
+#, python-format
+msgid ""
+"File received via dbus:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
+msgid "Playing file..."
+msgstr "מנגן קובץ..."
+
+#: ../src/common/dbusBus.py:79
+#, python-format
+msgid "Telling %s to start a new process..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:89
+msgid "File queued..."
+msgstr ""
+
+#: ../src/common/dbusBus.py:128
+#, python-format
+msgid ""
+"Tags of %(filename)s:\n"
+"%(tags)s"
+msgstr ""
+
 #: ../src/common/dbusBus.py:146
 #, python-format
 msgid "%s is already running."
 msgstr "%s כבר פעיל."
+
+#: ../src/common/dbusBus.py:161
+#, python-format
+msgid ""
+"Passed the following file to previously running process:\n"
+"\t%s"
+msgstr ""
+
+#: ../src/common/dbusBus.py:164
+msgid "Starting new process..."
+msgstr "מתחיל בתהליך חדש..."
 
 #: ../src/common/dbusBus.py:170
 msgid "Toggle of Play/Pause failed, no file is currently open."
@@ -291,7 +411,7 @@ msgstr "הנגינה נכשלה, כרגע אין קובץ פתוח."
 msgid "Pause failed, not file is currently open."
 msgstr "ההשהיה נכשלה, כרגע אין קובץ פתוח."
 
-#: ../src/common/gstTagger.py:112
+#: ../src/common/gstTagger.py:150
 msgid ""
 "Something bad happened which shouldn't\n"
 "Tell me: current data did not match player URI"
@@ -299,7 +419,7 @@ msgstr ""
 "משהו רע שלא היה אמור לקרות קרה\n"
 "ספר לי: הנתונים הנוכחיים לא התאימו לכתובת הנגן"
 
-#: ../src/common/gstTools.py:82
+#: ../src/common/gstTools.py:42
 msgid "Unknown"
 msgstr "לא ידוע"
 
@@ -316,6 +436,14 @@ msgstr "נגן המדיה Whaaw!"
 msgid "No tags available"
 msgstr "אין תגיות זמינות"
 
+#: ../ui/main.ui.h:1
+msgid "All"
+msgstr "הכל"
+
+#: ../ui/main.ui.h:2
+msgid "Audio Tracks"
+msgstr "רצועות שמע"
+
 #: ../ui/main.ui.h:3
 msgid ""
 "Change the player's speed.  WARNING: Negative numbers can cause weirdness "
@@ -328,6 +456,14 @@ msgstr ""
 msgid "Current player volume"
 msgstr "עוצמת הנגן הנוכחית"
 
+#: ../ui/main.ui.h:5
+msgid "DVD Menu"
+msgstr "תפריט DVD"
+
+#: ../ui/main.ui.h:6
+msgid "Disable repeat"
+msgstr ""
+
 #: ../ui/main.ui.h:7
 msgid "Leave Fullscreen"
 msgstr "צא ממסך מלא"
@@ -336,9 +472,37 @@ msgstr "צא ממסך מלא"
 msgid "Next"
 msgstr "הבא"
 
+#: ../ui/main.ui.h:9
+msgid "None"
+msgstr "ללא"
+
+#: ../ui/main.ui.h:10
+msgid "One"
+msgstr "אחד"
+
+#: ../ui/main.ui.h:11
+msgid "Plays random items from the queue"
+msgstr ""
+
 #: ../ui/main.ui.h:12
 msgid "Quit on Stop"
 msgstr "צא עם העצירה"
+
+#: ../ui/main.ui.h:14
+msgid "Random"
+msgstr "אקראי"
+
+#: ../ui/main.ui.h:15
+msgid "Repeat"
+msgstr "חזרה"
+
+#: ../ui/main.ui.h:16
+msgid "Repeat a single track"
+msgstr "חזור על רצועה בודדת"
+
+#: ../ui/main.ui.h:17
+msgid "Repeat all tracks in the queue."
+msgstr ""
 
 #: ../ui/main.ui.h:18
 msgid "Report a bug to the Bugtracker"
@@ -360,39 +524,43 @@ msgstr "מהירות:"
 msgid "Stop"
 msgstr "עצור"
 
-#: ../ui/main.ui.h:25
+#: ../ui/main.ui.h:23
+msgid "Stream repeat settings"
+msgstr ""
+
+#: ../ui/main.ui.h:26
 msgid "View and edit the current queue"
 msgstr "צפה וערוך את התור הנוכחי"
 
-#: ../ui/main.ui.h:26
+#: ../ui/main.ui.h:27
 msgid "_Advanced Controls"
 msgstr "_פקדים מתקדמים"
 
-#: ../ui/main.ui.h:27
+#: ../ui/main.ui.h:28
 msgid "_Edit"
 msgstr "ע_ריכה"
 
-#: ../ui/main.ui.h:28
+#: ../ui/main.ui.h:29
 msgid "_File"
 msgstr "_קובץ"
 
-#: ../ui/main.ui.h:29
+#: ../ui/main.ui.h:30
 msgid "_Help"
 msgstr "_עזרה"
 
-#: ../ui/main.ui.h:30
+#: ../ui/main.ui.h:31
 msgid "_Queue"
 msgstr "_תור"
 
-#: ../ui/main.ui.h:31
+#: ../ui/main.ui.h:32
 msgid "_Report a Bug"
 msgstr "דווח על _באג"
 
-#: ../ui/main.ui.h:32
+#: ../ui/main.ui.h:33
 msgid "_Stream"
 msgstr "ת_זרים"
 
-#: ../ui/main.ui.h:33
+#: ../ui/main.ui.h:34
 msgid "_View"
 msgstr "_תצוגה"
 
@@ -459,64 +627,56 @@ msgid "Force the video to keep its original aspect ratio"
 msgstr "הכרח את יחס הצפייה המקורי של הוידאו"
 
 #: ../ui/preferences.ui.h:16
-msgid "Hide Video Window when Stopped"
-msgstr "הסתר את חלון הוידאו כאשר נעצר"
-
-#: ../ui/preferences.ui.h:17
-msgid "Hide the video window when there is no video stream."
-msgstr "הסתר את חלון הוידאו כאשר אין תזרים וידאו"
-
-#: ../ui/preferences.ui.h:18
 msgid "Hue:"
 msgstr "גוון:"
 
-#: ../ui/preferences.ui.h:19
+#: ../ui/preferences.ui.h:17
 msgid "Instantaneous Seek"
 msgstr "מעבר מיידי"
 
-#: ../ui/preferences.ui.h:20
+#: ../ui/preferences.ui.h:18
 msgid "Main"
 msgstr "ראשי"
 
-#: ../ui/preferences.ui.h:21
+#: ../ui/preferences.ui.h:19
 msgid "Mouse hide timeout (ms): "
 msgstr "משך זמן להסתרת העכבר (מ\"ש): "
 
-#: ../ui/preferences.ui.h:22
+#: ../ui/preferences.ui.h:20
 msgid "Output Device:"
 msgstr "התקן הפלט:"
 
-#: ../ui/preferences.ui.h:23
+#: ../ui/preferences.ui.h:21
 msgid "Preferences"
 msgstr "העדפות"
 
-#: ../ui/preferences.ui.h:24
+#: ../ui/preferences.ui.h:22
 msgid "Reset all adjustments to 0"
 msgstr "אפס את כל הכיוונונים ל-0"
 
-#: ../ui/preferences.ui.h:25
+#: ../ui/preferences.ui.h:23
 msgid "Restore Defaults"
 msgstr "שחזר את ברירות המחדל"
 
-#: ../ui/preferences.ui.h:26
+#: ../ui/preferences.ui.h:24
 msgid "Saturation:"
 msgstr "רוויה:"
 
-#: ../ui/preferences.ui.h:27
+#: ../ui/preferences.ui.h:25
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr "עבור מיידית עם גרירה על גבי פס ההתקדמות, במקום להמתין עד הסוף."
 
-#: ../ui/preferences.ui.h:28
+#: ../ui/preferences.ui.h:26
 msgid "Show Time Remaining"
 msgstr "הצג את הזמן הנותר"
 
-#: ../ui/preferences.ui.h:29
+#: ../ui/preferences.ui.h:27
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr "הצג את הזמן הנותר במקום סך כל הזמן בפס ההתקדמות."
 
-#: ../ui/preferences.ui.h:30
+#: ../ui/preferences.ui.h:28
 msgid ""
 "Show visualisations when no video track is available (Current stream must be "
 "restarted, disabling does this automatically)."
@@ -524,155 +684,115 @@ msgstr ""
 "הצג תעתועים חזותיים כאשר אין רצועת וידאו זמינה (יש להפעיל מחדש את התזרים "
 "הנוכחי, ביטול עושה זאת אוטומטית)."
 
-#: ../ui/preferences.ui.h:31
+#: ../ui/preferences.ui.h:29
 msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
 msgstr "תחביר לכיצד יש להציג את התגיות, תחום את שם התגית ב-{}."
 
-#: ../ui/preferences.ui.h:32
+#: ../ui/preferences.ui.h:30
 msgid "Tag Display Syntax: "
 msgstr "תחביר להצגת התגיות: "
 
-#: ../ui/preferences.ui.h:33
+#: ../ui/preferences.ui.h:31
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr "הפעולה שתנקט כאשר תהליך של נגן המדיה Whaaw! אחר נדרש לפתיחת קובץ."
 
-#: ../ui/preferences.ui.h:34
+#: ../ui/preferences.ui.h:32
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 "הזמן (במילישניות) שלאחריו יעלם סמן העכבר לאחר שלא הוזז על גבי חלון הוידאו."
 
-#: ../ui/preferences.ui.h:35
+#: ../ui/preferences.ui.h:33
 msgid "Upon opening new file:"
 msgstr "עם פתיחת קובץ חדש:"
 
-#: ../ui/preferences.ui.h:36
+#: ../ui/preferences.ui.h:34
 msgid "Video"
 msgstr "וידאו"
 
-#: ../ui/preferences.ui.h:37
+#: ../ui/preferences.ui.h:35
 msgid "Volume Change on Scroll: "
 msgstr "שינוי העוצמה בגלילה: "
 
-#: ../src/thumbnailer.py:191
-msgid "An error occurred"
-msgstr ""
+#~ msgid "Old timer method used, since glib version is pre-2.14"
+#~ msgstr "שיטת שעון העצר הישנה בשימוש, מאחר וגירסת ה-glibc קודמת ל-2.14"
 
-#: ../src/gui/__init__.py:33
-msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
-msgstr ""
+#~ msgid "Cannot continue, this program requires at least GTK+ 2.10 to run."
+#~ msgstr "לא ניתן להמשיך, תוכנית זו דורשת את GTK+ 2.10 לפחות כדי לרוץ."
 
-#: ../src/gui/__init__.py:42
-msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
-msgstr ""
+#~ msgid "Cannot continue, pygtk is not installed (version 2.10 required)"
+#~ msgstr "לא ניתן להמשיך, pygtk אינה מותקנת (נדרשת גירסה 2.10)"
 
-#: ../src/gui/dialogues.py:49
-msgid "translator-credits"
-msgstr ""
-"Launchpad Contributions:\n"
-"  Yaron https://launchpad.net/~sh-yaron"
-
-#: ../src/gui/main.py:764
 #, python-format
-msgid ""
-"Could not execute browser command (via %(program)s).\n"
-"Please manually visit %(url)s to report the problem"
-msgstr ""
+#~ msgid ""
+#~ "Could not execute browser command (via %s).\n"
+#~ "Please manually visit %s to report the problem"
+#~ msgstr ""
+#~ "לא ניתן להפעיל את פקודת הדפדפן (דרך %s).\n"
+#~ "נא בקרו באופן ידני בכתובת %s כדי לדווח על התקלה"
 
-#: ../src/gui/main.py:793
+#~ msgid "(Add items to queue"
+#~ msgstr "(הוסף פריטים לתורא"
+
+#~ msgid "Mute the player"
+#~ msgstr "השתק את הנגן"
+
+#~ msgid "Sets the player's volume to VOL (0-100)"
+#~ msgstr "מגדיר את עוצמת שמע הנגן ל-VOL (0-100)"
+
 #, python-format
-msgid "Queued: %d"
-msgstr ""
+#~ msgid ""
+#~ "Tags of %s:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "תגיות של %s:\n"
+#~ "%s"
 
-#: ../src/common/config.py:130
-msgid "Sets the player's volume to VOL (0-1)"
-msgstr ""
+#~ msgid "About Whaaw! Media Player"
+#~ msgstr "אודות נגן המדיה Whaaw!"
 
-#: ../src/common/dbusBus.py:70
-#, python-format
-msgid ""
-"File received via dbus:\n"
-"\t%s"
-msgstr ""
+#~ msgid "Hide Video Window when Stopped"
+#~ msgstr "הסתר את חלון הוידאו כאשר נעצר"
 
-#: ../src/common/dbusBus.py:75 ../src/common/dbusBus.py:86
-msgid "Playing file..."
-msgstr ""
+#~ msgid "Hide the video window when there is no video stream."
+#~ msgstr "הסתר את חלון הוידאו כאשר אין תזרים וידאו"
 
-#: ../src/common/dbusBus.py:79
-#, python-format
-msgid "Telling %s to start a new process..."
-msgstr ""
+#~ msgid "Open URI"
+#~ msgstr "פתח כתובת"
 
-#: ../src/common/dbusBus.py:89
-msgid "File queued..."
-msgstr ""
+#~ msgid ""
+#~ "Play Immediately\n"
+#~ "Add to end of queue\n"
+#~ "Play in separate process"
+#~ msgstr ""
+#~ "נגן מיידית\n"
+#~ "הוסף לסוף התור\n"
+#~ "נגן בתהליך נפרד"
 
-#: ../src/common/dbusBus.py:128
-#, python-format
-msgid ""
-"Tags of %(filename)s:\n"
-"%(tags)s"
-msgstr ""
+#~ msgid "Toggle Fullscreen"
+#~ msgstr "מעבר בין מסך מלא"
 
-#: ../src/common/dbusBus.py:161
-#, python-format
-msgid ""
-"Passed the following file to previously running process:\n"
-"\t%s"
-msgstr ""
+#~ msgid ""
+#~ "The audio output device (alsa only, for others select 'Other' and set in the "
+#~ "whaawmp config.ini file)"
+#~ msgstr ""
+#~ "קובץ פלט השמע (alsa בלבד, לאחרים בחר ב-'אחר' והגדר זאת בקובץ config.ini של "
+#~ "whaawmp)"
 
-#: ../src/common/dbusBus.py:164
-msgid "Starting new process..."
-msgstr ""
+#~ msgid ""
+#~ "The amount to change the volume by when scrolling on the video area/volume "
+#~ "control"
+#~ msgstr ""
+#~ "כמות השינוי בעוצמת השמע כאשר גוללים על גבי אזור הוידאו/השליטה בעוצמת השמע"
 
-#: ../ui/main.ui.h:1
-msgid "All"
-msgstr ""
+#~ msgid "Vol:"
+#~ msgstr "עוצמה:"
 
-#: ../ui/main.ui.h:2
-msgid "Audio Tracks"
-msgstr ""
+#~ msgid "Volume (Mute/Unmute)"
+#~ msgstr "עוצמה (השתק/השמע)"
 
-#: ../ui/main.ui.h:5
-msgid "DVD Menu"
-msgstr ""
-
-#: ../ui/main.ui.h:6
-msgid "Disable repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:9
-msgid "None"
-msgstr ""
-
-#: ../ui/main.ui.h:10
-msgid "One"
-msgstr ""
-
-#: ../ui/main.ui.h:11
-msgid "Plays random items from the queue"
-msgstr ""
-
-#: ../ui/main.ui.h:14
-msgid "Random"
-msgstr ""
-
-#: ../ui/main.ui.h:15
-msgid "Repeat"
-msgstr ""
-
-#: ../ui/main.ui.h:16
-msgid "Repeat a single track"
-msgstr ""
-
-#: ../ui/main.ui.h:17
-msgid "Repeat all tracks in the queue."
-msgstr ""
-
-#: ../ui/main.ui.h:23
-msgid "Stream repeat settings"
-msgstr ""
+#~ msgid "_Preferences"
+#~ msgstr "הע_דפות"
