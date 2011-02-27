@@ -1,0 +1,11 @@
+whaawmp (0.2.14-0ubuntu1.1) maverick; urgency=low
+
+  * Change packaging rules so it should be accepted now, stupid Ubuntu distributing floored cdbs rules.
+
+ -- Jeff Bailes <thepizzaking@gmail.com>  Sun, 27 Feb 2011 17:16:58 +1100
+
+whaawmp (0.2.14-0ubuntu1) maverick; urgency=low
+
+  * Package version 0.2.14.
+
+ -- Jeff Bailes <thepizzaking@gmail.com>  Sun, 27 Feb 2011 17:16:58 +1100

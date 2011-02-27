@@ -1,0 +1,16 @@
+Source: whaawmp
+Section: video
+Priority: optional
+Maintainer: Jeff Bailes <thepizzaking@gmail.com>
+Build-Depends: debhelper (>= 7.0.50~), python (>=2.5), intltool, cdbs, python-central
+XS-Python-Version: >= 2.5
+XB-Python-Version: ${python:Versions}
+Standards-Version: 3.8.4
+Homepage: http://home.gna.org/whaawmp/
+
+Package: whaawmp
+Architecture: any
+Depends: ${misc:Depends}, python-gtk2, python-xdg, gstreamer0.10-plugins-good, gstreamer0.10-plugins-base, ${python:Depends}
+Description: A media player written in python, GTK and utilising gstreamer.
+ A meadia player written in python, GTK and utilising gstreamer.
+ Similar to totem but without GNOME dependencies.
