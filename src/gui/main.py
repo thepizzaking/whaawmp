@@ -765,11 +765,13 @@ class mainWindow:
 		ctrls = self.wTree.get_object("hboxAdvCtrls")
 		if (toShow):
 			ctrls.show()
+			#hboxHeight = ctrls.get_allocation().height
+			#useful.modifyWinHeight(self.mainWindow, hboxHeight)
 		else:
 			ctrls.hide()
 			# If we're closing it, we should shrink the main window too.
-			hboxHeight = ctrls.get_allocation().height
-			useful.modifyWinHeight(self.mainWindow, - (hboxHeight))
+			#hboxHeight = ctrls.get_allocation().height
+			#useful.modifyWinHeight(self.mainWindow, - (hboxHeight))
 	
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
