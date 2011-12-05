@@ -235,6 +235,8 @@ class mainWindow:
 	
 	def windowKeyPressed(self, widget, event):
 		## Emits signals defined in lists.keypressDict.
+		# Don't process if alt or ctrl is down.
+		if (event.state & gtk.gdk.MOD1_MASK) or (event.state & gtk.gdk.CONTROL_MASK): return
 		keyname = gtk.gdk.keyval_name(event.keyval)
 		if keyname in lists.keypressDict:
 			for x in lists.keypressDict[keyname]:
