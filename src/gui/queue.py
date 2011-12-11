@@ -270,7 +270,7 @@ class queues():
 		# Add tooltips to the buttons.
 		btnClear.set_tooltip_text(_('Clear Queue'))
 		btnRemove.set_tooltip_text(_('Remove item from Queue'))
-		btnAdd.set_tooltip_text(_('Add items to queue'))
+		btnAdd.set_tooltip_text(_('Add items to Queue'))
 	
 	def __init__(self):
 		# Flag the window as closed.
