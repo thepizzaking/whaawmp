@@ -85,6 +85,10 @@ class queues():
 	
 	def append(self, item):
 		## Appends an item to the queue.
+		# If we have a path to a mounted DVD, we should play it
+		# properly
+		if (os.path.isdir(item+'/VIDEO_TS')):
+			item = 'dvd://'+item
 		# Make sure 'item' is a URI.
 		if ('://' not in item): item = 'file://' + item
 		# Create a new row.
