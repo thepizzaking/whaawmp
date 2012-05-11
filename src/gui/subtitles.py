@@ -85,10 +85,10 @@ class subMan():
 		window.set_title(_("Subtitle Manager"))
 		window.set_transient_for(parent)
 		window.set_destroy_with_parent(True)
-		window.set_resizable(False)
 		window.connect('delete-event', self.destroy)
+		window.set_border_width(7)
 		self.window = window
-		vBox = gtk.VBox()
+		vBox = gtk.VBox(spacing=7)
 		window.add(vBox)
 		# The automatic subtitles checkbox.
 		chkAutoSubs = gtk.CheckButton(_("Automatic Subtitles"))
@@ -97,7 +97,7 @@ class subMan():
 		chkAutoSubs.connect('toggled', self.autoSubsToggled)
 		self.chkAutoSubs = chkAutoSubs
 		vBox.pack_start(chkAutoSubs)
-		hBox = gtk.HBox()
+		hBox = gtk.HBox(spacing=7)
 		vBox.pack_start(hBox)
 		# The automatic subtitle extensions entry.
 		lblSubsExt = gtk.Label(_("Subtitle file extensions"))
@@ -119,11 +119,14 @@ class subMan():
 		btnFont = gtk.FontButton(cfg.get('video/subfont'))
 		btnFont.connect('font-set', self.changeFont)
 		vBox.pack_start(btnFont)
-		# The close button.
+		# A button box that contains the close button.
+		btnBox = gtk.HButtonBox()
+		btnBox.set_layout(gtk.BUTTONBOX_END)
 		btnClose = gtk.Button('gtk-close')
 		btnClose.set_use_stock(True)
+		btnBox.pack_start(btnClose)
 		btnClose.connect('clicked', self.destroy)
-		vBox.pack_start(btnClose)
+		vBox.pack_start(btnBox)
 		# Do it all.
 		self.getCfg()
 		window.show_all()
