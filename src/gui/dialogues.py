@@ -289,15 +289,15 @@ class SupportedFeatures:
 			# For all the items in the dictionary.
 			# Make the availability easier to use.
 			a = dic[x]
-			# Make a button and add an icon according to the feature's availability.
-			btn = gtk.Button()
+			# Make an image and assign to it an icon according to the feature's availability.
+			img = gtk.Image()
 			icon = gtk.STOCK_APPLY if a else gtk.STOCK_CANCEL
-			btn.set_image(gtk.image_new_from_stock(icon, 2))
+			img.set_from_stock(icon, 2)
 			# Pack in the button and a label into an HBox,
 			# pack the HBox into a VBox and then the VBox
 			# into the dialogue.
 			hbox = gtk.HBox(spacing=7)
-			hbox.pack_start(btn, False, False)
+			hbox.pack_start(img, False, False)
 			hbox.pack_start(gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))))
 			vbox = gtk.VBox(spacing=7)
 			vbox.set_border_width(10)
