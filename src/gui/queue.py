@@ -249,6 +249,7 @@ class queues():
 		# Add a scrolling widget, set automatic bar display, and add the tree to it.
 		scrolly = gtk.ScrolledWindow()
 		scrolly.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+		scrolly.set_shadow_type(gtk.SHADOW_IN)
 		scrolly.add(self.tree)
 		# Create a clear button which clears the queue.
 		btnClear = gtk.Button()
