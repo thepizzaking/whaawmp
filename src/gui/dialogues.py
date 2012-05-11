@@ -305,7 +305,8 @@ class SupportedFeatures:
 			dlg.vbox.pack_start(vbox, False, False)
 		
 		# Displaying library versions.
-		lbl = gtk.Label(("Library Versions:"))
+		lbl = gtk.Label("<b>"+("Library Versions:")+"</b>")
+		lbl.set_use_markup(True)
 		lbl.set_alignment(0, 0.5)
 		vbox.pack_start(lbl)
 		vbox.pack_start(gtk.Label("GTK+ - %s" % useful.verTupleToStr(gtk.gtk_version)))
