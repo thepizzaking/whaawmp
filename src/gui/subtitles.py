@@ -85,6 +85,7 @@ class subMan():
 		window.set_title(_("Subtitle Manager"))
 		window.set_transient_for(parent)
 		window.set_modal(True)
+		window.set_position(gtk.WIN_POS_CENTER_ON_PARENT)
 		window.set_destroy_with_parent(True)
 		window.connect('delete-event', self.destroy)
 		window.set_resizable(False)
