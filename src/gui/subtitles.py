@@ -85,6 +85,7 @@ class subMan():
 		window.set_title(_("Subtitle Manager"))
 		window.set_transient_for(parent)
 		window.set_destroy_with_parent(True)
+		window.set_resizable(False)
 		window.connect('delete-event', self.destroy)
 		self.window = window
 		vBox = gtk.VBox()
