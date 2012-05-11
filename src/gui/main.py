@@ -423,7 +423,8 @@ class mainWindow:
 		self.nowPlyLbl.set_label(os.path.basename(urllib.url2pathname(file)))
 		if (os.path.exists(file) or '://' in file):
 			# If it's not already a uri, make it one.
-			file = useful.filenameToUri(file)
+			# Also escape any # characters in the filename
+			file = useful.filenameToUri(file).replace('#', '%23')
 			# Set the URI to the file's one.
 			player.setURI(file)
 			# Try to set the subtitle track if requested.
