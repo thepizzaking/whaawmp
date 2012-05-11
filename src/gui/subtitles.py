@@ -86,6 +86,7 @@ class subMan():
 		window.set_transient_for(parent)
 		window.set_destroy_with_parent(True)
 		window.connect('delete-event', self.destroy)
+		window.set_resizable(False)
 		window.set_border_width(7)
 		self.window = window
 		vBox = gtk.VBox(spacing=7)
