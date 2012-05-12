@@ -277,6 +277,7 @@ class SupportedFeatures:
 		# Shows a list of supported features.
 		dlg = gtk.Dialog(_("Supported Features"), parent,
 		                 buttons=(gtk.STOCK_CLOSE, gtk.RESPONSE_CLOSE))
+		dlg.set_resizable(False)
 		
 		# Import the librarys needed to check availability.
 		import common.dbusBus as bus
@@ -288,22 +289,28 @@ class SupportedFeatures:
 			# For all the items in the dictionary.
 			# Make the availability easier to use.
 			a = dic[x]
-			# Make a button and add an icon according to the feature's availability.
-			btn = gtk.Button()
+			# Make an image and assign to it an icon according to the feature's availability.
+			img = gtk.Image()
 			icon = gtk.STOCK_APPLY if a else gtk.STOCK_CANCEL
-			btn.set_image(gtk.image_new_from_stock(icon, 2))
-			# Pack in the button and a label into an HBox, then into the dialogue.
-			hbox = gtk.HBox()
-			hbox.pack_start(btn, False, False)
+			img.set_from_stock(icon, 2)
+			# Pack in the button and a label into an HBox,
+			# pack the HBox into a VBox and then the VBox
+			# into the dialogue.
+			hbox = gtk.HBox(spacing=7)
+			hbox.pack_start(img, False, False)
 			hbox.pack_start(gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))))
-			dlg.vbox.pack_start(hbox, False, False)
+			vbox = gtk.VBox(spacing=7)
+			vbox.set_border_width(10)
+			vbox.pack_start(hbox, False, False)
+			dlg.vbox.pack_start(vbox, False, False)
 		
 		# Displaying library versions.
-		lbl = gtk.Label(_("Library Versions:"))
+		lbl = gtk.Label("<b>"+("Library Versions:")+"</b>")
+		lbl.set_use_markup(True)
 		lbl.set_alignment(0, 0.5)
-		dlg.vbox.pack_start(lbl)
-		dlg.vbox.pack_start(gtk.Label("GTK+ - %s" % useful.verTupleToStr(gtk.gtk_version)))
-		dlg.vbox.pack_start(gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)))
+		vbox.pack_start(lbl)
+		vbox.pack_start(gtk.Label("GTK+ - %s" % useful.verTupleToStr(gtk.gtk_version)))
+		vbox.pack_start(gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)))
 		
 		# Show run and destroy it.
 		dlg.show_all()

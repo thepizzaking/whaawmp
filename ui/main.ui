@@ -272,31 +272,6 @@
                 <property name="position">0</property>
               </packing>
             </child>
-            <child>
-              <object class="GtkVSeparator" id="vseparator1">
-                <property name="visible">True</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="position">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkVolumeButton" id="btnVolume">
-                <property name="visible">True</property>
-				<property name="can-focus">False</property>
-                <property name="size">1</property>
-                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
-                <property name="tooltip-text" translatable="yes">Current player volume</property>
-                <signal handler="on_btnVolume_value_changed" name="value_changed"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">False</property>
-                <property name="position">3</property>
-              </packing>
-            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -390,6 +365,7 @@
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip-text" translatable="yes">Restart Track</property>
+                <property name="relief">none</property>
                 <signal handler="on_btnRestart_clicked" name="clicked"/>
                 <child>
                   <placeholder/>
@@ -407,6 +383,7 @@
                 <property name="receives_default">False</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="focus_on_click">False</property>
+                <property name="relief">none</property>
                 <signal handler="on_btnPlayToggle_clicked" name="clicked"/>
                 <child>
                   <placeholder/>
@@ -425,6 +402,7 @@
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip-text" translatable="yes">Stop</property>
                 <property name="focus_on_click">False</property>
+                <property name="relief">none</property>
                 <signal handler="on_btnStop_clicked" name="clicked"/>
                 <child>
                   <placeholder/>
@@ -441,6 +419,7 @@
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="tooltip-text" translatable="yes">Next</property>
+                <property name="relief">none</property>
                 <signal handler="on_btnNext_clicked" name="clicked"/>
                 <child>
                   <placeholder/>
@@ -469,6 +448,7 @@
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
+		<property name="relief">none</property>
                 <signal handler="on_btnLeaveFullscreen_clicked" name="clicked"/>
                 <child>
                   <object class="GtkHBox" id="hbox2">
@@ -501,7 +481,23 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="pack_type">end</property>
-                <property name="position">5</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkVolumeButton" id="btnVolume">
+                <property name="visible">True</property>
+				<property name="can-focus">False</property>
+                <property name="size">1</property>
+                <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_SCROLL_MASK</property>
+                <property name="tooltip-text" translatable="yes">Current player volume</property>
+                <signal handler="on_btnVolume_value_changed" name="value_changed"/>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="pack_type">end</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
@@ -518,6 +514,7 @@
                 <property name="visible">True</property>
                 <property name="events">GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <property name="ellipsize">middle</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="position">0</property>
