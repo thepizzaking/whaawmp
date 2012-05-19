@@ -179,7 +179,7 @@ class initBus:
 		if options.pause:
 			# Pause the player.
 			if (not self.iface.pause()):
-				print _("Pause failed, not file is currently open.")
+				print _("Pause failed, no file is currently open.")
 			self.quitAfter = True
 		
 		if options.stop:
