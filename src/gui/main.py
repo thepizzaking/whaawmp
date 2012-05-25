@@ -705,6 +705,7 @@ class mainWindow:
 				dlg2 = dialogues.OpenFile(self.mainWindow, useful.lastFolder, multiple=False, useFilter=False, title=_("Choose a Subtitle Stream"))
 				if dlg2.files:
 					player.player.set_property('suburi', useful.filenameToUri(dlg2.files[0]))
+					player.player.set_property('subtitle-encoding', cfg.getStr('video/subenc'))
 				else:
 					# Bail if they chose add subtitles but then clicked cancel.
 					return

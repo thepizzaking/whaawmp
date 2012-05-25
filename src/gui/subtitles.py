@@ -42,7 +42,11 @@ class subMan():
 	def subsExtsChanged(self, widget):
 		# Change the automatically detected subtitles extensions.
 		cfg.set('video/autosubexts', widget.get_text())
-		
+
+	def subsEncChanged(self, widget):
+		# Set the subtitle encoding
+		cfg.set('video/subenc', widget.get_text())
+
 	def changeFont(self, widget):
 		# Callback when the subtitle font is changed.
 		font = widget.get_font_name()
@@ -55,6 +59,7 @@ class subMan():
 		# Get the config options and give it to the window.
 		self.chkAutoSubs.set_active(cfg.getBool('video/autosub'))
 		self.txtSubsExt.set_text(cfg.getStr('video/autosubexts'))
+		self.txtSubsEnc.set_text(cfg.getStr('video/subenc'))
 	
 	def addSubs(self, widget):
 		# Add subtitles to the current file from a file dialogue.
@@ -74,6 +79,7 @@ class subMan():
 			# Reset everything.
 			player.player.set_property('uri', player.uri)
 			player.player.set_property('suburi', useful.filenameToUri(file))
+			player.player.set_property('subtitle-encoding', self.txtSubsEnc.get_text())
 			player.play()
 			#player.seek(played)
 		
@@ -100,17 +106,17 @@ class subMan():
 		chkAutoSubs.connect('toggled', self.autoSubsToggled)
 		self.chkAutoSubs = chkAutoSubs
 		vBox.pack_start(chkAutoSubs)
-		hBox = gtk.HBox(spacing=7)
-		vBox.pack_start(hBox)
+		hBoxExt = gtk.HBox(spacing=7)
+		vBox.pack_start(hBoxExt)
 		# The automatic subtitle extensions entry.
 		lblSubsExt = gtk.Label(_("Subtitle file extensions"))
-		hBox.pack_start(lblSubsExt)
+		hBoxExt.pack_start(lblSubsExt)
 		txtSubsExt = gtk.Entry()
 		txtSubsExt.set_has_tooltip(True)
 		txtSubsExt.set_tooltip_text(_("Extensions to use when automatically detecting subtitles.\nSepatare with commas."))
 		txtSubsExt.connect('changed', self.subsExtsChanged)
 		self.txtSubsExt = txtSubsExt
-		hBox.pack_start(txtSubsExt)
+		hBoxExt.pack_start(txtSubsExt)
 		# The add subtitles to current stream button.
 		btnAddSub = gtk.Button(_("Add subtitles to current stream"))
 		img = gtk.Image()
@@ -122,6 +128,17 @@ class subMan():
 		btnFont = gtk.FontButton(cfg.get('video/subfont'))
 		btnFont.connect('font-set', self.changeFont)
 		vBox.pack_start(btnFont)
+		# The subtitle encoding entry.
+		hBoxEnc = gtk.HBox(spacing=7)
+		vBox.pack_start(hBoxEnc)
+		lblSubsEnc = gtk.Label(_("Subtitle encoding:"))
+		hBoxEnc.pack_start(lblSubsEnc)
+		txtSubsEnc = gtk.Entry()
+		txtSubsEnc.set_has_tooltip(True)
+		txtSubsEnc.set_tooltip_text(_("The subtitle encoding to use for subtitles. Leave empty to use the default system encoding."))
+		txtSubsEnc.connect('changed', self.subsEncChanged)
+		self.txtSubsEnc = txtSubsEnc
+		hBoxEnc.pack_start(txtSubsEnc)
 		# A button box that contains the close button.
 		btnBox = gtk.HButtonBox()
 		btnBox.set_layout(gtk.BUTTONBOX_END)
@@ -147,6 +164,7 @@ def trySubs(file):
 		if os.path.exists(subPath):
 			# If the subtitle file exists DO IT!
 			player.player.set_property('suburi', useful.filenameToUri(subPath))
+			player.player.set_property('subtitle-encoding', cfg.getStr('video/subenc'))
 			print _("Found subtitles stream %s" % subPath)
 			return True
 	
