@@ -106,14 +106,14 @@ class subMan():
 		chkAutoSubs.connect('toggled', self.autoSubsToggled)
 		self.chkAutoSubs = chkAutoSubs
 		vBox.pack_start(chkAutoSubs)
+		# The automatic subtitle extensions entry.
 		hBoxExt = gtk.HBox(spacing=7)
 		vBox.pack_start(hBoxExt)
-		# The automatic subtitle extensions entry.
-		lblSubsExt = gtk.Label(_("Subtitle file extensions"))
+		lblSubsExt = gtk.Label(_("Subtitle file extensions:"))
 		hBoxExt.pack_start(lblSubsExt)
 		txtSubsExt = gtk.Entry()
 		txtSubsExt.set_has_tooltip(True)
-		txtSubsExt.set_tooltip_text(_("Extensions to use when automatically detecting subtitles.\nSepatare with commas."))
+		txtSubsExt.set_tooltip_text(_("Extensions to use when automatically detecting subtitles.\nSeparate with commas."))
 		txtSubsExt.connect('changed', self.subsExtsChanged)
 		self.txtSubsExt = txtSubsExt
 		hBoxExt.pack_start(txtSubsExt)
