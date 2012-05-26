@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-02-26 21:55+1100\n"
+"POT-Creation-Date: 2012-05-26 11:02+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,18 +78,6 @@ msgstr ""
 msgid " [options] filename"
 msgstr ""
 
-#: ../src/gui/__init__.py:33
-msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
-msgstr ""
-
-#: ../src/gui/__init__.py:36
-msgid "Cannot continue, X server not found!"
-msgstr ""
-
-#: ../src/gui/__init__.py:42
-msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
-msgstr ""
-
 #: ../src/gui/dialogues.py:49
 msgid "translator-credits"
 msgstr ""
@@ -114,7 +102,7 @@ msgstr ""
 msgid "All Files"
 msgstr ""
 
-#: ../src/gui/dialogues.py:113
+#: ../src/gui/dialogues.py:113 ../ui/main.ui.h:2
 msgid "Play DVD"
 msgstr ""
 
@@ -142,7 +130,7 @@ msgstr ""
 msgid "Audio:"
 msgstr ""
 
-#: ../src/gui/dialogues.py:246 ../src/gui/main.py:293
+#: ../src/gui/dialogues.py:246 ../src/gui/main.py:295
 msgid "Error!"
 msgstr ""
 
@@ -150,60 +138,68 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:25
+#: ../src/gui/dialogues.py:278 ../ui/main.ui.h:30
 msgid "Supported Features"
 msgstr ""
 
-#: ../src/gui/dialogues.py:285
+#: ../src/gui/dialogues.py:286
 msgid "Dbus Message Bus"
 msgstr ""
 
-#: ../src/gui/dialogues.py:298
+#: ../src/gui/dialogues.py:301
 msgid "Available"
 msgstr ""
 
-#: ../src/gui/dialogues.py:298
+#: ../src/gui/dialogues.py:301
 msgid "Unavailable"
 msgstr ""
 
-#: ../src/gui/dialogues.py:302
-msgid "Library Versions:"
+#: ../src/gui/__init__.py:33
+msgid "Cannot continue, pygtk is not installed (version 2.12 required)"
 msgstr ""
 
-#: ../src/gui/main.py:436
+#: ../src/gui/__init__.py:36
+msgid "Cannot continue, X server not found!"
+msgstr ""
+
+#: ../src/gui/__init__.py:42
+msgid "Cannot continue, this program requires at least GTK+ 2.12 to run."
+msgstr ""
+
+#: ../src/gui/main.py:439
 #, python-format
 msgid "Something's stuffed up, no such file: %s"
 msgstr ""
 
-#: ../src/gui/main.py:636
+#: ../src/gui/main.py:639
 msgid "Pause"
 msgstr ""
 
-#: ../src/gui/main.py:636
+#: ../src/gui/main.py:639
 msgid "Play"
 msgstr ""
 
-#: ../src/gui/main.py:702
+#: ../src/gui/main.py:705
 msgid "Choose a Subtitle Stream"
 msgstr ""
 
-#: ../src/gui/main.py:779
+#: ../src/gui/main.py:784
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
 
-#: ../src/gui/main.py:791
+#: ../src/gui/main.py:796
 #, python-format
 msgid ""
 "Could not execute browser command (via %(program)s).\n"
 "Please manually visit %(url)s to report the problem"
 msgstr ""
 
-#: ../src/gui/main.py:798
+#: ../src/gui/main.py:803
 msgid "TERM signal caught, exiting."
 msgstr ""
 
-#: ../src/gui/main.py:820
+#: ../src/gui/main.py:825
 #, python-format
 msgid "Queued: %d"
 msgstr ""
@@ -216,20 +212,20 @@ msgstr ""
 msgid "Other (Set from config.ini)"
 msgstr ""
 
-#: ../src/gui/queue.py:239
+#: ../src/gui/queue.py:243
 msgid "Queued Tracks:"
 msgstr ""
 
-#: ../src/gui/queue.py:271
+#: ../src/gui/queue.py:276
 msgid "Clear Queue"
 msgstr ""
 
-#: ../src/gui/queue.py:272
+#: ../src/gui/queue.py:277
 msgid "Remove item from Queue"
 msgstr ""
 
-#: ../src/gui/queue.py:273
-msgid "Add items to queue"
+#: ../src/gui/queue.py:278
+msgid "Add items to Queue"
 msgstr ""
 
 #: ../src/gui/subtitles.py:61
@@ -240,29 +236,29 @@ msgstr ""
 msgid "Subtitle Manager"
 msgstr ""
 
-#: ../src/gui/subtitles.py:93
+#: ../src/gui/subtitles.py:97
 msgid "Automatic Subtitles"
 msgstr ""
 
-#: ../src/gui/subtitles.py:95
+#: ../src/gui/subtitles.py:99
 msgid "Try to automatically find subtitles for each file."
 msgstr ""
 
-#: ../src/gui/subtitles.py:102
+#: ../src/gui/subtitles.py:106
 msgid "Subtitle file extensions"
 msgstr ""
 
-#: ../src/gui/subtitles.py:106
+#: ../src/gui/subtitles.py:110
 msgid ""
 "Extensions to use when automatically detecting subtitles.\n"
 "Sepatare with commas."
 msgstr ""
 
-#: ../src/gui/subtitles.py:111
+#: ../src/gui/subtitles.py:115
 msgid "Add subtitles to current stream"
 msgstr ""
 
-#: ../src/gui/subtitles.py:143
+#: ../src/gui/subtitles.py:150
 #, python-format
 msgid "Found subtitles stream %s"
 msgstr ""
@@ -293,7 +289,7 @@ msgstr ""
 msgid "Sets the player's video ouput to SINK"
 msgstr ""
 
-#: ../src/common/config.py:142 ../ui/main.ui.h:13
+#: ../src/common/config.py:142 ../ui/main.ui.h:25
 msgid "Quits the player when the playing stream stops"
 msgstr ""
 
@@ -403,7 +399,7 @@ msgid "Play failed, no file is currently open."
 msgstr ""
 
 #: ../src/common/dbusBus.py:182
-msgid "Pause failed, not file is currently open."
+msgid "Pause failed, no file is currently open."
 msgstr ""
 
 #: ../src/common/gstTagger.py:154
@@ -429,61 +425,59 @@ msgid "No tags available"
 msgstr ""
 
 #: ../ui/main.ui.h:1
-msgid "All"
-msgstr ""
-
-#: ../ui/main.ui.h:2
-msgid "Audio Tracks"
+msgid "_File"
 msgstr ""
 
 #: ../ui/main.ui.h:3
-msgid ""
-"Change the player's speed.  WARNING: Negative numbers can cause weirdness "
-"(even lockups)."
+msgid "Open URI"
 msgstr ""
 
 #: ../ui/main.ui.h:4
-msgid "Current player volume"
+msgid "_Edit"
 msgstr ""
 
 #: ../ui/main.ui.h:5
-msgid "DVD Menu"
+msgid "_View"
 msgstr ""
 
 #: ../ui/main.ui.h:6
-msgid "Disable repeat"
+msgid "Toggle Fullscreen"
 msgstr ""
 
 #: ../ui/main.ui.h:7
-msgid "Leave Fullscreen"
+msgid "Show advanced player controls."
 msgstr ""
 
 #: ../ui/main.ui.h:8
-msgid "Next"
+msgid "_Advanced Controls"
 msgstr ""
 
 #: ../ui/main.ui.h:9
-msgid "None"
+msgid "View and edit the current queue"
 msgstr ""
 
 #: ../ui/main.ui.h:10
-msgid "One"
+msgid "_Queue"
 msgstr ""
 
 #: ../ui/main.ui.h:11
-msgid "Plays random items from the queue"
+msgid "_Stream"
 msgstr ""
 
 #: ../ui/main.ui.h:12
-msgid "Quit on Stop"
+msgid "Stream repeat settings"
+msgstr ""
+
+#: ../ui/main.ui.h:13
+msgid "Repeat"
 msgstr ""
 
 #: ../ui/main.ui.h:14
-msgid "Random"
+msgid "Disable repeat"
 msgstr ""
 
 #: ../ui/main.ui.h:15
-msgid "Repeat"
+msgid "None"
 msgstr ""
 
 #: ../ui/main.ui.h:16
@@ -491,215 +485,237 @@ msgid "Repeat a single track"
 msgstr ""
 
 #: ../ui/main.ui.h:17
-msgid "Repeat all tracks in the queue."
+msgid "One"
 msgstr ""
 
 #: ../ui/main.ui.h:18
-msgid "Report a bug to the Bugtracker"
+msgid "Repeat all tracks in the queue."
 msgstr ""
 
 #: ../ui/main.ui.h:19
-msgid "Restart Track"
+msgid "All"
 msgstr ""
 
 #: ../ui/main.ui.h:20
-msgid "Show advanced player controls."
+msgid "Plays random items from the queue"
 msgstr ""
 
 #: ../ui/main.ui.h:21
-msgid "Speed:"
+msgid "Random"
 msgstr ""
 
 #: ../ui/main.ui.h:22
-msgid "Stop"
+msgid "DVD Menu"
 msgstr ""
 
 #: ../ui/main.ui.h:23
-msgid "Stream repeat settings"
+msgid "Audio Tracks"
 msgstr ""
 
 #: ../ui/main.ui.h:26
-msgid "View and edit the current queue"
+msgid "Quit on Stop"
 msgstr ""
 
 #: ../ui/main.ui.h:27
-msgid "_Advanced Controls"
-msgstr ""
-
-#: ../ui/main.ui.h:28
-msgid "_Edit"
-msgstr ""
-
-#: ../ui/main.ui.h:29
-msgid "_File"
-msgstr ""
-
-#: ../ui/main.ui.h:30
 msgid "_Help"
 msgstr ""
 
-#: ../ui/main.ui.h:31
-msgid "_Queue"
+#: ../ui/main.ui.h:28
+msgid "Report a bug to the Bugtracker"
 msgstr ""
 
-#: ../ui/main.ui.h:32
+#: ../ui/main.ui.h:29
 msgid "_Report a Bug"
 msgstr ""
 
+#: ../ui/main.ui.h:31
+msgid "Speed:"
+msgstr ""
+
+#: ../ui/main.ui.h:32
+msgid ""
+"Change the player's speed.  WARNING: Negative numbers can cause weirdness "
+"(even lockups)."
+msgstr ""
+
 #: ../ui/main.ui.h:33
-msgid "_Stream"
+msgid "Restart Track"
 msgstr ""
 
 #: ../ui/main.ui.h:34
-msgid "_View"
+msgid "Stop"
+msgstr ""
+
+#: ../ui/main.ui.h:35
+msgid "Next"
+msgstr ""
+
+#: ../ui/main.ui.h:36
+msgid "Leave Fullscreen"
+msgstr ""
+
+#: ../ui/main.ui.h:37
+msgid "Current player volume"
 msgstr ""
 
 #: ../ui/preferences.ui.h:1
-msgid "<b>Colour Settings</b>"
+msgid "Play Immediately"
 msgstr ""
 
 #: ../ui/preferences.ui.h:2
-msgid "Add current file's tags/name to Title"
+msgid "Add to end of queue"
 msgstr ""
 
 #: ../ui/preferences.ui.h:3
-msgid ""
-"Add the currently playing file's tags (or name if unavailable) to the "
-"window's title."
+msgid "Play in separate process"
 msgstr ""
 
 #: ../ui/preferences.ui.h:4
-msgid "Adjust video brightness"
-msgstr ""
-
-#: ../ui/preferences.ui.h:5
-msgid "Adjust video contrast"
-msgstr ""
-
-#: ../ui/preferences.ui.h:6
-msgid "Adjust video hue"
-msgstr ""
-
-#: ../ui/preferences.ui.h:7
-msgid "Adjust video saturation"
-msgstr ""
-
-#: ../ui/preferences.ui.h:8
-msgid "Audio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:9
-msgid "Brightness:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:10
-msgid "Contrast:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:11
-msgid "Disable Screensaver"
-msgstr ""
-
-#: ../ui/preferences.ui.h:12
-msgid "Disable Screensaver whilst playing a video."
-msgstr ""
-
-#: ../ui/preferences.ui.h:13
-msgid "Enable Visualisations (Requires stream restart)"
-msgstr ""
-
-#: ../ui/preferences.ui.h:14
-msgid "Force Aspect Ratio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:15
-msgid "Force the video to keep its original aspect ratio"
-msgstr ""
-
-#: ../ui/preferences.ui.h:16
-msgid "Hue:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:17
-msgid "Instantaneous Seek"
-msgstr ""
-
-#: ../ui/preferences.ui.h:18
-msgid "Main"
-msgstr ""
-
-#: ../ui/preferences.ui.h:19
-msgid "Mouse hide timeout (ms): "
-msgstr ""
-
-#: ../ui/preferences.ui.h:20
-msgid "Output Device:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:21
 msgid "Preferences"
 msgstr ""
 
-#: ../ui/preferences.ui.h:22
-msgid "Reset all adjustments to 0"
+#: ../ui/preferences.ui.h:5
+msgid "Instantaneous Seek"
 msgstr ""
 
-#: ../ui/preferences.ui.h:23
-msgid "Restore Defaults"
-msgstr ""
-
-#: ../ui/preferences.ui.h:24
-msgid "Saturation:"
-msgstr ""
-
-#: ../ui/preferences.ui.h:25
+#: ../ui/preferences.ui.h:6
 msgid ""
 "Seek instantaneously on draging over the progress bar, instead of waiting "
 "until the end."
 msgstr ""
 
-#: ../ui/preferences.ui.h:26
+#: ../ui/preferences.ui.h:7
+msgid "Disable Screensaver"
+msgstr ""
+
+#: ../ui/preferences.ui.h:8
+msgid "Disable Screensaver whilst playing a video."
+msgstr ""
+
+#: ../ui/preferences.ui.h:9
 msgid "Show Time Remaining"
 msgstr ""
 
-#: ../ui/preferences.ui.h:27
+#: ../ui/preferences.ui.h:10
 msgid "Show the time remaining instead of total time in the progress bar."
 msgstr ""
 
-#: ../ui/preferences.ui.h:28
+#: ../ui/preferences.ui.h:11
+msgid "Add current file's tags/name to Title"
+msgstr ""
+
+#: ../ui/preferences.ui.h:12
 msgid ""
-"Show visualisations when no video track is available (Current stream must be "
-"restarted, disabling does this automatically)."
+"Add the currently playing file's tags (or name if unavailable) to the "
+"window's title."
 msgstr ""
 
-#: ../ui/preferences.ui.h:29
-msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
+#: ../ui/preferences.ui.h:13
+msgid "Upon opening new file:"
 msgstr ""
 
-#: ../ui/preferences.ui.h:30
-msgid "Tag Display Syntax: "
-msgstr ""
-
-#: ../ui/preferences.ui.h:31
+#: ../ui/preferences.ui.h:14
 msgid ""
 "The action to take when another Whaaw! Media Player process is requested to "
 "open a file."
 msgstr ""
 
-#: ../ui/preferences.ui.h:32
+#: ../ui/preferences.ui.h:15
+msgid "Tag Display Syntax: "
+msgstr ""
+
+#: ../ui/preferences.ui.h:16
+msgid "Syntax for how to display the tags, encapsulate a tag name in {}."
+msgstr ""
+
+#: ../ui/preferences.ui.h:17
+msgid "Mouse hide timeout (ms): "
+msgstr ""
+
+#: ../ui/preferences.ui.h:18
 msgid ""
 "The time (in milliseconds) after which the mouse will disappear after not "
 "being moved over the video window."
 msgstr ""
 
+#: ../ui/preferences.ui.h:19
+msgid "Main"
+msgstr ""
+
+#: ../ui/preferences.ui.h:20
+msgid "Volume Change on Scroll: "
+msgstr ""
+
+#: ../ui/preferences.ui.h:21
+msgid "Output Device:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:22
+msgid "Audio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:23
+msgid "Force Aspect Ratio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:24
+msgid "Force the video to keep its original aspect ratio"
+msgstr ""
+
+#: ../ui/preferences.ui.h:25
+msgid "Enable Visualisations (Requires stream restart)"
+msgstr ""
+
+#: ../ui/preferences.ui.h:26
+msgid ""
+"Show visualisations when no video track is available (Current stream must be "
+"restarted, disabling does this automatically)."
+msgstr ""
+
+#: ../ui/preferences.ui.h:27
+msgid "Brightness:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:28
+msgid "Adjust video brightness"
+msgstr ""
+
+#: ../ui/preferences.ui.h:29
+msgid "Contrast:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:30
+msgid "Adjust video contrast"
+msgstr ""
+
+#: ../ui/preferences.ui.h:31
+msgid "Hue:"
+msgstr ""
+
+#: ../ui/preferences.ui.h:32
+msgid "Adjust video hue"
+msgstr ""
+
 #: ../ui/preferences.ui.h:33
-msgid "Upon opening new file:"
+msgid "Saturation:"
 msgstr ""
 
 #: ../ui/preferences.ui.h:34
-msgid "Video"
+msgid "Adjust video saturation"
 msgstr ""
 
 #: ../ui/preferences.ui.h:35
-msgid "Volume Change on Scroll: "
+msgid "Restore Defaults"
+msgstr ""
+
+#: ../ui/preferences.ui.h:36
+msgid "Reset all adjustments to 0"
+msgstr ""
+
+#: ../ui/preferences.ui.h:37
+msgid "<b>Colour Settings</b>"
+msgstr ""
+
+#: ../ui/preferences.ui.h:38
+msgid "Video"
 msgstr ""

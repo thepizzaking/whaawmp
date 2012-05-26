@@ -36,14 +36,14 @@
         <child>
           <object class="GtkAction" id="mnuiPlayDVD">
             <property name="name">mnuiPlayDVD</property>
-            <property name="label">Play DVD</property>
+            <property name="label" translatable="yes">Play DVD</property>
             <signal handler="on_mnuiPlayDVD_activate" name="activate"/>
           </object>
         </child>
         <child>
           <object class="GtkAction" id="mnuiOpenURI">
             <property name="name">mnuiOpenURI</property>
-            <property name="label">Open URI</property>
+            <property name="label" translatable="yes">Open URI</property>
             <signal handler="on_mnuiOpenURI_activate" name="activate"/>
           </object>
         </child>
@@ -76,7 +76,7 @@
         <child>
           <object class="GtkAction" id="mnuiFS">
             <property name="name">mnuiFS</property>
-            <property name="label">Toggle Fullscreen</property>
+            <property name="label" translatable="yes">Toggle Fullscreen</property>
             <signal handler="on_mnuiFS_activate" name="activate"/>
           </object>
         </child>

@@ -54,13 +54,13 @@
     </columns>
     <data>
       <row>
-        <col id="0">Play Immediately</col>
+        <col id="0" translatable="yes">Play Immediately</col>
       </row>
       <row>
-        <col id="0">Add to end of queue</col>
+        <col id="0" translatable="yes">Add to end of queue</col>
       </row>
       <row>
-        <col id="0">Play in separate process</col>
+        <col id="0" translatable="yes">Play in separate process</col>
       </row>
     </data>
   </object>
