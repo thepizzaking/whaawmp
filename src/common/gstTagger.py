@@ -55,11 +55,11 @@ def getDispTitle(tags):
 			# If there was a string.
 			# Make sure we actually have a string (sometimes the tags are spat out as lists,
 			# so if we have a list, just take the first one.
-			if (isinstance(nStr, list) and isinstance(nStr[0], basestring)): #(need basestring, str doesn't work for unicode)
+			if (isinstance(nStr, list)):
 				nStr = nStr[0]
-			elif not isinstance(nStr, basestring):
-				# Otherwise just use a blank string (FIXME).
-				nStr = ''
+			if not isinstance(nStr, basestring):
+				# If it's not a string, recast it as a string.
+				nStr = str(nStr)
 			
 			# Flag that a tag has been added if it's a tag.
 			if (x[0]): noneAdded = False
