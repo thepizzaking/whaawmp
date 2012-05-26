@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 11:02+1000\n"
+"POT-Creation-Date: 2012-05-26 11:22+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -183,23 +183,23 @@ msgstr ""
 msgid "Choose a Subtitle Stream"
 msgstr ""
 
-#: ../src/gui/main.py:784
+#: ../src/gui/main.py:785
 #, python-format
 msgid "%s not found, links & e-mail addresses will not be clickable"
 msgstr ""
 
-#: ../src/gui/main.py:796
+#: ../src/gui/main.py:797
 #, python-format
 msgid ""
 "Could not execute browser command (via %(program)s).\n"
 "Please manually visit %(url)s to report the problem"
 msgstr ""
 
-#: ../src/gui/main.py:803
+#: ../src/gui/main.py:804
 msgid "TERM signal caught, exiting."
 msgstr ""
 
-#: ../src/gui/main.py:825
+#: ../src/gui/main.py:826
 #, python-format
 msgid "Queued: %d"
 msgstr ""
@@ -228,37 +228,47 @@ msgstr ""
 msgid "Add items to Queue"
 msgstr ""
 
-#: ../src/gui/subtitles.py:61
+#: ../src/gui/subtitles.py:66
 msgid "Choose a subtitle stream."
 msgstr ""
 
-#: ../src/gui/subtitles.py:85 ../ui/main.ui.h:24
+#: ../src/gui/subtitles.py:91 ../ui/main.ui.h:24
 msgid "Subtitle Manager"
 msgstr ""
 
-#: ../src/gui/subtitles.py:97
+#: ../src/gui/subtitles.py:103
 msgid "Automatic Subtitles"
 msgstr ""
 
-#: ../src/gui/subtitles.py:99
+#: ../src/gui/subtitles.py:105
 msgid "Try to automatically find subtitles for each file."
 msgstr ""
 
-#: ../src/gui/subtitles.py:106
-msgid "Subtitle file extensions"
+#: ../src/gui/subtitles.py:112
+msgid "Subtitle file extensions:"
 msgstr ""
 
-#: ../src/gui/subtitles.py:110
+#: ../src/gui/subtitles.py:116
 msgid ""
 "Extensions to use when automatically detecting subtitles.\n"
-"Sepatare with commas."
+"Separate with commas."
 msgstr ""
 
-#: ../src/gui/subtitles.py:115
+#: ../src/gui/subtitles.py:121
 msgid "Add subtitles to current stream"
 msgstr ""
 
-#: ../src/gui/subtitles.py:150
+#: ../src/gui/subtitles.py:134
+msgid "Subtitle encoding:"
+msgstr ""
+
+#: ../src/gui/subtitles.py:138
+msgid ""
+"The subtitle encoding to use for subtitles. Leave empty to use the default "
+"system encoding."
+msgstr ""
+
+#: ../src/gui/subtitles.py:168
 #, python-format
 msgid "Found subtitles stream %s"
 msgstr ""
