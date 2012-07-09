@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-26 11:22+1000\n"
+"POT-Creation-Date: 2012-07-09 20:58+1000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,56 +17,66 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../src/thumbnailer.py:72
+#: ../src/thumbnailer.py:76
 msgid " [options] -o output-file input-file"
 msgstr ""
 
-#: ../src/thumbnailer.py:77
+#: ../src/thumbnailer.py:81
 msgid "The file to create the thumbnail of"
 msgstr ""
 
-#: ../src/thumbnailer.py:81
+#: ../src/thumbnailer.py:85
 msgid "The destination of the resulting thumbnail"
 msgstr ""
 
-#: ../src/thumbnailer.py:85
+#: ../src/thumbnailer.py:89
 msgid "The position (Fraction) to take the thumbnail from (default 0.3)"
 msgstr ""
 
-#: ../src/thumbnailer.py:89
+#: ../src/thumbnailer.py:93
 msgid "The destination size (in pixels)"
 msgstr ""
 
-#: ../src/thumbnailer.py:99
+#: ../src/thumbnailer.py:98
+msgid "Create a film strip overlay"
+msgstr ""
+
+#: ../src/thumbnailer.py:109
 msgid "Sorry, an input and output file are required to be passed."
 msgstr ""
 
-#: ../src/thumbnailer.py:100
+#: ../src/thumbnailer.py:110
 #, python-format
 msgid "See '%s --help' for details"
 msgstr ""
 
-#: ../src/thumbnailer.py:107
+#: ../src/thumbnailer.py:117
 msgid "The requested position must be between 0 and 1, using 0.3."
 msgstr ""
 
-#: ../src/thumbnailer.py:164
-msgid "Stream returned no caps, exiting"
-msgstr ""
-
-#: ../src/thumbnailer.py:191
-msgid "An error occurred"
+#: ../src/thumbnailer.py:177
+msgid ""
+"WARNING: The rsvgoverlay gstreamer plugin is not installed. A film strip "
+"will not be added."
 msgstr ""
 
 #: ../src/thumbnailer.py:207
+msgid "Stream returned no caps, exiting"
+msgstr ""
+
+#: ../src/thumbnailer.py:234
+msgid "An error occurred"
+msgstr ""
+
+#: ../src/thumbnailer.py:250
 msgid "There are no video tracks in this stream, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:213
+#: ../src/thumbnailer.py:256
 msgid "Duration unable to be read, exiting."
 msgstr ""
 
-#: ../src/thumbnailer.py:226
+#: ../src/thumbnailer.py:269
 msgid "Unable to seek to requested position, exiting."
 msgstr ""
 
@@ -152,6 +162,10 @@ msgstr ""
 
 #: ../src/gui/dialogues.py:301
 msgid "Unavailable"
+msgstr ""
+
+#: ../src/gui/dialogues.py:308
+msgid "Library Versions:"
 msgstr ""
 
 #: ../src/gui/__init__.py:33
