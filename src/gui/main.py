@@ -677,10 +677,6 @@ class mainWindow:
 			x1 = (w - h) / 2
 			y1 = 0
 		
-		# Get the image's path, chuck it into a pixbuf, then draw it!
-		image = os.path.join(useful.dataDir, 'images', 'whaawmp.svg')
-		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
-		self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
 	
 	def fsActive(self):
