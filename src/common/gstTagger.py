@@ -24,11 +24,12 @@
 #		is covered. (See COPYING file for more details)
 
 import os
-import gst
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst, GObject
 from common import useful
 from common.config import cfg
 from common.gstPlayer import player
-import gobject
 
 
 def getCurTags():
@@ -100,8 +101,8 @@ class FileTag:
 	def nextTrack(self):
 		## Read the next files tags.
 		# Stop the player before anything else, and timer.
-		if self.timer: gobject.source_remove(self.timer)
-		self.player.set_state(gst.STATE_READY)
+		if self.timer: Gobject.Source.remove(self.timer)
+		self.player.set_state(Gst.State.READY)
 		if (not len(self.queue)):
 			# If the queue is empty, unlock and return.
 			self.lock = False
@@ -112,15 +113,15 @@ class FileTag:
 		self.current = self.queue[0]
 		del self.queue[0]
 		self.player.set_property('uri', self.current['uri'])
-		self.player.set_state(gst.STATE_PAUSED)
+		self.player.set_state(Gst.State.PAUSED)
 		# Reset number of trys and start a timer to attempt to read the
 		# tags. (every second).
 		self.trys = 0
-		self.timer = gobject.timeout_add_seconds(1, self.tryTags)
+		self.timer = GObject.timeout_add_seconds(1, self.tryTags)
 	
 	def onMessage(self, bus, message):
 		## Called when a message is emitted, from the playbin.
-		if (message.type == gst.MESSAGE_ERROR):
+		if (message.type == Gst.MessageType.ERROR):
 			# If we get an error, BAIL! (to next track)
 			self.nextTrack()
 		return
@@ -157,10 +158,10 @@ class FileTag:
 	def __init__(self):
 		## Need to use a playbin to read the tags.
 		# Create the playbin.
-		self.player = gst.element_factory_make('playbin2')
+		self.player = Gst.ElementFactory.make('playbin')
 		# Set the audio & video sinks to fakesinks so weird things don't happen.
-		self.player.set_property('video-sink', gst.element_factory_make('fakesink'))
-		self.player.set_property('audio-sink', gst.element_factory_make('fakesink'))
+		self.player.set_property('video-sink', Gst.ElementFactory.make('fakesink'))
+		self.player.set_property('audio-sink', Gst.ElementFactory.make('fakesink'))
 		
 		# Get the players bus, add signal watch and connect the onMessage function.
 		bus = self.player.get_bus()

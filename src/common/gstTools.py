@@ -23,9 +23,9 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
-import pygst
-pygst.require('0.10')
-import gst
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
 
 from common import lists
 

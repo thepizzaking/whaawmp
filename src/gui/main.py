@@ -24,10 +24,10 @@
 #		is covered. (See COPYING file for more details)
 
 import sys, os, signal, urllib, urlparse
-import pygtk, pygst
-pygtk.require('2.0')
-pygst.require('0.10')
-import gtk, gobject, gst
+import gi
+gi.require_version('Gst', '1.0')
+gi.require_version('Gtk', '2.0')
+from gi.repository import GObject, Gst, Gtk, Gdk
 from random import randint
 
 from gui import dialogues, preferences
@@ -54,10 +54,11 @@ class mainWindow:
 		# Stop the player first to avoid tracebacks.
 		player.stopCompletely()
 		# Restore the screensaver.
-		useful.resumeScr()
+		# FIXME gi transition
+		#useful.resumeScr()
 		# Save the configuration to the file.
 		cfg.save()
-		gtk.main_quit()
+		Gtk.main_quit()
 	
 	
 	def videoWindowExpose(self, widget, event):
@@ -80,7 +81,7 @@ class mainWindow:
 		x, y, w, h = widget.get_allocation()
 		
 		# Make a new pixmap (does this create a leak?)
-		self.pixmap = gtk.gdk.Pixmap(widget.window, w, h)
+		self.pixmap = Gdk.Pixmap(widget.window, w, h)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
 		colour = widget.get_style().black_gc
@@ -114,13 +115,13 @@ class mainWindow:
 	def removeIdleTimer(self):
 		try:
 			# Stop the timer to hide the cursor.
-			gobject.source_remove(self.idleTimer)
+			GObject.source_remove(self.idleTimer)
 		except:
 			pass
 	
 	def createIdleTimer(self):
 		# Create the timer again, with the timeout reset.
-		self.idleTimer = gobject.timeout_add(cfg.getInt("gui/mousehidetimeout"), self.hideControls)
+		self.idleTimer = GObject.timeout_add(cfg.getInt("gui/mousehidetimeout"), self.hideControls)
 	
 	
 	def showControls(self):
@@ -152,10 +153,10 @@ class mainWindow:
 	def hideCursor(self, widget):
 		## Hides the cursor.
 		# The colour of the cursor (defaults to (r, g, b) = (0, 0, 0).
-		colour = gtk.gdk.Color()
+		colour = Gdk.Color()
 		# Create the hidden cursor.
-		pixmap = gtk.gdk.Pixmap(None, 1, 1, 1)
-		invisible = gtk.gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
+		pixmap = Gdk.Pixmap(None, 1, 1, 1)
+		invisible = Gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
 		self.setCursor(invisible, widget)
 	
@@ -175,7 +176,7 @@ class mainWindow:
 		for x in lists.hiddenFSWidgets:
 			self.wTree.get_object(x).hide()
 		# Unfullscreen the window when we're idle (stops weird dimensions).
-		gobject.idle_add(self.mainWindow.unfullscreen)
+		GObject.idle_add(self.mainWindow.unfullscreen)
 	
 	
 	def toggleFullscreen(self, widget=None):
@@ -203,10 +204,10 @@ class mainWindow:
 		# Get the even information.
 		x, y, state = event.window.get_pointer()
 		
-		if (event.type == gtk.gdk._2BUTTON_PRESS and state & gtk.gdk.BUTTON1_MASK):
+		if (event.type == Gdk.EventType._2BUTTON_PRESS and state & Gdk.ModifierType.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
 			self.toggleFullscreen()
-		elif (event.type == gtk.gdk.BUTTON_PRESS and state & gtk.gdk.BUTTON2_MASK):
+		elif (event.type == Gdk.EventType.BUTTON_PRESS and state & Gdk.ModifierType.BUTTON2_MASK):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
 		else:
@@ -218,9 +219,9 @@ class mainWindow:
 	def videoWindowScroll(self, widget, event):
 		## Changes the volume on scroll up/down.
 		volChange = self.volAdj.step_increment
-		if (event.direction == gtk.gdk.SCROLL_UP):
+		if (event.direction == Gdk.ScrollDirection.UP):
 			self.increaseVolumeBy(volChange)
-		elif (event.direction == gtk.gdk.SCROLL_DOWN):
+		elif (event.direction == Gdk.ScrollDirection.DOWN):
 			self.increaseVolumeBy(- volChange)
 	
 	
@@ -236,8 +237,8 @@ class mainWindow:
 	def windowKeyPressed(self, widget, event):
 		## Emits signals defined in lists.keypressDict.
 		# Don't process if alt or ctrl is down.
-		if (event.state & gtk.gdk.MOD1_MASK) or (event.state & gtk.gdk.CONTROL_MASK): return
-		keyname = gtk.gdk.keyval_name(event.keyval)
+		if (event.state & Gdk.ModifierType.MOD1_MASK) or (event.state & Gdk.ModifierType.CONTROL_MASK): return
+		keyname = Gdk.keyval_name(event.keyval)
 		if keyname in lists.keypressDict:
 			for x in lists.keypressDict[keyname]:
 				signals.emit(x)
@@ -270,7 +271,7 @@ class mainWindow:
 	
 	def onPlayerMessage(self, bus, message):
 		t = message.type
-		if (t == gst.MESSAGE_EOS):
+		if (t == Gst.MessageType.EOS):
 			if (self.wTree.get_object("mnuiRepeatOne").get_active()):
 				player.seek(0)
 			else:
@@ -287,15 +288,15 @@ class mainWindow:
 					# Otherwise, just stop.
 					player.stop()
 		
-		elif (t == gst.MESSAGE_ERROR):
+		elif (t == Gst.MessageType.ERROR):
 			# On an error, empty the currently playing file (also stops it).
 			self.playFile(None)
 			# Show an error about the failure.
 			msg = message.parse_error()
 			signals.emit('error', str(msg[0]) + '\n\n' + str(msg[1]), _('Error!'))
-		elif (t == gst.MESSAGE_STATE_CHANGED and message.src == player.player):
+		elif (t == Gst.MessageType.STATE_CHANGED and message.src == player.player):
 			self.onPlayerStateChange(message)
-		elif (t == gst.MESSAGE_TAG):
+		elif (t == Gst.MessageType.TAG):
 			# Tags!!
 			self.setPlayingTitle(message.parse_tag())
 	
@@ -306,21 +307,21 @@ class mainWindow:
 		# Store the old and new states.
 		old, new = msg[0], msg[1]
 	
-		if (old == gst.STATE_READY and new == gst.STATE_PAUSED):
+		if (old == Gst.State.READY and new == Gst.State.PAUSED):
 			# The player has gone from stopped to paused.
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_object('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
 		
-		elif (old == gst.STATE_PAUSED and new == gst.STATE_PLAYING):
+		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
 			# Set the play/pause image to pause.
 			self.playPauseChange(True)
 			# Create the timers.
 			self.createPlayTimers()
 			
-		elif (old == gst.STATE_PLAYING and new == gst.STATE_PAUSED):
+		elif (old == Gst.State.PLAYING and new == Gst.State.PAUSED):
 			# It's just been paused or stopped.
 			self.playPauseChange(False)
 			# Destroy the play timers.
@@ -330,7 +331,7 @@ class mainWindow:
 			# Update the progress bar.
 			self.progressUpdate()
 			
-		elif (old == gst.STATE_PAUSED and new == gst.STATE_READY):
+		elif (old == Gst.State.PAUSED and new == Gst.State.READY):
 			# Stop message (goes through paused when stopping).
 			# Draw the background image.
 			self.drawvideoWindowImage()
@@ -430,7 +431,7 @@ class mainWindow:
 			# Try to set the subtitle track if requested.
 			if cfg.getBool('video/autosub'): subtitles.trySubs(file)
 			# Add the file to recently opened files.
-			gtk.recent_manager_get_default().add_item(file)
+			Gtk.RecentManager.get_default().add_item(file)
 			# Start the player, if it isn't already running.
 			if (not player.isPlaying()): player.play()
 		
@@ -539,7 +540,7 @@ class mainWindow:
 	
 	def onMainStateEvent(self, widget, event):
 		## Acts when a state event occurs on the main window.
-		fs = event.new_window_state & gtk.gdk.WINDOW_STATE_FULLSCREEN
+		fs = event.new_window_state & Gdk.WindowState.FULLSCREEN
 		if (fs):
 			# Hide all the widgets other than the video window.
 			for x in lists.hiddenFSWidgets:
@@ -558,7 +559,7 @@ class mainWindow:
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
 		x, y, state = event.window.get_pointer()
-		if (state & gtk.gdk.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
+		if (state & Gdk.ModifierType.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
 			self.progressBarMotion(widget, event)
@@ -593,7 +594,7 @@ class mainWindow:
 		if (not self.seeking): return
 		# Check if the mouse button is still down, just in case we missed it.
 		x, y, state = event.window.get_pointer()
-		if (not state & gtk.gdk.BUTTON1_MASK): self.seekEnd(widget, event)
+		if (not state & Gdk.ModifierType.BUTTON1_MASK): self.seekEnd(widget, event)
 		if (cfg.getBool("gui/instantseek")):
 			# If instantaneous seek is set, seek!
 			self.seekFromProgress(widget, event)
@@ -614,7 +615,7 @@ class mainWindow:
 		# Just seek to 0.
 		player.seek(0)
 		# Update the progrss bar.
-		gobject.idle_add(self.progressUpdate)
+		GObject.idle_add(self.progressUpdate)
 		# Make sure the player is playing (ie. if it was paused etc)
 		player.play()
 		
@@ -630,7 +631,7 @@ class mainWindow:
 		# Set the size.
 		size = cfg.getInt("gui/iconsize")
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
-		img = gtk.image_new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
+		img = Gtk.Image.new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
 		btn = self.wTree.get_object("btnPlayToggle")
 		# Actually set the icon.
@@ -638,11 +639,11 @@ class mainWindow:
 		# Also set the tooltip.
 		btn.set_tooltip_text(_('Pause') if (playing) else _('Play'))
 		# Set the stop button image too.
-		self.wTree.get_object("btnStop").set_image(gtk.image_new_from_stock('gtk-media-stop', size))
+		self.wTree.get_object("btnStop").set_image(Gtk.Image.new_from_stock('gtk-media-stop', size))
 		# And the next one.
-		self.wTree.get_object("btnNext").set_image(gtk.image_new_from_stock('gtk-media-next', size))
+		self.wTree.get_object("btnNext").set_image(Gtk.Image.new_from_stock('gtk-media-next', size))
 		# Restart one too.
-		self.wTree.get_object("btnRestart").set_image(gtk.image_new_from_stock('gtk-media-previous', size))
+		self.wTree.get_object("btnRestart").set_image(Gtk.Image.new_from_stock('gtk-media-previous', size))
 		
 	
 	
@@ -650,13 +651,13 @@ class mainWindow:
 		# Destroy the timers first to avoid about 20 of them.
 		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
-		self.tmrSec = gobject.timeout_add_seconds(1, self.secondTimer)
-		self.tmrMin = gobject.timeout_add_seconds(60, self.minuteTimer)
+		self.tmrSec = GObject.timeout_add_seconds(1, self.secondTimer)
+		self.tmrMin = GObject.timeout_add_seconds(60, self.minuteTimer)
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.
-		if self.tmrMin: gobject.source_remove(self.tmrMin)
-		if self.tmrSec: gobject.source_remove(self.tmrSec)
+		if self.tmrMin: GObject.source_remove(self.tmrMin)
+		if self.tmrSec: GObject.source_remove(self.tmrSec)
 	
 
 	def drawvideoWindowImage(self):
@@ -679,13 +680,14 @@ class mainWindow:
 		
 		# Get the image's path, chuck it into a pixbuf, then draw it!
 		image = os.path.join(useful.dataDir, 'images', 'whaawmp.svg')
-		bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
-		self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
+		# FIXME gi tansition
+		#bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
+		#self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
 	
 	def fsActive(self):
 		## Returns True if fullscreen is active.
-		return self.mainWindow.window.get_state() & gtk.gdk.WINDOW_STATE_FULLSCREEN
+		return self.mainWindow.window.get_state() & Gdk.WindowStote.FULLSCREEN
 		
 	
 	def showOpenDialogue(self, widget=None):
@@ -778,8 +780,10 @@ class mainWindow:
 	def connectLinkHooks(self):
 		## Make hooks for opening URLs and e-mails.
 		if (useful.checkLinkHandler):
-			gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
-			gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
+			#FIXME gt transition.
+			#gtk.about_dialog_set_email_hook(self.URLorMailOpen, 'mail')
+			#gtk.about_dialog_set_url_hook(self.URLorMailOpen, 'url')
+			pass
 		else:
 			# xdg-open doesn't exist.
 			print _("%s not found, links & e-mail addresses will not be clickable" % useful.linkHandler)
@@ -830,7 +834,7 @@ class mainWindow:
 		# Set the last folder to the directory from which the program was called.
 		useful.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
-		gobject.set_application_name(str(useful.lName))
+		GObject.set_application_name(str(useful.lName))
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
@@ -840,7 +844,7 @@ class mainWindow:
 		if msgBus.avail: self.dbus = msgBus.IntObject(self)
 		
 		# Set up the gtk-builder and interface.
-		self.wTree = gtk.Builder()
+		self.wTree = Gtk.Builder()
 		windowname = "main"
 		self.wTree.add_from_file(useful.getBuilderFile('main'))
 		
@@ -883,7 +887,7 @@ class mainWindow:
 		self.wTree.connect_signals(dic)
 		
 		# Add the queue to the queue box.
-		self.wTree.get_object("queueBox").pack_start(queue.qwin)
+		self.wTree.get_object("queueBox").pack_start(queue.qwin, True, True, 0)
 		
 		# Get several items for access later.
 		useful.mainWin = self.mainWindow = self.wTree.get_object(windowname)
@@ -898,15 +902,17 @@ class mainWindow:
 		# Set the icon.
 		self.mainWindow.set_icon_from_file(os.path.join(useful.dataDir, 'images', 'whaawmp48.png'))
 		# Set the window to allow drops
-		self.mainWindow.drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		# FIXME gi transition.
+		#self.mainWindow.drag_dest_set(Gtk.DestDefaults.ALL, [("text/uri-list", 0, 0)], Gdk.DragAction.COPY)
 		# If we drop stuff on the queue label we want it queued (bottom right)
-		self.wTree.get_object('lblNumQueued').drag_dest_set(gtk.DEST_DEFAULT_ALL, [("text/uri-list", 0, 0)], gtk.gdk.ACTION_COPY)
+		# FIXME gi transition.
+		#self.wTree.get_object('lblNumQueued').drag_dest_set(Gtk.DestDefaults.ALL, [("text/uri-list", 0, 0)], Gdk.DragAction.COPY)
 		self.wTree.get_object('lblNumQueued').connect('drag-data-received', queue.enqueueDropped)
 		# Update the progress bar.
 		self.progressUpdate()
 		# Get the volume from the configuration.
 		volVal = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
-		self.volAdj.value = useful.toRange(volVal, 0, 1)
+		self.volAdj.set_value(useful.toRange(volVal, 0, 1))
 		# Set the quit on stop checkbox.
 		self.wTree.get_object("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
 		# Set up the default flags.
@@ -928,7 +934,8 @@ class mainWindow:
 		# Show the window.
 		self.mainWindow.show()
 		# Save the windows ID so we can use it to inhibit screensaver.
-		useful.winID = self.mainWindow.get_window().xid
+		# FIXME gi transition.
+		#useful.winID = self.mainWindow.get_window().xid
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).
@@ -936,7 +943,7 @@ class mainWindow:
 			# Append all tracks to the queue.
 			queue.appendMany(cfg.args)
 			# Then play the next track.
-			gobject.idle_add(self.playNext, False)
+			GObject.idle_add(self.playNext, False)
 		
 		if (cfg.cl.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.
@@ -946,4 +953,4 @@ class mainWindow:
 		self.connectLinkHooks()
 		
 		# Enter the GTK main loop.
-		gtk.main()
+		Gtk.main()

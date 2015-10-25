@@ -24,15 +24,15 @@
 #		is covered. (See COPYING file for more details)
 
 import sys
-import pygst
-pygst.require('0.10')
-import gst
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
 from common import lists, useful
 from common.config import cfg
 
 
 class Player:
-	version = gst.gst_version
+	version = Gst.version
 	speed = 1
 	imagesink = None
 	uri = None
@@ -40,24 +40,24 @@ class Player:
 	def play(self):
 		# Starts the player playing, only if the player has a URI.
 		if (self.uri):
-			self.player.set_state(gst.STATE_PLAYING)
+			self.player.set_state(Gst.State.PLAYING)
 			return True
 		return False
 	
 	def pause(self):
 		# Pauses the player, only if the player has a URI.
 		if (self.uri):
-			self.player.set_state(gst.STATE_PAUSED)
+			self.player.set_state(Gst.State.PAUSED)
 			return True
 		return False
 	
 	def stop(self):
 		# Stops the player.
-		self.player.set_state(gst.STATE_READY)
+		self.player.set_state(Gst.State.READY)
 	
 	def stopCompletely(self):
 		# Stops the player completely (ie -> NULL).
-		self.player.set_state(gst.STATE_NULL)
+		self.player.set_state(Gst.State.NULL)
 	
 	def togglePlayPause(self):
 		# Toggles play/pause.
@@ -76,16 +76,16 @@ class Player:
 		return (self.player.get_property('current-video') != -1 or self.player.get_property('vis-plugin') != None)
 	
 	# Returns true if the player is playing, false if not.
-	isPlaying = lambda self: self.getState() == gst.STATE_PLAYING
+	isPlaying = lambda self: self.getState() == Gst.State.PLAYING
 	# Returns true if the player is stopped, false if not.
-	isStopped = lambda self: (self.getState() in [ gst.STATE_NULL, gst.STATE_READY ])
+	isStopped = lambda self: (self.getState() in [ Gst.State.NULL, Gst.State.READY ])
 	# Returns true if the player is paused, false if not.
-	isPaused = lambda self: self.getState() == gst.STATE_PAUSED
+	isPaused = lambda self: self.getState() == Gst.State.PAUSED
 	
 	# Gets the current audio track.
 	getAudioTrack = lambda self: self.player.get_property('current-audio')
 	# Returns the state of the player (add timeout so we don't wait forever).
-	getState = lambda self: self.player.get_state(timeout=200*gst.MSECOND)[1]
+	getState = lambda self: self.player.get_state(timeout=200*Gst.MSECOND)[1]
 	# Returns an array of stream information.
 	getStreamsInfo = lambda self: self.player.get_property('stream-info-value-array')
 	
@@ -99,14 +99,14 @@ class Player:
 	def getPlayed(self):
 		# Returns the played time (in nanoseconds).
 		try:
-			return self.player.query_position(gst.FORMAT_TIME)[0]
+			return self.player.query_position(Gst.FORMAT_TIME)[0]
 		except:
 			return 0
 	
 	def getDuration(self):
 		# Returns the duration (nanoseconds).
 		try:
-			return self.player.query_duration(gst.FORMAT_TIME)[0]
+			return self.player.query_duration(gst.Format.TIME)[0]
 		except:
 			return 0
 	
@@ -127,10 +127,10 @@ class Player:
 	def seek(self, loc):
 		## Seeks to a set location in the track.
 		# Seek to the requested position.
-		self.player.seek(self.speed, gst.FORMAT_TIME,
-		    gst.SEEK_FLAG_FLUSH | gst.SEEK_FLAG_ACCURATE,
-		    gst.SEEK_TYPE_SET, loc,
-		    gst.SEEK_TYPE_NONE, 0)
+		self.player.seek(self.speed, Gst.Format.TIME,
+		    Gst.SeekFlags.FLUSH | Gst.SeekFlags.ACCURATE,
+		    Gst.SeekType.SET, loc,
+		    Gst.SeekType.NONE, 0)
 	
 	
 	def setURI(self, uri):
@@ -201,7 +201,7 @@ class Player:
 		if (sinkName == "default"): sinkName = None
 		
 		# If a name was passed, create the element, otherwise pass None
-		sink = gst.element_factory_make(sinkName, 'audio-sink') if (sinkName) else None
+		sink = Gst.ElementFactory.make(sinkName, 'audio-sink') if (sinkName) else None
 		# Set the selected audio device.
 		device = cfg.getStr('audio/audiodevice')
 		if (device != ''): sink.set_property('device', device)
@@ -217,30 +217,31 @@ class Player:
 		if (sinkName == "default"): sinkName = None
 		
 		# Create the sink bin.
-		bin =  gst.Bin()
+		bin =  Gst.Bin()
 		# Create a filter for colour balancing & add it to the bin.
-		colourBalance = gst.element_factory_make('videobalance')
+		colourBalance = Gst.ElementFactory.make('videobalance')
 		bin.add(colourBalance)
 		# Convert to ffmpeg colourspace to allow more video sinks.
-		colourSpace = gst.element_factory_make('ffmpegcolorspace')
+		colourSpace = Gst.ElementFactory.make('videoconvert')
 		bin.add(colourSpace)
 		# Create a ghostpad so I can connect to it from the playbin.
-		pad = colourBalance.get_pad('sink')
-		ghostPad = gst.GhostPad('sink', pad)
+		pad = colourBalance.get_static_pad('sink')
+		ghostPad = Gst.GhostPad.new('sink', pad)
 		bin.add_pad(ghostPad)
 		# If a name was passed, create the element, otherwise pass use autosink.
-		sink = gst.element_factory_make(sinkName if sinkName else 'autovideosink')
+		sink = Gst.ElementFactory.make(sinkName if sinkName else 'autovideosink')
 		# Create a pad to send navigation information to the gstreamer backend.
-		navPad = gst.Pad(name="navPad", direction=gst.PAD_SRC)
+		navPad = Gst.Pad(name="navPad", direction=Gst.PadDirection.SRC)
 		bin.add_pad(navPad)
 		bin.add(sink)
 		# Link the elements.
-		gst.element_link_many(colourBalance, colourSpace,  sink)
+		colourBalance.link(colourSpace)
+		colourSpace.link(sink)
 		
 		# HACK: In Windows, scrap the bin and always use directdrawsink without
 		# videobalance.
 		if (sys.platform == 'win32'):
-			bin = gst.element_factory_make('directdrawsink')
+			bin = Gst.ElementFactory.make('directdrawsink')
 		
 		# Actually set the player's sink.
 		self.player.set_property('video-sink', bin)
@@ -259,22 +260,22 @@ class Player:
 		modX = event.x * (float(srcDim[0]) / sinkDim[0])
 		modY = event.y * (float(srcDim[1]) / sinkDim[1])
 		# Create a structure to be used for navigation.
-		structure = gst.Structure("application/x-gst-navigation")
+		structure = Gst.Structure("application/x-gst-navigation")
 		structure.set_value("event", "mouse-button-release")
 		structure.set_value("button", event.button)
 		structure.set_value("pointer_x", modX)
 		structure.set_value("pointer_y", modY)
 		# Actually send the navigation event to gstreamer.
-		return self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
+		return self.player.get_property('video-sink').get_pad('navPad').send_event(Gst.Event.new_navigation(structure))
 
 	def sendNavigationKeypress(self, keyname):
 		# Reacts to someone pressing a key on the video window.
 		# Create the structure.
-		structure = gst.Structure("application/x-gst-navigation")
+		structure = Gst.Structure("application/x-gst-navigation")
 		structure.set_value("event", "key-press")
 		structure.set_value("key", keyname)
 		# Send the event.
-		return self.player.get_property('video-sink').get_pad('navPad').send_event(gst.event_new_navigation(structure))
+		return self.player.get_property('video-sink').get_pad('navPad').send_event(Gst.Event.new_navigation(structure))
 
 	
 	def setVisualisation(self, enable):
@@ -286,7 +287,7 @@ class Player:
 	
 	def enableVisualisation(self):
 		# Enable the visualisaion.
-		self.player.set_property('vis-plugin', gst.element_factory_make('goom'))
+		self.player.set_property('vis-plugin', Gst.ElementFactory.make('goom'))
 	
 	def disableVisualisation(self):
 		# Diable the visualisaion.
@@ -319,7 +320,7 @@ class Player:
 	def __init__(self):
 		## Creates and prepares a player.
 		# Create the player.
-		self.player = gst.element_factory_make("playbin2", "player")
+		self.player = Gst.ElementFactory.make("playbin", "player")
 		
 		# Make the program emit signals.
 		bus = self.player.get_bus()
