@@ -25,8 +25,13 @@
 
 import sys, os, signal, urllib, urlparse
 import gi
+# Needed for window.get_xid(), xvimagesink.set_window_handle(), respectively:
+gi.require_version('GdkX11', '2.0')
+gi.require_version('GstVideo', '1.0')
+from gi.repository import GdkX11, GstVideo
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '2.0')
+gi.require_version('Gdk', '2.0')
 from gi.repository import GObject, Gst, Gtk, Gdk
 from random import randint
 
@@ -63,12 +68,12 @@ class mainWindow:
 	
 	def videoWindowExpose(self, widget, event):
 		# Pull the dimensions etc.
-		x, y, w, h = event.area
+		rect = event.area
 		
 		# Let the whole thing be drawn upon.
 		colour = widget.get_style().black_gc
-		widget.window.draw_drawable(colour,
-		                            self.pixmap, x, y, x, y, w, h)
+		widget.window.do_draw_drawable(widget.window, colour,
+		                            self.pixmap, rect.x, rect.y, rect.x, rect.y, rect.width, rect.height)
 		# Save the current video window size.
 		useful.videoWindowSize = self.pixmap.get_size()
 		# Draw the background Image.
@@ -78,14 +83,14 @@ class mainWindow:
 	
 	def videoWindowConfigure(self, widget, event=None):
 		# Get the window's allocation.
-		x, y, w, h = widget.get_allocation()
+		rect = widget.get_allocation()
 		
 		# Make a new pixmap (does this create a leak?)
-		self.pixmap = Gdk.Pixmap(widget.window, w, h)
+		self.pixmap = Gdk.Pixmap.new(widget.window, rect.width, rect.height, -1)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
 		colour = widget.get_style().black_gc
-		self.pixmap.draw_rectangle(colour, True, 0, 0, w, h)
+		self.pixmap.do_draw_rectangle(self.pixmap, colour, True, 0, 0, rect.width, rect.height)
 		# Queue the drawing area.
 		widget.queue_draw()
 	
@@ -152,12 +157,13 @@ class mainWindow:
 	
 	def hideCursor(self, widget):
 		## Hides the cursor.
-		# The colour of the cursor (defaults to (r, g, b) = (0, 0, 0).
-		colour = Gdk.Color()
+		# The colour of the cursor (r, g, b) = (0, 0, 0).
+		#colour = Gdk.Color(0, 0, 0)
 		# Create the hidden cursor.
-		pixmap = Gdk.Pixmap(None, 1, 1, 1)
-		invisible = Gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
+		#pixmap = Gdk.Pixmap.new(None, 1, 1, 1)
+		#invisible = Gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
+		invisible = Gdk.Cursor.new(Gdk.CursorType.BLANK_CURSOR)
 		self.setCursor(invisible, widget)
 	
 	def setCursor(self, mode, widget):
@@ -202,7 +208,7 @@ class mainWindow:
 	
 	def videoWindowClicked(self, widget, event):
 		# Get the even information.
-		x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.window.get_pointer()
 		
 		if (event.type == Gdk.EventType._2BUTTON_PRESS and state & Gdk.ModifierType.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
@@ -298,7 +304,9 @@ class mainWindow:
 			self.onPlayerStateChange(message)
 		elif (t == Gst.MessageType.TAG):
 			# Tags!!
-			self.setPlayingTitle(message.parse_tag())
+			# FIXME gi transition.
+			#self.setPlayingTitle(message.parse_tag())
+			pass
 	
 	
 	def onPlayerStateChange(self, message):
@@ -342,10 +350,11 @@ class mainWindow:
 	
 	
 	def onPlayerSyncMessage(self, bus, message):
-		if (message.structure is None):
+		structure = message.get_structure()
+		if (structure is None):
 			return
 		
-		if (message.structure.get_name() == 'prepare-xwindow-id'):
+		if (structure.get_name() == 'prepare-window-handle'):
 			# If it's playing a video, set the video properties.
 			# Get the properties of the video.(Brightness etc)
 			far = cfg.getBool("video/force-aspect-ratio")
@@ -558,7 +567,8 @@ class mainWindow:
 
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
-		x, y, state = event.window.get_pointer()
+		# Not sure what the first thing out is at the moment.
+		tmp, x, y, state = event.window.get_pointer()
 		if (state & Gdk.ModifierType.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
@@ -577,7 +587,7 @@ class mainWindow:
 	
 	
 	def seekFromProgress(self, widget, event):
-		x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.window.get_pointer()
 		# Get the width & height of the bar.
 		alloc = widget.get_allocation()
 		maxX = alloc.width
@@ -593,7 +603,7 @@ class mainWindow:
 		# If we're not seeking, cancel.
 		if (not self.seeking): return
 		# Check if the mouse button is still down, just in case we missed it.
-		x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.window.get_pointer()
 		if (not state & Gdk.ModifierType.BUTTON1_MASK): self.seekEnd(widget, event)
 		if (cfg.getBool("gui/instantseek")):
 			# If instantaneous seek is set, seek!
@@ -687,7 +697,7 @@ class mainWindow:
 	
 	def fsActive(self):
 		## Returns True if fullscreen is active.
-		return self.mainWindow.window.get_state() & Gdk.WindowStote.FULLSCREEN
+		return self.mainWindow.window.get_state() & Gdk.WindowState.FULLSCREEN
 		
 	
 	def showOpenDialogue(self, widget=None):
@@ -935,7 +945,7 @@ class mainWindow:
 		self.mainWindow.show()
 		# Save the windows ID so we can use it to inhibit screensaver.
 		# FIXME gi transition.
-		#useful.winID = self.mainWindow.get_window().xid
+		#useful.winID = self.mainWindow.window.xid
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).

@@ -23,9 +23,9 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
-import pygtk
-pygtk.require('2.0')
-import gtk, gobject
+import gi
+gi.require_version('Gtk', '2.0')
+from gi.repository import Gtk
 from common import useful, lists
 from common.config import cfg
 from common.gstPlayer import player
@@ -42,7 +42,7 @@ class Dialogue:
 		
 		# Create the dialogue and connect signals using gtk-builder.
 		windowname = 'PreferencesDlg'
-		self.wTree = gtk.Builder()
+		self.wTree = Gtk.Builder()
 		self.wTree.add_from_file(useful.getBuilderFile('preferences'))
 		
 		
@@ -174,8 +174,8 @@ class Dialogue:
 	def prepareAudioDevCmb(self):
 		## Prepares the audio device combo box.
 		# Create the combo box for the selection.
-		audioCmbBox = gtk.combo_box_new_text()
-		self.wTree.get_object('hboxAudioDevice').pack_end(audioCmbBox)
+		audioCmbBox = Gtk.ComboBox.new_text()
+		self.wTree.get_object('hboxAudioDevice').pack_end(audioCmbBox, True, True, 0)
 		audioCmbBox.connect('changed', self.changeAudioDevice)
 		audioCmbBox.show()
 		# Get the available alsa devices.

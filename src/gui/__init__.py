@@ -24,18 +24,18 @@
 #		is covered. (See COPYING file for more details)
 
 # Check that GTK+ is installed, and that an X server is available.
-#import sys, warnings
-#
-#warnings.filterwarnings('error', module='gtk')
-#try:
-#	import gtk
-#except ImportError:
-#	print _("Cannot continue, pygtk is not installed (version 2.12 required)")
-#	sys.exit(1)
-#except Warning:
-#	print _("Cannot continue, X server not found!")
-#	sys.exit(1)
-#warnings.resetwarnings()
+import sys, warnings
+
+warnings.filterwarnings('error', module='gtk')
+try:
+	import gtk
+except ImportError:
+	print _("Cannot continue, pygtk is not installed (version 2.12 required)")
+	sys.exit(1)
+except Warning:
+	print _("Cannot continue, X server not found!")
+	sys.exit(1)
+warnings.resetwarnings()
 
 # Check that GTK+ 2.12 or greater is being used.
 #if (gtk.gtk_version < (2, 12)):

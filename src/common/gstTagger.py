@@ -101,7 +101,7 @@ class FileTag:
 	def nextTrack(self):
 		## Read the next files tags.
 		# Stop the player before anything else, and timer.
-		if self.timer: Gobject.Source.remove(self.timer)
+		if self.timer: GObject.Source.remove(self.timer)
 		self.player.set_state(Gst.State.READY)
 		if (not len(self.queue)):
 			# If the queue is empty, unlock and return.
