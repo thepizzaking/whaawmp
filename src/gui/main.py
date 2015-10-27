@@ -26,12 +26,12 @@
 import sys, os, signal, urllib, urlparse
 import gi
 # Needed for window.get_xid(), xvimagesink.set_window_handle(), respectively:
-gi.require_version('GdkX11', '2.0')
+gi.require_version('GdkX11', '3.0')
 gi.require_version('GstVideo', '1.0')
 from gi.repository import GdkX11, GstVideo
 gi.require_version('Gst', '1.0')
-gi.require_version('Gtk', '2.0')
-gi.require_version('Gdk', '2.0')
+gi.require_version('Gtk', '3.0')
+gi.require_version('Gdk', '3.0')
 from gi.repository import GObject, Gst, Gtk, Gdk
 from random import randint
 
@@ -66,33 +66,35 @@ class mainWindow:
 		Gtk.main_quit()
 	
 	
-	def videoWindowExpose(self, widget, event):
+	def videoWindowDraw(self, widget, event):
+		# FIXME gi transition.  Need to do something with cairo.
+		# This used to be 'expose-event'.
 		# Pull the dimensions etc.
-		rect = event.area
+		#rect = event.area
 		
 		# Let the whole thing be drawn upon.
-		colour = widget.get_style().black_gc
-		widget.window.do_draw_drawable(widget.window, colour,
-		                            self.pixmap, rect.x, rect.y, rect.x, rect.y, rect.width, rect.height)
+		#colour = widget.get_style().black_gc
+		#widget.window.do_draw_drawable(widget.window, colour,
+		#                            self.pixmap, rect.x, rect.y, rect.x, rect.y, rect.width, rect.height)
 		# Save the current video window size.
-		useful.videoWindowSize = self.pixmap.get_size()
-		# Draw the background Image.
-		if (player.isStopped() or player.player.get_property('n-video') == 0):
-			self.drawvideoWindowImage()
+		#useful.videoWindowSize = self.pixmap.get_size()
+		pass
 	
 	
 	def videoWindowConfigure(self, widget, event=None):
+		# FIXME gi.transition.  Pixmaps should be replaced by cairo.
 		# Get the window's allocation.
-		rect = widget.get_allocation()
+		#rect = widget.get_allocation()
 		
 		# Make a new pixmap (does this create a leak?)
-		self.pixmap = Gdk.Pixmap.new(widget.window, rect.width, rect.height, -1)
+		#self.pixmap = Gdk.Pixmap.new(widget.window, rect.width, rect.height, -1)
 		
 		# Fill the whole thing with black so it looks nicer (better than white).
-		colour = widget.get_style().black_gc
-		self.pixmap.do_draw_rectangle(self.pixmap, colour, True, 0, 0, rect.width, rect.height)
+		#colour = widget.get_style().black_gc
+		#self.pixmap.do_draw_rectangle(self.pixmap, colour, True, 0, 0, rect.width, rect.height)
 		# Queue the drawing area.
-		widget.queue_draw()
+		#widget.queue_draw()
+		pass
 	
 	
 	def videoWindowMotion(self, widget, event):
@@ -168,7 +170,7 @@ class mainWindow:
 	
 	def setCursor(self, mode, widget):
 		## Sets a cursor to the one specified.
-		widget.window.set_cursor(mode)
+		widget.get_property('window').set_cursor(mode)
 	
 	
 	def activateFullscreen(self, widget=None):
@@ -208,7 +210,7 @@ class mainWindow:
 	
 	def videoWindowClicked(self, widget, event):
 		# Get the even information.
-		tmp, x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.get_property('window').get_pointer()
 		
 		if (event.type == Gdk.EventType._2BUTTON_PRESS and state & Gdk.ModifierType.BUTTON1_MASK):
 			# If the window was double clicked, fullsreen toggle.
@@ -568,7 +570,7 @@ class mainWindow:
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
 		# Not sure what the first thing out is at the moment.
-		tmp, x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.get_property('window').get_pointer()
 		if (state & Gdk.ModifierType.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
@@ -587,7 +589,7 @@ class mainWindow:
 	
 	
 	def seekFromProgress(self, widget, event):
-		tmp, x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.get_property('window').get_pointer()
 		# Get the width & height of the bar.
 		alloc = widget.get_allocation()
 		maxX = alloc.width
@@ -603,7 +605,7 @@ class mainWindow:
 		# If we're not seeking, cancel.
 		if (not self.seeking): return
 		# Check if the mouse button is still down, just in case we missed it.
-		tmp, x, y, state = event.window.get_pointer()
+		tmp, x, y, state = event.get_property('window').get_pointer()
 		if (not state & Gdk.ModifierType.BUTTON1_MASK): self.seekEnd(widget, event)
 		if (cfg.getBool("gui/instantseek")):
 			# If instantaneous seek is set, seek!
@@ -668,36 +670,11 @@ class mainWindow:
 		# Destroy the timers since nothing's happening.
 		if self.tmrMin: GObject.source_remove(self.tmrMin)
 		if self.tmrSec: GObject.source_remove(self.tmrSec)
-	
-
-	def drawvideoWindowImage(self):
-		## Draws the background image.
-		# Get the width & height of the videoWindow.
-		alloc = self.videoWindow.get_allocation()
-		w = alloc.width
-		h = alloc.height
-		if (w < h):
-			# It's wider than it is high, use the width as the size
-			# & find where the image should start.
-			size = w
-			x1 = 0
-			y1 = (h - w) / 2
-		else:
-			# Do the opposite.
-			size = h
-			x1 = (w - h) / 2
-			y1 = 0
-		
-		# Get the image's path, chuck it into a pixbuf, then draw it!
-		image = os.path.join(useful.dataDir, 'images', 'whaawmp.svg')
-		# FIXME gi tansition
-		#bgPixbuf = gtk.gdk.pixbuf_new_from_file_at_size(image, size, size)
-		#self.videoWindow.window.draw_pixbuf(self.videoWindow.get_style().black_gc,bgPixbuf.scale_simple(size, size, gtk.gdk.INTERP_NEAREST), 0, 0, x1, y1)
 
 	
 	def fsActive(self):
 		## Returns True if fullscreen is active.
-		return self.mainWindow.window.get_state() & Gdk.WindowState.FULLSCREEN
+		return self.mainWindow.get_property('window').get_state() & Gdk.WindowState.FULLSCREEN
 		
 	
 	def showOpenDialogue(self, widget=None):
@@ -872,7 +849,7 @@ class mainWindow:
 		        "on_btnVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullscreen,
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
-		        "on_videoWindow_expose_event" : self.videoWindowExpose,
+		        "on_videoWindow_draw" : self.videoWindowDraw,
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
@@ -924,7 +901,7 @@ class mainWindow:
 		volVal = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
 		self.volAdj.set_value(useful.toRange(volVal, 0, 1))
 		# Set the quit on stop checkbox.
-		self.wTree.get_object("mnuiQuitOnStop").set_active(cfg.cl.quitOnEnd)
+		self.wTree.get_object("mnuiQuitOnStop").set_property('active', cfg.cl.quitOnEnd)
 		# Set up the default flags.
 		self.controlsShown = True
 		self.seeking = False
@@ -944,8 +921,7 @@ class mainWindow:
 		# Show the window.
 		self.mainWindow.show()
 		# Save the windows ID so we can use it to inhibit screensaver.
-		# FIXME gi transition.
-		#useful.winID = self.mainWindow.window.xid
+		useful.winID = self.mainWindow.get_property('window').get_xid()
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).

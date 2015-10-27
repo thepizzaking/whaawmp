@@ -289,7 +289,7 @@
                 <property name="width_request">1</property>
                 <property name="height_request">1</property>
                 <signal handler="on_videoWindow_leave_notify_event" name="leave_notify_event"/>
-                <signal handler="on_videoWindow_expose_event" name="expose_event"/>
+                <signal handler="on_videoWindow_draw" name="draw"/>
                 <signal handler="on_videoWindow_button_press_event" name="button_press_event"/>
                 <signal handler="on_videoWindow_configure_event" name="configure_event"/>
                 <signal handler="on_videoWindow_motion_notify_event" name="motion_notify_event"/>

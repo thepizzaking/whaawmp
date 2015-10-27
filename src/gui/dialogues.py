@@ -24,7 +24,7 @@
 #		is covered. (See COPYING file for more details)
 
 import gi
-gi.require_version('Gtk', '2.0')
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk
 import os
 from common import lists, useful

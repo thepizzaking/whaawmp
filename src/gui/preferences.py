@@ -24,7 +24,7 @@
 #		is covered. (See COPYING file for more details)
 
 import gi
-gi.require_version('Gtk', '2.0')
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk
 from common import useful, lists
 from common.config import cfg

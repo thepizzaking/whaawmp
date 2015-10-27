@@ -25,10 +25,9 @@
 
 import sys
 import gi
-# Needed for window.get_xid(), xvimagesink.set_window_handle(), respectively:
-gi.require_version('GdkX11', '2.0')
+# Needed forxvimagesink.set_window_handle(), respectively:
 gi.require_version('GstVideo', '1.0')
-from gi.repository import GdkX11, GstVideo
+from gi.repository import GstVideo
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
 from common import lists, useful
@@ -168,12 +167,11 @@ class Player:
 		## Sets the video output to the desired widget.
 		# FIXME gi transition. Probably need GTK3 for this now.
 		# Check https://wiki.ubuntu.com/Novacut/GStreamer1.0
-		widget.get_property('window').get_xid
 		try:
-			id = widget.window.xid
+			id = widget.get_property('window').get_xid()
 		except AttributeError:
 			id = widget.window.handle # win32
-		self.imagesink.set_xwindow_id(id)
+		self.imagesink.set_window_handle(id)
 	
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.
