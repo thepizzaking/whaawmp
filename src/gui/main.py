@@ -32,7 +32,7 @@ from gi.repository import GdkX11, GstVideo
 gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
-from gi.repository import GObject, Gst, Gtk, Gdk
+from gi.repository import GLib, Gst, Gtk, Gdk
 from random import randint
 
 from gui import dialogues, preferences
@@ -122,13 +122,14 @@ class mainWindow:
 	def removeIdleTimer(self):
 		try:
 			# Stop the timer to hide the cursor.
-			GObject.source_remove(self.idleTimer)
+			GLib.source_remove(self.idleTimer)
+			self.idleTimer = None
 		except:
 			pass
 	
 	def createIdleTimer(self):
 		# Create the timer again, with the timeout reset.
-		self.idleTimer = GObject.timeout_add(cfg.getInt("gui/mousehidetimeout"), self.hideControls)
+		self.idleTimer = GLib.timeout_add(cfg.getInt("gui/mousehidetimeout"), self.hideControls)
 	
 	
 	def showControls(self):
@@ -155,6 +156,8 @@ class mainWindow:
 				self.wTree.get_object(x).hide()
 			# Flag the controls as being hidden.
 			self.controlsShown = False
+		
+		self.idleTimer = None
 	
 	
 	def hideCursor(self, widget):
@@ -165,7 +168,7 @@ class mainWindow:
 		#pixmap = Gdk.Pixmap.new(None, 1, 1, 1)
 		#invisible = Gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
 		# Set the cursor to the one just created.
-		invisible = Gdk.Cursor.new(Gdk.CursorType.BLANK_CURSOR)
+		invisible = Gdk.Cursor.new_for_display(widget.get_display(), Gdk.CursorType.BLANK_CURSOR)
 		self.setCursor(invisible, widget)
 	
 	def setCursor(self, mode, widget):
@@ -184,7 +187,7 @@ class mainWindow:
 		for x in lists.hiddenFSWidgets:
 			self.wTree.get_object(x).hide()
 		# Unfullscreen the window when we're idle (stops weird dimensions).
-		GObject.idle_add(self.mainWindow.unfullscreen)
+		GLib.idle_add(self.mainWindow.unfullscreen)
 	
 	
 	def toggleFullscreen(self, widget=None):
@@ -512,7 +515,11 @@ class mainWindow:
 			## FIXME: Only do this once
 			useful.suspendScr()
 		
-		return player.isPlaying()
+		if player.isPlaying():
+			return True
+		else:
+			self.tmrMin = None
+			return False
 	
 	
 	def secondTimer(self):
@@ -522,7 +529,11 @@ class mainWindow:
 		#print player.player.emit('get-text-pad', 0).get_property('active-pad') #.set_property('font-desc', 'Sans 30')
 				
 		# Causes it to go again if it's playing, but stop if it's not.
-		return player.isPlaying()
+		if player.isPlaying():
+			return True
+		else:
+			self.tmrSec = None
+			return False
 		
 	
 	def progressUpdate(self, pld=None, tot=None):
@@ -627,7 +638,7 @@ class mainWindow:
 		# Just seek to 0.
 		player.seek(0)
 		# Update the progrss bar.
-		GObject.idle_add(self.progressUpdate)
+		GLib.idle_add(self.progressUpdate)
 		# Make sure the player is playing (ie. if it was paused etc)
 		player.play()
 		
@@ -643,7 +654,7 @@ class mainWindow:
 		# Set the size.
 		size = cfg.getInt("gui/iconsize")
 		# Set the icon accordingly (Not playing -> Pause button, otherwise, play.)
-		img = Gtk.Image.new_from_stock('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
+		img = Gtk.Image.new_from_icon_name('gtk-media-play' if (not playing) else 'gtk-media-pause', size)
 		
 		btn = self.wTree.get_object("btnPlayToggle")
 		# Actually set the icon.
@@ -651,11 +662,11 @@ class mainWindow:
 		# Also set the tooltip.
 		btn.set_tooltip_text(_('Pause') if (playing) else _('Play'))
 		# Set the stop button image too.
-		self.wTree.get_object("btnStop").set_image(Gtk.Image.new_from_stock('gtk-media-stop', size))
+		self.wTree.get_object("btnStop").set_image(Gtk.Image.new_from_icon_name('gtk-media-stop', size))
 		# And the next one.
-		self.wTree.get_object("btnNext").set_image(Gtk.Image.new_from_stock('gtk-media-next', size))
+		self.wTree.get_object("btnNext").set_image(Gtk.Image.new_from_icon_name('gtk-media-next', size))
 		# Restart one too.
-		self.wTree.get_object("btnRestart").set_image(Gtk.Image.new_from_stock('gtk-media-previous', size))
+		self.wTree.get_object("btnRestart").set_image(Gtk.Image.new_from_icon_name('gtk-media-previous', size))
 		
 	
 	
@@ -663,13 +674,13 @@ class mainWindow:
 		# Destroy the timers first to avoid about 20 of them.
 		self.destroyPlayTimers()
 		# Create timers that go off every minute, and second.
-		self.tmrSec = GObject.timeout_add_seconds(1, self.secondTimer)
-		self.tmrMin = GObject.timeout_add_seconds(60, self.minuteTimer)
+		self.tmrSec = GLib.timeout_add_seconds(1, self.secondTimer)
+		self.tmrMin = GLib.timeout_add_seconds(60, self.minuteTimer)
 	
 	def destroyPlayTimers(self):
 		# Destroy the timers since nothing's happening.
-		if self.tmrMin: GObject.source_remove(self.tmrMin)
-		if self.tmrSec: GObject.source_remove(self.tmrSec)
+		if self.tmrMin: GLib.source_remove(self.tmrMin)
+		if self.tmrSec: GLib.source_remove(self.tmrSec)
 
 	
 	def fsActive(self):
@@ -821,7 +832,7 @@ class mainWindow:
 		# Set the last folder to the directory from which the program was called.
 		useful.lastFolder = useful.origDir
 		# Set the application's name (for about dialogue etc).
-		GObject.set_application_name(str(useful.lName))
+		GLib.set_application_name(str(useful.lName))
 		
 		# Create & prepare the player for playing.
 		self.preparePlayer()
@@ -929,7 +940,7 @@ class mainWindow:
 			# Append all tracks to the queue.
 			queue.appendMany(cfg.args)
 			# Then play the next track.
-			GObject.idle_add(self.playNext, False)
+			GLib.idle_add(self.playNext, False)
 		
 		if (cfg.cl.fullscreen):
 			# If the fullscreen option was passed, start fullscreen.

@@ -72,7 +72,6 @@
     <property name="title" translatable="yes">Preferences</property>
     <property name="window_position">center-on-parent</property>
     <property name="type_hint">dialog</property>
-    <property name="has_separator">False</property>
     <signal handler="on_PreferencesDlg_delete_event" name="delete_event"/>
     <child internal-child="vbox">
       <object class="GtkVBox" id="dialog-vbox2">

@@ -141,7 +141,7 @@ def filenameToUri(file):
 	
 
 # Convert a version tuple to a sting.
-verTupleToStr = lambda tuple: '.'.join(map(str, tuple))
+verTupleToStr = lambda x: '.'.join(map(str, x))
 
 licenceText = """Copyright © Jeff Bailes, 2007-2011.
 

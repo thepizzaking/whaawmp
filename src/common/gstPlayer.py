@@ -35,7 +35,7 @@ from common.config import cfg
 
 
 class Player:
-	version = Gst.version
+	version = Gst.version()
 	speed = 1
 	imagesink = None
 	uri = None

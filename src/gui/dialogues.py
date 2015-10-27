@@ -53,7 +53,7 @@ class AboutDialogue:
 		# FIXME gi transition.
 		#dlg.set_logo(gtk.gdk.pixbuf_new_from_file_at_size(os.path.join(useful.dataDir, 'images', 'whaawmp800.png'), 200, 200))
 		# Set the comment.
-		dlg.set_comments("GTK+ %s, GStreamer %s" % (useful.verTupleToStr((Gtk.MAJOR_VERSION,Gtk.MINOR_VERSION,Gtk.MICRO_VERSION)), useful.verTupleToStr(player.version)))
+		dlg.set_comments("GTK+ %s, GStreamer %s" % (useful.verTupleToStr([Gtk.get_major_version(),Gtk.get_minor_version(),Gtk.get_micro_version()]), useful.verTupleToStr(player.version)))
 		
 		# Run, then destroy the dialogue.
 		dlg.run()
@@ -124,7 +124,7 @@ class PlayDVD:
 		# a single function.
 		self.spnDic = { chkTitle : spnTitle }
 		# Start the packing.
-		dlg.vbox.pack_start(label)
+		dlg.vbox.pack_start(label, True, True, 0)
 		
 		for x in self.spnDic:
 			self.spnDic[x].set_sensitive(False)
@@ -133,9 +133,9 @@ class PlayDVD:
 			# Some of these options don't work all that well yet, so disable
 			# them unless specifically told to show them.
 			hbox = Gtk.HBox()
-			hbox.pack_start(x)
-			hbox.pack_start(self.spnDic[x])
-			dlg.vbox.pack_start(hbox)
+			hbox.pack_start(x, True, True, 0)
+			hbox.pack_start(self.spnDic[x], True, True, 0)
+			dlg.vbox.pack_start(hbox, True, True, 0)
 		
 		# Set the default response.
 		dlg.set_default_response(Gtk.ResponseType.OK)
@@ -179,8 +179,8 @@ class OpenURI:
 		entry = Gtk.Entry()
 		entry.set_size_request(350, -1)
 		entry.connect('activate', self.onResponse, True, dlg)
-		dlg.vbox.pack_start(label)
-		dlg.vbox.pack_start(entry)
+		dlg.vbox.pack_start(label, True, True, 0)
+		dlg.vbox.pack_start(entry, True, True, 0)
 		# Show all the dialogues.
 		dlg.show_all()
 		
@@ -212,14 +212,14 @@ class SelectAudioTrack:
 		# Create the label.
 		label = Gtk.Label(_("Audio:"))
 		label.set_alignment(0, 0.5)
-		dlg.vbox.pack_start(label)
+		dlg.vbox.pack_start(label, True, True, 0)
 		# For all the tracks, create a radio button.
 		group = Gtk.RadioButton()
 		buttons = []
 		for x in range(len(tracks)):
 			button = Gtk.RadioButton(group, '%d. %s' % (x, tracks[x]))
 			button.connect('toggled', self.buttonToggled, x)
-			dlg.vbox.pack_start(button)
+			dlg.vbox.pack_start(button, True, True, 0)
 			buttons.append(button)
 		
 		# Set the current active button to active.
@@ -263,11 +263,11 @@ class MsgBox:
 		hbox = Gtk.HBox()
 		if (icon):
 			# If an icon was specified, pack it first.
-			hbox.pack_start(icon)
+			hbox.pack_start(icon, True, True, 0)
 		label = Gtk.Label(message)
 		label.set_selectable(True)
-		hbox.pack_start(label)
-		dlg.vbox.pack_start(hbox)
+		hbox.pack_start(label, True, True, 0)
+		dlg.vbox.pack_start(hbox, True, True, 0)
 		# Show then destroy the dialogue.
 		dlg.show_all()
 		dlg.run()
@@ -298,20 +298,20 @@ class SupportedFeatures:
 			# pack the HBox into a VBox and then the VBox
 			# into the dialogue.
 			hbox = Gtk.HBox(spacing=7)
-			hbox.pack_start(img, False, False)
-			hbox.pack_start(Gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))))
+			hbox.pack_start(img, False, False, 0)
+			hbox.pack_start(Gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))), True, True, 0)
 			vbox = Gtk.VBox(spacing=7)
 			vbox.set_border_width(10)
-			vbox.pack_start(hbox, False, False)
-			dlg.vbox.pack_start(vbox, False, False)
+			vbox.pack_start(hbox, False, False, 0)
+			dlg.vbox.pack_start(vbox, False, False, 0)
 		
 		# Displaying library versions.
 		lbl = Gtk.Label("<b>"+_("Library Versions:")+"</b>")
 		lbl.set_use_markup(True)
 		lbl.set_alignment(0, 0.5)
-		vbox.pack_start(lbl)
-		vbox.pack_start(Gtk.Label("GTK+ - %s" % useful.verTupleToStr((Gtk.MAJOR_VERSION,Gtk.MINOR_VERSION,Gtk.MICRO_VERSION))))
-		vbox.pack_start(Gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)))
+		vbox.pack_start(lbl, True, True, 0)
+		vbox.pack_start(Gtk.Label("GTK+ - %s" % useful.verTupleToStr([Gtk.get_major_version(),Gtk.get_minor_version(),Gtk.get_micro_version()])), True, True, 0)
+		vbox.pack_start(Gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)), True, True, 0)
 		
 		# Show run and destroy it.
 		dlg.show_all()

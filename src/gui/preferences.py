@@ -174,7 +174,7 @@ class Dialogue:
 	def prepareAudioDevCmb(self):
 		## Prepares the audio device combo box.
 		# Create the combo box for the selection.
-		audioCmbBox = Gtk.ComboBox.new_text()
+		audioCmbBox = Gtk.ComboBox.new()
 		self.wTree.get_object('hboxAudioDevice').pack_end(audioCmbBox, True, True, 0)
 		audioCmbBox.connect('changed', self.changeAudioDevice)
 		audioCmbBox.show()

@@ -238,7 +238,7 @@ class queues():
 		#self.qwin.drag_dest_set(Gtk.DestDefaults.ALL, [("text/uri-list", 0, 0)], Gdk.DragAction.COPY)
 		self.qwin.connect('drag-data-received', self.enqueueDropped)
 		# Create the tree view.
-		self.tree = Gtk.TreeView(self.list)
+		self.tree = Gtk.TreeView.new_with_model(self.list)
 		# Add a text renderer for the display column & add it to the view.
 		renderer = Gtk.CellRendererText()
 		column = Gtk.TreeViewColumn(_("Queued Tracks:"), renderer, text=1)
@@ -254,15 +254,15 @@ class queues():
 		scrolly.add(self.tree)
 		# Create a clear button which clears the queue.
 		btnClear = Gtk.Button()
-		btnClear.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_CLEAR, Gtk.IconSize.SMALL_TOOLBAR))
+		btnClear.set_image(Gtk.Image.new_from_icon_name(Gtk.STOCK_CLEAR, Gtk.IconSize.SMALL_TOOLBAR))
 		btnClear.connect('clicked', self.clear)
 		# Add a remove button which removes the currently selected item.
 		btnRemove = Gtk.Button()
-		btnRemove.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_REMOVE, Gtk.IconSize.SMALL_TOOLBAR))
+		btnRemove.set_image(Gtk.Image.new_from_icon_name(Gtk.STOCK_REMOVE, Gtk.IconSize.SMALL_TOOLBAR))
 		btnRemove.connect('clicked', self.removeSelected)
 		# How about an 'add' button too.
 		btnAdd = Gtk.Button()
-		btnAdd.set_image(Gtk.Image.new_from_stock(Gtk.STOCK_ADD, Gtk.IconSize.SMALL_TOOLBAR))
+		btnAdd.set_image(Gtk.Image.new_from_icon_name(Gtk.STOCK_ADD, Gtk.IconSize.SMALL_TOOLBAR))
 		btnAdd.connect('clicked', self.startAddDialogue)
 		# Create a horizontal box and add the clear & remove buttons to it.
 		hBox = Gtk.HBox()
