@@ -102,14 +102,14 @@ class Player:
 	def getPlayed(self):
 		# Returns the played time (in nanoseconds).
 		try:
-			return self.player.query_position(Gst.FORMAT_TIME)[0]
+			return self.player.query_position(Gst.Format.TIME)[1]
 		except:
 			return 0
 	
 	def getDuration(self):
 		# Returns the duration (nanoseconds).
 		try:
-			return self.player.query_duration(gst.Format.TIME)[0]
+			return self.player.query_duration(Gst.Format.TIME)[1]
 		except:
 			return 0
 	

@@ -341,8 +341,6 @@ class mainWindow:
 			
 		elif (old == Gst.State.PAUSED and new == Gst.State.READY):
 			# Stop message (goes through paused when stopping).
-			# Draw the background image.
-			self.drawvideoWindowImage()
 			# Reset the progress bar.
 			self.progressUpdate()
 			# Clear the title.
@@ -542,6 +540,7 @@ class mainWindow:
 			# Otherwise (playing or paused), get the track time data, set
 			# the progress bar fraction.
 			if (pld == None or tot == None): pld, tot = player.getTimesSec()
+			print pld, tot
 			self.progressBar.set_fraction(pld / tot if (tot > 0) else 0)
 		
 		# Convert played & total time to integers
