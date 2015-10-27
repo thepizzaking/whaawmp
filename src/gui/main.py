@@ -162,12 +162,7 @@ class mainWindow:
 	
 	def hideCursor(self, widget):
 		## Hides the cursor.
-		# The colour of the cursor (r, g, b) = (0, 0, 0).
-		#colour = Gdk.Color(0, 0, 0)
-		# Create the hidden cursor.
-		#pixmap = Gdk.Pixmap.new(None, 1, 1, 1)
-		#invisible = Gdk.Cursor(pixmap, pixmap, colour, colour, 0, 0)
-		# Set the cursor to the one just created.
+		# Create and set a hidden cursor.
 		invisible = Gdk.Cursor.new_for_display(widget.get_display(), Gdk.CursorType.BLANK_CURSOR)
 		self.setCursor(invisible, widget)
 	
