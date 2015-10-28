@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <interface domain="whaawmp">
-  <requires lib="gtk+" version="2.12"/>
+  <requires lib="gtk+" version="3.0"/>
   <object class="GtkAdjustment" id="adjustment1">
     <property name="upper">110</property>
     <property name="lower">0</property>
@@ -431,9 +431,21 @@
               </packing>
             </child>
             <child>
+              <object class="GtkLabel" id="lblElapsed">
+				<property name="visible">True</property>
+                <property name="label">0:00</property>
+              </object>
+              <packing>
+				  <property name="position">4</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+			  </packing>
+			</child>
+            <child>
               <object class="GtkHScale" id="pbarProgress">
 		<property name="visible">True</property>
 		<property name="sensitive">False</property>
+		<property name="draw-value">False</property>
 		<property name="digits">0</property>
 		<property name="events">GDK_POINTER_MOTION_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK</property>
                 <signal handler="on_pbarProgress_button_press_event" name="button_press_event"/>
@@ -442,9 +454,20 @@
 		<signal handler="on_pbarProgress_change_value" name="change_value"/>
               </object>
               <packing>
-                <property name="position">4</property>
+                <property name="position">5</property>
               </packing>
             </child>
+            <child>
+              <object class="GtkLabel" id="lblDuration">
+				<property name="visible">True</property>
+                <property name="label"></property>
+              </object>
+              <packing>
+				  <property name="position">6</property>
+				  <property name="expand">False</property>
+				  <property name="fill">False</property>
+			  </packing>
+			</child>
             <child>
               <object class="GtkButton" id="btnLeaveFullscreen">
                 <property name="can_focus">True</property>

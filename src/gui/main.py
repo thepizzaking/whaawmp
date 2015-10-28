@@ -330,9 +330,11 @@ class mainWindow:
 			# Make an Adjustment object for the progress bar.
 			# FIXME: Probably put this into a helper function.
 			self.progressAdj = Gtk.Adjustment(value=player.getPlayedSec(), lower=0, upper=player.getDurationSec())
-			#self.progressAdj.connect('change-value', self.seekFromProgress)
+			# Maybe only want to do this if we can get the duration.
+			self.lblDuration.set_property('visible', True)
 			self.progressBar.set_adjustment(self.progressAdj)
 			self.progressBar.set_property('sensitive', True)
+			self.progressUpdate()
 		
 		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
@@ -543,7 +545,12 @@ class mainWindow:
 	
 	def progressUpdate(self, pld=None, tot=None):
 		# FIXME Trying to change this to a HScale.
-		if self.progressAdj: self.progressAdj.set_value(player.getPlayedSec())
+		# Change the progress bar's adjustment value to new elapsed time.
+		elapsed = player.getPlayedSec()
+		duration = player.getDurationSec()
+		if self.progressAdj: self.progressAdj.set_value(elapsed)
+		self.lblElapsed.set_property('label', useful.secToStr(int(elapsed)))
+		self.lblDuration.set_property('label', useful.secToStr(int(duration - (cfg.getBool('gui/showtimeremaining') * elapsed))))
 		return
 		## Updates the progress bar.
 		if (player.isStopped()):
@@ -903,6 +910,8 @@ class mainWindow:
 		# Get several items for access later.
 		useful.mainWin = self.mainWindow = self.wTree.get_object(windowname)
 		self.progressBar = self.wTree.get_object("pbarProgress")
+		self.lblElapsed = self.wTree.get_object("lblElapsed")
+		self.lblDuration = self.wTree.get_object("lblDuration")
 		self.videoWindow = self.wTree.get_object("videoWindow")
 		self.nowPlyLbl = self.wTree.get_object("lblNowPlaying")
 		self.volAdj = self.wTree.get_object("btnVolume").get_adjustment()
