@@ -26,7 +26,7 @@
 import os
 import gi
 gi.require_version('Gst', '1.0')
-from gi.repository import Gst, GObject
+from gi.repository import Gst, GLib
 from common import useful
 from common.config import cfg
 from common.gstPlayer import player
@@ -101,7 +101,7 @@ class FileTag:
 	def nextTrack(self):
 		## Read the next files tags.
 		# Stop the player before anything else, and timer.
-		if self.timer: GObject.Source.remove(self.timer)
+		if self.timer: GLib.Source.remove(self.timer)
 		self.player.set_state(Gst.State.READY)
 		if (not len(self.queue)):
 			# If the queue is empty, unlock and return.
@@ -117,7 +117,7 @@ class FileTag:
 		# Reset number of trys and start a timer to attempt to read the
 		# tags. (every second).
 		self.trys = 0
-		self.timer = GObject.timeout_add_seconds(1, self.tryTags)
+		self.timer = GLib.timeout_add_seconds(1, self.tryTags)
 	
 	def onMessage(self, bus, message):
 		## Called when a message is emitted, from the playbin.

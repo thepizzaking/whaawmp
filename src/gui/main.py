@@ -33,6 +33,8 @@ gi.require_version('Gst', '1.0')
 gi.require_version('Gtk', '3.0')
 gi.require_version('Gdk', '3.0')
 from gi.repository import GLib, Gst, Gtk, Gdk
+Gst.init(None)
+
 from random import randint
 
 from gui import dialogues, preferences
@@ -52,6 +54,8 @@ class mainWindow:
 	tmrSec = None
 	# Holds the URI for the currently displayed window's title.
 	titlesURI = None
+	# Holds the xid for the video area.
+	vidxid = None
 	
 	
 	def quit(self, widget=None, event=None):
@@ -201,7 +205,7 @@ class mainWindow:
 		self.videoWindowConfigure(widget)
 		
 		# Set the image sink accordingly.
-		player.setImgSink(widget)
+		player.setImgSink(self.vidxid)
 		
 		return False
 	
@@ -255,7 +259,7 @@ class mainWindow:
 	def toggleAdvancedControls(self):
 		# Toggle the advanced controls.
 		menuItm = self.wTree.get_object("mnuiAdvCtrls")
-		menuItm.set_active(not menuItm.get_active())
+		menuItm.set_property('active', not menuItm.get_property('active'))
 	
 	
 	def gotoDVDMenu(self,widget):
@@ -278,16 +282,16 @@ class mainWindow:
 	def onPlayerMessage(self, bus, message):
 		t = message.type
 		if (t == Gst.MessageType.EOS):
-			if (self.wTree.get_object("mnuiRepeatOne").get_active()):
+			if (self.wTree.get_object("mnuiRepeatOne").get_property('active')):
 				player.seek(0)
 			else:
-				if (self.wTree.get_object("mnuiRepeatAll").get_active()):
+				if (self.wTree.get_object("mnuiRepeatAll").get_property('active')):
 					queue.append(player.uri)
 				# At the end of a stream, play next item from queue.
 				# Or stop if the queue is empty.
 				if (queue.length() > 0):
 					self.playNext(atf=False)
-				elif (self.wTree.get_object("mnuiQuitOnStop").get_active()):
+				elif (self.wTree.get_object("mnuiQuitOnStop").get_property('active')):
 					# Quit of the 'quit on stop' option is enabled.
 					self.quit()
 				else:
@@ -320,7 +324,7 @@ class mainWindow:
 			# Get the array of audio tracks.
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
-			self.wTree.get_object('mnuiAudioTrack').set_sensitive(len(self.audioTracks) > 1)
+			self.wTree.get_object('mnuiAudioTrack').set_property('sensitive', len(self.audioTracks) > 1)
 		
 		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
@@ -397,7 +401,7 @@ class mainWindow:
 		selection = 0
 		## Plays the next file in the queue (if it exists).
 		# Are we random?
-		if self.wTree.get_object("mnuiRandom").get_active():
+		if self.wTree.get_object("mnuiRandom").get_property('active'):
 			selection = randint(0, queue.length()-1)
 		isvideo = queue.isTrackVideo(selection)
 		# If we've just started Whaawmp, self.isvideo is None
@@ -693,7 +697,7 @@ class mainWindow:
 			# Set the last folder, (if it exists).
 			if (dlg.dir): useful.lastFolder = dlg.dir
 			
-			if dlg.chkSubs.get_active():
+			if dlg.chkSubs.get_property('active'):
 				# If the user want's subtitles, let them choose the stream.
 				dlg2 = dialogues.OpenFile(self.mainWindow, useful.lastFolder, multiple=False, useFilter=False, title=_("Choose a Subtitle Stream"))
 				if dlg2.files:
@@ -740,7 +744,7 @@ class mainWindow:
 	def toggleQueueWindow(self, widget=None, event=None):
 		if (widget is self.wTree.get_object('mnuiQueue')):
 			# If the call is from the menu item use its tick box value.
-			toShow = widget.get_active()
+			toShow = widget.get_property('active')
 			queue.toggle(toShow)
 		else:
 			# Otherwise just toggle it.
@@ -755,7 +759,7 @@ class mainWindow:
 	def toggleAdvControls(self, widget=None):
 		## Toggles the advanced controls.
 		# Get the menu item's state so we know to show or hide.
-		toShow = widget.get_active()
+		toShow = widget.get_property('active')
 		# Get the hbox, then show or hide it accordingly.
 		ctrls = self.wTree.get_object("hboxAdvCtrls")
 		if (toShow):
@@ -926,6 +930,7 @@ class mainWindow:
 		self.mainWindow.show()
 		# Save the windows ID so we can use it to inhibit screensaver.
 		useful.winID = self.mainWindow.get_property('window').get_xid()
+		self.vidxid = self.videoWindow.get_property('window').get_xid()
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).

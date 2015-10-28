@@ -32,6 +32,7 @@ gi.require_version('Gst', '1.0')
 from gi.repository import Gst
 from common import lists, useful
 from common.config import cfg
+import warnings
 
 
 class Player:
@@ -163,15 +164,17 @@ class Player:
 		self.setSaturation(s)
 	
 	
-	def setImgSink(self, widget):
+	def setImgSink(self, xid):
 		## Sets the video output to the desired widget.
-		# FIXME gi transition. Probably need GTK3 for this now.
-		# Check https://wiki.ubuntu.com/Novacut/GStreamer1.0
-		try:
-			id = widget.get_property('window').get_xid()
-		except AttributeError:
-			id = widget.window.handle # win32
-		self.imagesink.set_window_handle(id)
+		# Used to sort of work on windows, though I doubt it does now.
+		#try:
+		#	id = widget.get_property('window').get_xid()
+		#except AttributeError:
+		#	id = widget.window.handle # win32
+		if xid:
+			self.imagesink.set_window_handle(xid)
+		else:
+			warnings.warn("xid was not set, don't think this should happen, video won't be in player window.", Warning)
 	
 	def setForceAspectRatio(self, val):
 		## Toggles force aspect ratio on or off.
