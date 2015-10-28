@@ -328,8 +328,11 @@ class mainWindow:
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_object('mnuiAudioTrack').set_property('sensitive', len(self.audioTracks) > 1)
 			# Make an Adjustment object for the progress bar.
+			# FIXME: Probably put this into a helper function.
 			self.progressAdj = Gtk.Adjustment(value=player.getPlayedSec(), lower=0, upper=player.getDurationSec())
+			#self.progressAdj.connect('change-value', self.seekFromProgress)
 			self.progressBar.set_adjustment(self.progressAdj)
+			self.progressBar.set_property('sensitive', True)
 		
 		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
@@ -604,7 +607,11 @@ class mainWindow:
 			self.seeking = False
 	
 	
-	def seekFromProgress(self, widget, event):
+	def seekFromProgress(self, widget, event=None, haha=None):
+		# FIXME: A quick fix so that seeking works.
+		# Should also remove the 'event' part once everything else is fixed.
+		player.seek(useful.sTons(self.progressAdj.get_property('value')))
+		return
 		x, y = event.get_coords()
 		# Get the width & height of the bar.
 		alloc = widget.get_allocation()
@@ -862,6 +869,7 @@ class mainWindow:
 		        "on_pbarProgress_button_press_event" : self.progressBarClick,
 		        "on_pbarProgress_button_release_event" : self.seekEnd,
 		        "on_pbarProgress_motion_notify_event" : self.progressBarMotion,
+		        "on_pbarProgress_change_value" : self.seekFromProgress,
 		        "on_btnVolume_value_changed" : self.changeVolume,
 		        "on_mnuiFS_activate" : self.toggleFullscreen,
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,

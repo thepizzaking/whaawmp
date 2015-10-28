@@ -49,8 +49,9 @@ linkHandler = 'xdg-open'
 
 # Converts nanoseconds to seconds.
 nsTos = lambda ns: float(ns) / 1000000000
-# Seconds to miliseconds.
+# Seconds to miliseconds and nanoseconds.
 sToms = lambda s: 1000 * s
+sTons = lambda s: 1000000000 * s
 
 # Suspends the screensaver using xdg-screensaver.
 suspendScr = lambda: os.system('xdg-screensaver suspend %d &' % winID)
