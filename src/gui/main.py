@@ -56,6 +56,8 @@ class mainWindow:
 	titlesURI = None
 	# Holds the xid for the video area.
 	vidxid = None
+	# Holds the progress bar adjustment.
+	progressAdj = None
 	
 	
 	def quit(self, widget=None, event=None):
@@ -211,13 +213,13 @@ class mainWindow:
 	
 	
 	def videoWindowClicked(self, widget, event):
-		# Get the even information.
-		tmp, x, y, state = event.get_property('window').get_pointer()
+		# Get the event information.
+		button = event.get_button()[1]
 		
-		if (event.type == Gdk.EventType._2BUTTON_PRESS and state & Gdk.ModifierType.BUTTON1_MASK):
+		if (event.type == Gdk.EventType._2BUTTON_PRESS and button == Gdk.BUTTON_PRIMARY):
 			# If the window was double clicked, fullsreen toggle.
 			self.toggleFullscreen()
-		elif (event.type == Gdk.EventType.BUTTON_PRESS and state & Gdk.ModifierType.BUTTON2_MASK):
+		elif (event.type == Gdk.EventType.BUTTON_PRESS and button == Gdk.BUTTON_MIDDLE):
 			# If it was middle clicked, toggle play/pause.
 			self.togglePlayPause()
 		else:
@@ -325,6 +327,9 @@ class mainWindow:
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_object('mnuiAudioTrack').set_property('sensitive', len(self.audioTracks) > 1)
+			# Make an Adjustment object for the progress bar.
+			self.progressAdj = Gtk.Adjustment(value=player.getPlayedSec(), lower=0, upper=player.getDurationSec())
+			self.progressBar.set_adjustment(self.progressAdj)
 		
 		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
@@ -534,6 +539,9 @@ class mainWindow:
 		
 	
 	def progressUpdate(self, pld=None, tot=None):
+		# FIXME Trying to change this to a HScale.
+		if self.progressAdj: self.progressAdj.set_value(player.getPlayedSec())
+		return
 		## Updates the progress bar.
 		if (player.isStopped()):
 			# If the player is stopped, played time and total should 
@@ -578,8 +586,8 @@ class mainWindow:
 	def progressBarClick(self, widget, event):
 		## The progress bar has been clicked.
 		# Not sure what the first thing out is at the moment.
-		tmp, x, y, state = event.get_property('window').get_pointer()
-		if (state & Gdk.ModifierType.BUTTON1_MASK and not player.isStopped() and player.getDuration()):
+		button = event.get_button()[1]
+		if (button == Gdk.BUTTON_PRIMARY and not player.isStopped() and player.getDuration()):
 			# If it's button 1, it's not stopped and the duration exists: start seeking.
 			self.seeking = True
 			self.progressBarMotion(widget, event)
@@ -597,7 +605,7 @@ class mainWindow:
 	
 	
 	def seekFromProgress(self, widget, event):
-		tmp, x, y, state = event.get_property('window').get_pointer()
+		x, y = event.get_coords()
 		# Get the width & height of the bar.
 		alloc = widget.get_allocation()
 		maxX = alloc.width
@@ -613,15 +621,15 @@ class mainWindow:
 		# If we're not seeking, cancel.
 		if (not self.seeking): return
 		# Check if the mouse button is still down, just in case we missed it.
-		tmp, x, y, state = event.get_property('window').get_pointer()
-		if (not state & Gdk.ModifierType.BUTTON1_MASK): self.seekEnd(widget, event)
+		x, y = event.get_coords()
+		button = event.get_button()[1]
+		if (not button == Gdk.BUTTON_PRIMARY): self.seekEnd(widget, event)
 		if (cfg.getBool("gui/instantseek")):
 			# If instantaneous seek is set, seek!
 			self.seekFromProgress(widget, event)
 			return
 		
 		# Get the mouse co-ordinates, the width of the bar and the file duration.
-		x, y = event.get_coords()
 		maxX = widget.get_allocation().width
 		dur = player.getDurationSec()
 		# Convert the information to a fraction, and make sure 0 <= frac <= 1
@@ -904,7 +912,7 @@ class mainWindow:
 		#self.wTree.get_object('lblNumQueued').drag_dest_set(Gtk.DestDefaults.ALL, [("text/uri-list", 0, 0)], Gdk.DragAction.COPY)
 		self.wTree.get_object('lblNumQueued').connect('drag-data-received', queue.enqueueDropped)
 		# Update the progress bar.
-		self.progressUpdate()
+		#self.progressUpdate()
 		# Get the volume from the configuration.
 		volVal = cfg.getFloat("audio/volume") if (cfg.cl.volume == None) else float(cfg.cl.volume)
 		self.volAdj.set_value(useful.toRange(volVal, 0, 1))

@@ -276,8 +276,10 @@ class MsgBox:
 class SupportedFeatures:
 	def __init__(self, parent):
 		# Shows a list of supported features.
-		dlg = Gtk.Dialog(_("Supported Features"), parent,
-		                 buttons=(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE))
+		dlg = Gtk.Dialog()
+		dlg.set_property('title', _("Supported Features"))
+		dlg.set_property('transient_for', parent)
+		dlg.add_buttons(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 		dlg.set_resizable(False)
 		
 		# Import the librarys needed to check availability.
@@ -293,25 +295,26 @@ class SupportedFeatures:
 			# Make an image and assign to it an icon according to the feature's availability.
 			img = Gtk.Image()
 			icon = Gtk.STOCK_APPLY if a else Gtk.STOCK_CANCEL
-			img.set_from_stock(icon, 2)
+			img.set_from_icon_name(icon, 2)
 			# Pack in the button and a label into an HBox,
 			# pack the HBox into a VBox and then the VBox
 			# into the dialogue.
 			hbox = Gtk.HBox(spacing=7)
 			hbox.pack_start(img, False, False, 0)
-			hbox.pack_start(Gtk.Label("%s - %s" % (x, _("Available") if a else _("Unavailable"))), True, True, 0)
+			hbox.pack_start(Gtk.Label.new("%s - %s" % (x, _("Available") if a else _("Unavailable"))), True, True, 0)
 			vbox = Gtk.VBox(spacing=7)
 			vbox.set_border_width(10)
 			vbox.pack_start(hbox, False, False, 0)
 			dlg.vbox.pack_start(vbox, False, False, 0)
 		
 		# Displaying library versions.
-		lbl = Gtk.Label("<b>"+_("Library Versions:")+"</b>")
+		lbl = Gtk.Label.new("<b>"+_("Library Versions:")+"</b>")
 		lbl.set_use_markup(True)
-		lbl.set_alignment(0, 0.5)
+		lbl.set_xalign(0)
+		lbl.set_yalign(0.5)
 		vbox.pack_start(lbl, True, True, 0)
-		vbox.pack_start(Gtk.Label("GTK+ - %s" % useful.verTupleToStr([Gtk.get_major_version(),Gtk.get_minor_version(),Gtk.get_micro_version()])), True, True, 0)
-		vbox.pack_start(Gtk.Label("GStreamer - %s" % useful.verTupleToStr(player.version)), True, True, 0)
+		vbox.pack_start(Gtk.Label.new("GTK+ - %s" % useful.verTupleToStr([Gtk.get_major_version(),Gtk.get_minor_version(),Gtk.get_micro_version()])), True, True, 0)
+		vbox.pack_start(Gtk.Label.new("GStreamer - %s" % useful.verTupleToStr(player.version)), True, True, 0)
 		
 		# Show run and destroy it.
 		dlg.show_all()

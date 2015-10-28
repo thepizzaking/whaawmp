@@ -279,11 +279,11 @@ class Player:
 	def sendNavigationKeypress(self, keyname):
 		# Reacts to someone pressing a key on the video window.
 		# Create the structure.
-		structure = Gst.Structure("application/x-gst-navigation")
+		structure = Gst.Structure.new_from_string("application/x-gst-navigation")
 		structure.set_value("event", "key-press")
 		structure.set_value("key", keyname)
 		# Send the event.
-		return self.player.get_property('video-sink').get_pad('navPad').send_event(Gst.Event.new_navigation(structure))
+		return self.player.get_property('video-sink').get_static_pad('navPad').send_event(Gst.Event.new_navigation(structure))
 
 	
 	def setVisualisation(self, enable):
