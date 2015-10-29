@@ -65,13 +65,15 @@ class OpenFile:
 		## Does an open dialogue, puts the directory into dir and the file
 		## in to file.
 		# Create the dialogue.
-		dlg = Gtk.FileChooserDialog(title, parent,
-		                  buttons = (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-		                             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+		dlg = Gtk.FileChooserDialog()
+		dlg.set_property('title', title)
+		dlg.set_property('transient_for', parent)
+		dlg.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+		                Gtk.STOCK_OPEN,   Gtk.ResponseType.OK)
 		
 		# Add a subtitle checkbox (if allowed).
 		if allowSub:
-			chkSubs = Gtk.CheckButton(_("Also Choose Subtitle Stream"))
+			chkSubs = Gtk.CheckButton.new_with_label(_("Also Choose Subtitle Stream"))
 			chkSubs.set_has_tooltip(True)
 			chkSubs.set_tooltip_text(_("After choosing the file to open, also choose a subtitle stream."))
 			self.chkSubs = chkSubs
@@ -111,15 +113,24 @@ class PlayDVD:
 	def __init__(self, parent):
 		## Creates the play DVD dialogue.
 		# Create the dialogue.
-		dlg = Gtk.Dialog(_("Play DVD"), parent,
-		                    buttons = (Gtk.STOCK_CANCEL, gtk.ResponseType.CANCEL,
-		                               Gtk.STOCK_OK, gtk.ResponseType.OK))
+		dlg = Gtk.Dialog()
+		dlg.set_property('title', _("Play DVD"))
+		dlg.set_property('transient_for', parent)
+		dlg.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+		                Gtk.STOCK_OK,     Gtk.ResponseType.OK)
 		
 		# Create the Labels, checkboxes and spin buttons.
-		label = Gtk.Label(_("Select options:"))
-		label.set_alignment(0, 0.5)
-		chkTitle = Gtk.CheckButton(_("Title: "))
-		spnTitle = Gtk.SpinButton(Gtk.Adjustment(1, 1, 500, 1, 1, 0))
+		label = Gtk.Label.new(_("Select options:"))
+		label.set_xalign(0)
+		label.set_yalign(0.5)
+		chkTitle = Gtk.CheckButton(label=_("Title: "))
+		spnTitle = Gtk.SpinButton()
+		spnTitle.set_adjustment(Gtk.Adjustment(value=1,
+		                                       lower=1,
+		                                       upper=500,
+		                                       step_increment=1,
+		                                       page_increment=1,
+		                                       page_size=0))
 		# Add them to a dictionary so I can handle all the checkboxes with
 		# a single function.
 		self.spnDic = { chkTitle : spnTitle }
@@ -169,13 +180,16 @@ class OpenURI:
 		# Initially flag the response as None.
 		self.res = None
 		# Create the dialogue.
-		dlg = Gtk.Dialog(_("Open a URI"), parent,
-		                  buttons = (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-		                             Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+		dlg = Gtk.Dialog()
+		dlg.set_property('title', _("Open a URI"))
+		dlg.set_property('transient_for', parent)
+		dlg.add_buttons(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+		                Gtk.STOCK_OPEN, Gtk.ResponseType.OK)
 		
 		# Create the label and entry, then pack them.
-		label = Gtk.Label(_("Enter the URI:"))
-		label.set_alignment(0, 0.5)
+		label = Gtk.Label.new(_("Enter the URI:"))
+		label.set_xalign(0)
+		label.set_yalign(0.5)
 		entry = Gtk.Entry()
 		entry.set_size_request(350, -1)
 		entry.connect('activate', self.onResponse, True, dlg)
@@ -206,12 +220,15 @@ class SelectAudioTrack:
 	def __init__(self, parent, tracks):
 		cur = player.getAudioTrack()
 		# Creates an audio track selector dialogue.
-		dlg = Gtk.Dialog(_("Select Tracks"), parent,
-		                  buttons = (Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE))
+		dlg = Gtk.Dialog()
+		dlg.set_property('title', _("Select Tracks"))
+		dlg.set_property('transient_for', parent)
+		dlg.add_buttons(Gtk.STOCK_CLOSE, Gtk.ResponseType.CLOSE)
 		
 		# Create the label.
-		label = Gtk.Label(_("Audio:"))
-		label.set_alignment(0, 0.5)
+		label = Gtk.Label.new(_("Audio:"))
+		label.set_xalign(0)
+		label.set_yalign(0.5)
 		dlg.vbox.pack_start(label, True, True, 0)
 		# For all the tracks, create a radio button.
 		group = Gtk.RadioButton()
