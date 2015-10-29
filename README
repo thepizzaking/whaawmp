@@ -3,17 +3,17 @@ Written by Jeff Bailes.
 
 Before you try to install or run Whaaw! Media Player you should check that you
 have all the required dependencies, these include:
-python2 >= 2.5
-pygtk >= 2.12
-gstreamer-python2 >= 0.10
-gstreamer-base >= 0.10.17
-gstreamer-good >= 0.10 (for the videobalance and goom plugins)
+python3
+python-gobject >= 3.0
+gtk+ >= 3.0
+gstreamer >= 1.0
+gstreamer-base >= 1.0
+gstreamer-good >= 1.0 (for the videobalance and goom plugins)
 py2xdg
 
 Optional dependencies include:
 dbus-python >= 0.80 ? (Not too sure about the version)
-gstreamer-bad >= 0.10.8 (compiled with resindvd support) for DVD menu support
-python2-rsvg (Draws the background picture, not important for anything much)
+gstreamer-bad >= 1.0 (compiled with resindvd support) for DVD menu support
 
 I think that's about it (well, the ones I know about), the package names may
 differ depending on your distribution, you will also need other gstreamer
@@ -26,16 +26,16 @@ manager is recommended.  See the below for a list of files which are
 installed.
 
 Now, onto the building etc etc.
--To compile & install the files use: python2 setup.py install
+-To compile & install the files use: python3 setup.py install
 --There are --prefix and --root options (see ./setup.py --help for more
 information)
 -For checkinstall run: 'checkinstall ./setup.py install'
--If python3 is the default python on your system, setup.py should
-automatically detect that it's being run by python2 and modify the
+-If python2 is the default python on your system, setup.py should
+automatically detect that it's being run by python3 and modify the
 executable scripts accordingly.
 
 eg. To install to /usr:
-python2 setup.py install --prefix=/usr
+python3 setup.py install --prefix=/usr
 
 To run it afterwards, use whaawmp to start Whaaw! Media Player.
 
