@@ -153,7 +153,7 @@ class FileTag:
 			func(uri, tags, isvideo, *args)
 		else:
 			# This is getting hit at the moment.  Will need to investigate.
-			print _("Something bad happened which shouldn't, current data did not match player URI")
+			print(_("Something bad happened which shouldn't, current data did not match player URI"))
 	
 	
 	def __init__(self):

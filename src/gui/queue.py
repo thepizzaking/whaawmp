@@ -26,7 +26,7 @@
 import gi
 gi.require_version('Gtk','3.0')
 from gi.repository import GObject, Gtk, Gdk
-import os, urllib, urlparse
+import os, urllib, urllib.request
 from gui import dialogues
 from common import gstTagger as tagger
 from common import useful
@@ -210,7 +210,7 @@ class queues():
 		uris = selection_data.data.strip().split()
 		# Add all the items to the queue.
 		for uri in uris:
-			path = urllib.url2pathname(urlparse.urlparse(uri)[2])
+			path = urllib.request.url2pathname(urllib.parse.urlparse(uri)[2])
 			self.append(path)
 		# Finish the drag.
 		context.finish(True, False, time)

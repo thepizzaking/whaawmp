@@ -60,8 +60,8 @@ resumeScr = lambda: os.system('xdg-screensaver resume %d &' % winID)
 
 def secToStr(s):
 	## Converts seconds into a string of H:M:S
-	h = s / 3600
-	m = (s % 3600) / 60
+	h = s // 3600
+	m = (s % 3600) // 60
 	s = s % 60
 	# Only print hours if it doesn't equal 0.
 	if (h != 0):

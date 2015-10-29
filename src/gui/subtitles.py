@@ -165,7 +165,7 @@ def trySubs(file):
 			# If the subtitle file exists DO IT!
 			player.player.set_property('suburi', useful.filenameToUri(subPath))
 			player.player.set_property('subtitle-encoding', cfg.getStr('video/subenc'))
-			print _("Found subtitles stream %s" % subPath)
+			print(_("Found subtitles stream %s" % subPath))
 			return True
 	
 	return False

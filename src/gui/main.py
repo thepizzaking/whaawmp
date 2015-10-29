@@ -23,7 +23,7 @@
 #		the permissions granted by the GPL licence by which Whaaw! Media Player
 #		is covered. (See COPYING file for more details)
 
-import sys, os, signal, urllib, urlparse
+import sys, os, signal, urllib, urllib.request
 import gi
 # Needed for window.get_xid(), xvimagesink.set_window_handle(), respectively:
 gi.require_version('GdkX11', '3.0')
@@ -387,7 +387,7 @@ class mainWindow:
 		queue.clear()
 		# Add all the items to the queue.
 		for uri in uris:
-			path = urllib.url2pathname(urlparse.urlparse(uri)[2])
+			path = urllib.request.url2pathname(urllib.parse.urlparse(uri)[2])
 			queue.append(path)
 		
 		# Play the first file by calling the next function.
@@ -442,7 +442,7 @@ class mainWindow:
 			# If no file is to be played, set the URI to None, and the file to ""
 			file = ""
 		# Set the now playing label to the file to be played.
-		self.nowPlyLbl.set_label(os.path.basename(urllib.url2pathname(file)))
+		self.nowPlyLbl.set_label(os.path.basename(urllib.request.url2pathname(file)))
 		if (os.path.exists(file) or '://' in file):
 			# If it's not already a uri, make it one.
 			# Also escape any # characters in the filename
@@ -458,7 +458,7 @@ class mainWindow:
 		
 		elif (file != ""):
 			# If none of the above, a bad filename was passed.
-			print _("Something's stuffed up, no such file: %s") % (file)
+			print(_("Something's stuffed up, no such file: %s") % (file))
 			self.playFile(None)
 	
 	
@@ -803,7 +803,7 @@ class mainWindow:
 			pass
 		else:
 			# xdg-open doesn't exist.
-			print _("%s not found, links & e-mail addresses will not be clickable" % useful.linkHandler)
+			print(_("%s not found, links & e-mail addresses will not be clickable" % useful.linkHandler))
 	
 	def URLorMailOpen(self, dialog, link, type):
 		# Transfers the call to the useful call.
@@ -822,7 +822,7 @@ class mainWindow:
 	
 	def sigterm(self,num,frame):
 		# Quit when sigterm signal caught.
-		print _("TERM signal caught, exiting.")
+		print(_("TERM signal caught, exiting."))
 		self.quit()
 	
 	def openSupFeaturesDlg(self, widget):

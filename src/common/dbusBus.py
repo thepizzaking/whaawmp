@@ -34,7 +34,7 @@ try:
 	bus = dbus.SessionBus()
 	avail = True	
 except ImportError:
-	print _("Dbus import failed, dbus features will be unavailable")
+	print(_("Dbus import failed, dbus features will be unavailable"))
 	# Dummy D-Bus library (From exaile)
 	class _Connection:
 		get_object = lambda *a: object()
@@ -67,26 +67,26 @@ class IntObject(dbus.service.Object):
 	def playFile(self, file, cfgOption):
 		# Plays a file depending on the configured action,
 		# (returns False if the other process should not quit).
-		print _("File received via dbus:\n\t%s" % file)
+		print(_("File received via dbus:\n\t%s" % file))
 		
 		if (cfgOption not in range(3)): cfgOption = self.cfg.getInt('misc/onextnewfile')
 		if (cfgOption == 0):
 			# 0 - Force play even if it's already playing.
-			print _("Playing file...")
+			print(_("Playing file..."))
 			self.main.playFile(file)
 		elif (cfgOption == 2):
 			# 2 - Play in new process, so return False.
-			print _("Telling %s to start a new process..." % useful.lName)
+			print(_("Telling %s to start a new process..." % useful.lName))
 			return False
 		else:
 			# 1 - Add to the end of the queue. (Put at end so this is used as
 			# the default action if the configuration is screwed.
 			# If the player is stopped, play the file immediately.
 			if (self.player.isStopped()):
-				print _("Playing file...")
+				print(_("Playing file..."))
 				self.main.playFile(file)
 			else:
-				print _("File queued...")
+				print(_("File queued..."))
 				self.queue.append(file)
 				if (not self.player.uri): self.main.playNext()
 		return True
@@ -143,7 +143,7 @@ class initBus:
 			return
 		
 		# If it gets to here, whaawmp is already running.
-		print _("%s is already running." % useful.lName)
+		print(_("%s is already running." % useful.lName))
 		
 		if (len(args) > 0):
 			# Get the play behaviour so we know what to do with the files.
@@ -158,28 +158,28 @@ class initBus:
 				if (self.iface.playFile(x, playBehaviour)):
 					# Return of True = I've handled it, you can now quit.
 					self.quitAfter = True
-					print _("Passed the following file to previously running process:\n\t%s" % x)
+					print(_("Passed the following file to previously running process:\n\t%s" % x))
 				else:
 					# Return of False = You handle it!
-					print _("Starting new process...")
+					print(_("Starting new process..."))
 					return
 		
 		if options.togglePlayPause:
 			# Toggle play/pause.
 			if (not self.iface.togglePlayPause()):
-				print _("Toggle of Play/Pause failed, no file is currently open.")
+				print(_("Toggle of Play/Pause failed, no file is currently open."))
 			self.quitAfter = True
 		
 		if options.play:
 			# Start playing.
 			if (not self.iface.play()):
-				print _("Play failed, no file is currently open.")
+				print(_("Play failed, no file is currently open."))
 			self.quitAfter = True
 		
 		if options.pause:
 			# Pause the player.
 			if (not self.iface.pause()):
-				print _("Pause failed, no file is currently open.")
+				print(_("Pause failed, no file is currently open."))
 			self.quitAfter = True
 		
 		if options.stop:
@@ -199,7 +199,7 @@ class initBus:
 		
 		if options.query:
 			# Query the current track (for tags etc)
-			print self.iface.query()
+			print(self.iface.query())
 			self.quitAfter = True
 
 			

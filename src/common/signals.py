@@ -41,7 +41,7 @@ class Signals:
 			infoList = self.signals[message]
 		except KeyError:
 			# If we get a key error, this message hasn't been connected.
-			print _("Something went wrong, can't act on signal which hasn't been connected.")
+			print(_("Something went wrong, can't act on signal which hasn't been connected."))
 			return
 		
 		for info in infoList:

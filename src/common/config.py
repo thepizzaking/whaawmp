@@ -25,7 +25,7 @@
 
 
 import os, sys
-from ConfigParser import SafeConfigParser
+from configparser import ConfigParser
 from common import lists, useful
 import xdg.BaseDirectory
 
@@ -47,7 +47,7 @@ class config:
 	
 	def splitOpt(self, option):
 		if ('/' not in option):
-			print _("Aghh!  There was no '/' in the option!  This is a bug! Report it!\nDefaulting to 'unknown' group.")
+			print(_("Aghh!  There was no '/' in the option!  This is a bug! Report it!\nDefaulting to 'unknown' group."))
 			return 'unknown', option
 		return option.split('/')
 	
@@ -91,7 +91,7 @@ class config:
 		# Get the default settings.
 		self.defaults = lists.defaultOptions
 		# Create a config parser.
-		self.config = SafeConfigParser()
+		self.config = ConfigParser()
 		
 		# Open the config file.
 		self.config.read(cfgFile)

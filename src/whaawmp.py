@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #  Whaaw! Media Player for playing any type of media.
@@ -33,12 +33,12 @@ from gi.repository import Gst, GObject
 GObject.threads_init()
 Gst.init(None)
 import gettext
-gettext.install('whaawmp', unicode=1)
+gettext.install('whaawmp')
 from common import useful
 
 # Check that at least python 2.5 is running.
 if (sys.version_info < (2, 5)):
-	print _('Cannot continue, python version must be at least 2.5.')
+	print(_('Cannot continue, python version must be at least 2.5.'))
 	sys.exit(1)
 
 # Have to manually check for help here, otherwise gstreamer prints out its own help.
@@ -51,7 +51,7 @@ for x in ['--help', '-h']:
 
 if ('--version' in sys.argv):
 		# If --version, print out the version, then quit.
-		print '%s - %s' % (useful.lName, useful.version)
+		print('%s - %s' % (useful.lName, useful.version))
 		sys.exit(0)
 
 

@@ -30,10 +30,10 @@ warnings.filterwarnings('error', module='gtk')
 try:
 	import gtk
 except ImportError:
-	print _("Cannot continue, pygtk is not installed (version 2.12 required)")
+	print(_("Cannot continue, pygtk is not installed (version 2.12 required)"))
 	sys.exit(1)
 except Warning:
-	print _("Cannot continue, X server not found!")
+	print(_("Cannot continue, X server not found!"))
 	sys.exit(1)
 warnings.resetwarnings()
 
