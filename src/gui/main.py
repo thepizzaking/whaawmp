@@ -416,16 +416,13 @@ class mainWindow:
 		isvideo = queue.isTrackVideo(selection)
 		# If we've just started Whaawmp, self.isvideo is None
 		# in this case, disable gapless until we are sure it'll work
-		if self.isvideo is None:
+		if atf:
+			# If 'about-to-finish', just change the player URI to the
+			# next file, gstreamer will take care of the rest.
 			filename = queue.getTrackRemove(selection)
-			stop = True
-		elif atf:
-			# For gapless playback, both the current and next items _must_ be
-			# audio only
-			if not isvideo and not self.isvideo:
-				filename = queue.getTrackRemove(selection)
-				stop = False
-		elif atf is False:
+			if filename is not None: player.setURI(filename)
+			return
+		else:
 			# We are a queue of videos, or standalone files
 			filename = queue.getTrackRemove(selection)
 			stop = True
