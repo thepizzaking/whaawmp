@@ -71,6 +71,9 @@ class mainWindow:
 		cfg.save()
 		Gtk.main_quit()
 	
+	def videoWindowStoreXID(self, widget):
+		# Save the video window's xid for video playback.
+		self.vidxid = self.videoWindow.get_property('window').get_xid()
 	
 	def videoWindowDraw(self, widget, event):
 		# FIXME gi transition.  Need to do something with cairo.
@@ -879,6 +882,7 @@ class mainWindow:
 		        "on_btnLeaveFullscreen_clicked" : self.toggleFullscreen,
 		        "on_videoWindow_draw" : self.videoWindowDraw,
 		        "on_videoWindow_configure_event" : self.videoWindowConfigure,
+		        "on_videoWindow_realise" : self.videoWindowStoreXID,
 		        "on_main_key_press_event" : self.windowKeyPressed,
 		        "on_videoWindow_button_press_event" : self.videoWindowClicked,
 		        "on_videoWindow_scroll_event" : self.videoWindowScroll,
@@ -952,7 +956,6 @@ class mainWindow:
 		self.mainWindow.show()
 		# Save the windows ID so we can use it to inhibit screensaver.
 		useful.winID = self.mainWindow.get_property('window').get_xid()
-		self.vidxid = self.videoWindow.get_property('window').get_xid()
 		# Set the queue play command, so it can play tracks.
 		queue.playCommand = self.playFile
 		# Play a file (if it was specified on the command line).

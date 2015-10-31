@@ -291,11 +291,12 @@
                 <signal handler="on_videoWindow_leave_notify_event" name="leave_notify_event"/>
                 <signal handler="on_videoWindow_draw" name="draw"/>
                 <signal handler="on_videoWindow_button_press_event" name="button_press_event"/>
-                <signal handler="on_videoWindow_configure_event" name="configure_event"/>
+		<signal handler="on_videoWindow_configure_event" name="configure_event"/>
+		<signal handler="on_videoWindow_realise" name="realize"/>
                 <signal handler="on_videoWindow_motion_notify_event" name="motion_notify_event"/>
                 <signal handler="on_main_key_press_event" name="key_press_event"/>
                 <signal handler="on_videoWindow_enter_notify_event" name="enter_notify_event"/>
-                <signal handler="on_videoWindow_scroll_event" name="scroll_event"/>
+		<signal handler="on_videoWindow_scroll_event" name="scroll_event"/>
               </object>
               <packing>
                 <property name="position">0</property>
