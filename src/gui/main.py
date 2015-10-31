@@ -316,6 +316,9 @@ class mainWindow:
 			# FIXME gi transition.
 			#self.setPlayingTitle(message.parse_tag())
 			pass
+		elif (t == Gst.MessageType.STREAM_START):
+			# If we're starting a new stream, initialise the progress bar.
+			self.initialiseProgress()
 	
 	
 	def onPlayerStateChange(self, message):
@@ -330,14 +333,6 @@ class mainWindow:
 			self.audioTracks = playerTools.getAudioLangArray(player)
 			# Only enable the audio track menu item if there's more than one audio track.
 			self.wTree.get_object('mnuiAudioTrack').set_property('sensitive', len(self.audioTracks) > 1)
-			# Make an Adjustment object for the progress bar.
-			# FIXME: Probably put this into a helper function.
-			self.progressAdj = Gtk.Adjustment(value=player.getPlayedSec(), lower=0, upper=player.getDurationSec())
-			# Maybe only want to do this if we can get the duration.
-			self.lblDuration.set_property('visible', True)
-			self.progressBar.set_adjustment(self.progressAdj)
-			self.progressBar.set_property('sensitive', True)
-			self.progressUpdate()
 		
 		elif (old == Gst.State.PAUSED and new == Gst.State.PLAYING):
 			# The player has just started.
@@ -534,7 +529,7 @@ class mainWindow:
 		if (not self.seeking): self.progressUpdate()
 		#TODO: fonts with subtitles.
 		#print player.player.emit('get-text-pad', 0).get_property('active-pad') #.set_property('font-desc', 'Sans 30')
-				
+		
 		# Causes it to go again if it's playing, but stop if it's not.
 		if player.isPlaying():
 			return True
@@ -542,6 +537,14 @@ class mainWindow:
 			self.tmrSec = None
 			return False
 		
+	def initialiseProgress(self):
+		# Make an Adjustment object for the progress bar.
+		self.progressAdj = Gtk.Adjustment(value=player.getPlayedSec(), lower=0, upper=player.getDurationSec())
+		# Maybe only want to do this if we can get the duration.
+		self.lblDuration.set_property('visible', True)
+		self.progressBar.set_adjustment(self.progressAdj)
+		self.progressBar.set_property('sensitive', True)
+		self.progressUpdate()
 	
 	def progressUpdate(self, pld=None, tot=None):
 		# FIXME Trying to change this to a HScale.
