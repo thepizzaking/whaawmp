@@ -428,7 +428,7 @@ class mainWindow:
 			stop = True
 		if filename is not None and stop is not None:
 			self.isvideo = isvideo
-			self.playFile(filename, stop)
+			GLib.idle_add(self.playFile, filename, stop)
 	
 	def playFile(self, file, stop=True):
 		## Plays the file 'file' (Could also be a URI).
