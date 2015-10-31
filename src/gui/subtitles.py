@@ -37,7 +37,7 @@ class subMan():
 	
 	def autoSubsToggled(self, widget):
 		# Set the automatic subtitles config option.
-		cfg.set('video/autosub', widget.get_active())
+		cfg.set('video/autosub', widget.get_property('active'))
 	
 	def subsExtsChanged(self, widget):
 		# Change the automatically detected subtitles extensions.
@@ -57,7 +57,7 @@ class subMan():
 	
 	def getCfg(self):
 		# Get the config options and give it to the window.
-		self.chkAutoSubs.set_active(cfg.getBool('video/autosub'))
+		self.chkAutoSubs.set_property('active', cfg.getBool('video/autosub'))
 		self.txtSubsExt.set_text(cfg.getStr('video/autosubexts'))
 		self.txtSubsEnc.set_text(cfg.getStr('video/subenc'))
 	

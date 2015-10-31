@@ -158,7 +158,7 @@ class PlayDVD:
 		dlg.hide()
 		
 		# Save all the values.
-		self.Title = int(spnTitle.get_value()) if (chkTitle.get_active()) else None
+		self.Title = int(spnTitle.get_value()) if (chkTitle.get_property('active')) else None
 		
 		# Finally, destroy the widget.
 		dlg.destroy()
@@ -166,7 +166,7 @@ class PlayDVD:
 	
 	def chkToggled(self, widget):
 		# Enables and disables the spin buttons when the checkboxes are checked.
-		self.spnDic[widget].set_sensitive(widget.get_active())
+		self.spnDic[widget].set_sensitive(widget.get_property('active'))
 	
 	def onResponse(self, entry, dlg, response):
 		# A call to pass the dialogues response.
@@ -240,7 +240,7 @@ class SelectAudioTrack:
 			buttons.append(button)
 		
 		# Set the current active button to active.
-		buttons[cur].set_active(True)
+		buttons[cur].set_property('active', True)
 		
 		# Show all the dialogue and run it.
 		dlg.show_all()

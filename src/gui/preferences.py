@@ -101,7 +101,7 @@ class Dialogue:
 		## Reads the preferences from the config and displays them.
 		for x in self.chkDic:
 			# Set all the checkboxes to their appropriate settings.
-			x.set_active(cfg.getBool(self.chkDic[x][CFGS]))
+			x.set_property('active', cfg.getBool(self.chkDic[x][CFGS]))
 		
 		for x in self.adjDic:
 			x.set_value(cfg.getFloat(self.adjDic[x][CFGS]))
@@ -109,14 +109,14 @@ class Dialogue:
 		for x in self.entDic:
 			x.set_text(cfg.getStr(self.entDic[x][CFGS]))
 		
-		self.wTree.get_object('cmbOnExtNewFile').set_active(cfg.getInt('misc/onextnewfile'))
+		self.wTree.get_object('cmbOnExtNewFile').set_property('active', cfg.getInt('misc/onextnewfile'))
 	
 	
 	def checkboxToggle(self, widget):
 		## A generic function called when toggling a checkbox.
 		dicEntry = self.chkDic[widget]
 		# First we change the config option apporpriately.
-		cfg.set(dicEntry[CFGS], widget.get_active())
+		cfg.set(dicEntry[CFGS], widget.get_property('active'))
 		# Then if there's a callback present, call it.
 		if (CLBKS in dicEntry):
 			dicEntry[CLBKS](widget)
@@ -165,11 +165,11 @@ class Dialogue:
 	
 	def toggleEnableVis(self, widget):
 		## Toggle enable visualisations.
-		player.setVisualisation(widget.get_active())
+		player.setVisualisation(widget.get_property('active'))
 	
 	def extNewFileChanged(self, widget):
 		## Changes the saved option for the external file action.
-		cfg.set('misc/onextnewfile', widget.get_active())
+		cfg.set('misc/onextnewfile', widget.get_property('active'))
 	
 	def prepareAudioDevCmb(self):
 		## Prepares the audio device combo box.
@@ -193,18 +193,18 @@ class Dialogue:
 			# If we're set to use the alsa sink and the device has been detected.
 			# Set that device as the one set (+1 is to account for the 'Other'
 			# option at the top of the list.
-			audioCmbBox.set_active(self.audioDevDic.keys().index(cfgDevice) + 2)
+			audioCmbBox.set_property('active', self.audioDevDic.keys().index(cfgDevice) + 2)
 		elif (cfgSink in ('default', '')):
 			# The 'default' option is set, corresponds to sink=default.
-			audioCmbBox.set_active(0)
+			audioCmbBox.set_property('active', 0)
 		else:
 			# Otherwise set the 'Other' option.
-			audioCmbBox.set_active(1)
+			audioCmbBox.set_property('active', 1)
 	
 	def changeAudioDevice(self, widget):
 		## Changes the output audio device.
 		# Get the active index.
-		index = widget.get_active()
+		index = widget.get_property('active')
 		if (index == 0):
 			# This is the default/auto option.
 			cfg.set('audio/audiosink', '')

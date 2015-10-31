@@ -37,7 +37,7 @@ class queues():
 	mnuiWidget = None
 	
 	# Sets the menu item to active/inactive.
-	mnuiSet = lambda self, shown: self.mnuiWidget.set_active(shown)
+	mnuiSet = lambda self, shown: self.mnuiWidget.set_property('active', shown)
 	# Gets the length of the items in the list.
 	length = lambda self: len(self.list)
 	# The play command to play a file.
